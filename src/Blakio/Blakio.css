@@ -1,0 +1,44 @@
+/* global classes */
+.container {
+  position: relative;
+}
+
+/* SideBar */
+#SideBar {
+  width: 16em;
+  height: 100vh;
+}
+
+#ContentArea {
+  height: 100vh;
+  min-width: calc(100% - 16em);
+}
+
+/* TopBar */
+#TopBar {
+  height: 5em;
+}
+
+/* Flap */
+#TopLeftFold {
+  position: absolute;
+  top: 0;
+  left: 0;
+  box-shadow: 6px 7px 10px -2px rgba(209,209,209,1);
+  overflow: hidden;
+}
+
+.backFold {
+  transform: rotate(45deg);
+  background-color: #0e325a;
+  position: relative;
+  left: -100%;
+  top: -143%;
+}
+
+/* Dashboard */
+#Dashboard {
+  width: 100%;
+  min-height: calc(100% - 5em);
+  background-color: #F5F5F5;
+}
