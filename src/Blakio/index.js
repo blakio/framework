@@ -1,8 +1,14 @@
-import React from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 
 import './Blakio.css';
 
+// token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE1NzM5NjY4ODd9.8phBRfYpSE4l6FSKaWQU0rF3XFKYqRYF2iOrVojs5iE"
+
 import logo from "../imgs/logo.png";
+
+import Axios from "../Axios";
+import Types from "../Context/Types";
+import DashboardContext from "../Context/State";
 
 const SAMPLE = () => {
   return (<div id="SAMPLE">
@@ -10,7 +16,7 @@ const SAMPLE = () => {
 }
 
 const RoundedHeader = (props) => {
-  return (<div id="RoundedHeader" className="flex">
+  return (<div id="RoundedHeader" className="flex" onClick={props.onClick}>
     <p className="roundedHeaderText" style={props.styles.text}>{props.text}</p>
     <i className="fas fa-user" style={props.styles.icon}></i>
   </div>)
@@ -39,9 +45,9 @@ const HamburgerMenu = (props) => {
   </div>)
 }
 
-const BottomBarText = () => {
+const BottomBarText = (props) => {
   return (<div className="BottomBarText">
-    Project Manager
+    {props.subText}
   </div>)
 }
 
@@ -54,12 +60,12 @@ const SideBarHead = () => {
   </div>)
 }
 
-const SideBarSection = () => {
-  const parentArray = [1, 2, 3, ]
-  const array = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16]
+const SideBarSection = (props) => {
+  const [open, setOpen] = useState(false);
+  const toggle = () => setOpen(!open);
   return (<div className="SideBarSection">
-    {parentArray.map((data, index) => {
-      return (<div key={index} className="innerBar">
+    {props.headers.map((data, index) => {
+      return (<div key={index} className={`innerBar ${open && "open"}`}>
         <RoundedHeader styles={{
           text: {
             color: "#fff",
@@ -69,11 +75,12 @@ const SideBarSection = () => {
           icon: {
             color: "rgb(0, 37, 78)"
           }
-        }} text={"EMPLOYEES"}/>
-        {array.map((data, i) => {
+        }}
+        text={data} onClick={toggle}/>
+        {props.data.map((data, i) => {
           return (<div key={i} className="SelectBarParent">
-            <SelectBar icon="fas fa-user-tie" text="Full Name" selectBarIcon={styles.selectBarIcon}/>
-            <BottomBarText />
+            <SelectBar icon="fas fa-user-tie" text={data.name} selectBarIcon={styles.selectBarIcon}/>
+            <BottomBarText subText={data.jobTitle}/>
           </div>)
         })}
       </div>)
@@ -82,15 +89,25 @@ const SideBarSection = () => {
 }
 
 const SideBar = () => {
+  const {
+    dispatch,
+    employees
+  } = useContext(DashboardContext);
+
+  useEffect(() => {
+    Axios.fetchEmployees(dispatch);
+  }, []);
+
+  const sections = [
+    {headers: ["EMPLOYEE"], data: employees},
+    // {headers: ["EMPLOYEES"], data: []} add sections like this
+  ]
+
   return (<div id="SideBar" className="container flex">
     <SideBarHead />
-    <SideBarSection />
-    <SideBarSection />
-    <SideBarSection />
-    <SideBarSection />
-    <SideBarSection />
-    <SideBarSection />
-    <SideBarSection />
+    {sections.map((data, index) => <SideBarSection
+      headers={data.headers}
+      data={data.data} />)}
   </div>)
 };
 
