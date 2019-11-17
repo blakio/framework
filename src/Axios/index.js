@@ -9,7 +9,7 @@ const getHeaderObj = () => {
   const token = data && data.token || {};
   return {
     headers: {
-      'auth-token': localStorage.data ? JSON.parse(localStorage.data).token : ""
+      'auth-token': localStorage.data ? JSON.parse(localStorage.data).token : "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE1NzM5NjY4ODd9.8phBRfYpSE4l6FSKaWQU0rF3XFKYqRYF2iOrVojs5iE"
     }
   }
 }
