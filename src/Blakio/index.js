@@ -12,14 +12,14 @@ const SAMPLE = () => {
 const RoundedHeader = (props) => {
   return (<div id="RoundedHeader" className="flex">
     <p className="roundedHeaderText" style={props.styles.text}>{props.text}</p>
-    <i class="fas fa-user" style={props.styles.icon}></i>
+    <i className="fas fa-user" style={props.styles.icon}></i>
   </div>)
 }
 
 const SelectBar = (props) => {
   return (<div className="SelectBar flex">
     <div style={{marginLeft: 20, marginRight: 20}}>
-      <i class={props.icon} style={props.selectBarIcon}></i>
+      <i className={props.icon} style={props.selectBarIcon}></i>
     </div>
     <p>{props.text}</p>
   </div>)
@@ -33,7 +33,7 @@ const HamburgerMenu = (props) => {
       height: props.styles.size,
       width: props.styles.size
     }}>
-      <i class="fas fa-bars" style={{
+      <i className="fas fa-bars" style={{
         fontSize: props.styles.size * 0.4
     }}></i>
   </div>)
@@ -112,40 +112,19 @@ const TopLeftFold = (props) => {
 
 const DashboardHead = () => {
   return (<div id="DashboardHead" className="flex">
-    <i class="fas fa-columns"></i>
+    <i className="fas fa-columns"></i>
     <p style={{margin: 0, marginLeft: 10}}>DASHBOARD</p>
   </div>)
 }
 
-const Paper = (props) => {
-  return (<div className={`Paper ${props.col}`}>
-    hey
+const Paper = () => {
+  return (<div className="Paper" style={{backgroundColor: "#fff"}}>
   </div>)
 }
 
 const DashboardBody = () => {
   return (<div id="DashboardBody">
-    <Paper col="col-12"/>
-    <Paper col="col-12"/>
-    <Paper col="col-12"/>
-    <Paper col="col-12"/>
-    <Paper col="col-12"/>
-    <Paper col="col-12"/>
-    <Paper col="col-12"/>
-    <Paper col="col-12"/>
-    <Paper col="col-12"/>
-    <Paper col="col-12"/>
-    <Paper col="col-12"/>
-    <Paper col="col-12"/>
-    <Paper col="col-12"/>
-    <Paper col="col-12"/>
-    <Paper col="col-12"/>
-    <Paper col="col-12"/>
-    <Paper col="col-12"/>
-    <Paper col="col-12"/>
-    <Paper col="col-12"/>
-    <Paper col="col-12"/>
-    <Paper col="col-12"/>
+    <Paper />
   </div>)
 }
 
