@@ -1,22 +1,137 @@
+:root {
+  --fadedBlue: rgba(14, 50, 90, 0.4);
+  --barHeight: 3em;
+  --selectHoverColor: #0e325a;
+  --darkBlue: #00254e;
+  --SideBarWidth: 15.8em;
+  --navBarHeight: 4.7em;
+}
+
 /* global classes */
 .container {
   position: relative;
 }
 
-/* SideBar */
-#SideBar {
-  width: 16em;
-  height: 100vh;
+.Paper {
+  background-color: #fff;
+  min-height: 2em;
+  border-radius: 2px;
+}
+
+.col-3 {
+  height: 10em;
+}
+
+.col-4 {
+  height: 10em;
+}
+
+.col-6 {
+  /* width: 94%;
+  margin: 3% 3% 0 3%; */
+  height: 10em;
+}
+
+.col-12 {
+  /* width: 94%;
+  margin: 3% 3% 0 3%; */
+  /* padding: 1.5rem; */
+  height: 10em;
+
+  /* grid-column-start: 1;
+  grid-column-end: 5;
+  grid-row-start: 1;
+  grid-row-end: 3; */
 }
 
 #ContentArea {
   height: 100vh;
-  min-width: calc(100% - 16em);
+  min-width: calc(100% - var(--SideBarWidth));
+  right: 0;
+  top: 0;
+  position: fixed;
+  overflow: scroll;
+}
+
+.SelectBar {
+  background-color: var(--fadedBlue);
+  width: 100%;
+  height: 2em;
+  justify-content: flex-start;
+  color: #fff;
+}
+
+.BottomBarText {
+  padding-left: 1em;
+  color: #fff;
+  opacity: 0.6;
+}
+
+.SelectBar i {
+  font-size: 1.6em;
+}
+
+.SelectBarParent:hover {
+  background-color: var(--selectHoverColor);
+}
+
+/* headers */
+#RoundedHeader {
+  justify-content: space-between;
+  margin: 0 1em;
+  height: var(--barHeight);
+}
+
+.roundedHeaderText {
+  padding: 0.4em 1em;
+  border-radius: 10em;
+}
+
+/* SideBar */
+#SideBar {
+  width: var(--SideBarWidth);
+  min-height: 100vh;
+  flex-direction: column;
+  justify-content: flex-start;
+  overflow-y: scroll;
+}
+
+#HamburgerMenu {
+  background: var(--darkBlue);
+  color: #fff;
+  border-radius: 2px;
+}
+
+#SideBarHead {
+  height: var(--navBarHeight);
+  width: 14em;
+  justify-content: space-between;
+}
+
+#SideBarHead img {
+  height: 100%;
+}
+
+.SideBarSection {
+  background-color: var(--fadedBlue);
+  width: 90%;
+  border-radius: 2px;
+  margin-bottom: 1em;
+}
+
+.innerBar {
+  max-height: 3em;
+  overflow: hidden;
+  transition: all 1s;
+}
+
+.innerBar.open {
+  max-height: 300em;
 }
 
 /* TopBar */
 #TopBar {
-  height: 5em;
+  height: var(--navBarHeight);
 }
 
 /* Flap */
@@ -39,6 +154,31 @@
 /* Dashboard */
 #Dashboard {
   width: 100%;
-  min-height: calc(100% - 5em);
+  min-height: calc(100% - var(--navBarHeight));
   background-color: #F5F5F5;
+  flex-wrap: wrap;
+}
+
+#DashboardHead {
+  border-bottom: 1px solid #ddd;
+  height: 4em;
+  color: #9FA7B3;
+  justify-content: flex-start;
+  padding-left: 4em;
+}
+
+#DashboardBody {
+  align-items: flex-start;
+  justify-content: space-between;
+  width: 95%;
+  margin: 2.5% auto;
+  height: calc((100vh - var(--navBarHeight) - var(--navBarHeight)) * 0.9);
+
+  /* display: grid; */
+  /* grid-template-columns: 25% 25% 25% 25%;
+  grid-template-rows: 25% 25% 25% 25%; */
+
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(20%, 1fr));
+  grid-gap: 1rem;
 }
