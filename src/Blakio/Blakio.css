@@ -51,13 +51,17 @@
 /* headers */
 #RoundedHeader {
   justify-content: space-between;
-  margin: 0 1em;
   height: var(--barHeight);
+}
+
+#RoundedHeader:hover {
+  background-color: var(--selectHoverColor);
 }
 
 .roundedHeaderText {
   padding: 0.4em 1em;
   border-radius: 10em;
+  margin-left: 1em;
 }
 
 /* SideBar */

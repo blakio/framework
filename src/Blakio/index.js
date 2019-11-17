@@ -73,7 +73,8 @@ const SideBarSection = (props) => {
             backgroundColor: "rgba(0, 37, 78, 0.5)"
           },
           icon: {
-            color: "rgb(0, 37, 78)"
+            color: "rgb(0, 37, 78)",
+            marginRight: "1em"
           }
         }}
         text={data} onClick={toggle}/>
