@@ -99,7 +99,7 @@ const SideBar = () => {
   }, []);
 
   const sections = [
-    {headers: ["EMPLOYEE"], data: employees},
+    {headers: ["EMPLOYEES"], data: employees},
     // {headers: ["EMPLOYEES"], data: []} add sections like this
   ]
 
