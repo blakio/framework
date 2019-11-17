@@ -1,4 +1,4 @@
 import { createContext } from "react";
-const TimeSheetContext = createContext({});
+const DashobardContext = createContext({});
 
-export default TimeSheetContext;
+export default DashobardContext;
