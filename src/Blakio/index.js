@@ -140,7 +140,7 @@ const DashboardHead = () => {
 }
 
 const DashPaperRoundedHead = (props) => {
-  return (<div className="DashPaperRoundedHead" style={{backgroundColor: "#65C3DF"}}>
+  return (<div className="DashPaperRoundedHead" style={{backgroundColor: "#56acc7"}}>
     <p><i className={props.icon}></i>{props.sectionName}</p>
   </div>)
 }

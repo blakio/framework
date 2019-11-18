@@ -45,12 +45,12 @@
 }
 
 .Paper .squareLabel {
-  background-color: #5ebad6;
+  background-color: #56acc7;
   color: #fff;
-  padding: 0.2em 2em;
+  padding: 0.4em 2em;
   border-radius: 3px;
   font-size: 0.9em;
-  margin: 0.2em;
+  margin: 0.4em;
   display: inline-block;
 }
 
