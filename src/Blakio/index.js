@@ -1,5 +1,8 @@
 import React, { useState, useContext, useEffect } from 'react';
 
+import moment from "moment";
+import axios from "axios";
+
 import './Blakio.css';
 
 // token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE1NzM5NjY4ODd9.8phBRfYpSE4l6FSKaWQU0rF3XFKYqRYF2iOrVojs5iE"
@@ -113,7 +116,8 @@ const SideBar = () => {
 };
 
 const TopBar = () => {
-  return (<div id="TopBar" className="container">
+  return (<div id="TopBar" className="container flex">
+    <DateTimeWeather />
   </div>)
 };
 
@@ -164,6 +168,46 @@ const styles = {
     color: "#fff",
     opacity: 0.6
   }
+}
+
+const DateTimeWeather = () => {
+
+  const [time, setTime] = useState(moment().format('MM/DD/YYYY HH:mm:ss'))
+  const [temp, setTemp] = useState("")
+  const [icon, setIcon] = useState("")
+
+  useEffect(() => {
+    function update() {
+      setTime(moment().format('MM/DD/YYYY HH:mm:ss'));
+    }
+    setInterval(update, 1000);
+    const apiKey = "1001a1dcc738f2ecade5496fbf796f50";
+    const cityId = "4562144&APPID";
+    const string = `https://api.openweathermap.org/data/2.5/forecast?id=${cityId}=${apiKey}`
+    axios.get(string).then(data => {
+      const K = data.data.list[0].main.temp;
+      const F = (K - 273.15) * (9/5) + 32;
+      setTemp(`${F.toFixed(2)} F`);
+      setIcon(data.data.list[0].weather[0].icon)
+    })
+  }, []);
+
+  const {
+    dispatch
+  } = useContext(DashboardContext);
+
+  return (<div id="dateTimeWeather" className="flex">
+    <p>
+      <i className="fas fa-calendar"></i>
+      {time}
+      {" | "}
+      <i class="fas fa-temperature-low"></i>
+      {`${temp}`}
+      <span>
+        <img src={`https://openweathermap.org/img/wn/${icon}@2x.png`}/>
+      </span>
+    </p>
+  </div>);
 }
 
 export default {

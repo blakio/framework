@@ -157,3 +157,27 @@
   grid-gap: 1rem;
   overflow: scroll;
 }
+
+#dateTimeWeather {
+  border-radius: 2em;
+  position: absolute;
+  height: 2.4em;
+  width: 26em;
+  background-color: #0e325a;
+  color: #fff;
+  border: 1px solid #001f40;
+}
+
+#dateTimeWeather p {
+  letter-spacing: 3px;
+  font-size: 0.8em;
+  line-height: 2.5;
+}
+
+#dateTimeWeather img {
+  height: 2em;
+}
+
+#dateTimeWeather i {
+  margin-right: 1em;
+}
