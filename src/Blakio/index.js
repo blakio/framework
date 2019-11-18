@@ -200,13 +200,13 @@ const styles = {
 
 const DateTimeWeather = () => {
 
-  const [time, setTime] = useState(moment().format('MM/DD/YYYY HH:mm:ss'))
+  const [time, setTime] = useState(moment().format('MM/DD/YYYY hh:mm:ssA'))
   const [temp, setTemp] = useState("")
   const [icon, setIcon] = useState("")
 
   useEffect(() => {
     function update() {
-      setTime(moment().format('MM/DD/YYYY HH:mm:ss'));
+      setTime(moment().format('MM/DD/YYYY hh:mm:ssA'));
     }
     setInterval(update, 1000);
     const apiKey = "1001a1dcc738f2ecade5496fbf796f50";
