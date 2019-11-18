@@ -5,6 +5,7 @@
   --darkBlue: #00254e;
   --SideBarWidth: 15.8em;
   --navBarHeight: 4.7em;
+  --paperPadding: 0.6em;
 }
 
 /* global classes */
@@ -52,22 +53,29 @@
 
 .PaperBottomBar {
   justify-content: space-around;
+  align-self: end;
 }
 
-.actionButton {
+#TimeTrackBar {
+  justify-content: space-around;
+  background-color: #fff;
+  padding: 0.6em;
+}
+
+.IconButton {
   background-color: #f8f8f8;
   border-radius: 4px;
   flex-direction: column;
-  height: 4em;
-  width: 4em;
+  height: 4.4em;
+  width: 4.4em;
 }
 
-.actionButton i {
+.IconButton i {
   font-size: 1.6em;
   color: #a7a7a7;
 }
 
-.actionButton p {
+.IconButton p {
   font-size: 0.6em;
   margin: 0.6em 0;
 }

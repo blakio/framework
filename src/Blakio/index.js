@@ -143,6 +143,13 @@ const DashPaperRoundedHead = (props) => {
   </div>)
 }
 
+const IconButton = (props) => {
+  return (<div className="IconButton flex">
+    <i className={props.icon}></i>
+    <p>{props.text}</p>
+  </div>)
+}
+
 const Paper = (props) => {
   return (<div className={`Paper flex`} style={{backgroundColor: "#fff"}}>
     <DashPaperRoundedHead
@@ -154,24 +161,21 @@ const Paper = (props) => {
     </div>
     <div className="PaperBottomBar flex">
 
-      <div className="actionButton flex">
-        <i className="fas fa-link"></i>
-        <p>ACTIVATE</p>
-      </div>
-      <div className="actionButton flex">
-        <i className="fas fa-unlink"></i>
-        <p>DEACTIVATE</p>
-      </div>
-      <div className="actionButton flex">
-        <i className="far fa-plus-square"></i>
-        <p>ADD</p>
-      </div>
-      <div className="actionButton flex">
-        <i className="far fa-trash-alt"></i>
-        <p>DELETE</p>
-      </div>
+      <IconButton text={"ACTIVATE"} icon="fas fa-link"/>
+      <IconButton text={"DEACTIVATE"} icon="fas fa-unlink"/>
+      <IconButton text={"ADD"} icon="far fa-plus-square"/>
+      <IconButton text={"DELETE"} icon="far fa-trash-alt"/>
 
     </div>
+  </div>)
+}
+
+const TimeTrackBar = () => {
+  return (<div id="TimeTrackBar" className="flex">
+    <IconButton text={"CLOCK IN"} icon="fas fa-clock"/>
+    <IconButton text={"LUNCH"} icon="fas fa-drumstick-bite"/>
+    <IconButton text={"FROM LUNCH"} icon="fas fa-bone"/>
+    <IconButton text={"CLOCK OUT"} icon="fas fa-clock"/>
   </div>)
 }
 
@@ -194,6 +198,7 @@ const DashboardBody = () => {
   return (<div id="dashboardBodyContainer">
     <div id="DashboardBody">
       {data.map((data, index) => <Paper key={index} {...data} />)}
+      <TimeTrackBar />
     </div>
   </div>)
 }
