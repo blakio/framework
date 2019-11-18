@@ -113,9 +113,26 @@ const SideBar = () => {
   </div>)
 };
 
+const Toggle = (props) => {
+  const {
+    dispatch,
+    isAdminMode
+  } = useContext(DashboardContext);
+  return (<div className="Toggle flex" onClick={() => {
+    dispatch({
+      type: Types.TOGGLE_ADMIN_MODE
+    })
+  }}>
+    {isAdminMode && <i class="fas fa-toggle-on"></i>}
+    {!isAdminMode && <i class="fas fa-toggle-off"></i>}
+    <p>Edit</p>
+  </div>)
+}
+
 const TopBar = () => {
   return (<div id="TopBar" className="container flex">
     <DateTimeWeather />
+    <Toggle/>
   </div>)
 };
 
@@ -151,6 +168,11 @@ const IconButton = (props) => {
 }
 
 const Paper = (props) => {
+  const {
+    dispatch,
+    isAdminMode
+  } = useContext(DashboardContext);
+
   return (<div className={`Paper flex`} style={{backgroundColor: "#fff"}}>
     <DashPaperRoundedHead
       sectionName={props.sectionName}
@@ -159,14 +181,12 @@ const Paper = (props) => {
     <div className="flex" style={{flexWrap: "wrap"}}>
       {props.data.map((data, index) => <div className="squareLabel">{data[props.fieldKey]}</div>)}
     </div>
-    <div className="PaperBottomBar flex">
-
+    {isAdminMode && <div className="PaperBottomBar flex">
       <IconButton text={"ACTIVATE"} icon="fas fa-link"/>
       <IconButton text={"DEACTIVATE"} icon="fas fa-unlink"/>
       <IconButton text={"ADD"} icon="far fa-plus-square"/>
       <IconButton text={"DELETE"} icon="far fa-trash-alt"/>
-
-    </div>
+    </div>}
   </div>)
 }
 

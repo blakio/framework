@@ -176,6 +176,21 @@
   height: var(--navBarHeight);
 }
 
+.Toggle {
+  color: #fff;
+  position: absolute;
+  right: 1em;
+}
+
+.Toggle p {
+  margin: 0;
+  margin-left: 0.4em;
+}
+
+.Toggle i {
+  font-size: 1.4em;
+}
+
 /* Flap */
 #TopLeftFold {
   position: absolute;
