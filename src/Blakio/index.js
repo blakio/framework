@@ -5,8 +5,6 @@ import axios from "axios";
 
 import './Blakio.css';
 
-// token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE1NzM5NjY4ODd9.8phBRfYpSE4l6FSKaWQU0rF3XFKYqRYF2iOrVojs5iE"
-
 import logo from "../imgs/logo.png";
 
 import Axios from "../Axios";
@@ -146,13 +144,33 @@ const DashPaperRoundedHead = (props) => {
 }
 
 const Paper = (props) => {
-  return (<div className={`Paper flex ${props.className}`} style={{backgroundColor: "#fff"}}>
+  return (<div className={`Paper flex`} style={{backgroundColor: "#fff"}}>
     <DashPaperRoundedHead
       sectionName={props.sectionName}
       icon={props.icon}
     />
     <div className="flex" style={{flexWrap: "wrap"}}>
       {props.data.map((data, index) => <div className="squareLabel">{data[props.fieldKey]}</div>)}
+    </div>
+    <div className="PaperBottomBar flex">
+
+      <div className="actionButton flex">
+        <i className="fas fa-link"></i>
+        <p>ACTIVATE</p>
+      </div>
+      <div className="actionButton flex">
+        <i className="fas fa-unlink"></i>
+        <p>DEACTIVATE</p>
+      </div>
+      <div className="actionButton flex">
+        <i className="far fa-plus-square"></i>
+        <p>ADD</p>
+      </div>
+      <div className="actionButton flex">
+        <i className="far fa-trash-alt"></i>
+        <p>DELETE</p>
+      </div>
+
     </div>
   </div>)
 }
@@ -173,8 +191,10 @@ const DashboardBody = () => {
     {sectionName: "JOB NUMBERS", icon: "fas fa-briefcase", className: "paperOne", data: jobNumbers || [], fieldKey: "number"},
     {sectionName: "LABOR TYPES", icon: "fab fa-black-tie", className: "paperTwo", data: laborTypes || [], fieldKey: "name"}
   ]
-  return (<div id="DashboardBody">
-    {data.map((data, index) => <Paper key={index} {...data} />)}
+  return (<div id="dashboardBodyContainer">
+    <div id="DashboardBody">
+      {data.map((data, index) => <Paper key={index} {...data} />)}
+    </div>
   </div>)
 }
 

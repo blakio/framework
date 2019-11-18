@@ -7,21 +7,6 @@
   --navBarHeight: 4.7em;
 }
 
-/* paper positions */
-.paperOne {
-  grid-column-start: 1;
-  grid-column-end: 3;
-  grid-row-start: 1;
-  grid-row-end: 3;
-}
-
-.paperTwo {
-  grid-column-start: 3;
-  grid-column-end: 5;
-  grid-row-start: 1;
-  grid-row-end: 3;
-}
-
 /* global classes */
 .container {
   position: relative;
@@ -56,12 +41,34 @@
 
 .Paper {
   background-color: #fff;
-  min-height: 10em;
-  border-radius: 2px;
+  border-radius: 4px;
   padding: 0.6em;
-  justify-content: flex-start;
-  align-items: flex-start;
+
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-gap: 0.5rem;
+}
+
+.PaperBottomBar {
+  justify-content: space-around;
+}
+
+.actionButton {
+  background-color: #f8f8f8;
+  border-radius: 4px;
   flex-direction: column;
+  height: 4em;
+  width: 4em;
+}
+
+.actionButton i {
+  font-size: 1.6em;
+  color: #a7a7a7;
+}
+
+.actionButton p {
+  font-size: 0.6em;
+  margin: 0.6em 0;
 }
 
 #ContentArea {
@@ -123,7 +130,7 @@
 #HamburgerMenu {
   background: var(--darkBlue);
   color: #fff;
-  border-radius: 2px;
+  border-radius: 4px;
   margin: 0 1em;
 }
 
@@ -141,7 +148,7 @@
 .SideBarSection {
   background-color: var(--fadedBlue);
   width: 90%;
-  border-radius: 2px;
+  border-radius: 4px;
   margin-bottom: 1em;
 }
 
@@ -193,16 +200,19 @@
   padding-left: 4em;
 }
 
+#dashboardBodyContainer {
+  height: calc((100vh - var(--navBarHeight) - var(--navBarHeight)) * 0.95);
+  overflow: scroll;
+}
+
 #DashboardBody {
-  align-items: flex-start;
-  justify-content: space-between;
   width: 95%;
   margin: 2.5% auto;
-  height: calc((100vh - var(--navBarHeight) - var(--navBarHeight)) * 0.95);
+
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(20%, 1fr));
+  grid-template-columns: repeat(2, 1fr);
   grid-gap: 1rem;
-  overflow: scroll;
+  grid-auto-rows: minmax(20px, auto);
 }
 
 #dateTimeWeather {
