@@ -146,18 +146,32 @@ const DashPaperRoundedHead = (props) => {
 }
 
 const Paper = (props) => {
-  return (<div className={`Paper ${props.className}`} style={{backgroundColor: "#fff"}}>
+  return (<div className={`Paper flex ${props.className}`} style={{backgroundColor: "#fff"}}>
     <DashPaperRoundedHead
       sectionName={props.sectionName}
       icon={props.icon}
     />
+    <div className="flex" style={{flexWrap: "wrap"}}>
+      {props.data.map((data, index) => <div className="squareLabel">{data[props.fieldKey]}</div>)}
+    </div>
   </div>)
 }
 
 const DashboardBody = () => {
+  const {
+    dispatch,
+    jobNumbers,
+    laborTypes
+  } = useContext(DashboardContext);
+
+  useEffect(() => {
+    Axios.fetchJobNumbers(dispatch);
+    Axios.fetchLaborTypes(dispatch);
+  }, []);
+
   const data = [
-    {sectionName: "JOB NUMBERS", icon: "fas fa-briefcase", className: "paperOne"},
-    {sectionName: "LABOR TYPES", icon: "fab fa-black-tie", className: "paperTwo"}
+    {sectionName: "JOB NUMBERS", icon: "fas fa-briefcase", className: "paperOne", data: jobNumbers || [], fieldKey: "number"},
+    {sectionName: "LABOR TYPES", icon: "fab fa-black-tie", className: "paperTwo", data: laborTypes || [], fieldKey: "name"}
   ]
   return (<div id="DashboardBody">
     {data.map((data, index) => <Paper key={index} {...data} />)}

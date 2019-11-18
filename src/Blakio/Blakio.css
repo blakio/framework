@@ -12,14 +12,14 @@
   grid-column-start: 1;
   grid-column-end: 3;
   grid-row-start: 1;
-  grid-row-end: 2;
+  grid-row-end: 3;
 }
 
 .paperTwo {
   grid-column-start: 3;
   grid-column-end: 5;
   grid-row-start: 1;
-  grid-row-end: 2;
+  grid-row-end: 3;
 }
 
 /* global classes */
@@ -31,6 +31,7 @@
   display: inline-block;
   border-radius: 2em;
   padding: 0 0.4em;
+  margin-bottom: 1em;
 }
 
 .DashPaperRoundedHead p {
@@ -43,11 +44,24 @@
   margin-right: 0.6em;
 }
 
+.Paper .squareLabel {
+  background-color: #5ebad6;
+  color: #fff;
+  padding: 0.2em 2em;
+  border-radius: 3px;
+  font-size: 0.9em;
+  margin: 0.2em;
+  display: inline-block;
+}
+
 .Paper {
   background-color: #fff;
   min-height: 10em;
   border-radius: 2px;
   padding: 0.6em;
+  justify-content: flex-start;
+  align-items: flex-start;
+  flex-direction: column;
 }
 
 #ContentArea {
@@ -56,6 +70,7 @@
   right: 0;
   top: 0;
   position: fixed;
+  max-width: calc(100% - var(--SideBarWidth))
 }
 
 .SelectBar {
