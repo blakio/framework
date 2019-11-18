@@ -7,15 +7,47 @@
   --navBarHeight: 4.7em;
 }
 
+/* paper positions */
+.paperOne {
+  grid-column-start: 1;
+  grid-column-end: 3;
+  grid-row-start: 1;
+  grid-row-end: 2;
+}
+
+.paperTwo {
+  grid-column-start: 3;
+  grid-column-end: 5;
+  grid-row-start: 1;
+  grid-row-end: 2;
+}
+
 /* global classes */
 .container {
   position: relative;
+}
+
+.DashPaperRoundedHead {
+  display: inline-block;
+  border-radius: 2em;
+  padding: 0 0.4em;
+}
+
+.DashPaperRoundedHead p {
+  color: #fff;
+  margin: 0.2em;
+  font-size: 0.9em;
+}
+
+.DashPaperRoundedHead i {
+  margin-right: 0.6em;
 }
 
 .Paper {
   background-color: #fff;
   min-height: 10em;
   border-radius: 2px;
+  padding: 0.6em;
 }
 
 #ContentArea {

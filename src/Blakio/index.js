@@ -139,14 +139,28 @@ const DashboardHead = () => {
   </div>)
 }
 
-const Paper = () => {
-  return (<div className="Paper" style={{backgroundColor: "#fff"}}>
+const DashPaperRoundedHead = (props) => {
+  return (<div className="DashPaperRoundedHead" style={{backgroundColor: "#65C3DF"}}>
+    <p><i className={props.icon}></i>{props.sectionName}</p>
+  </div>)
+}
+
+const Paper = (props) => {
+  return (<div className={`Paper ${props.className}`} style={{backgroundColor: "#fff"}}>
+    <DashPaperRoundedHead
+      sectionName={props.sectionName}
+      icon={props.icon}
+    />
   </div>)
 }
 
 const DashboardBody = () => {
+  const data = [
+    {sectionName: "JOB NUMBERS", icon: "fas fa-briefcase", className: "paperOne"},
+    {sectionName: "LABOR TYPES", icon: "fab fa-black-tie", className: "paperTwo"}
+  ]
   return (<div id="DashboardBody">
-    <Paper />
+    {data.map((data, index) => <Paper key={index} {...data} />)}
   </div>)
 }
 
