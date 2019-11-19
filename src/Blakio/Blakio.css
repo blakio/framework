@@ -210,7 +210,7 @@
 }
 
 .Toggle {
-  color: #fff;
+  color: var(--fadedBlue);
   position: absolute;
   right: 1em;
 }

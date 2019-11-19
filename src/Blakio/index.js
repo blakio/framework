@@ -138,7 +138,6 @@ const Toggle = (props) => {
 const TopBar = () => {
   return (<div id="TopBar" className="container flex">
     <DateTimeWeather />
-    <Toggle/>
   </div>)
 };
 
@@ -157,6 +156,7 @@ const DashboardHead = () => {
   return (<div id="DashboardHead" className="flex">
     <i className="fas fa-columns"></i>
     <p style={{margin: 0, marginLeft: 10}}>DASHBOARD</p>
+    <Toggle/>
   </div>)
 }
 
