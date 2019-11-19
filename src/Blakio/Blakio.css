@@ -209,6 +209,16 @@
   height: var(--navBarHeight);
 }
 
+#TopBar > * {
+  margin: 1em;
+}
+
+#TopBar > i {
+  color: #fff;
+  font-size: 1.4em;
+  opacity: 0.8;
+}
+
 .Toggle {
   color: var(--fadedBlue);
   position: absolute;
@@ -274,12 +284,12 @@
 
 #dateTimeWeather {
   border-radius: 2em;
-  position: absolute;
   height: 2.4em;
   width: 26em;
   background-color: #0e325a;
   color: #fff;
   border: 1px solid #001f40;
+  margin: 0 auto;
 }
 
 #dateTimeWeather p {

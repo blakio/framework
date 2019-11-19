@@ -137,6 +137,7 @@ const Toggle = (props) => {
 
 const TopBar = () => {
   return (<div id="TopBar" className="container flex">
+    <i className="fas fa-cloud-download-alt"></i>
     <DateTimeWeather />
   </div>)
 };
