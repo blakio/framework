@@ -163,7 +163,7 @@ const DashPaperRoundedHead = (props) => {
 }
 
 const IconButton = (props) => {
-  return (<div className="IconButton flex">
+  return (<div className="IconButton flex" onClick={props.onClick}>
     <i className={props.icon}></i>
     <p>{props.text}</p>
   </div>)
@@ -204,6 +204,12 @@ const Paper = (props) => {
     })
   }
 
+  const fetch = () => {
+    Axios.fetchEmployees(dispatch);
+    Axios.fetchJobNumbers(dispatch);
+    Axios.fetchLaborTypes(dispatch);
+  }
+
   return (<div className={`Paper flex`} style={{backgroundColor: "#fff"}}>
     <DashPaperRoundedHead
       sectionName={props.sectionName}
@@ -215,10 +221,10 @@ const Paper = (props) => {
         return <SquareLabel data={data} fieldKey={props.fieldKey} isActive={isActive} setIsActive={setIsActive}/>})}
     </div>
     {isAdminMode && <div className="PaperBottomBar flex">
-      <IconButton text={"ACTIVATE"} icon="fas fa-link"/>
-      <IconButton text={"DEACTIVATE"} icon="fas fa-unlink"/>
-      <IconButton text={"ADD"} icon="far fa-plus-square"/>
-      <IconButton text={"DELETE"} icon="far fa-trash-alt"/>
+      <IconButton text={"ACTIVATE"} icon="fas fa-link" onClick={() => dispatch({ type: Types.BULK_ACTIVATE, payload: {fn: () => fetch()} })}/>
+      <IconButton text={"DEACTIVATE"} icon="fas fa-unlink" onClick={() => dispatch({ type: Types.BULK_DEACTIVATE, payload: {fn: () => fetch()} })}/>
+      <IconButton text={"ADD"} icon="far fa-plus-square" onClick={() => console.log("add")}/>
+      <IconButton text={"DELETE"} icon="far fa-trash-alt" onClick={() => dispatch({ type: Types.BULK_DELETE, payload: {fn: () => fetch()} })}/>
     </div>}
   </div>)
 }
