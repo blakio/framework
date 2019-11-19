@@ -86,16 +86,31 @@
   flex-direction: column;
   height: 4.4em;
   width: 4.4em;
+  transition: all 0.5s;
 }
 
 .IconButton i {
   font-size: 1.6em;
   color: #a7a7a7;
+  transition: all 0.5s;
 }
 
 .IconButton p {
   font-size: 0.6em;
   margin: 0.6em 0;
+}
+
+.IconButton.active {
+  background-color: #0ba6a4;
+  color: #fff;
+}
+
+.IconButton.active i {
+  color: #fff;
+}
+
+.IconButton.active p {
+  font-weight: 600;
 }
 
 #ContentArea {
