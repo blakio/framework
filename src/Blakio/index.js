@@ -155,7 +155,7 @@ const DashboardHead = () => {
 }
 
 const DashPaperRoundedHead = (props) => {
-  return (<div className="DashPaperRoundedHead darkGreen">
+  return (<div className="DashPaperRoundedHead lightGreen">
     <p><i className={props.icon}></i>{props.sectionName}</p>
   </div>)
 }

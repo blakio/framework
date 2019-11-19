@@ -7,6 +7,7 @@
   --navBarHeight: 4.7em;
   --paperPadding: 0.6em;
   --darkGreen: #1a89ac;
+  --lightGreen: #56acc7;
 }
 
 /* global classes */
@@ -20,6 +21,10 @@
   padding: 0 0.4em;
   margin-bottom: 1em;
   align-self: baseline;
+}
+
+.lightGreen {
+  background-color: var(--lightGreen);
 }
 
 .darkGreen {
@@ -37,7 +42,7 @@
 }
 
 .Paper .SquareLabel {
-  background-color: var(--darkGreen);
+  background-color: var(--lightGreen);
   color: #fff;
   padding: 0.4em 2em;
   border-radius: 3px;
