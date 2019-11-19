@@ -15,6 +15,12 @@ export default (state, action) => {
       return StateFunctions.setLaborTypes(payload, state);
     case Types.SET_JOB_NUMBERS:
       return StateFunctions.setJobNumbers(payload, state);
+    case Types.SET_SELECTED_LABOR_TYPES:
+      return StateFunctions.setSelectedLaborTypes(payload, state);
+    case Types.SET_SELECTED_JOB_NUMBERS:
+      return StateFunctions.setSelectedJobNumbers(payload, state);
+    case Types.SET_SELECTED_EMPLOYEES:
+      return StateFunctions.setSelectedEmployees(payload, state);
 
     // CREATE
     case Types.CREATE_EMPLOYEE:

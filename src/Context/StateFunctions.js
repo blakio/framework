@@ -12,6 +12,9 @@ export default {
   setEmployees: (payload, state) =>  ({ ...state, employees: payload }),
   setLaborTypes: (payload, state) => ({ ...state, laborTypes: payload }),
   setJobNumbers: (payload, state) => ({ ...state, jobNumbers: payload }),
+  setSelectedLaborTypes: (payload, state) => ({ ...state, selectedItems: { ...state.selectedItems, laborTypes: payload } }),
+  setSelectedJobNumbers: (payload, state) => ({ ...state, selectedItems: { ...state.selectedItems, jobNumbers: payload } }),
+  setSelectedEmployees: (payload, state) => ({ ...state, selectedItems: { ...state.selectedItems, employees: payload } }),
 
   // CREATE
   createEmployee: (payload, state) => {

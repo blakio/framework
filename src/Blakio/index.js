@@ -11,6 +11,8 @@ import Axios from "../Axios";
 import Types from "../Context/Types";
 import DashboardContext from "../Context/State";
 
+const breakRefAndCopy = (obj) => JSON.parse(JSON.stringify(obj));
+
 const SAMPLE = () => {
   return (<div id="SAMPLE">
   </div>)
@@ -178,11 +180,28 @@ const SquareLabel = (props) => {
 const Paper = (props) => {
   const {
     dispatch,
-    isAdminMode
+    isAdminMode,
+    ...state
   } = useContext(DashboardContext);
 
   const setIsActive = (data) => {
-    debugger
+    let group = breakRefAndCopy(state.selectedItems[props.stateField]);
+    if(isAdminMode){
+      const alreadyClicked = group.some(d => d.id === data.id);
+      if(!alreadyClicked){
+        group.push(data)
+      } else {
+        let index;
+        group.forEach((d, i) => {if(d.id === data.id) index = i});
+        group.splice(index, 1);
+      }
+    } else {
+      group = [data];
+    }
+    dispatch({
+      type: Types[props.action],
+      payload: group
+    })
   }
 
   return (<div className={`Paper flex`} style={{backgroundColor: "#fff"}}>
@@ -191,7 +210,9 @@ const Paper = (props) => {
       icon={props.icon}
     />
     <div className="flex" style={{flexWrap: "wrap"}}>
-      {props.data.map((data, index) => <SquareLabel data={data} fieldKey={props.fieldKey} isActive={false} setIsActive={setIsActive}/>)}
+      {props.data.map((data, index) => {
+        const isActive = state.selectedItems[props.stateField].some(d => d.id === props.data[index].id);
+        return <SquareLabel data={data} fieldKey={props.fieldKey} isActive={isActive} setIsActive={setIsActive}/>})}
     </div>
     {isAdminMode && <div className="PaperBottomBar flex">
       <IconButton text={"ACTIVATE"} icon="fas fa-link"/>
@@ -224,8 +245,8 @@ const DashboardBody = () => {
   }, []);
 
   const data = [
-    {sectionName: "JOB NUMBERS", icon: "fas fa-briefcase", className: "paperOne", data: jobNumbers || [], fieldKey: "number"},
-    {sectionName: "LABOR TYPES", icon: "fab fa-black-tie", className: "paperTwo", data: laborTypes || [], fieldKey: "name"}
+    {sectionName: "JOB NUMBERS", icon: "fas fa-briefcase", className: "paperOne", data: jobNumbers || [], fieldKey: "number", stateField: "jobNumbers", action: "SET_SELECTED_JOB_NUMBERS"},
+    {sectionName: "LABOR TYPES", icon: "fab fa-black-tie", className: "paperTwo", data: laborTypes || [], fieldKey: "name", stateField: "laborTypes", action: "SET_SELECTED_LABOR_TYPES"}
   ]
   return (<div id="dashboardBodyContainer">
     <div id="DashboardBody">
