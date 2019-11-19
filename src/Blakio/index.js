@@ -13,7 +13,9 @@ import DashboardContext from "../Context/State";
 
 const breakRefAndCopy = (obj) => JSON.parse(JSON.stringify(obj));
 
-const hasSelectedItems = (selectedItems) => selectedItems["jobNumbers"].length || selectedItems["laborTypes"].length || selectedItems["employees"].length;
+const hasSelectedEmployees = (selectedItems) => selectedItems["employees"].length;
+const hasSelectedLaborTypes = (selectedItems) => selectedItems["laborTypes"].length;
+const hasSelectedJobNumbers = (selectedItems) => selectedItems["jobNumbers"].length;
 
 const SAMPLE = () => {
   return (<div id="SAMPLE">
@@ -223,10 +225,10 @@ const Paper = (props) => {
         return <SquareLabel data={data} fieldKey={props.fieldKey} isActive={isActive} setIsActive={setIsActive}/>})}
     </div>
     {isAdminMode && <div className="PaperBottomBar flex">
-      <IconButton isActive={hasSelectedItems(state.selectedItems)} text={"ACTIVATE"} icon="fas fa-link" onClick={() => dispatch({ type: Types.BULK_ACTIVATE, payload: {fn: () => fetch()} })}/>
-      <IconButton isActive={hasSelectedItems(state.selectedItems)} text={"DEACTIVATE"} icon="fas fa-unlink" onClick={() => dispatch({ type: Types.BULK_DEACTIVATE, payload: {fn: () => fetch()} })}/>
+      <IconButton isActive={props.hasSelectedItems(state.selectedItems)} text={"ACTIVATE"} icon="fas fa-link" onClick={() => dispatch({ type: Types.BULK_ACTIVATE, payload: {fn: () => fetch()} })}/>
+      <IconButton isActive={props.hasSelectedItems(state.selectedItems)} text={"DEACTIVATE"} icon="fas fa-unlink" onClick={() => dispatch({ type: Types.BULK_DEACTIVATE, payload: {fn: () => fetch()} })}/>
       <IconButton isActive={true} text={"ADD"} icon="far fa-plus-square" onClick={() => console.log("add")}/>
-      <IconButton isActive={hasSelectedItems(state.selectedItems)} text={"DELETE"} icon="far fa-trash-alt" onClick={() => dispatch({ type: Types.BULK_DELETE, payload: {fn: () => fetch()} })}/>
+      <IconButton isActive={props.hasSelectedItems(state.selectedItems)} text={"DELETE"} icon="far fa-trash-alt" onClick={() => dispatch({ type: Types.BULK_DELETE, payload: {fn: () => fetch()} })}/>
     </div>}
   </div>)
 }
@@ -253,8 +255,8 @@ const DashboardBody = () => {
   }, []);
 
   const data = [
-    {sectionName: "JOB NUMBERS", icon: "fas fa-briefcase", className: "paperOne", data: jobNumbers || [], fieldKey: "number", stateField: "jobNumbers", action: "SET_SELECTED_JOB_NUMBERS"},
-    {sectionName: "LABOR TYPES", icon: "fab fa-black-tie", className: "paperTwo", data: laborTypes || [], fieldKey: "name", stateField: "laborTypes", action: "SET_SELECTED_LABOR_TYPES"}
+    {sectionName: "JOB NUMBERS", icon: "fas fa-briefcase", className: "paperOne", data: jobNumbers || [], fieldKey: "number", stateField: "jobNumbers", action: "SET_SELECTED_JOB_NUMBERS", hasSelectedItems: hasSelectedJobNumbers},
+    {sectionName: "LABOR TYPES", icon: "fab fa-black-tie", className: "paperTwo", data: laborTypes || [], fieldKey: "name", stateField: "laborTypes", action: "SET_SELECTED_LABOR_TYPES", hasSelectedItems: hasSelectedLaborTypes}
   ]
   return (<div id="dashboardBodyContainer">
     <div id="DashboardBody">
