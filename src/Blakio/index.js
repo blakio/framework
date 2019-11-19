@@ -2,20 +2,18 @@ import React, { useState, useContext, useEffect } from 'react';
 
 import moment from "moment";
 import axios from "axios";
+import DatePicker from  "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
 import './Blakio.css';
+
+import Util from "../Util";
 
 import logo from "../imgs/logo.png";
 
 import Axios from "../Axios";
 import Types from "../Context/Types";
 import DashboardContext from "../Context/State";
-
-const breakRefAndCopy = (obj) => JSON.parse(JSON.stringify(obj));
-
-const hasSelectedEmployees = (selectedItems) => selectedItems["employees"].length;
-const hasSelectedLaborTypes = (selectedItems) => selectedItems["laborTypes"].length;
-const hasSelectedJobNumbers = (selectedItems) => selectedItems["jobNumbers"].length;
 
 const SAMPLE = () => {
   return (<div id="SAMPLE">
@@ -153,11 +151,49 @@ const TopLeftFold = (props) => {
   </div>)
 }
 
+const DataPickerTwoDate = () => {
+  const {
+    dispatch
+  } = useContext(DashboardContext);
+
+  const [startDate, setStartDate] = useState(new Date());
+  const [endDate, setEndDate] = useState(new Date());
+
+  return (<div className="DataPickerTwoDate">
+    <DatePicker
+      maxDate={new Date()}
+      selected={startDate}
+      onChange={date => {
+        const isAfterEndDate = moment(date).diff(endDate, 'hours') > 0;
+        if(isAfterEndDate) setEndDate(date);
+
+        setStartDate(date);
+        dispatch({ type: Types.CLEAR_CSV_DATA })
+      }}
+      selectsStart
+      startDate={startDate}
+      endDate={endDate}
+    />
+    <DatePicker
+      maxDate={new Date()}
+      selected={endDate}
+      onChange={date => {
+        setEndDate(date)
+        dispatch({ type: Types.CLEAR_CSV_DATA })
+      }}
+      selectsEnd
+      endDate={endDate}
+      minDate={startDate}
+    />
+  </div>)
+}
+
 const DashboardHead = () => {
   return (<div id="DashboardHead" className="flex">
     <i className="fas fa-columns"></i>
     <p style={{margin: 0, marginLeft: 10}}>DASHBOARD</p>
     <Toggle/>
+    {/*<DataPickerTwoDate />*/}
   </div>)
 }
 
@@ -190,7 +226,7 @@ const Paper = (props) => {
   } = useContext(DashboardContext);
 
   const setIsActive = (data) => {
-    let group = breakRefAndCopy(state.selectedItems[props.stateField]);
+    let group = Util.breakRefAndCopy(state.selectedItems[props.stateField]);
     if(isAdminMode){
       const alreadyClicked = group.some(d => d.id === data.id);
       if(!alreadyClicked){
@@ -201,7 +237,12 @@ const Paper = (props) => {
         group.splice(index, 1);
       }
     } else {
-      group = [data];
+      const alreadyClicked = group.some(d => d.id === data.id);
+      if(alreadyClicked){
+        group = [];
+      } else {
+        group = [data];
+      }
     }
     dispatch({
       type: Types[props.action],
@@ -256,8 +297,8 @@ const DashboardBody = () => {
   }, []);
 
   const data = [
-    {sectionName: "JOB NUMBERS", icon: "fas fa-briefcase", className: "paperOne", data: jobNumbers || [], fieldKey: "number", stateField: "jobNumbers", action: "SET_SELECTED_JOB_NUMBERS", hasSelectedItems: hasSelectedJobNumbers},
-    {sectionName: "LABOR TYPES", icon: "fab fa-black-tie", className: "paperTwo", data: laborTypes || [], fieldKey: "name", stateField: "laborTypes", action: "SET_SELECTED_LABOR_TYPES", hasSelectedItems: hasSelectedLaborTypes}
+    {sectionName: "JOB NUMBERS", icon: "fas fa-briefcase", className: "paperOne", data: jobNumbers || [], fieldKey: "number", stateField: "jobNumbers", action: "SET_SELECTED_JOB_NUMBERS", hasSelectedItems: Util.hasSelectedJobNumbers},
+    {sectionName: "LABOR TYPES", icon: "fab fa-black-tie", className: "paperTwo", data: laborTypes || [], fieldKey: "name", stateField: "laborTypes", action: "SET_SELECTED_LABOR_TYPES", hasSelectedItems: Util.hasSelectedLaborTypes}
   ]
   return (<div id="dashboardBodyContainer">
     <div id="DashboardBody">

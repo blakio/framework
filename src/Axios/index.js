@@ -16,12 +16,12 @@ const getHeaderObj = () => {
 
 export default {
   get: async (path, params, fn) => {
-    await axios.get(path, { params }, getHeaderObj())
+    await axios.get(`${baseURL}/${path}`, { params }, getHeaderObj())
       .then(response => { fn && fn(response) })
       .catch(error => console.log(error));
   },
   post: async (path, obj, fn, errorFn) => {
-    await axios.post(path, obj, getHeaderObj())
+    await axios.post(`${baseURL}/${path}`, obj, getHeaderObj())
       .then(response => { fn && fn(response) })
       .catch(error => {
         console.log(error);
@@ -29,12 +29,12 @@ export default {
       });
   },
   put: async (path, obj, fn) => {
-    await axios.put(path, obj, getHeaderObj())
+    await axios.put(`${baseURL}/${path}`, obj, getHeaderObj())
       .then(response => { fn && fn(response) })
       .catch(error => console.log(error));
   },
   delete: async (path, obj, fn) => {
-    await axios.delete(path, obj, getHeaderObj())
+    await axios.delete(`${baseURL}/${path}`, obj, getHeaderObj())
       .then(response => { fn && fn(response) })
       .catch(error => console.log(error));
   },

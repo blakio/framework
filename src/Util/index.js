@@ -5,6 +5,10 @@ export default {
 
   breakRefAndCopy: obj => (JSON.parse(JSON.stringify(obj))),
 
+  hasSelectedEmployees: (selectedItems) => selectedItems["employees"].length,
+  hasSelectedLaborTypes: (selectedItems) => selectedItems["laborTypes"].length,
+  hasSelectedJobNumbers: (selectedItems) => selectedItems["jobNumbers"].length,
+
   getLaborType: state => {
     if(state.selectedItems.laborTypes[0]) return state.selectedItems.laborTypes[0].name;
     return state.selectedItems.employees[0].laborType
