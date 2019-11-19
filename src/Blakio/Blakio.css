@@ -6,6 +6,7 @@
   --SideBarWidth: 15.8em;
   --navBarHeight: 4.7em;
   --paperPadding: 0.6em;
+  --darkGreen: #1a89ac;
 }
 
 /* global classes */
@@ -21,6 +22,10 @@
   align-self: baseline;
 }
 
+.darkGreen {
+  background-color: var(--darkGreen);
+}
+
 .DashPaperRoundedHead p {
   color: #fff;
   margin: 0.2em;
@@ -31,14 +36,22 @@
   margin-right: 0.6em;
 }
 
-.Paper .squareLabel {
-  background-color: #56acc7;
+.Paper .SquareLabel {
+  background-color: var(--darkGreen);
   color: #fff;
   padding: 0.4em 2em;
   border-radius: 3px;
   font-size: 0.9em;
   margin: 0.4em;
   display: inline-block;
+  border: 1px solid transparent;
+  transition: all 0.5s;
+}
+
+.SquareLabel.active {
+  background-color: #E1F5F4;
+  color: #008280;
+  border-color: #008280;
 }
 
 .Paper {

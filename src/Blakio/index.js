@@ -155,7 +155,7 @@ const DashboardHead = () => {
 }
 
 const DashPaperRoundedHead = (props) => {
-  return (<div className="DashPaperRoundedHead" style={{backgroundColor: "#56acc7"}}>
+  return (<div className="DashPaperRoundedHead darkGreen">
     <p><i className={props.icon}></i>{props.sectionName}</p>
   </div>)
 }
@@ -167,11 +167,23 @@ const IconButton = (props) => {
   </div>)
 }
 
+const SquareLabel = (props) => {
+  return (<div
+    className={`SquareLabel ${props.isActive && "active"}`}
+    onClick={() => props.setIsActive(props.data)}>
+    {props.data[props.fieldKey]}
+  </div>)
+}
+
 const Paper = (props) => {
   const {
     dispatch,
     isAdminMode
   } = useContext(DashboardContext);
+
+  const setIsActive = (data) => {
+    debugger
+  }
 
   return (<div className={`Paper flex`} style={{backgroundColor: "#fff"}}>
     <DashPaperRoundedHead
@@ -179,7 +191,7 @@ const Paper = (props) => {
       icon={props.icon}
     />
     <div className="flex" style={{flexWrap: "wrap"}}>
-      {props.data.map((data, index) => <div className="squareLabel">{data[props.fieldKey]}</div>)}
+      {props.data.map((data, index) => <SquareLabel data={data} fieldKey={props.fieldKey} isActive={false} setIsActive={setIsActive}/>)}
     </div>
     {isAdminMode && <div className="PaperBottomBar flex">
       <IconButton text={"ACTIVATE"} icon="fas fa-link"/>
