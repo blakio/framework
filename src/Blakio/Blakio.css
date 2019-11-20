@@ -21,6 +21,7 @@
   padding: 0 0.4em;
   margin-bottom: 1em;
   align-self: baseline;
+  text-transform: uppercase;
 }
 
 .lightGreen {
@@ -81,9 +82,11 @@
 }
 
 #TimeTrackBar {
-  justify-content: space-around;
   background-color: #fff;
   padding: 0.6em;
+
+  display: grid;
+  grid-template-columns: 1fr;
 }
 
 .IconButton {

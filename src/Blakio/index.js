@@ -288,11 +288,17 @@ const Paper = (props) => {
 }
 
 const TimeTrackBar = () => {
-  return (<div id="TimeTrackBar" className="flex">
-    <IconButton text={"CLOCK IN"} icon="fas fa-clock"/>
-    <IconButton text={"LUNCH"} icon="fas fa-drumstick-bite"/>
-    <IconButton text={"FROM LUNCH"} icon="fas fa-bone"/>
-    <IconButton text={"CLOCK OUT"} icon="fas fa-clock"/>
+  return (<div id="TimeTrackBar">
+    <DashPaperRoundedHead
+      icon="fas fa-clock"
+      sectionName="time sheet"
+    />
+    <div className="flex" style={{justifyContent: "space-around"}}>
+      <IconButton text={"CLOCK IN"} icon="fas fa-clock"/>
+      <IconButton text={"LUNCH"} icon="fas fa-drumstick-bite"/>
+      <IconButton text={"FROM LUNCH"} icon="fas fa-bone"/>
+      <IconButton text={"CLOCK OUT"} icon="fas fa-clock"/>
+    </div>
   </div>)
 }
 
