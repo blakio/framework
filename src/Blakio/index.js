@@ -303,10 +303,9 @@ const TimeTrackBar = () => {
 }
 
 const AddInput = (props) => {
-  const [value, setValue] = useState("");
   return (<div className="AddInput">
     <p>{props.text}</p>
-    <input type={props.type} value={value} onChange={e => setValue(e.target.value)} placeholder={props.placeholder}/>
+    <input type={props.type} value={props.value} onChange={e => props.onChange(e.target.value)} placeholder={props.placeholder}/>
   </div>)
 }
 
@@ -319,6 +318,11 @@ const AddBar = (props) => {
   const [activeText, setActiveText] = useState("");
   const [isContractor, setIsContractor] = useState(false);
   const [isTechnician, setIsTechnician] = useState(false);
+  const [jobTitle, setJobTitle] = useState("");
+  const [fullName, setFullName] = useState("");
+  const [travelTime, setTravelTime] = useState(0);
+  const [laborType, setLaborType] = useState("");
+  const [jobNumber, setJobNumber] = useState("");
 
   const fetch = () => {
     Axios.fetchEmployees(dispatch);
@@ -329,34 +333,35 @@ const AddBar = (props) => {
   const onClick = (name) => {
     (activeText === name) ? setActiveText("") : setActiveText(name);
   }
+
   const add = (value, data) => {
-
     if(activeText === "Employee"){
-
       Axios.addEmployee({
         isActive: true,
         isContractor: isContractor,
         isTech: isTechnician,
-        jobTitle: "",
-        name: "",
-        travelTime: 0
+        jobTitle: jobTitle,
+        name: fullName,
+        travelTime: travelTime
       }, fetch);
-
     } else if (activeText === "Job Number"){
-
       Axios.addJobNumber({
         isActive: true,
-        number: "HEY"
+        number: jobNumber
       }, fetch);
-
     } else if (activeText === "Labor Types"){
-
       Axios.addLaborType({
         isActive: true,
-        name: "HEY"
+        name: laborType
       }, fetch);
-
     }
+    setIsContractor(false);
+    setIsTechnician(false);
+    setJobTitle("");
+    setFullName("");
+    setTravelTime(0);
+    setLaborType("");
+    setJobNumber("");
   }
 
   return (<div className="AddBar">
@@ -375,11 +380,11 @@ const AddBar = (props) => {
         justifyContent: "space-between"
       }}>
         <div className="flex" style={{flexDirection: "column"}}>
-          {(activeText === "Employee") && <AddInput type="text" text="full name" onAdd={add}/>}
-          {(activeText === "Employee") && <AddInput type="text" text="job title" onAdd={add}/>}
-          {(activeText === "Employee") && <AddInput type="number" text="travel time" onAdd={add}/>}
-          {(activeText === "Job Number") && <AddInput type="text" text="job number" onAdd={add}/>}
-          {(activeText === "Labor Types") && <AddInput type="text" text="labor type" onAdd={add}/>}
+          {(activeText === "Employee") && <AddInput type="text" text="full name" value={fullName} onChange={setFullName}/>}
+          {(activeText === "Employee") && <AddInput type="text" text="job title" value={jobTitle} onChange={setJobTitle}/>}
+          {(activeText === "Employee") && <AddInput type="number" text="travel time" value={travelTime} onChange={setTravelTime}/>}
+          {(activeText === "Job Number") && <AddInput type="text" text="job number" value={jobNumber} onChange={setJobNumber}/>}
+          {(activeText === "Labor Types") && <AddInput type="text" text="labor type" value={laborType} onChange={setLaborType}/>}
           {(activeText === "Employee") && <div className="flex" style={{
             width: "19em",
             justifyContent: "space-around",
@@ -399,7 +404,7 @@ const AddBar = (props) => {
           <i className="fas fa-plus-square" style={{
             color: "var(--darkGreen)",
             fontSize: "3em"
-          }}></i>
+          }} onClick={add}></i>
         </div>}
       </div>
     </div>
