@@ -9,6 +9,20 @@ export default {
   hasSelectedLaborTypes: (selectedItems) => selectedItems["laborTypes"].length,
   hasSelectedJobNumbers: (selectedItems) => selectedItems["jobNumbers"].length,
 
+  reorderData: (data, isAdminMode) => {
+    let reorderData = JSON.parse(JSON.stringify(data));
+    if(reorderData.length){
+      const activeItems = reorderData.filter(data => data.isActive);
+      const notActiveItems = reorderData.filter(data => !data.isActive);
+      if(isAdminMode){
+        reorderData = activeItems.concat(notActiveItems);
+      } else {
+        reorderData = activeItems;
+      }
+    }
+    return reorderData;
+  },
+
   getLaborType: state => {
     if(state.selectedItems.laborTypes[0]) return state.selectedItems.laborTypes[0].name;
     return state.selectedItems.employees[0].laborType

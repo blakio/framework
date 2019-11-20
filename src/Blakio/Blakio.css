@@ -53,6 +53,12 @@
   transition: all 0.5s;
 }
 
+.SquareLabel.deactivated {
+  background-color: #ffeaea;
+  border: 1px solid #fc8e8e;
+  color: #222;
+}
+
 .SquareLabel.active {
   background-color: #E1F5F4;
   color: #008280;

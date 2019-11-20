@@ -212,7 +212,7 @@ const IconButton = (props) => {
 
 const SquareLabel = (props) => {
   return (<div
-    className={`SquareLabel ${props.isActive && "active"}`}
+    className={`SquareLabel ${props.isActive && "active"} ${!props.data.isActive && "deactivated"}`}
     onClick={() => props.setIsActive(props.data)}>
     {props.data[props.fieldKey]}
   </div>)
@@ -269,7 +269,6 @@ const Paper = (props) => {
     {isAdminMode && <div className="PaperBottomBar flex">
       <IconButton isActive={props.hasSelectedItems(state.selectedItems)} text={"ACTIVATE"} icon="fas fa-link" onClick={() => dispatch({ type: Types.BULK_ACTIVATE, payload: {fn: () => fetch()} })}/>
       <IconButton isActive={props.hasSelectedItems(state.selectedItems)} text={"DEACTIVATE"} icon="fas fa-unlink" onClick={() => dispatch({ type: Types.BULK_DEACTIVATE, payload: {fn: () => fetch()} })}/>
-      <IconButton isActive={true} text={"ADD"} icon="far fa-plus-square" onClick={() => console.log("add")}/>
       <IconButton isActive={props.hasSelectedItems(state.selectedItems)} text={"DELETE"} icon="far fa-trash-alt" onClick={() => dispatch({ type: Types.BULK_DELETE, payload: {fn: () => fetch()} })}/>
     </div>}
   </div>)
@@ -288,7 +287,8 @@ const DashboardBody = () => {
   const {
     dispatch,
     jobNumbers,
-    laborTypes
+    laborTypes,
+    isAdminMode
   } = useContext(DashboardContext);
 
   useEffect(() => {
@@ -297,8 +297,8 @@ const DashboardBody = () => {
   }, []);
 
   const data = [
-    {sectionName: "JOB NUMBERS", icon: "fas fa-briefcase", className: "paperOne", data: jobNumbers || [], fieldKey: "number", stateField: "jobNumbers", action: "SET_SELECTED_JOB_NUMBERS", hasSelectedItems: Util.hasSelectedJobNumbers},
-    {sectionName: "LABOR TYPES", icon: "fab fa-black-tie", className: "paperTwo", data: laborTypes || [], fieldKey: "name", stateField: "laborTypes", action: "SET_SELECTED_LABOR_TYPES", hasSelectedItems: Util.hasSelectedLaborTypes}
+    {sectionName: "JOB NUMBERS", icon: "fas fa-briefcase", className: "paperOne", data: Util.reorderData(jobNumbers, isAdminMode) || [], fieldKey: "number", stateField: "jobNumbers", action: "SET_SELECTED_JOB_NUMBERS", hasSelectedItems: Util.hasSelectedJobNumbers},
+    {sectionName: "LABOR TYPES", icon: "fab fa-black-tie", className: "paperTwo", data: Util.reorderData(laborTypes, isAdminMode) || [], fieldKey: "name", stateField: "laborTypes", action: "SET_SELECTED_LABOR_TYPES", hasSelectedItems: Util.hasSelectedLaborTypes}
   ]
   return (<div id="dashboardBodyContainer">
     <div id="DashboardBody">
@@ -330,9 +330,9 @@ const styles = {
 
 const DateTimeWeather = () => {
 
-  const [time, setTime] = useState(moment().format('MM/DD/YYYY hh:mm:ssA'))
-  const [temp, setTemp] = useState("")
-  const [icon, setIcon] = useState("")
+  const [time, setTime] = useState(moment().format('MM/DD/YYYY hh:mm:ssA'));
+  const [temp, setTemp] = useState("");
+  const [icon, setIcon] = useState("");
 
   useEffect(() => {
     function update() {
