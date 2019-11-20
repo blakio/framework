@@ -118,18 +118,10 @@ const SideBar = () => {
 };
 
 const Toggle = (props) => {
-  const {
-    dispatch,
-    isAdminMode
-  } = useContext(DashboardContext);
-  return (<div className="Toggle flex" onClick={() => {
-    dispatch({
-      type: Types.TOGGLE_ADMIN_MODE
-    })
-  }}>
-    {isAdminMode && <i class="fas fa-toggle-on"></i>}
-    {!isAdminMode && <i class="fas fa-toggle-off"></i>}
-    <p>Edit</p>
+  return (<div className="Toggle flex" onClick={props.onClick}>
+    {props.isOn && <i class="fas fa-toggle-on"></i>}
+    {!props.isOn && <i class="fas fa-toggle-off"></i>}
+    <p>{props.text}</p>
   </div>)
 }
 
@@ -189,10 +181,23 @@ const DataPickerTwoDate = () => {
 }
 
 const DashboardHead = () => {
+  const {
+    isAdminMode,
+    dispatch
+  } = useContext(DashboardContext);
   return (<div id="DashboardHead" className="flex">
-    <i className="fas fa-columns"></i>
-    <p style={{margin: 0, marginLeft: 10}}>DASHBOARD</p>
-    <Toggle/>
+    <div className="flex">
+      <i className="fas fa-columns"></i>
+      <p style={{margin: 0, marginLeft: 10}}>DASHBOARD</p>
+    </div>
+    <Toggle
+      text="Edit"
+      onClick={() => {
+        dispatch({
+          type: Types.TOGGLE_ADMIN_MODE
+        })
+      }}
+      isOn={isAdminMode}/>
     {/*<DataPickerTwoDate />*/}
   </div>)
 }
@@ -215,6 +220,14 @@ const SquareLabel = (props) => {
     className={`SquareLabel ${props.isActive && "active"} ${!props.data.isActive && "deactivated"}`}
     onClick={() => props.setIsActive(props.data)}>
     {props.data[props.fieldKey]}
+  </div>)
+}
+
+const SquareLabelDirectData = (props) => {
+  return (<div
+    className={`SquareLabel ${props.activeText === props.name && "active"}`}
+    onClick={() => props.onClick(props.name)}>
+    {props.name}
   </div>)
 }
 
@@ -283,6 +296,54 @@ const TimeTrackBar = () => {
   </div>)
 }
 
+const AddInput = (props) => {
+  return (<div className="AddInput">
+    <p>{props.text}</p>
+    <input placeholder={props.placeholder}/>
+    <i className="fas fa-plus-square"></i>
+  </div>)
+}
+
+const AddBar = (props) => {
+  const [activeText, setActiveText] = useState("");
+  const [isContractor, setIsContractor] = useState(false);
+  const [isTechnician, setIsTechnician] = useState(false);
+  const onClick = (name) => {
+    (activeText === name) ? setActiveText("") : setActiveText(name);
+  }
+  return (<div className="AddBar">
+    <DashPaperRoundedHead
+      icon="far fa-plus-square"
+      sectionName="add items here"
+    />
+    <div className="flex" style={{flexDirection: "column"}}>
+      <div>
+        <SquareLabelDirectData onClick={onClick} activeText={activeText} name="Employee"/>
+        <SquareLabelDirectData onClick={onClick} activeText={activeText} name="Job Number"/>
+        <SquareLabelDirectData onClick={onClick} activeText={activeText} name="Labor Types"/>
+      </div>
+      {(activeText === "Employee") && <AddInput text="first name"/>}
+      {(activeText === "Employee") && <AddInput text="last name"/>}
+      {(activeText === "Job Number") && <AddInput text="job number"/>}
+      {(activeText === "Labor Types") && <AddInput text="labor type"/>}
+      {(activeText === "Employee") && <div className="flex" style={{
+        width: "19em",
+        justifyContent: "space-around",
+        marginTop: "1em"
+      }}>
+        <Toggle
+          text="Contractor"
+          onClick={() => setIsContractor(!isContractor)}
+          isOn={isContractor}/>
+        <Toggle
+          text="Technician"
+          onClick={() => setIsTechnician(!isTechnician)}
+          isOn={isTechnician}/>
+      </div>}
+    </div>
+  </div>)
+}
+
 const DashboardBody = () => {
   const {
     dispatch,
@@ -304,6 +365,7 @@ const DashboardBody = () => {
     <div id="DashboardBody">
       {data.map((data, index) => <Paper key={index} {...data} />)}
       <TimeTrackBar />
+      <AddBar />
     </div>
   </div>)
 }

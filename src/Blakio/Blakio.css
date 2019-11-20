@@ -226,14 +226,13 @@
 }
 
 .Toggle {
-  color: var(--fadedBlue);
-  position: absolute;
-  right: 1em;
+  color: var(--darkGreen);
 }
 
 .Toggle p {
   margin: 0;
   margin-left: 0.4em;
+  color: #465b72 !important;
 }
 
 .Toggle i {
@@ -269,8 +268,9 @@
   border-bottom: 1px solid #ddd;
   height: 4em;
   color: #9FA7B3;
-  justify-content: flex-start;
+  justify-content: space-between;
   padding-left: 4em;
+  padding-right: 2em;
 }
 
 #dashboardBodyContainer {
@@ -310,4 +310,51 @@
 
 #dateTimeWeather i {
   margin-right: 1em;
+}
+
+.AddBar {
+  background-color: #fff;
+  border-radius: 4px;
+  padding: 0.6em;
+
+  display: grid;
+  grid-template-columns: 1fr;
+}
+
+.AddBar .SquareLabel {
+  background-color: var(--lightGreen);
+  color: #fff;
+  padding: 0.4em 2em;
+  border-radius: 3px;
+  font-size: 0.9em;
+  margin: 0.4em;
+  display: inline-block;
+  border: 1px solid transparent;
+  transition: all 0.5s;
+}
+
+.AddInput p {
+  margin: 1em 0 0 0;
+  text-transform: uppercase;
+  color: var(--darkGreen);
+  font-weight: 400;
+}
+
+.AddInput input {
+  font-size: 1.2em;
+  height: 1.4em;
+}
+
+.AddInput i {
+  color: var(--darkGreen);
+  margin-left: 0.2em;
+  font-size: 2em;
+  position: relative;
+  top: 0.1em;
+}
+
+.AddBar .SquareLabel.active {
+  background-color: #E1F5F4;
+  color: #008280;
+  border-color: #008280;
 }
