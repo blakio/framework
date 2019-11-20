@@ -97,6 +97,18 @@ export default {
     const fetchEmployees = await axios.get(`${baseURL}/employees`);
     fn(fetchEmployees);
   },
+  addEmployee: (props) => {
+    let url = `${baseURL}/employees`;
+    axios.post(url, props.obj, getHeaderObj()).then(response => props.fn());
+  },
+  addJobNumber: (props) => {
+    let url = `${baseURL}/jobs`;
+    axios.post(url, props.obj, getHeaderObj()).then(response => props.fn());
+  },
+  addLaborType: (props) => {
+    let url = `${baseURL}/labortypes`;
+    axios.post(url, props.obj, getHeaderObj()).then(response => props.fn());
+  },
   updateEmployee: (id, laborType, jobNumber, fn) => {
     let url = `${baseURL}/employees/`
     const updates = {};

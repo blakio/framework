@@ -303,20 +303,62 @@ const TimeTrackBar = () => {
 }
 
 const AddInput = (props) => {
+  const [value, setValue] = useState("");
   return (<div className="AddInput">
     <p>{props.text}</p>
-    <input placeholder={props.placeholder}/>
-    <i className="fas fa-plus-square"></i>
+    <input type={props.type} value={value} onChange={e => setValue(e.target.value)} placeholder={props.placeholder}/>
   </div>)
 }
 
 const AddBar = (props) => {
+
+  const {
+    dispatch
+  } = useContext(DashboardContext);
+
   const [activeText, setActiveText] = useState("");
   const [isContractor, setIsContractor] = useState(false);
   const [isTechnician, setIsTechnician] = useState(false);
+
+  const fetch = () => {
+    Axios.fetchEmployees(dispatch);
+    Axios.fetchJobNumbers(dispatch);
+    Axios.fetchLaborTypes(dispatch);
+  }
+
   const onClick = (name) => {
     (activeText === name) ? setActiveText("") : setActiveText(name);
   }
+  const add = (value, data) => {
+
+    if(activeText === "Employee"){
+
+      Axios.addEmployee({
+        isActive: true,
+        isContractor: isContractor,
+        isTech: isTechnician,
+        jobTitle: "",
+        name: "",
+        travelTime: 0
+      }, fetch);
+
+    } else if (activeText === "Job Number"){
+
+      Axios.addJobNumber({
+        isActive: true,
+        number: "HEY"
+      }, fetch);
+
+    } else if (activeText === "Labor Types"){
+
+      Axios.addLaborType({
+        isActive: true,
+        name: "HEY"
+      }, fetch);
+
+    }
+  }
+
   return (<div className="AddBar">
     <DashPaperRoundedHead
       icon="far fa-plus-square"
@@ -328,24 +370,38 @@ const AddBar = (props) => {
         <SquareLabelDirectData onClick={onClick} activeText={activeText} name="Job Number"/>
         <SquareLabelDirectData onClick={onClick} activeText={activeText} name="Labor Types"/>
       </div>
-      {(activeText === "Employee") && <AddInput text="first name"/>}
-      {(activeText === "Employee") && <AddInput text="last name"/>}
-      {(activeText === "Job Number") && <AddInput text="job number"/>}
-      {(activeText === "Labor Types") && <AddInput text="labor type"/>}
-      {(activeText === "Employee") && <div className="flex" style={{
-        width: "19em",
-        justifyContent: "space-around",
-        marginTop: "1em"
+      <div className="flex" style={{
+        width: "20em",
+        justifyContent: "space-between"
       }}>
-        <Toggle
-          text="Contractor"
-          onClick={() => setIsContractor(!isContractor)}
-          isOn={isContractor}/>
-        <Toggle
-          text="Technician"
-          onClick={() => setIsTechnician(!isTechnician)}
-          isOn={isTechnician}/>
-      </div>}
+        <div className="flex" style={{flexDirection: "column"}}>
+          {(activeText === "Employee") && <AddInput type="text" text="full name" onAdd={add}/>}
+          {(activeText === "Employee") && <AddInput type="text" text="job title" onAdd={add}/>}
+          {(activeText === "Employee") && <AddInput type="number" text="travel time" onAdd={add}/>}
+          {(activeText === "Job Number") && <AddInput type="text" text="job number" onAdd={add}/>}
+          {(activeText === "Labor Types") && <AddInput type="text" text="labor type" onAdd={add}/>}
+          {(activeText === "Employee") && <div className="flex" style={{
+            width: "19em",
+            justifyContent: "space-around",
+            marginTop: "1em"
+          }}>
+            <Toggle
+              text="Contractor"
+              onClick={() => setIsContractor(!isContractor)}
+              isOn={isContractor}/>
+            <Toggle
+              text="Technician"
+              onClick={() => setIsTechnician(!isTechnician)}
+              isOn={isTechnician}/>
+          </div>}
+        </div>
+        {(activeText !== "") && <div>
+          <i className="fas fa-plus-square" style={{
+            color: "var(--darkGreen)",
+            fontSize: "3em"
+          }}></i>
+        </div>}
+      </div>
     </div>
   </div>)
 }
