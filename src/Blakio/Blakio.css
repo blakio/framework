@@ -153,6 +153,10 @@
   background-color: var(--selectHoverColor);
 }
 
+.SelectBarParent.selected {
+  background-color: #0ba6a4;
+}
+
 /* headers */
 #RoundedHeader {
   justify-content: space-between;

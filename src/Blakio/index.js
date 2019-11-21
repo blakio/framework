@@ -66,6 +66,11 @@ const SideBarHead = () => {
 }
 
 const SideBarSection = (props) => {
+  const {
+    dispatch,
+    selectedItems
+  } = useContext(DashboardContext);
+
   const [open, setOpen] = useState(false);
   const toggle = () => setOpen(!open);
   return (<div className="SideBarSection">
@@ -84,7 +89,16 @@ const SideBarSection = (props) => {
         }}
         text={data} onClick={toggle}/>
         {props.data.map((data, i) => {
-          return (<div key={i} className="SelectBarParent">
+          return (<div
+            key={i}
+            className={`SelectBarParent ${(selectedItems.employees[0] === data) && "selected"}`}
+            onClick={() => {
+              let payload = (!selectedItems.employees[0]) ? [data] : (selectedItems.employees[0] === data) ? [] : [data];
+              dispatch({
+                type: Types.SET_SELECTED_EMPLOYEES,
+                payload
+              })
+            }}>
             <SelectBar icon="fas fa-user-tie" text={data.name} selectBarIcon={styles.selectBarIcon}/>
             <BottomBarText subText={data.jobTitle}/>
           </div>)
