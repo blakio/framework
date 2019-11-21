@@ -432,7 +432,7 @@ const DashboardBody = () => {
     <div id="DashboardBody">
       {data.map((data, index) => <Paper key={index} {...data} />)}
       <TimeTrackBar />
-      <AddBar />
+      {isAdminMode && <AddBar />}
     </div>
   </div>)
 }
