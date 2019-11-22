@@ -44,6 +44,18 @@ export default {
     return false;
   },
 
+  getEmployees: (data, isAdminMode) => {
+    let employees;
+    if(!isAdminMode){
+      employees = data.filter(data => data.isActive);
+    } else {
+      const active = data.filter(data => data.isActive);
+      const notActive = data.filter(data => !data.isActive);
+      employees = active.concat(notActive);
+    }
+    return employees;
+  },
+
   getLaborType: state => {
     if(state.selectedItems.laborTypes[0]) return state.selectedItems.laborTypes[0].name;
     return state.selectedItems.employees[0].laborType

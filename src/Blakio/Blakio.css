@@ -153,6 +153,10 @@
   background-color: var(--selectHoverColor);
 }
 
+.SelectBarParent.notActive {
+  background-color: #fc8e8e;
+}
+
 .SelectBarParent.selected {
   background-color: #0ba6a4;
 }

@@ -74,11 +74,19 @@ const SideBarHead = () => {
 const SideBarSection = (props) => {
   const {
     dispatch,
-    selectedItems
+    selectedItems,
+    isAdminMode
   } = useContext(DashboardContext);
 
   const [open, setOpen] = useState(false);
   const toggle = () => setOpen(!open);
+  const getIcon = (data) => {
+    if(data.isContractor) return "fas fa-id-card-alt";
+    if(data.isTech) return "fas fa-wrench";
+    return "fas fa-user-tie"
+  }
+  const employees = Util.getEmployees(props.data, isAdminMode);
+
   return (<div className="SideBarSection">
     {props.headers.map((data, index) => {
       return (<div key={index} className={`innerBar ${open && "open"}`}>
@@ -94,10 +102,10 @@ const SideBarSection = (props) => {
           }
         }}
         text={data} onClick={toggle}/>
-        {props.data.map((data, i) => {
+        {employees.map((data, i) => {
           return (<div
             key={i}
-            className={`SelectBarParent ${(selectedItems.employees[0] === data) && "selected"}`}
+            className={`SelectBarParent ${(selectedItems.employees[0] === data) && "selected"} ${!data.isActive && "notActive"}`}
             onClick={() => {
               let payload = (!selectedItems.employees[0]) ? [data] : (selectedItems.employees[0] === data) ? [] : [data];
               dispatch({
@@ -105,7 +113,7 @@ const SideBarSection = (props) => {
                 payload
               })
             }}>
-            <SelectBar icon="fas fa-user-tie" text={data.name} selectBarIcon={styles.selectBarIcon}/>
+            <SelectBar icon={getIcon(data)} text={data.name} selectBarIcon={styles.selectBarIcon}/>
             <BottomBarText subText={data.jobTitle}/>
           </div>)
         })}
