@@ -5,6 +5,10 @@ import axios from "axios";
 import DatePicker from  "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
+import ReactNotification from 'react-notifications-component'
+import 'react-notifications-component/dist/theme.css'
+import { store } from 'react-notifications-component';
+
 import './Blakio.css';
 
 import Util from "../Util";
@@ -340,6 +344,24 @@ const TimeTrackBar = () => {
     selectedItems
   } = useContext(DashboardContext);
 
+  const setConfirmedNotification = () => {
+    store.addNotification({
+      title: "Confirmation",
+      message: `Yor punch is Confirmed ${employee}`,
+      type: "success",
+      insert: "top",
+      container: "top-right",
+      animationIn: ["animated", "fadeIn"],
+      animationOut: ["animated", "fadeOut"],
+      dismiss: {
+        duration: 5000,
+        onScreen: true
+      }
+    });
+  }
+
+  const employee = selectedItems.employees[0] && selectedItems.employees[0].name;
+
   return (<div id="TimeTrackBar">
     <DashPaperRoundedHead
       icon="fas fa-clock"
@@ -348,20 +370,32 @@ const TimeTrackBar = () => {
     <div className="flex" style={{justifyContent: "space-around"}}>
       <IconButton isActive={Util.getActiveTimeButtomStatus("CLOCK IN", selectedItems)} text={"CLOCK IN"} icon="fas fa-clock" onClick={() => dispatch({
         type: Types.CLOCK_IN,
-        payload: () => fetch(dispatch)
+        payload: () => {
+          fetch(dispatch);
+          setConfirmedNotification(employee);
+        }
       })}/>
       <IconButton isActive={Util.getActiveTimeButtomStatus("TO LUNCH", selectedItems)} text={"TO LUNCH"} icon="fas fa-drumstick-bite" onClick={() => dispatch({
         type: Types.GO_TO_LUNCH,
-        payload: () => fetch(dispatch)
+        payload: () => {
+          fetch(dispatch);
+          setConfirmedNotification(employee);
+        }
       })}/>
       <IconButton isActive={Util.getActiveTimeButtomStatus("FROM LUNCH", selectedItems)} text={"FROM LUNCH"} icon="fas fa-bone" onClick={() => dispatch({
         type: Types.BACK_FROM_LUNCH,
-        payload: () => fetch(dispatch)
+        payload: () => {
+          fetch(dispatch);
+          setConfirmedNotification(employee);
+        }
       })}/>
       <IconButton isActive={Util.getActiveTimeButtomStatus("CLOCK OUT", selectedItems)} text={"CLOCK OUT"} icon="fas fa-clock" onClick={() => dispatch({
         type: Types.CLOCK_OUT,
         payload: () => {
-          Axios.reset(selectedItems.employees[0].id, () => fetch(dispatch))
+          Axios.reset(selectedItems.employees[0].id, () => {
+            fetch(dispatch);
+            setConfirmedNotification(employee);
+          })
         }
       })}/>
     </div>
@@ -400,6 +434,22 @@ const AddBar = (props) => {
     (activeText === name) ? setActiveText("") : setActiveText(name);
   }
 
+  const warning = (message) => {
+    store.addNotification({
+      title: "Warning",
+      message,
+      type: "warning",
+      insert: "top",
+      container: "top-right",
+      animationIn: ["animated", "fadeIn"],
+      animationOut: ["animated", "fadeOut"],
+      dismiss: {
+        duration: 5000,
+        onScreen: true
+      }
+    });
+  }
+
   const add = (value, data) => {
     if(activeText === "Employee"){
       Axios.addEmployee({
@@ -409,17 +459,17 @@ const AddBar = (props) => {
         jobTitle: jobTitle,
         name: fullName,
         travelTime: travelTime
-      }, fetch);
+      }, fetch, res => warning(res));
     } else if (activeText === "Job Number"){
       Axios.addJobNumber({
         isActive: true,
         number: jobNumber
-      }, fetch);
+      }, fetch, res => warning(res));
     } else if (activeText === "Labor Types"){
       Axios.addLaborType({
         isActive: true,
         name: laborType
-      }, fetch);
+      }, fetch, res => warning(res));
     }
     setIsContractor(false);
     setIsTechnician(false);
@@ -531,6 +581,7 @@ const DashboardBody = () => {
 
 const Dashboard = () => {
   return (<div id="Dashboard" className="container">
+    <ReactNotification />
     <TopLeftFold styles={styles.TopLeftFold}/>
     <DashboardHead />
     <DashboardBody />

@@ -96,17 +96,35 @@ export default {
     const resetEmployee = await axios.put(`${baseURL}/reset/${id}`, {}, getHeaderObj());
     fn();
   },
-  addEmployee: (data, fn) => {
+  addEmployee: (data, fn, errFn) => {
     let url = `${baseURL}/employees`;
-    axios.post(url, data, getHeaderObj()).then(response => fn());
+    axios.post(url, data, getHeaderObj()).then(response => {
+      if(typeof response.data === "string"){
+        errFn(response.data);
+      } else {
+        fn();
+      }
+    });
   },
-  addJobNumber: (data, fn) => {
+  addJobNumber: (data, fn, errFn) => {
     let url = `${baseURL}/jobs`;
-    axios.post(url, data, getHeaderObj()).then(response => fn());
+    axios.post(url, data, getHeaderObj()).then(response => {
+      if(typeof response.data === "string"){
+        errFn(response.data);
+      } else {
+        fn();
+      }
+    });
   },
-  addLaborType: (data, fn) => {
+  addLaborType: (data, fn, errFn) => {
     let url = `${baseURL}/labortypes`;
-    axios.post(url, data, getHeaderObj()).then(response => fn());
+    axios.post(url, data, getHeaderObj()).then(response => {
+      if(typeof response.data === "string"){
+        errFn(response.data);
+      } else {
+        fn();
+      }
+    });
   },
   updateEmployee: (id, laborType, jobNumber, fn) => {
     let url = `${baseURL}/employees/`
