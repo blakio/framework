@@ -464,7 +464,8 @@ const DashboardBody = () => {
     dispatch,
     jobNumbers,
     laborTypes,
-    isAdminMode
+    isAdminMode,
+    selectedItems
   } = useContext(DashboardContext);
 
   useEffect(() => {
@@ -475,10 +476,34 @@ const DashboardBody = () => {
   const data = [
     {sectionName: "JOB NUMBERS", icon: "fas fa-briefcase", className: "paperOne", data: Util.reorderData(jobNumbers, isAdminMode) || [], fieldKey: "number", stateField: "jobNumbers", action: "SET_SELECTED_JOB_NUMBERS", hasSelectedItems: Util.hasSelectedJobNumbers},
     {sectionName: "LABOR TYPES", icon: "fab fa-black-tie", className: "paperTwo", data: Util.reorderData(laborTypes, isAdminMode) || [], fieldKey: "name", stateField: "laborTypes", action: "SET_SELECTED_LABOR_TYPES", hasSelectedItems: Util.hasSelectedLaborTypes}
-  ]
+  ];
+
+  const show = (data) => {
+    const {
+      laborTypes,
+      jobNumbers,
+      employees
+    } = selectedItems;
+    if(employees[0]){
+      const {
+        isTech,
+        isContractor
+      } = employees[0];
+      const isOffice = !isTech && !isContractor;
+      if(isContractor){
+        return false;
+      } else if (isTech && (data.sectionName === "JOB NUMBERS" || data.sectionName === "LABOR TYPES")) {
+        return true;
+      } else if(isOffice && data.sectionName === "JOB NUMBERS") {
+        return true;
+      }
+    }
+    return false;
+  }
+
   return (<div id="dashboardBodyContainer">
     <div id="DashboardBody">
-      {data.map((data, index) => <Paper key={index} {...data} />)}
+      {data.map((data, index) => show(data) && <Paper key={index} {...data} />)}
       <TimeTrackBar />
       {isAdminMode && <AddBar />}
     </div>
