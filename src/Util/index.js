@@ -24,22 +24,37 @@ export default {
   },
 
   getActiveTimeButtomStatus: (text, selectedItems) => {
-    const selected = selectedItems.employees[0];
-    if(!selected) return false;
+    const selectedEmployee = selectedItems.employees[0];
+    const selectedJob = selectedItems.jobNumbers[0];
+    const selectedLaborType = selectedItems.laborTypes[0];
+    if(!selectedEmployee) return false;
+
+    const buttonActive = (isTech, isContractor, isOffice, selectedJob, selectedLaborType) => {
+      if(isTech && selectedJob && selectedLaborType){
+        return true;
+      } else if(isContractor){
+        return true;
+      } else if(isOffice && selectedJob){
+        return true;
+      }
+    }
     const {
       clockInTime,
       clockOutTime,
       startLunch,
-      endLunch
-    } = selected;
+      endLunch,
+      isTech,
+      isContractor
+    } = selectedEmployee;
+    const isOffice = !isTech && !isContractor;
     if(text === "CLOCK IN"){
-      if(!clockInTime) return true;
+      return buttonActive(isTech, isContractor, isOffice, selectedJob, selectedLaborType)
     } else if(text === "TO LUNCH" && clockInTime){
-      if(!clockOutTime && !startLunch) return true;
+      return buttonActive(isTech, isContractor, isOffice, selectedJob, selectedLaborType)
     } else if(text === "FROM LUNCH" && clockInTime){
-      if(!clockOutTime && startLunch && !endLunch) return true;
+      return buttonActive(isTech, isContractor, isOffice, selectedJob, selectedLaborType)
     } else if(text === "CLOCK OUT" && clockInTime){
-      if(clockInTime) return true;
+      return buttonActive(isTech, isContractor, isOffice, selectedJob, selectedLaborType)
     }
     return false;
   },
