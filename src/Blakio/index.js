@@ -178,7 +178,9 @@ const Toggle = (props) => {
 
 const TopBar = () => {
   return (<div id="TopBar" className="container flex">
-    <i className="fas fa-cloud-download-alt"></i>
+    <div className="topBarOptions">
+      <i className="fas fa-cloud-download-alt"></i>
+    </div>
     <DateTimeWeather />
   </div>)
 };
@@ -347,7 +349,7 @@ const TimeTrackBar = () => {
   const setConfirmedNotification = () => {
     store.addNotification({
       title: "Confirmation",
-      message: `Yor punch is Confirmed ${employee}`,
+      message: `Your punch is Confirmed ${employee}`,
       type: "success",
       insert: "top",
       container: "top-right",

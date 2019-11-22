@@ -230,7 +230,12 @@
   margin: 1em;
 }
 
-#TopBar > i {
+#TopBar > .topBarOptions {
+  position: absolute;
+  left: 1em;
+}
+
+#TopBar > .topBarOptions > i {
   color: #fff;
   font-size: 1.4em;
   opacity: 0.8;
