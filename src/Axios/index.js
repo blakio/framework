@@ -94,8 +94,7 @@ export default {
   },
   reset: async (id, fn) => {
     const resetEmployee = await axios.put(`${baseURL}/reset/${id}`, {}, getHeaderObj());
-    const fetchEmployees = await axios.get(`${baseURL}/employees`);
-    fn(fetchEmployees);
+    fn();
   },
   addEmployee: (data, fn) => {
     let url = `${baseURL}/employees`;

@@ -23,6 +23,27 @@ export default {
     return reorderData;
   },
 
+  getActiveTimeButtomStatus: (text, selectedItems) => {
+    const selected = selectedItems.employees[0];
+    if(!selected) return false;
+    const {
+      clockInTime,
+      clockOutTime,
+      startLunch,
+      endLunch
+    } = selected;
+    if(text === "CLOCK IN"){
+      if(!clockInTime) return true;
+    } else if(text === "TO LUNCH" && clockInTime){
+      if(!clockOutTime && !startLunch) return true;
+    } else if(text === "FROM LUNCH" && clockInTime){
+      if(!clockOutTime && startLunch && !endLunch) return true;
+    } else if(text === "CLOCK OUT" && clockInTime){
+      if(clockInTime) return true;
+    }
+    return false;
+  },
+
   getLaborType: state => {
     if(state.selectedItems.laborTypes[0]) return state.selectedItems.laborTypes[0].name;
     return state.selectedItems.employees[0].laborType

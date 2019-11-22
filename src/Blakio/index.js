@@ -15,6 +15,12 @@ import Axios from "../Axios";
 import Types from "../Context/Types";
 import DashboardContext from "../Context/State";
 
+const fetch = (dispatch) => {
+  Axios.fetchEmployees(dispatch);
+  Axios.fetchJobNumbers(dispatch);
+  Axios.fetchLaborTypes(dispatch);
+}
+
 const SAMPLE = () => {
   return (<div id="SAMPLE">
   </div>)
@@ -126,6 +132,7 @@ const SideBar = () => {
   return (<div id="SideBar" className="container flex">
     <SideBarHead />
     {sections.map((data, index) => <SideBarSection
+      key={index}
       headers={data.headers}
       data={data.data} />)}
   </div>)
@@ -133,8 +140,8 @@ const SideBar = () => {
 
 const Toggle = (props) => {
   return (<div className="Toggle flex" onClick={props.onClick}>
-    {props.isOn && <i class="fas fa-toggle-on"></i>}
-    {!props.isOn && <i class="fas fa-toggle-off"></i>}
+    {props.isOn && <i className="fas fa-toggle-on"></i>}
+    {!props.isOn && <i className="fas fa-toggle-off"></i>}
     <p>{props.text}</p>
   </div>)
 }
@@ -291,7 +298,7 @@ const Paper = (props) => {
     <div className="flex" style={{flexWrap: "wrap"}}>
       {props.data.map((data, index) => {
         const isActive = state.selectedItems[props.stateField].some(d => d.id === props.data[index].id);
-        return <SquareLabel data={data} fieldKey={props.fieldKey} isActive={isActive} setIsActive={setIsActive}/>})}
+        return <SquareLabel key={index} data={data} fieldKey={props.fieldKey} isActive={isActive} setIsActive={setIsActive}/>})}
     </div>
     {isAdminMode && <div className="PaperBottomBar flex">
       <IconButton isActive={props.hasSelectedItems(state.selectedItems)} text={"ACTIVATE"} icon="fas fa-link" onClick={() => dispatch({ type: Types.BULK_ACTIVATE, payload: {fn: () => fetch()} })}/>
@@ -302,16 +309,35 @@ const Paper = (props) => {
 }
 
 const TimeTrackBar = () => {
+  const {
+    dispatch,
+    selectedItems
+  } = useContext(DashboardContext);
+
   return (<div id="TimeTrackBar">
     <DashPaperRoundedHead
       icon="fas fa-clock"
       sectionName="time sheet"
     />
     <div className="flex" style={{justifyContent: "space-around"}}>
-      <IconButton text={"CLOCK IN"} icon="fas fa-clock"/>
-      <IconButton text={"LUNCH"} icon="fas fa-drumstick-bite"/>
-      <IconButton text={"FROM LUNCH"} icon="fas fa-bone"/>
-      <IconButton text={"CLOCK OUT"} icon="fas fa-clock"/>
+      <IconButton isActive={Util.getActiveTimeButtomStatus("CLOCK IN", selectedItems)} text={"CLOCK IN"} icon="fas fa-clock" onClick={() => dispatch({
+        type: Types.CLOCK_IN,
+        payload: () => fetch(dispatch)
+      })}/>
+      <IconButton isActive={Util.getActiveTimeButtomStatus("TO LUNCH", selectedItems)} text={"TO LUNCH"} icon="fas fa-drumstick-bite" onClick={() => dispatch({
+        type: Types.GO_TO_LUNCH,
+        payload: () => fetch(dispatch)
+      })}/>
+      <IconButton isActive={Util.getActiveTimeButtomStatus("FROM LUNCH", selectedItems)} text={"FROM LUNCH"} icon="fas fa-bone" onClick={() => dispatch({
+        type: Types.BACK_FROM_LUNCH,
+        payload: () => fetch(dispatch)
+      })}/>
+      <IconButton isActive={Util.getActiveTimeButtomStatus("CLOCK OUT", selectedItems)} text={"CLOCK OUT"} icon="fas fa-clock" onClick={() => dispatch({
+        type: Types.CLOCK_OUT,
+        payload: () => {
+          Axios.reset(selectedItems.employees[0].id, () => fetch(dispatch))
+        }
+      })}/>
     </div>
   </div>)
 }
@@ -502,7 +528,7 @@ const DateTimeWeather = () => {
       <i className="fas fa-calendar"></i>
       {time}
       {" | "}
-      <i class="fas fa-temperature-low"></i>
+      <i className="fas fa-temperature-low"></i>
       {`${temp}`}
       <span>
         <img src={`https://openweathermap.org/img/wn/${icon}@2x.png`}/>
