@@ -502,6 +502,7 @@ const DashboardBody = () => {
       jobNumbers,
       employees
     } = selectedItems;
+    if(isAdminMode) return true;
     if(employees[0]){
       const {
         isTech,
