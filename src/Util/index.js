@@ -59,6 +59,16 @@ export default {
     return false;
   },
 
+  getObjFromArray: (value, key, arr) => {
+    let obj;
+    arr.forEach(data => {
+      if(data[key] === value){
+        obj = data;
+      }
+    })
+    return obj;
+  },
+
   getEmployees: (data, isAdminMode) => {
     let employees;
     if(!isAdminMode){

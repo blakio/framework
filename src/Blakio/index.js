@@ -75,7 +75,9 @@ const SideBarSection = (props) => {
   const {
     dispatch,
     selectedItems,
-    isAdminMode
+    isAdminMode,
+    jobNumbers,
+    laborTypes
   } = useContext(DashboardContext);
 
   const [open, setOpen] = useState(false);
@@ -112,6 +114,22 @@ const SideBarSection = (props) => {
                 type: Types.SET_SELECTED_EMPLOYEES,
                 payload
               })
+              if(payload[0]){
+                const jobNumberObj = Util.getObjFromArray(payload[0].jobNumber, "number", jobNumbers);
+                const laborTypeObj = Util.getObjFromArray(payload[0].laborType, "name", laborTypes);
+                if(jobNumberObj){
+                  dispatch({
+                    type: Types.SET_SELECTED_JOB_NUMBERS,
+                    payload: [jobNumberObj]
+                  })
+                }
+                if(laborTypeObj){
+                  dispatch({
+                    type: Types.SET_SELECTED_LABOR_TYPES,
+                    payload: [laborTypeObj]
+                  })
+                }
+              }
             }}>
             <SelectBar icon={getIcon(data)} text={data.name} selectBarIcon={styles.selectBarIcon}/>
             <BottomBarText subText={data.jobTitle}/>
