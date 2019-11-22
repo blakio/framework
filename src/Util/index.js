@@ -47,11 +47,11 @@ export default {
       isContractor
     } = selectedEmployee;
     const isOffice = !isTech && !isContractor;
-    if(text === "CLOCK IN"){
+    if(text === "CLOCK IN" && !clockInTime){
       return buttonActive(isTech, isContractor, isOffice, selectedJob, selectedLaborType)
-    } else if(text === "TO LUNCH" && clockInTime){
+    } else if(text === "TO LUNCH" && clockInTime && !startLunch){
       return buttonActive(isTech, isContractor, isOffice, selectedJob, selectedLaborType)
-    } else if(text === "FROM LUNCH" && clockInTime){
+    } else if(text === "FROM LUNCH" && clockInTime && startLunch && !endLunch){
       return buttonActive(isTech, isContractor, isOffice, selectedJob, selectedLaborType)
     } else if(text === "CLOCK OUT" && clockInTime){
       return buttonActive(isTech, isContractor, isOffice, selectedJob, selectedLaborType)
