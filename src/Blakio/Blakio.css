@@ -153,7 +153,7 @@ body {
 }
 
 .SelectBar i {
-  font-size: 1.6em;
+  font-size: 1em;
 }
 
 .SelectBarParent:hover {
@@ -452,5 +452,14 @@ body {
 }
 
 .DashboardSidePopOut.open {
+  left: 0;
+}
+
+.LoadingScreen {
+  position: absolute;
+  height: 100vh;
+  width: 100vw;
+  background-color: rgba(255, 255, 255, 0.2);
+  top: 0;
   left: 0;
 }

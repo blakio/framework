@@ -287,5 +287,6 @@ export default {
       isAdminLoggedIn
     }
   },
-  openSideBar: (payload, state) => ({ ...state, isSideBarOpen: payload })
+  openSideBar: (payload, state) => ({ ...state, isSideBarOpen: payload }),
+  isLoading: (payload, state) => ({ ...state, isLoading: payload })
 }

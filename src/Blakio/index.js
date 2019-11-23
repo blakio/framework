@@ -7,7 +7,7 @@ import DatePicker from  "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
 import ReactNotification from 'react-notifications-component'
-import 'react-notifications-component/dist/theme.css'
+import 'react-notifications-component/dist/theme.css';
 import { store } from 'react-notifications-component';
 
 import './Blakio.css';
@@ -20,10 +20,18 @@ import Axios from "../Axios";
 import Types from "../Context/Types";
 import DashboardContext from "../Context/State";
 
+const load = (dispatch, bool) => {
+  dispatch({
+    type: Types.IS_LOADING,
+    payload: bool
+  });
+}
+
 const fetch = (dispatch) => {
+  load(dispatch, true);
   Axios.fetchEmployees(dispatch);
   Axios.fetchJobNumbers(dispatch);
-  Axios.fetchLaborTypes(dispatch);
+  Axios.fetchLaborTypes(dispatch, () => load(dispatch, false));
 }
 
 const SAMPLE = () => {
@@ -156,7 +164,8 @@ const SideBar = () => {
   } = useContext(DashboardContext);
 
   useEffect(() => {
-    Axios.fetchEmployees(dispatch);
+    load(dispatch, true);
+    Axios.fetchEmployees(dispatch, () => load(dispatch, false));
   }, []);
 
   const sections = [
@@ -583,8 +592,9 @@ const DashboardBody = () => {
   } = useContext(DashboardContext);
 
   useEffect(() => {
+    load(dispatch, true);
     Axios.fetchJobNumbers(dispatch);
-    Axios.fetchLaborTypes(dispatch);
+    Axios.fetchLaborTypes(dispatch, () => load(dispatch, false));
   }, []);
 
   const data = [

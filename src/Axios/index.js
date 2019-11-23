@@ -137,26 +137,29 @@ export default {
     }
     axios.put(url + id, updates, getHeaderObj()).then(response => fn());
   },
-  fetchEmployees: async (dispatch) => {
+  fetchEmployees: async (dispatch, fn) => {
     const response = await axios.get(`${baseURL}/employees`, getHeaderObj());
     dispatch({
       type: Types.SET_EMPLOYEES,
       payload: response.data
-    })
+    });
+    if(fn) fn();
   },
-  fetchLaborTypes: async (dispatch) => {
+  fetchLaborTypes: async (dispatch, fn) => {
     const response = await axios.get(`${baseURL}/labortypes`, getHeaderObj());
     dispatch({
       type: Types.SET_LABOR_TYPES,
       payload: response.data
-    })
+    });
+    if(fn) fn();
   },
-  fetchJobNumbers: async (dispatch) => {
+  fetchJobNumbers: async (dispatch, fn) => {
     const response = await axios.get(`${baseURL}/jobs`, getHeaderObj());
     dispatch({
       type: Types.SET_JOB_NUMBERS,
       payload: response.data
-    })
+    });
+    if(fn) fn();
   },
   getCsvData: async (payload) => {
     const {
