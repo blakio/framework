@@ -10,6 +10,10 @@
   --lightGreen: #56acc7;
 }
 
+body {
+  font-family: 'Muli', sans-serif;
+}
+
 /* global classes */
 .container {
   position: relative;
@@ -91,22 +95,25 @@
 
 .IconButton {
   background-color: #f8f8f8;
-  border-radius: 4px;
+  border-radius: 0.1rem;
   flex-direction: column;
-  height: 4.4em;
-  width: 4.4em;
+  height: 4.4rem;
+  width: 4.4rem;
   transition: all 0.5s;
+  margin: auto 1rem;
 }
 
 .IconButton i {
-  font-size: 1.6em;
+  font-size: 1.6rem;
   color: #a7a7a7;
   transition: all 0.5s;
 }
 
 .IconButton p {
-  font-size: 0.6em;
-  margin: 0.6em 0;
+  font-size: 0.6rem;
+  margin: 0.6rem 0;
+  text-transform: uppercase;
+  color: #000;
 }
 
 .IconButton.active {
@@ -233,6 +240,8 @@
 #TopBar > .topBarOptions {
   position: absolute;
   left: 1em;
+  align-self: baseline;
+  margin-top: 1.4em;
 }
 
 #TopBar > .topBarOptions > i {
@@ -373,4 +382,52 @@
   background-color: #E1F5F4;
   color: #008280;
   border-color: #008280;
+}
+
+.DatePickerTwoDate {
+  position: absolute;
+  left: 0;
+  top: 0;
+  background-color: #fff;
+  height: 12em;
+  flex-direction: column;
+  width: 14em;
+  border: 1px solid #cecece;
+}
+
+.DatePickerTwoDate::after {
+  content: "";
+  width: 0;
+  height: 0;
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+  border-bottom: 10px solid #fff;
+  position: absolute;
+  top: -10px;
+  left: 15%;
+}
+
+.DatePickerTwoDate > * {
+  font-size: 2em;
+}
+
+.react-datepicker__input-container input {
+  font-size: 1.2rem;
+  text-align: center;
+  font-family: 'Muli', sans-serif;
+}
+
+.buttonSection {
+  height: 5rem;
+  width: 100%;
+  margin-top: 0.4em;
+}
+
+.dateButtons {
+  height: 5rem;
+  width: 5.4rem;
+  background-color: var(--lightGreen);
+  margin: 0.4em;
+  border-radius: 2px;
+  flex-direction: column;
 }

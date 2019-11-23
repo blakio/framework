@@ -1,4 +1,5 @@
 import React, { useState, useContext, useEffect } from 'react';
+import { CSVLink } from "react-csv";
 
 import moment from "moment";
 import axios from "axios";
@@ -177,8 +178,18 @@ const Toggle = (props) => {
 }
 
 const TopBar = () => {
+  const {
+    dispatch,
+    isDownloadScreen
+  } = useContext(DashboardContext);
+
   return (<div id="TopBar" className="container flex">
-    <div className="topBarOptions">
+    <div className="topBarOptions" onClick={() => {
+      dispatch({
+        type: Types.TOGGLE_DOWNLOAD_SCREEN,
+        payload: !isDownloadScreen
+      })
+    }}>
       <i className="fas fa-cloud-download-alt"></i>
     </div>
     <DateTimeWeather />
@@ -188,23 +199,25 @@ const TopBar = () => {
 const TopLeftFold = (props) => {
   // requirements
   // height and width needs to be an integer
+  const [duration, setDuration] = useState(0);
   return (<div id="TopLeftFold" style={props.styles}>
-    <div className="backFold" style={{
-      height: props.styles.height * 2,
-      width: props.styles.width * 2
-    }}></div>
+      <div className="backFold" style={{
+        height: props.styles.height * 2,
+        width: props.styles.width * 2
+      }}></div>
   </div>)
 }
 
-const DataPickerTwoDate = () => {
+const DatePickerTwoDate = () => {
   const {
-    dispatch
+    dispatch,
+    csvData
   } = useContext(DashboardContext);
 
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(new Date());
 
-  return (<div className="DataPickerTwoDate">
+  return (<div className="DatePickerTwoDate flex">
     <DatePicker
       maxDate={new Date()}
       selected={startDate}
@@ -230,13 +243,35 @@ const DataPickerTwoDate = () => {
       endDate={endDate}
       minDate={startDate}
     />
+    <div className="buttonSection flex">
+
+      <IconButton isActive={startDate && endDate} text={"get"} icon="fas fa-file-import" onClick={() => {
+        dispatch({
+          type: Types.GET_CSV_DATA,
+          payload: {
+            startDate,
+            endDate,
+            dispatch
+          }
+        })
+      }}/>
+
+      <CSVLink
+        data={csvData.data}
+        style={{textDecoration: "none"}}
+        filename={`Cummins Wagner Timesheet ${moment(csvData.startDate).format("MM/DD/YYYY")} to ${moment(csvData.endDate).format("MM/DD/YYYY")}.csv`}
+        onClick={() => csvData.data.length > 0}>
+        <IconButton isActive={csvData.data.length} text={"download"} icon="fas fa-file-download" onClick={() => {}}/>
+      </CSVLink>
+    </div>
   </div>)
 }
 
 const DashboardHead = () => {
   const {
     isAdminMode,
-    dispatch
+    dispatch,
+    isDownloadScreen
   } = useContext(DashboardContext);
   return (<div id="DashboardHead" className="flex">
     <div className="flex">
@@ -251,7 +286,7 @@ const DashboardHead = () => {
         })
       }}
       isOn={isAdminMode}/>
-    {/*<DataPickerTwoDate />*/}
+    {isDownloadScreen && <DatePickerTwoDate />}
   </div>)
 }
 
@@ -355,6 +390,7 @@ const TimeTrackBar = () => {
       container: "top-right",
       animationIn: ["animated", "fadeIn"],
       animationOut: ["animated", "fadeOut"],
+      showIcon: true,
       dismiss: {
         duration: 5000,
         onScreen: true
@@ -446,8 +482,7 @@ const AddBar = (props) => {
       animationIn: ["animated", "fadeIn"],
       animationOut: ["animated", "fadeOut"],
       dismiss: {
-        duration: 5000,
-        onScreen: true
+        duration: 5000
       }
     });
   }
