@@ -33,6 +33,12 @@ export default (state, action) => {
     // DELETE
     case Types.BULK_DELETE:
       return StateFunctions.bulkDelete(payload, state);
+    case Types.DELETE_EMPLOYEE:
+      return StateFunctions.deleteEmployee(payload, state);
+    case Types.DELETE_JOB_NUMBER:
+      return StateFunctions.deleteJobNumber(payload, state);
+    case Types.DELETE_LABOR_TYPE:
+      return StateFunctions.deleteLaborType(payload, state);
 
     // OTHER
     case Types.CLOCK_IN:

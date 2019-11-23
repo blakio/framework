@@ -65,6 +65,24 @@ export default {
       selectedItems: Util.breakRefAndCopy(initialState.selectedItems)
     };
   },
+  deleteEmployee: (payload, state) => {
+    if(state.selectedItems.employees.length){
+      Axios.delete(`employees/${state.selectedItems.employees[0].id}`, null, payload.fn)
+    }
+    return state;
+  },
+  deleteJobNumber: (payload, state) => {
+    if(state.selectedItems.jobNumbers.length){
+      Axios.delete(`jobs/${state.selectedItems.jobNumbers[0].id}`, null, payload.fn)
+    }
+    return state;
+  },
+  deleteLaborType: (payload, state) => {
+    if(state.selectedItems.laborTypes.length){
+      Axios.delete(`labortypes/${state.selectedItems.laborTypes[0].id}`, null, payload.fn)
+    }
+    return state
+  },
 
   // OTHER
   clockIn: (payload, state) => {

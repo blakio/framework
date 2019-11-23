@@ -350,15 +350,9 @@ const Paper = (props) => {
       }
     }
     dispatch({
-      type: Types[props.action],
+      type: Types[props.actions[0]],
       payload: group
     })
-  }
-
-  const fetch = () => {
-    Axios.fetchEmployees(dispatch);
-    Axios.fetchJobNumbers(dispatch);
-    Axios.fetchLaborTypes(dispatch);
   }
 
   return (<div className={`Paper flex`} style={{backgroundColor: "#fff"}}>
@@ -372,9 +366,9 @@ const Paper = (props) => {
         return <SquareLabel key={index} data={data} fieldKey={props.fieldKey} isActive={isActive} setIsActive={setIsActive}/>})}
     </div>
     {isAdminMode && <div className="PaperBottomBar flex">
-      <IconButton isActive={props.hasSelectedItems(state.selectedItems)} text={"ACTIVATE"} icon="fas fa-link" onClick={() => dispatch({ type: Types.BULK_ACTIVATE, payload: {fn: () => fetch()} })}/>
-      <IconButton isActive={props.hasSelectedItems(state.selectedItems)} text={"DEACTIVATE"} icon="fas fa-unlink" onClick={() => dispatch({ type: Types.BULK_DEACTIVATE, payload: {fn: () => fetch()} })}/>
-      <IconButton isActive={props.hasSelectedItems(state.selectedItems)} text={"DELETE"} icon="far fa-trash-alt" onClick={() => dispatch({ type: Types.BULK_DELETE, payload: {fn: () => fetch()} })}/>
+      <IconButton isActive={props.hasSelectedItems(state.selectedItems)} text={"ACTIVATE"} icon="fas fa-link" onClick={() => dispatch({ type: Types.BULK_ACTIVATE, payload: {fn: () => fetch(dispatch)} })}/>
+      <IconButton isActive={props.hasSelectedItems(state.selectedItems)} text={"DEACTIVATE"} icon="fas fa-unlink" onClick={() => dispatch({ type: Types.BULK_DEACTIVATE, payload: {fn: () => fetch(dispatch)} })}/>
+      <IconButton isActive={props.hasSelectedItems(state.selectedItems)} text={"DELETE"} icon="far fa-trash-alt" onClick={() => dispatch({ type: Types[props.actions[1]], payload: {fn: () => fetch(dispatch)} })}/>
     </div>}
   </div>)
 }
@@ -466,12 +460,6 @@ const AddBar = (props) => {
   const [laborType, setLaborType] = useState("");
   const [jobNumber, setJobNumber] = useState("");
 
-  const fetch = () => {
-    Axios.fetchEmployees(dispatch);
-    Axios.fetchJobNumbers(dispatch);
-    Axios.fetchLaborTypes(dispatch);
-  }
-
   const onClick = (name) => {
     (activeText === name) ? setActiveText("") : setActiveText(name);
   }
@@ -500,17 +488,17 @@ const AddBar = (props) => {
         jobTitle: jobTitle,
         name: fullName,
         travelTime: travelTime
-      }, fetch, res => warning(res));
+      }, () => { fetch(dispatch) }, res => warning(res));
     } else if (activeText === "Job Number"){
       Axios.addJobNumber({
         isActive: true,
         number: jobNumber
-      }, fetch, res => warning(res));
+      }, () => { fetch(dispatch) }, res => warning(res));
     } else if (activeText === "Labor Types"){
       Axios.addLaborType({
         isActive: true,
         name: laborType
-      }, fetch, res => warning(res));
+      }, () => { fetch(dispatch) }, res => warning(res));
     }
     setIsContractor(false);
     setIsTechnician(false);
@@ -583,8 +571,8 @@ const DashboardBody = () => {
   }, []);
 
   const data = [
-    {sectionName: "JOB NUMBERS", icon: "fas fa-briefcase", className: "paperOne", data: Util.reorderData(jobNumbers, isAdminMode) || [], fieldKey: "number", stateField: "jobNumbers", action: "SET_SELECTED_JOB_NUMBERS", hasSelectedItems: Util.hasSelectedJobNumbers},
-    {sectionName: "LABOR TYPES", icon: "fab fa-black-tie", className: "paperTwo", data: Util.reorderData(laborTypes, isAdminMode) || [], fieldKey: "name", stateField: "laborTypes", action: "SET_SELECTED_LABOR_TYPES", hasSelectedItems: Util.hasSelectedLaborTypes}
+    {sectionName: "JOB NUMBERS", icon: "fas fa-briefcase", className: "paperOne", data: Util.reorderData(jobNumbers, isAdminMode) || [], fieldKey: "number", stateField: "jobNumbers", actions: ["SET_SELECTED_JOB_NUMBERS", "DELETE_JOB_NUMBER"], hasSelectedItems: Util.hasSelectedJobNumbers},
+    {sectionName: "LABOR TYPES", icon: "fab fa-black-tie", className: "paperTwo", data: Util.reorderData(laborTypes, isAdminMode) || [], fieldKey: "name", stateField: "laborTypes", actions: ["SET_SELECTED_LABOR_TYPES", "DELETE_LABOR_TYPE"], hasSelectedItems: Util.hasSelectedLaborTypes}
   ];
 
   const show = (data) => {
@@ -636,9 +624,36 @@ const DashboardSidePopOut = () => {
     isSideBarOpen
   } = useContext(DashboardContext);
   return (<div className={`DashboardSidePopOut flex ${isSideBarOpen && "open"}`}>
-    <IconButton isActive={true} text={"ACTIVATE"} icon="fas fa-link" onClick={() => dispatch({ type: Types.BULK_ACTIVATE, payload: {fn: () => fetch()} })}/>
-    <IconButton isActive={true} text={"DEACTIVATE"} icon="fas fa-unlink" onClick={() => dispatch({ type: Types.BULK_DEACTIVATE, payload: {fn: () => fetch()} })}/>
-    <IconButton isActive={true} text={"DELETE"} icon="far fa-trash-alt" onClick={() => dispatch({ type: Types.BULK_DELETE, payload: {fn: () => fetch()} })}/>
+    <IconButton isActive={true} text={"ACTIVATE"} icon="fas fa-link" onClick={() => dispatch({ type: Types.BULK_ACTIVATE, payload: {
+        fn: () => {
+          fetch(dispatch);
+          dispatch({
+            type: Types.OPEN_SIDE_BAR,
+            payload: false
+          })
+        }
+      }
+    })}/>
+    <IconButton isActive={true} text={"DEACTIVATE"} icon="fas fa-unlink" onClick={() => dispatch({ type: Types.BULK_DEACTIVATE, payload: {
+        fn: () => {
+          fetch(dispatch);
+          dispatch({
+            type: Types.OPEN_SIDE_BAR,
+            payload: false
+          })
+        }
+      }
+    })}/>
+    <IconButton isActive={true} text={"DELETE"} icon="far fa-trash-alt" onClick={() => dispatch({ type: Types.DELETE_EMPLOYEE, payload: {
+        fn: () => {
+          fetch(dispatch);
+          dispatch({
+            type: Types.OPEN_SIDE_BAR,
+            payload: false
+          })
+        }
+      }
+    })}/>
   </div>)
 }
 
