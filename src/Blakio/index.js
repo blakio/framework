@@ -222,6 +222,7 @@ const DatePickerTwoDate = () => {
   const [endDate, setEndDate] = useState(new Date());
 
   return (<div className="DatePickerTwoDate flex">
+    <p className="dateLabel">START DATE</p>
     <DatePicker
       maxDate={new Date()}
       selected={startDate}
@@ -236,6 +237,7 @@ const DatePickerTwoDate = () => {
       startDate={startDate}
       endDate={endDate}
     />
+    <p className="dateLabel">END DATE</p>
     <DatePicker
       maxDate={new Date()}
       selected={endDate}

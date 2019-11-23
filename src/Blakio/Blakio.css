@@ -390,13 +390,13 @@ body {
   left: 0;
   top: 0;
   background-color: #fff;
-  height: 12em;
+  height: 14em;
   flex-direction: column;
   width: 14em;
   border: 1px solid #cecece;
 }
 
-.DatePickerTwoDate::after {
+/* .DatePickerTwoDate::after {
   content: "";
   width: 0;
   height: 0;
@@ -406,10 +406,15 @@ body {
   position: absolute;
   top: -10px;
   left: 15%;
-}
+} */
 
 .DatePickerTwoDate > * {
   font-size: 2em;
+}
+
+.dateLabel {
+  font-size: 0.8rem;
+  margin: 0;
 }
 
 .react-datepicker__input-container input {
