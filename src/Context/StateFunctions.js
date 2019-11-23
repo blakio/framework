@@ -206,7 +206,8 @@ export default {
         jobNumbers: [],
         employees: []
       },
-      isContractor: false
+      isContractor: false,
+      isSideBarOpen: false
     };
   },
   openMessage: (payload, state) => {

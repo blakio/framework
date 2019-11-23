@@ -117,7 +117,7 @@ const SideBarSection = (props) => {
               let payload = (!selectedItems.employees[0]) ? [data] : (selectedItems.employees[0] === data) ? [] : [data];
               dispatch({
                 type: Types.OPEN_SIDE_BAR,
-                payload: payload.length ? true : false
+                payload: (payload.length && isAdminMode) ? true : false
               })
               dispatch({
                 type: Types.SET_SELECTED_EMPLOYEES,
