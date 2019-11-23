@@ -162,7 +162,8 @@ export default {
     const {
       dispatch,
       startDate,
-      endDate
+      endDate,
+      noData
     } = payload;
     const response = await axios.post(`${baseURL}/history`, {
       startDate: moment(startDate).format("YYYY-MM-DD"),
@@ -178,13 +179,7 @@ export default {
         }
       })
     } else {
-      dispatch({
-        type: Types.OPEN_MESSAGE,
-        payload: {
-          type: "error",
-          message: "NO DATA FOR TIMEFRAME"
-        }
-      })
+      payload.noData();
     }
   },
   logIn: async (username, password, fn) => {

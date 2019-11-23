@@ -255,7 +255,22 @@ const DatePickerTwoDate = () => {
           payload: {
             startDate,
             endDate,
-            dispatch
+            dispatch,
+            noData: () => {
+              store.addNotification({
+                title: "Warning",
+                message: `No data available for date range`,
+                type: "warning",
+                insert: "top",
+                container: "top-right",
+                animationIn: ["animated", "fadeIn"],
+                animationOut: ["animated", "fadeOut"],
+                showIcon: true,
+                dismiss: {
+                  duration: 5000
+                }
+              });
+            }
           }
         })
       }}/>
