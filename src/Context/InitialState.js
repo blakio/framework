@@ -5,6 +5,7 @@ const initialState = {
   isDownloadScreen: false,
   isContractor: false,
   isTech: true,
+  isSideBarOpen: false,
   message: {
     confirmation: {
       status: false,

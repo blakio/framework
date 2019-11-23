@@ -69,6 +69,8 @@ export default (state, action) => {
       return StateFunctions.setCSVData(payload, state);
     case Types.LOG_IN:
       return StateFunctions.logIn(payload, state);
+    case Types.OPEN_SIDE_BAR:
+      return StateFunctions.openSideBar(payload, state);
 
     default:
     return state;

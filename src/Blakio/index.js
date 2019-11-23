@@ -116,6 +116,10 @@ const SideBarSection = (props) => {
             onClick={() => {
               let payload = (!selectedItems.employees[0]) ? [data] : (selectedItems.employees[0] === data) ? [] : [data];
               dispatch({
+                type: Types.OPEN_SIDE_BAR,
+                payload: payload.length ? true : false
+              })
+              dispatch({
                 type: Types.SET_SELECTED_EMPLOYEES,
                 payload
               })
@@ -622,6 +626,19 @@ const Dashboard = () => {
     <TopLeftFold styles={styles.TopLeftFold}/>
     <DashboardHead />
     <DashboardBody />
+    <DashboardSidePopOut />
+  </div>)
+}
+
+const DashboardSidePopOut = () => {
+  const {
+    dispatch,
+    isSideBarOpen
+  } = useContext(DashboardContext);
+  return (<div className={`DashboardSidePopOut flex ${isSideBarOpen && "open"}`}>
+    <IconButton isActive={true} text={"ACTIVATE"} icon="fas fa-link" onClick={() => dispatch({ type: Types.BULK_ACTIVATE, payload: {fn: () => fetch()} })}/>
+    <IconButton isActive={true} text={"DEACTIVATE"} icon="fas fa-unlink" onClick={() => dispatch({ type: Types.BULK_DEACTIVATE, payload: {fn: () => fetch()} })}/>
+    <IconButton isActive={true} text={"DELETE"} icon="far fa-trash-alt" onClick={() => dispatch({ type: Types.BULK_DELETE, payload: {fn: () => fetch()} })}/>
   </div>)
 }
 

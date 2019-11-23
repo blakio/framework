@@ -287,6 +287,7 @@ body {
   min-height: calc(100% - var(--navBarHeight));
   background-color: #F5F5F5;
   flex-wrap: wrap;
+  overflow: hidden;
 }
 
 #DashboardHead {
@@ -430,4 +431,21 @@ body {
   margin: 0.4em;
   border-radius: 2px;
   flex-direction: column;
+}
+
+.DashboardSidePopOut {
+  height: 100%;
+  width: 6em;
+  background-color: #fff;
+  position: absolute;
+  top: 0;
+  left: -6.2em;
+  flex-direction: column;
+  transition: all 0.5s;
+  border: 1px solid #cecece;
+  background-color: #F5F5F5;
+}
+
+.DashboardSidePopOut.open {
+  left: 0;
 }

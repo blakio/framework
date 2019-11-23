@@ -267,5 +267,6 @@ export default {
       token: JSON.stringify(payload.data),
       isAdminLoggedIn
     }
-  }
+  },
+  openSideBar: (payload, state) => ({ ...state, isSideBarOpen: payload })
 }
