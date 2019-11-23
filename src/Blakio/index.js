@@ -261,6 +261,7 @@ const DatePickerTwoDate = () => {
     <div className="buttonSection flex">
 
       <IconButton isActive={startDate && endDate} text={"get"} icon="fas fa-file-import" onClick={() => {
+        load(dispatch, true);
         dispatch({
           type: Types.GET_CSV_DATA,
           payload: {
@@ -281,7 +282,8 @@ const DatePickerTwoDate = () => {
                   duration: 5000
                 }
               });
-            }
+            },
+            success: () => load(dispatch, false)
           }
         })
       }}/>

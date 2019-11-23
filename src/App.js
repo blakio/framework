@@ -10,7 +10,7 @@ import initialState from "./Context/InitialState";
 
 const LoadingScreen = () => {
   return (<div className="LoadingScreen flex">
-    <Loader type="MutatingDots" color="#888" height={80} width={80} />
+    <Loader type="MutatingDots" color="#888" height={100} width={100} />
   </div>)
 }
 

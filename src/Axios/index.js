@@ -172,6 +172,7 @@ export default {
       startDate: moment(startDate).format("YYYY-MM-DD"),
       endDate: moment(endDate).format("YYYY-MM-DD")
     }, getHeaderObj());
+    payload.success();
     if(response.data.length){
       dispatch({
         type: Types.SET_CSV_DATA,
