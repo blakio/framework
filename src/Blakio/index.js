@@ -360,23 +360,23 @@ const Paper = (props) => {
 
   const setIsActive = (data) => {
     let group = Util.breakRefAndCopy(state.selectedItems[props.stateField]);
-    if(isAdminMode){
-      const alreadyClicked = group.some(d => d.id === data.id);
-      if(!alreadyClicked){
-        group.push(data)
-      } else {
-        let index;
-        group.forEach((d, i) => {if(d.id === data.id) index = i});
-        group.splice(index, 1);
-      }
+    // if(isAdminMode){
+    //   const alreadyClicked = group.some(d => d.id === data.id);
+    //   if(!alreadyClicked){
+    //     group.push(data)
+    //   } else {
+    //     let index;
+    //     group.forEach((d, i) => {if(d.id === data.id) index = i});
+    //     group.splice(index, 1);
+    //   }
+    // } else {
+    const alreadyClicked = group.some(d => d.id === data.id);
+    if(alreadyClicked){
+      group = [];
     } else {
-      const alreadyClicked = group.some(d => d.id === data.id);
-      if(alreadyClicked){
-        group = [];
-      } else {
-        group = [data];
-      }
+      group = [data];
     }
+    // }
     dispatch({
       type: Types[props.actions[0]],
       payload: group
