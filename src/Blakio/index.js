@@ -522,7 +522,7 @@ const AddBar = (props) => {
         isActive: true,
         number: jobNumber
       }, () => { fetch(dispatch) }, res => warning(res));
-    } else if (activeText === "Labor Types"){
+    } else if (activeText === "Labor Type"){
       Axios.addLaborType({
         isActive: true,
         name: laborType
@@ -546,7 +546,7 @@ const AddBar = (props) => {
       <div>
         <SquareLabelDirectData onClick={onClick} activeText={activeText} name="Employee"/>
         <SquareLabelDirectData onClick={onClick} activeText={activeText} name="Job Number"/>
-        <SquareLabelDirectData onClick={onClick} activeText={activeText} name="Labor Types"/>
+        <SquareLabelDirectData onClick={onClick} activeText={activeText} name="Labor Type"/>
       </div>
       <div className="flex" style={{
         width: "20em",
@@ -557,7 +557,7 @@ const AddBar = (props) => {
           {(activeText === "Employee") && <AddInput type="text" text="job title" value={jobTitle} onChange={setJobTitle}/>}
           {(activeText === "Employee") && <AddInput type="number" text="travel time" value={travelTime} onChange={setTravelTime}/>}
           {(activeText === "Job Number") && <AddInput type="text" text="job number" value={jobNumber} onChange={setJobNumber}/>}
-          {(activeText === "Labor Types") && <AddInput type="text" text="labor type" value={laborType} onChange={setLaborType}/>}
+          {(activeText === "Labor Type") && <AddInput type="text" text="labor type" value={laborType} onChange={setLaborType}/>}
           {(activeText === "Employee") && <div className="flex" style={{
             width: "19em",
             justifyContent: "space-around",
@@ -578,6 +578,145 @@ const AddBar = (props) => {
             color: "var(--darkGreen)",
             fontSize: "3em"
           }} onClick={add}></i>
+        </div>}
+      </div>
+    </div>
+  </div>)
+}
+
+const EditBar = (props) => {
+
+  const {
+    dispatch,
+    selectedItems,
+    employees
+  } = useContext(DashboardContext);
+
+  const [activeText, setActiveText] = useState("");
+  const [isContractor, setIsContractor] = useState(false);
+  const [isTechnician, setIsTechnician] = useState(false);
+  const [jobTitle, setJobTitle] = useState("");
+  const [fullName, setFullName] = useState("");
+  const [travelTime, setTravelTime] = useState(0);
+  const [laborType, setLaborType] = useState("");
+  const [jobNumber, setJobNumber] = useState("");
+  const [selectedEmployee, setSelectedEmployee] = useState(null);
+  const [employeeChoices, setEmployeeChoices] = useState([]);
+
+  const onClick = (name) => {
+    if(activeText === name){
+      setActiveText("")
+      setSelectedEmployee(null);
+    } else {
+      setActiveText(name);
+      if(name === "Employee"){
+        setEmployeeChoices(employees)
+      }
+    }
+  }
+
+  const onClickEmployee = (data) => {
+    setSelectedEmployee(data)
+    setFullName(data.name);
+    setIsContractor(data.isContractor);
+    setIsTechnician(data.isTech);
+    setJobTitle(data.jobTitle);
+    setTravelTime(data.travelTime);
+  }
+
+  const warning = (message) => {
+    store.addNotification({
+      title: "Warning",
+      message,
+      type: "warning",
+      insert: "top",
+      container: "top-right",
+      animationIn: ["animated", "fadeIn"],
+      animationOut: ["animated", "fadeOut"],
+      dismiss: {
+        duration: 5000
+      }
+    });
+  }
+
+  const edit = (value, data) => {
+    if(activeText === "Employee"){
+      dispatch({
+        type: Types.UPDATE_EMPLOYEE,
+        payload: {
+          id: selectedEmployee.id,
+          isContractor: isContractor,
+          isTech: isTechnician,
+          jobTitle: jobTitle,
+          name: fullName,
+          travelTime: travelTime,
+          fn: () => { fetch(dispatch) },
+          warning: res => warning(res)
+        }
+      })
+      setActiveText("");
+      setSelectedEmployee(null);
+    } else if (activeText === "Job Number"){
+      Axios.addJobNumber({
+        isActive: true,
+        number: jobNumber
+      }, () => { fetch(dispatch) }, res => warning(res));
+    } else if (activeText === "Labor Type"){
+      Axios.addLaborType({
+        isActive: true,
+        name: laborType
+      }, () => { fetch(dispatch) }, res => warning(res));
+    }
+    setIsContractor(false);
+    setIsTechnician(false);
+    setJobTitle("");
+    setFullName("");
+    setTravelTime(0);
+    setLaborType("");
+    setJobNumber("");
+  }
+
+  return (<div className="AddBar">
+    <DashPaperRoundedHead
+      icon="far fa-edit"
+      sectionName="edit items here"
+    />
+    <div className="flex" style={{flexDirection: "column"}}>
+      <div>
+        <SquareLabelDirectData onClick={onClick} activeText={activeText} name="Employee"/>
+        {/*<SquareLabelDirectData onClick={onClick} activeText={activeText} name="Job Number"/>*/}
+        {/*<SquareLabelDirectData onClick={onClick} activeText={activeText} name="Labor Type"/>*/}
+      </div>
+      <div className="flex">
+        {!selectedEmployee && activeText === "Employee" && <div>
+          {employeeChoices.length ? employeeChoices.map(data => <SquareLabelDirectData onClick={() => onClickEmployee(data)} name={data.name}/>) : null}
+        </div>}
+        <div className="flex" style={{flexDirection: "column"}}>
+          {(activeText === "Employee" && selectedEmployee) && <AddInput type="text" text="full name" value={fullName} onChange={setFullName}/>}
+          {(activeText === "Employee" && selectedEmployee) && <AddInput type="text" text="job title" value={jobTitle} onChange={setJobTitle}/>}
+          {(activeText === "Employee" && selectedEmployee) && <AddInput type="number" text="travel time" value={travelTime} onChange={setTravelTime}/>}
+          {(activeText === "Job Number") && <AddInput type="text" text="job number" value={jobNumber} onChange={setJobNumber}/>}
+          {(activeText === "Labor Type") && <AddInput type="text" text="labor type" value={laborType} onChange={setLaborType}/>}
+          {(activeText === "Employee" && selectedEmployee) && <div className="flex" style={{
+            width: "19em",
+            justifyContent: "space-around",
+            marginTop: "1em"
+          }}>
+            <Toggle
+              text="Contractor"
+              onClick={() => setIsContractor(!isContractor)}
+              isOn={isContractor}/>
+            <Toggle
+              text="Technician"
+              onClick={() => setIsTechnician(!isTechnician)}
+              isOn={isTechnician}/>
+          </div>}
+        </div>
+        {(activeText !== "" && selectedEmployee) && <div>
+          <i className="far fa-edit" style={{
+            color: "var(--darkGreen)",
+            fontSize: "3em"
+          }} onClick={edit}></i>
         </div>}
       </div>
     </div>
@@ -633,6 +772,7 @@ const DashboardBody = () => {
       {data.map((data, index) => show(data) && <Paper key={index} {...data} />)}
       <TimeTrackBar />
       {isAdminMode && <AddBar />}
+      {isAdminMode && <EditBar />}
     </div>
   </div>)
 }

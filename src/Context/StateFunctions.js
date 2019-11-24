@@ -181,18 +181,29 @@ export default {
   },
   updateEmployee: (payload, state) => {
     const {
+      id,
       name,
       jobTitle,
-      id,
       isContractor,
-      fn
+      isTech,
+      travelTime,
+      fn,
+      warning
     } = payload;
     Axios.put(`employees/${id}`, {
       name,
       jobTitle,
-      isContractor
-    }, data => fn(data))
-    return state;
+      isContractor,
+      isTech,
+      travelTime
+    }, data => fn())
+    return {
+      ...state,
+      selectedItems: {
+        ...state.selectedItems,
+        employees: []
+      }
+    };
   },
   toggleAdminMode: (payload, state) => {
     const currentState = Util.breakRefAndCopy(state);
