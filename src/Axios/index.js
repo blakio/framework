@@ -104,6 +104,10 @@ export default {
       } else {
         fn();
       }
+    }).catch(e => {
+      if(typeof e.response.data === "string"){
+        errFn(e.response.data)
+      }
     });
   },
   addJobNumber: (data, fn, errFn) => {
