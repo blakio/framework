@@ -74,6 +74,7 @@ body {
   background-color: #fff;
   border-radius: 4px;
   padding: 0.6em;
+  border-bottom: 2px solid #ddd;
 
   display: grid;
   grid-template-columns: 1fr;
@@ -91,6 +92,7 @@ body {
 
   display: grid;
   grid-template-columns: 1fr;
+  border-bottom: 2px solid #ddd;
 }
 
 .IconButton {
@@ -345,6 +347,7 @@ body {
 
   display: grid;
   grid-template-columns: 1fr;
+  border-bottom: 2px solid #ddd;
 }
 
 .AddBar .SquareLabel {
