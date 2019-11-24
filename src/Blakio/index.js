@@ -131,7 +131,7 @@ const SideBarSection = (props) => {
                 type: Types.SET_SELECTED_EMPLOYEES,
                 payload
               })
-              if(payload[0]){
+              if(payload[0] && !isAdminMode){
                 const jobNumberObj = Util.getObjFromArray(payload[0].jobNumber, "number", jobNumbers);
                 const laborTypeObj = Util.getObjFromArray(payload[0].laborType, "name", laborTypes);
                 if(jobNumberObj){
@@ -770,7 +770,7 @@ const DashboardBody = () => {
   return (<div id="dashboardBodyContainer">
     <div id="DashboardBody">
       {data.map((data, index) => show(data) && <Paper key={index} {...data} />)}
-      <TimeTrackBar />
+      {!isAdminMode && <TimeTrackBar />}
       {isAdminMode && <AddBar />}
       {isAdminMode && <EditBar />}
     </div>
