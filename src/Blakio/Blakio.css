@@ -408,13 +408,10 @@ body {
   left: 15%;
 } */
 
-.DatePickerTwoDate > * {
-  font-size: 2em;
-}
-
 .dateLabel {
   font-size: 0.8rem;
   margin: 0;
+  margin: 0.8em 0 0.4em 0;
 }
 
 .react-datepicker__input-container input {
