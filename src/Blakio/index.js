@@ -78,9 +78,9 @@ const BottomBarText = (props) => {
 const SideBarHead = () => {
   return (<div id="SideBarHead" className="flex">
     <img src={logo} />
-    <HamburgerMenu styles={{
+    {/*<HamburgerMenu styles={{
       size: 30
-    }}/>
+    }}/>*/}
   </div>)
 }
 
