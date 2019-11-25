@@ -62,10 +62,16 @@
             console.log(err);
           });
         });
+        window.addEventListener('beforeinstallprompt', (e) => {
+          // Stash the event so it can be triggered later.
+          deferredPrompt = e;
+          // Update UI notify the user they can add to home screen
+          showInstallPromotion();
+        });
       } else {
         console.log('Service Worker is not supported by browser.');
       }
     </script>
-    
+
   </body>
 </html>
