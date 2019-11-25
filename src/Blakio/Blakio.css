@@ -12,6 +12,7 @@
 
 body {
   font-family: 'Muli', sans-serif;
+  background-color: var(--darkBlue);
 }
 
 /* global classes */
