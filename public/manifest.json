@@ -1,6 +1,6 @@
 {
-  "short_name": "Dashobard",
-  "name": "Create React App Sample",
+  "short_name": "Dashboard",
+  "name": "Loading Dashboard...",
   "icons": [
     {
       "src": "/images/icons-512.png",
@@ -12,6 +12,6 @@
   "orientation": "landscape",
   "start_url": "/",
   "display": "standalone",
-  "theme_color": "#000000",
-  "background_color": "#ffffff"
+  "theme_color": "#202020",
+  "background_color": "#202020"
 }
