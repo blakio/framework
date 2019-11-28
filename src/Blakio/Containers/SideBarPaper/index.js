@@ -14,9 +14,13 @@ const SideBarPaper = (props) => {
   return (<div className="SideBarPaper">
     <PaperHead text={head} icon={icon}/>
     {data.map((d, index) => {
+      if(d.component) return (<div key={index} className={`SideBarListContainer ${d.isOpen && "open"}`}>
+        <SideBarOption data={d}/>
+        {d.isOpen && d.component}
+      </div>);
       return (<div key={index} className={`SideBarListContainer ${d.isOpen && "open"}`}>
         <SideBarOption data={d}/>
-        {d.data.map((dt, i) => <SideBarList key={i} index={i} data={dt}/>)}
+        {d.isOpen && d.data.map((dt, i) => <SideBarList key={i} index={i} data={dt}/>)}
       </div>)
     })}
   </div>)

@@ -3,7 +3,7 @@
   --barHeight: 3em;
   --selectHoverColor: #0e325a;
   --darkBlue: #00254e;
-  --SideBarWidth: 15.8em;
+  --SideBarWidth: 17em;
   --navBarHeight: 4.7em;
   --paperPadding: 0.6em;
   --darkGreen: #1a89ac;
@@ -390,27 +390,11 @@ body {
 }
 
 .DatePickerTwoDate {
-  position: absolute;
-  left: 0;
-  top: 0;
-  background-color: #fff;
+  background-color: #0e325a;
   height: 14em;
   flex-direction: column;
-  width: 14em;
-  border: 1px solid #cecece;
+  color: #fff;
 }
-
-/* .DatePickerTwoDate::after {
-  content: "";
-  width: 0;
-  height: 0;
-  border-left: 10px solid transparent;
-  border-right: 10px solid transparent;
-  border-bottom: 10px solid #fff;
-  position: absolute;
-  top: -10px;
-  left: 15%;
-} */
 
 .dateLabel {
   font-size: 0.8rem;

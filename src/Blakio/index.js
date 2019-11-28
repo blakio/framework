@@ -97,6 +97,20 @@ const SideBar = () => {
           })
         },
         data: []
+      },
+      {
+        head: "historical data",
+        iconLeft: "far fa-file-alt",
+        iconRight: "fas fa-circle",
+        isOpen: (openList === "historical data"),
+        onClick: () => {
+          dispatch({
+            type: Types.OPENED_LIST,
+            payload: "historical data"
+          })
+        },
+        data: [],
+        component: <DatePickerTwoDate />
       }
     ]
   }
@@ -166,19 +180,10 @@ const Toggle = (props) => {
 
 const TopBar = () => {
   const {
-    dispatch,
-    isDownloadScreen
+    dispatch
   } = useContext(DashboardContext);
 
   return (<div id="TopBar" className="container flex">
-    <div className="topBarOptions" onClick={() => {
-      dispatch({
-        type: Types.TOGGLE_DOWNLOAD_SCREEN,
-        payload: !isDownloadScreen
-      })
-    }}>
-      <i className="fas fa-cloud-download-alt"></i>
-    </div>
     <DateTimeWeather />
   </div>)
 };
@@ -276,8 +281,7 @@ const DatePickerTwoDate = () => {
 const DashboardHead = () => {
   const {
     isAdminMode,
-    dispatch,
-    isDownloadScreen
+    dispatch
   } = useContext(DashboardContext);
   return (<div id="DashboardHead" className="flex">
     <div className="flex">
@@ -292,7 +296,6 @@ const DashboardHead = () => {
         })
       }}
       isOn={isAdminMode}/>
-    {isDownloadScreen && <DatePickerTwoDate />}
   </div>)
 }
 
