@@ -6,6 +6,7 @@ const initialState = {
   isContractor: false,
   isTech: true,
   isSideBarOpen: false,
+  openList: "",
   message: {
     confirmation: {
       status: false,

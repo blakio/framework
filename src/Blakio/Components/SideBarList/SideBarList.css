@@ -1,0 +1,50 @@
+.SideBarList {
+  background-color: rgba(14, 50, 90, 1);
+  padding-left: 2em;
+  justify-content: flex-start;
+  min-height: 3.1em;
+}
+
+.SideBarList.odd {
+  background-color: rgba(14, 50, 90, 0.7);
+}
+
+.SideBarList.disabled {
+  background-color: #fc8e8e;
+}
+
+/* .SideBarList:hover {
+  background-color: rgba(14, 50, 90, 0.7);
+} */
+
+.SideBarList.selected {
+  background-color: #0ba6a4;
+}
+
+.SideBarList div {
+  font-size: 0.8rem;
+  color: #fff;
+  text-transform: uppercase;
+}
+
+.SideBarContainer {
+  height: 100%;
+  width: 100%;
+}
+
+.SideBarTextContainer {
+  width: 100%;
+  height: 100%;
+  align-items: flex-start;
+  flex-direction: column;
+}
+
+.SideBarList p {
+  margin: 0;
+}
+
+.SideBarList i {
+  font-size: 1.2rem;
+  margin-right: 0.8em;
+  color: rgba(255, 255, 255, 0.8);
+}

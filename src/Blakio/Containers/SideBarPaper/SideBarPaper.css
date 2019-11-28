@@ -1,0 +1,20 @@
+:root {
+  --height: 3.2em;
+}
+
+.SideBarPaper {
+  border-radius: 0.2em;
+  margin: 0.6em;
+  width: 90%;
+  overflow: hidden;
+  margin-top: 0;
+}
+
+.SideBarListContainer {
+  max-height: var(--height);
+  transition: all 0.5s;
+}
+
+.SideBarListContainer.open {
+  max-height: 300em;
+}

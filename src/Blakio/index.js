@@ -20,6 +20,8 @@ import Axios from "../Axios";
 import Types from "../Context/Types";
 import DashboardContext from "../Context/State";
 
+import BlakioUI from "./Framework";
+
 const load = (dispatch, bool) => {
   dispatch({
     type: Types.IS_LOADING,
@@ -39,22 +41,6 @@ const SAMPLE = () => {
   </div>)
 }
 
-const RoundedHeader = (props) => {
-  return (<div id="RoundedHeader" className="flex" onClick={props.onClick}>
-    <p className="roundedHeaderText" style={props.styles.text}>{props.text}</p>
-    <i className="fas fa-user" style={props.styles.icon}></i>
-  </div>)
-}
-
-const SelectBar = (props) => {
-  return (<div className="SelectBar flex">
-    <div style={{marginLeft: 20, marginRight: 20}}>
-      <i className={props.icon} style={props.selectBarIcon}></i>
-    </div>
-    <p>{props.text}</p>
-  </div>)
-}
-
 const HamburgerMenu = (props) => {
   return (<div
     id="HamburgerMenu"
@@ -69,12 +55,6 @@ const HamburgerMenu = (props) => {
   </div>)
 }
 
-const BottomBarText = (props) => {
-  return (<div className="BottomBarText">
-    {props.subText}
-  </div>)
-}
-
 const SideBarHead = () => {
   return (<div id="SideBarHead" className="flex">
     <img src={logo} />
@@ -84,83 +64,16 @@ const SideBarHead = () => {
   </div>)
 }
 
-const SideBarSection = (props) => {
-  const {
-    dispatch,
-    selectedItems,
-    isAdminMode,
-    jobNumbers,
-    laborTypes
-  } = useContext(DashboardContext);
-
-  const [open, setOpen] = useState(false);
-  const toggle = () => setOpen(!open);
-  const getIcon = (data) => {
-    if(data.isContractor) return "fas fa-id-card-alt";
-    if(data.isTech) return "fas fa-wrench";
-    return "fas fa-user-tie"
-  }
-  const employees = Util.getEmployees(props.data, isAdminMode);
-
-  return (<div className="SideBarSection">
-    {props.headers.map((data, index) => {
-      return (<div key={index} className={`innerBar ${open && "open"}`}>
-        <RoundedHeader styles={{
-          text: {
-            color: "#fff",
-            fontSize: "12px",
-            backgroundColor: "rgba(0, 37, 78, 0.5)"
-          },
-          icon: {
-            color: "rgb(0, 37, 78)",
-            marginRight: "1em"
-          }
-        }}
-        text={data} onClick={toggle}/>
-        {employees.map((data, i) => {
-          return (<div
-            key={i}
-            className={`SelectBarParent ${(selectedItems.employees[0] === data) && "selected"} ${!data.isActive && "notActive"}`}
-            onClick={() => {
-              let payload = (!selectedItems.employees[0]) ? [data] : (selectedItems.employees[0] === data) ? [] : [data];
-              dispatch({
-                type: Types.OPEN_SIDE_BAR,
-                payload: (payload.length && isAdminMode) ? true : false
-              })
-              dispatch({
-                type: Types.SET_SELECTED_EMPLOYEES,
-                payload
-              })
-              if(payload[0] && !isAdminMode){
-                const jobNumberObj = Util.getObjFromArray(payload[0].jobNumber, "number", jobNumbers);
-                const laborTypeObj = Util.getObjFromArray(payload[0].laborType, "name", laborTypes);
-                if(jobNumberObj){
-                  dispatch({
-                    type: Types.SET_SELECTED_JOB_NUMBERS,
-                    payload: [jobNumberObj]
-                  })
-                }
-                if(laborTypeObj){
-                  dispatch({
-                    type: Types.SET_SELECTED_LABOR_TYPES,
-                    payload: [laborTypeObj]
-                  })
-                }
-              }
-            }}>
-            <SelectBar icon={getIcon(data)} text={data.name} selectBarIcon={styles.selectBarIcon}/>
-            <BottomBarText subText={data.jobTitle}/>
-          </div>)
-        })}
-      </div>)
-    })}
-  </div>)
-}
-
 const SideBar = () => {
   const {
     dispatch,
-    employees
+    employees,
+    isAdminMode,
+    isSideBarOpen,
+    jobNumbers,
+    laborTypes,
+    openList,
+    selectedItems
   } = useContext(DashboardContext);
 
   useEffect(() => {
@@ -168,17 +81,78 @@ const SideBar = () => {
     Axios.fetchEmployees(dispatch, () => load(dispatch, false));
   }, []);
 
-  const sections = [
-    {headers: ["EMPLOYEES"], data: employees},
-    // {headers: ["EMPLOYEES"], data: []} add sections like this
-  ]
+  const sideBarData = {
+    head: "timesheet",
+    icon: "fas fa-cog",
+    data: [
+      {
+        head: "employees",
+        iconLeft: "far fa-user-circle",
+        iconRight: "fas fa-circle",
+        isOpen: (openList === "employees"),
+        onClick: () => {
+          dispatch({
+            type: Types.OPENED_LIST,
+            payload: "employees"
+          })
+        },
+        data: []
+      }
+    ]
+  }
+
+  const getIcon = (data) => {
+    if(data.isContractor) return "fas fa-id-card-alt";
+    if(data.isTech) return "fas fa-wrench";
+    return "fas fa-user-tie"
+  }
+
+  const getPushObj = (data) => {
+    return {
+      icon: getIcon(data),
+      text: data.name,
+      subText: data.jobTitle,
+      isActive: (selectedItems.employees[0] && (data.name === selectedItems.employees[0].name)),
+      onClick: () => {
+        const employees = (!selectedItems.employees[0] || (selectedItems.employees[0] && selectedItems.employees[0].name !== data.name)) ? [data] : [];
+        dispatch({
+          type: Types.SET_SELECTED_EMPLOYEES,
+          payload: employees
+        });
+        dispatch({
+          type: Types.SET_SELECTED_JOB_NUMBERS,
+          payload: data.jobNumber ? [Util.getObjFromArray(data.jobNumber, "number", jobNumbers)] : []
+        });
+        dispatch({
+          type: Types.SET_SELECTED_LABOR_TYPES,
+          payload: data.laborType ? [Util.getObjFromArray(data.laborType, "name", laborTypes)] : []
+        });
+        if(isAdminMode){
+          dispatch({
+            type: Types.OPEN_SIDE_BAR,
+            payload: employees.length
+          });
+        }
+      }
+    }
+  }
+
+  if(employees.length){
+    const list = Util.getEmployees(employees, isAdminMode);
+    list.forEach(data => {
+      if(!isAdminMode){
+        if(data.isActive){
+          sideBarData.data[0].data.push(getPushObj(data))
+        }
+      } else {
+        sideBarData.data[0].data.push({ ...getPushObj(data), disabled: !data.isActive })
+      }
+    })
+  }
 
   return (<div id="SideBar" className="container flex">
     <SideBarHead />
-    {sections.map((data, index) => <SideBarSection
-      key={index}
-      headers={data.headers}
-      data={data.data} />)}
+    <BlakioUI.Containers.SideBarPaper data={sideBarData}/>
   </div>)
 };
 
@@ -338,7 +312,10 @@ const IconButton = (props) => {
 const SquareLabel = (props) => {
   return (<div
     className={`SquareLabel ${props.isActive && "active"} ${!props.data.isActive && "deactivated"}`}
-    onClick={() => props.setIsActive(props.data)}>
+    onClick={() => {
+      props.setIsActive(props.data);
+      if(props.onClick) props.onClick();
+    }}>
     {props.data[props.fieldKey]}
   </div>)
 }
@@ -360,23 +337,11 @@ const Paper = (props) => {
 
   const setIsActive = (data) => {
     let group = Util.breakRefAndCopy(state.selectedItems[props.stateField]);
-    // if(isAdminMode){
-    //   const alreadyClicked = group.some(d => d.id === data.id);
-    //   if(!alreadyClicked){
-    //     group.push(data)
-    //   } else {
-    //     let index;
-    //     group.forEach((d, i) => {if(d.id === data.id) index = i});
-    //     group.splice(index, 1);
-    //   }
-    // } else {
     const alreadyClicked = group.some(d => d.id === data.id);
-    if(alreadyClicked){
-      group = [];
-    } else {
-      group = [data];
-    }
-    // }
+
+    if(alreadyClicked){ group = [] }
+    else { group = [data] }
+
     dispatch({
       type: Types[props.actions[0]],
       payload: group
@@ -390,8 +355,17 @@ const Paper = (props) => {
     />
     <div className="flex" style={{flexWrap: "wrap"}}>
       {props.data.map((data, index) => {
-        const isActive = state.selectedItems[props.stateField].some(d => d.id === props.data[index].id);
-        return <SquareLabel key={index} data={data} fieldKey={props.fieldKey} isActive={isActive} setIsActive={setIsActive}/>})}
+        const isActive = state.selectedItems[props.stateField].some(d => (d && d.id === props.data[index].id));
+        return (<SquareLabel
+          key={index}
+          data={data}
+          fieldKey={props.fieldKey}
+          isActive={isActive}
+          setIsActive={setIsActive}
+          onClick={() => {
+            if(props.onClick) {props.onClick(data.number)}
+          }}/>)
+        })}
     </div>
     {isAdminMode && <div className="PaperBottomBar flex">
       <IconButton isActive={props.hasSelectedItems(state.selectedItems)} text={"ACTIVATE"} icon="fas fa-link" onClick={() => dispatch({ type: Types.BULK_ACTIVATE, payload: {fn: () => fetch(dispatch)} })}/>
@@ -739,8 +713,28 @@ const DashboardBody = () => {
   }, []);
 
   const data = [
-    {sectionName: "JOB NUMBERS", icon: "fas fa-briefcase", className: "paperOne", data: Util.reorderData(jobNumbers, isAdminMode) || [], fieldKey: "number", stateField: "jobNumbers", actions: ["SET_SELECTED_JOB_NUMBERS", "DELETE_JOB_NUMBER"], hasSelectedItems: Util.hasSelectedJobNumbers},
-    {sectionName: "LABOR TYPES", icon: "fab fa-black-tie", className: "paperTwo", data: Util.reorderData(laborTypes, isAdminMode) || [], fieldKey: "name", stateField: "laborTypes", actions: ["SET_SELECTED_LABOR_TYPES", "DELETE_LABOR_TYPE"], hasSelectedItems: Util.hasSelectedLaborTypes}
+    {
+      sectionName: "JOB NUMBERS",
+      icon: "fas fa-briefcase",
+      className: "paperOne",
+      data: Util.reorderData(jobNumbers, isAdminMode) || [],
+      fieldKey: "number",
+      stateField: "jobNumbers",
+      actions: ["SET_SELECTED_JOB_NUMBERS", "DELETE_JOB_NUMBER"],
+      hasSelectedItems: Util.hasSelectedJobNumbers,
+      onClick: (number) => {
+        Axios.getJobHours(number, fetch(dispatch))
+      }},
+    {
+      sectionName: "LABOR TYPES",
+      icon: "fab fa-black-tie",
+      className: "paperTwo",
+      data: Util.reorderData(laborTypes, isAdminMode) || [],
+      fieldKey: "name",
+      stateField: "laborTypes",
+      actions: ["SET_SELECTED_LABOR_TYPES", "DELETE_LABOR_TYPE"],
+      hasSelectedItems: Util.hasSelectedLaborTypes
+    }
   ];
 
   const show = (data) => {

@@ -79,6 +79,8 @@ export default (state, action) => {
       return StateFunctions.openSideBar(payload, state);
     case Types.IS_LOADING:
       return StateFunctions.isLoading(payload, state);
+    case Types.OPENED_LIST:
+      return StateFunctions.openedList(payload, state);
 
     default:
     return state;

@@ -299,5 +299,11 @@ export default {
     }
   },
   openSideBar: (payload, state) => ({ ...state, isSideBarOpen: payload }),
-  isLoading: (payload, state) => ({ ...state, isLoading: payload })
+  isLoading: (payload, state) => ({ ...state, isLoading: payload }),
+  openedList: (payload, state) => {
+    return {
+      ...state,
+      openList: (state.openList !== payload) ? payload : ""
+    }
+  }
 }
