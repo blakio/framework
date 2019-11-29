@@ -863,7 +863,7 @@ const DateTimeWeather = () => {
 
   return (<div id="dateTimeWeather" className="flex">
     <p>
-      <i className="fas fa-calendar"></i>
+      <i className="far fa-calendar-alt"></i>
       {time}
       {" | "}
       <i className="fas fa-temperature-low"></i>
