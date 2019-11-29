@@ -285,8 +285,9 @@ const DashboardHead = () => {
   } = useContext(DashboardContext);
   return (<div id="DashboardHead" className="flex">
     <div className="flex">
-      <i className="fas fa-columns"></i>
-      <p style={{margin: 0, marginLeft: 10}}>DASHBOARD</p>
+      <p style={{
+        margin: 0, marginLeft: 10, fontSize: "1rem", fontWeight: 100
+      }}>DASHBOARD</p>
     </div>
     <Toggle
       text="Edit"
