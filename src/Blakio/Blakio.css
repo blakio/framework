@@ -48,14 +48,15 @@ body {
 }
 
 .Paper .SquareLabel {
-  background-color: var(--lightGreen);
-  color: #fff;
+  background-color: #f8f8f8;
+  color: #808080;
+  font-weight: 500;
   padding: 0.4em 2em;
   border-radius: 3px;
   font-size: 0.9em;
   margin: 0.4em;
   display: inline-block;
-  border: 1px solid transparent;
+  border: 1px solid #dcdcdc;
   transition: all 0.5s;
 }
 
@@ -75,8 +76,6 @@ body {
   background-color: #fff;
   border-radius: 4px;
   padding: 0.6em;
-  border-bottom: 2px solid #ddd;
-
   display: grid;
   grid-template-columns: 1fr;
   grid-gap: 0.5rem;
@@ -90,10 +89,8 @@ body {
 #TimeTrackBar {
   background-color: #fff;
   padding: 0.6em;
-
   display: grid;
   grid-template-columns: 1fr;
-  border-bottom: 2px solid #ddd;
 }
 
 .IconButton {
@@ -345,22 +342,21 @@ body {
   background-color: #fff;
   border-radius: 4px;
   padding: 0.6em;
-
   display: grid;
   grid-template-columns: 1fr;
-  border-bottom: 2px solid #ddd;
 }
 
 .AddBar .SquareLabel {
-  background-color: var(--lightGreen);
-  color: #fff;
   padding: 0.4em 2em;
   border-radius: 3px;
   font-size: 0.9em;
   margin: 0.4em;
   display: inline-block;
-  border: 1px solid transparent;
   transition: all 0.5s;
+
+  background-color: #f8f8f8;
+  color: #808080;
+  border: 1px solid #dcdcdc;
 }
 
 .AddInput p {

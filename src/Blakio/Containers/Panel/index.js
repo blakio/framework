@@ -1,8 +1,13 @@
 import React from "react";
-import "Panel.css";
+import "./Panel.css";
 
-const Panel = () => {
-
+const Panel = (props) => {
+  return (<div className="Panel">
+    <div className="PanelHeader flex">
+      <p className="heading">{props.heading}</p>
+    </div>
+    {props.component}
+  </div>)
 }
 
-export const Panel;
+export default Panel;

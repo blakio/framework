@@ -352,10 +352,6 @@ const Paper = (props) => {
   }
 
   return (<div className={`Paper flex`} style={{backgroundColor: "#fff"}}>
-    <DashPaperRoundedHead
-      sectionName={props.sectionName}
-      icon={props.icon}
-    />
     <div className="flex" style={{flexWrap: "wrap"}}>
       {props.data.map((data, index) => {
         const isActive = state.selectedItems[props.stateField].some(d => (d && d.id === props.data[index].id));
@@ -404,10 +400,6 @@ const TimeTrackBar = () => {
   const employee = selectedItems.employees[0] && selectedItems.employees[0].name;
 
   return (<div id="TimeTrackBar">
-    <DashPaperRoundedHead
-      icon="fas fa-clock"
-      sectionName="time sheet"
-    />
     <div className="flex" style={{justifyContent: "space-around"}}>
       <IconButton isActive={Util.getActiveTimeButtomStatus("CLOCK IN", selectedItems)} text={"CLOCK IN"} icon="fas fa-clock" onClick={() => dispatch({
         type: Types.CLOCK_IN,
@@ -515,10 +507,6 @@ const AddBar = (props) => {
   }
 
   return (<div className="AddBar">
-    <DashPaperRoundedHead
-      icon="far fa-plus-square"
-      sectionName="add items here"
-    />
     <div className="flex" style={{flexDirection: "column"}}>
       <div>
         <SquareLabelDirectData onClick={onClick} activeText={activeText} name="Employee"/>
@@ -654,10 +642,6 @@ const EditBar = (props) => {
   }
 
   return (<div className="AddBar">
-    <DashPaperRoundedHead
-      icon="far fa-edit"
-      sectionName="edit items here"
-    />
     <div className="flex" style={{flexDirection: "column"}}>
       <div>
         <SquareLabelDirectData onClick={onClick} activeText={activeText} name="Employee"/>
@@ -726,7 +710,7 @@ const DashboardBody = () => {
       actions: ["SET_SELECTED_JOB_NUMBERS", "DELETE_JOB_NUMBER"],
       hasSelectedItems: Util.hasSelectedJobNumbers,
       onClick: (number) => {
-        Axios.getJobHours(number, fetch(dispatch))
+        // Axios.getJobHours(number, fetch(dispatch))
       }},
     {
       sectionName: "LABOR TYPES",
@@ -766,10 +750,10 @@ const DashboardBody = () => {
 
   return (<div id="dashboardBodyContainer">
     <div id="DashboardBody">
-      {data.map((data, index) => show(data) && <Paper key={index} {...data} />)}
-      {!isAdminMode && <TimeTrackBar />}
-      {isAdminMode && <AddBar />}
-      {isAdminMode && <EditBar />}
+      {data.map((data, index) => show(data) && <BlakioUI.Containers.Panel heading={data.sectionName} component={<Paper key={index} {...data} />} />)}
+      {!isAdminMode && <BlakioUI.Containers.Panel heading="time sheet" component={<TimeTrackBar />}/>}
+      {isAdminMode && <BlakioUI.Containers.Panel heading="add items here" component={<AddBar />}/>}
+      {isAdminMode && <BlakioUI.Containers.Panel heading="edit items here" component={<EditBar />}/>}
     </div>
   </div>)
 }

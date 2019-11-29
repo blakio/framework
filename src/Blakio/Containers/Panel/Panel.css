@@ -1,0 +1,21 @@
+.Panel {
+  min-height: 2rem;
+  background-color: #fff;
+  border-radius: 6px;
+  overflow: hidden;
+  border-bottom: 2px solid #ddd;
+}
+
+.PanelHeader {
+  background-color: #3E739D;
+  padding: 0.2rem;
+  color: #fff;
+}
+
+.PanelHeader .heading {
+  font-size: 1rem;
+  margin: 0.6rem;
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+}

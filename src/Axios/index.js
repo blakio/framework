@@ -203,5 +203,11 @@ export default {
     const string = `http://api.openweathermap.org/data/2.5/forecast?id=${cityId}=${apiKey}`
     axios.get(string).then(data => {
     })
+  },
+  getJobHours: async (jobNumber, fn) => {
+    // const response = await axios.post(`${baseURL}/totaljobhrs`, {
+    //   jobNumber
+    // }, getHeaderObj());
+    // fn();
   }
 };
