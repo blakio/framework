@@ -1,14 +1,12 @@
-import PaperHead from "../Components/PaperHead";
-
 import SideBarPaper from "../Containers/SideBarPaper";
 import Panel from "../Containers/Panel";
 
+import PaperHead from "../Components/PaperHead";
+import Tags from "../Components/Tags";
+
 export default {
-  Containers: {
-    SideBarPaper,
-    Panel
-  },
-  Components: {
-    PaperHead
-  }
+  SideBarPaper,
+  Panel,
+  PaperHead,
+  Tags
 }

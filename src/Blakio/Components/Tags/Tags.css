@@ -1,0 +1,28 @@
+.Tags {
+  flex-wrap: wrap;
+}
+
+.TagLabel {
+  background-color: #f8f8f8;
+  color: #808080;
+  font-weight: 500;
+  padding: 0.4em 2em;
+  border-radius: 3px;
+  font-size: 0.9em;
+  margin: 0.4em;
+  display: inline-block;
+  border: 1px solid #dcdcdc;
+  transition: all 0.5s;
+}
+
+.TagLabel.isDisabled {
+    background-color: #ffeaea;
+    border: 1px solid #fc8e8e;
+    color: #222;
+}
+
+.TagLabel.isSelected {
+  background-color: #E1F5F4;
+  color: #008280;
+  border-color: #008280;
+}

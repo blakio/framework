@@ -21,6 +21,12 @@ import Types from "../Context/Types";
 import DashboardContext from "../Context/State";
 
 import BlakioUI from "./Framework";
+const {
+  SideBarPaper,
+  Panel,
+  PaperHead,
+  Tags
+} = BlakioUI;
 
 const load = (dispatch, bool) => {
   dispatch({
@@ -133,14 +139,16 @@ const SideBar = () => {
           type: Types.SET_SELECTED_EMPLOYEES,
           payload: employees
         });
-        dispatch({
-          type: Types.SET_SELECTED_JOB_NUMBERS,
-          payload: data.jobNumber ? [Util.getObjFromArray(data.jobNumber, "number", jobNumbers)] : []
-        });
-        dispatch({
-          type: Types.SET_SELECTED_LABOR_TYPES,
-          payload: data.laborType ? [Util.getObjFromArray(data.laborType, "name", laborTypes)] : []
-        });
+        if(!isAdminMode){
+          dispatch({
+            type: Types.SET_SELECTED_JOB_NUMBERS,
+            payload: data.jobNumber ? [Util.getObjFromArray(data.jobNumber, "number", jobNumbers)] : []
+          });
+          dispatch({
+            type: Types.SET_SELECTED_LABOR_TYPES,
+            payload: data.laborType ? [Util.getObjFromArray(data.laborType, "name", laborTypes)] : []
+          });
+        }
         if(isAdminMode){
           dispatch({
             type: Types.OPEN_SIDE_BAR,
@@ -166,7 +174,7 @@ const SideBar = () => {
 
   return (<div id="SideBar" className="container flex">
     <SideBarHead />
-    <BlakioUI.Containers.SideBarPaper data={sideBarData}/>
+    <SideBarPaper data={sideBarData}/>
   </div>)
 };
 
@@ -329,49 +337,6 @@ const SquareLabelDirectData = (props) => {
     className={`SquareLabel ${props.activeText === props.name && "active"}`}
     onClick={() => props.onClick(props.name)}>
     {props.name}
-  </div>)
-}
-
-const Paper = (props) => {
-  const {
-    dispatch,
-    isAdminMode,
-    ...state
-  } = useContext(DashboardContext);
-
-  const setIsActive = (data) => {
-    let group = Util.breakRefAndCopy(state.selectedItems[props.stateField]);
-    const alreadyClicked = group.some(d => d.id === data.id);
-
-    if(alreadyClicked){ group = [] }
-    else { group = [data] }
-
-    dispatch({
-      type: Types[props.actions[0]],
-      payload: group
-    })
-  }
-
-  return (<div className={`Paper flex`} style={{backgroundColor: "#fff"}}>
-    <div className="flex" style={{flexWrap: "wrap"}}>
-      {props.data.map((data, index) => {
-        const isActive = state.selectedItems[props.stateField].some(d => (d && d.id === props.data[index].id));
-        return (<SquareLabel
-          key={index}
-          data={data}
-          fieldKey={props.fieldKey}
-          isActive={isActive}
-          setIsActive={setIsActive}
-          onClick={() => {
-            if(props.onClick) {props.onClick(data.number)}
-          }}/>)
-        })}
-    </div>
-    {isAdminMode && <div className="PaperBottomBar flex">
-      <IconButton isActive={props.hasSelectedItems(state.selectedItems)} text={"ACTIVATE"} icon="fas fa-link" onClick={() => dispatch({ type: Types.BULK_ACTIVATE, payload: {fn: () => fetch(dispatch)} })}/>
-      <IconButton isActive={props.hasSelectedItems(state.selectedItems)} text={"DEACTIVATE"} icon="fas fa-unlink" onClick={() => dispatch({ type: Types.BULK_DEACTIVATE, payload: {fn: () => fetch(dispatch)} })}/>
-      <IconButton isActive={props.hasSelectedItems(state.selectedItems)} text={"DELETE"} icon="far fa-trash-alt" onClick={() => dispatch({ type: Types[props.actions[1]], payload: {fn: () => fetch(dispatch)} })}/>
-    </div>}
   </div>)
 }
 
@@ -700,30 +665,48 @@ const DashboardBody = () => {
     Axios.fetchLaborTypes(dispatch, () => load(dispatch, false));
   }, []);
 
-  const data = [
-    {
-      sectionName: "JOB NUMBERS",
-      icon: "fas fa-briefcase",
-      className: "paperOne",
-      data: Util.reorderData(jobNumbers, isAdminMode) || [],
-      fieldKey: "number",
-      stateField: "jobNumbers",
-      actions: ["SET_SELECTED_JOB_NUMBERS", "DELETE_JOB_NUMBER"],
-      hasSelectedItems: Util.hasSelectedJobNumbers,
-      onClick: (number) => {
-        // Axios.getJobHours(number, fetch(dispatch))
-      }},
-    {
-      sectionName: "LABOR TYPES",
-      icon: "fab fa-black-tie",
-      className: "paperTwo",
-      data: Util.reorderData(laborTypes, isAdminMode) || [],
-      fieldKey: "name",
-      stateField: "laborTypes",
-      actions: ["SET_SELECTED_LABOR_TYPES", "DELETE_LABOR_TYPE"],
-      hasSelectedItems: Util.hasSelectedLaborTypes
+  const jobNumberList = jobNumbers.length ? Util.reorderData(jobNumbers, isAdminMode) : [];
+  const laborTypeList = laborTypes.length ? Util.reorderData(laborTypes, isAdminMode) : [];
+  const jobNumberArray = [];
+  const laborTypeArray = [];
+
+  jobNumberList.forEach(data => jobNumberArray.push({
+    label: data.number,
+    isSelected: selectedItems.jobNumbers[0] && selectedItems.jobNumbers[0].number === data.number,
+    isDisabled: !data.isActive,
+    onClick: () => {
+      if(selectedItems.jobNumbers[0] && selectedItems.jobNumbers[0].number === data.number){
+        dispatch({
+          type: Types.SET_SELECTED_JOB_NUMBERS,
+          payload: []
+        })
+      } else {
+        dispatch({
+          type: Types.SET_SELECTED_JOB_NUMBERS,
+          payload: [data]
+        })
+      }
     }
-  ];
+  }));
+
+  laborTypeList.forEach(data => laborTypeArray.push({
+    label: data.name,
+    isSelected: selectedItems.laborTypes[0] && selectedItems.laborTypes[0].name === data.name,
+    isDisabled: !data.isActive,
+    onClick: () => {
+      if(selectedItems.laborTypes[0] && selectedItems.laborTypes[0].name === data.name){
+        dispatch({
+          type: Types.SET_SELECTED_LABOR_TYPES,
+          payload: []
+        })
+      } else {
+        dispatch({
+          type: Types.SET_SELECTED_LABOR_TYPES,
+          payload: [data]
+        })
+      }
+    }
+  }))
 
   const show = (data) => {
     const {
@@ -740,21 +723,34 @@ const DashboardBody = () => {
       const isOffice = !isTech && !isContractor;
       if(isContractor){
         return false;
-      } else if (isTech && (data.sectionName === "JOB NUMBERS" || data.sectionName === "LABOR TYPES")) {
+      } else if (isTech && (data === "JOB NUMBERS" || data === "LABOR TYPES")) {
         return true;
-      } else if(isOffice && data.sectionName === "JOB NUMBERS") {
+      } else if(isOffice && data === "JOB NUMBERS") {
         return true;
       }
     }
     return false;
   }
 
+  const jobNumberButtons = isAdminMode && (<div className="PaperBottomBar flex">
+    <IconButton isActive={Util.hasSelectedJobNumbers(selectedItems)} text={"ACTIVATE"} icon="fas fa-link" onClick={() => dispatch({ type: Types.BULK_ACTIVATE, payload: {fn: () => fetch(dispatch)} })}/>
+    <IconButton isActive={Util.hasSelectedJobNumbers(selectedItems)} text={"DEACTIVATE"} icon="fas fa-unlink" onClick={() => dispatch({ type: Types.BULK_DEACTIVATE, payload: {fn: () => fetch(dispatch)} })}/>
+    <IconButton isActive={Util.hasSelectedJobNumbers(selectedItems)} text={"DELETE"} icon="far fa-trash-alt" onClick={() => dispatch({ type: Types.DELETE_JOB_NUMBER, payload: {fn: () => fetch(dispatch)} })}/>
+  </div>);
+
+  const labelTypeButtons = isAdminMode && (<div className="PaperBottomBar flex">
+    <IconButton isActive={Util.hasSelectedLaborTypes(selectedItems)} text={"ACTIVATE"} icon="fas fa-link" onClick={() => dispatch({ type: Types.BULK_ACTIVATE, payload: {fn: () => fetch(dispatch)} })}/>
+    <IconButton isActive={Util.hasSelectedLaborTypes(selectedItems)} text={"DEACTIVATE"} icon="fas fa-unlink" onClick={() => dispatch({ type: Types.BULK_DEACTIVATE, payload: {fn: () => fetch(dispatch)} })}/>
+    <IconButton isActive={Util.hasSelectedLaborTypes(selectedItems)} text={"DELETE"} icon="far fa-trash-alt" onClick={() => dispatch({ type: Types.DELETE_LABOR_TYPE, payload: {fn: () => fetch(dispatch)} })}/>
+  </div>);
+
   return (<div id="dashboardBodyContainer">
     <div id="DashboardBody">
-      {data.map((data, index) => show(data) && <BlakioUI.Containers.Panel heading={data.sectionName} component={<Paper key={index} {...data} />} />)}
-      {!isAdminMode && <BlakioUI.Containers.Panel heading="time sheet" component={<TimeTrackBar />}/>}
-      {isAdminMode && <BlakioUI.Containers.Panel heading="add items here" component={<AddBar />}/>}
-      {isAdminMode && <BlakioUI.Containers.Panel heading="edit items here" component={<EditBar />}/>}
+      {show("JOB NUMBERS") && <Panel heading={"JOB NUMBERS"} components={[<Tags data={jobNumberArray}/>, jobNumberButtons]} />}
+      {show("LABOR TYPES") && <Panel heading={"LABOR TYPES"} components={[<Tags data={laborTypeArray}/>, labelTypeButtons]} />}
+      {!isAdminMode && <Panel heading="time sheet" components={[<TimeTrackBar />]}/>}
+      {isAdminMode && <Panel heading="add items here" components={[<AddBar />]}/>}
+      {isAdminMode && <Panel heading="edit items here" components={[<EditBar />]}/>}
     </div>
   </div>)
 }

@@ -69,6 +69,12 @@ export default {
     return obj;
   },
 
+  filterFieldFromArrObj: (arrObj, field) => {
+    const arr = [];
+    arrObj.forEach(data => arr.push(data[field]));
+    return arr;
+  },
+
   getEmployees: (data, isAdminMode) => {
     let employees;
     if(!isAdminMode){

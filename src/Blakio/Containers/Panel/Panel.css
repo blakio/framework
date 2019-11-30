@@ -19,3 +19,7 @@
   text-transform: uppercase;
   letter-spacing: 3px;
 }
+
+.PanelBody {
+  padding: 1rem;
+}
