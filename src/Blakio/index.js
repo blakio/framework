@@ -650,7 +650,7 @@ const EditBar = (props) => {
         {/*<SquareLabelDirectData onClick={onClick} activeText={activeText} name="Labor Type"/>*/}
       </div>
       <div className="flex">
-        {!selectedEmployee && activeText === "Employee" && <div>
+        {!selectedEmployee && activeText === "Employee" && <div className="flex" style={{flexWrap: "wrap"}}>
           {employeeChoices.length ? employeeChoices.map(data => <SquareLabelDirectData onClick={() => onClickEmployee(data)} name={data.name}/>) : null}
         </div>}
         <div className="flex" style={{flexDirection: "column"}}>
