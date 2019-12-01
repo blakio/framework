@@ -1,18 +1,13 @@
 import React, { useReducer } from 'react';
 import './App.css';
 import Blakio from "./Blakio";
-import Loader from 'react-loader-spinner'
+import BlakioUI from "./Blakio/Framework";
+
 import "react-loader-spinner/dist/loader/css/react-spinner-loader.css"
 
 import DashboardContext from "./Context/State";
 import Reducer from "./Context/Reducer";
 import initialState from "./Context/InitialState";
-
-const LoadingScreen = () => {
-  return (<div className="LoadingScreen flex">
-    <Loader type="MutatingDots" color="#888" height={100} width={100} />
-  </div>)
-}
 
 function App() {
   const [state, dispatch] = useReducer(Reducer, initialState);
@@ -23,7 +18,7 @@ function App() {
         <Blakio.TopBar />
         <Blakio.Dashboard />
       </div>
-      {state.isLoading && <LoadingScreen />}
+      {state.isLoading && <BlakioUI.LoadingScreen />}
     </div>
   </DashboardContext.Provider>);
 }

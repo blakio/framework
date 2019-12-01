@@ -25,7 +25,8 @@ const {
   SideBarPaper,
   Panel,
   PaperHead,
-  Tags
+  Tags,
+  IconButton
 } = BlakioUI;
 
 const load = (dispatch, bool) => {
@@ -305,13 +306,6 @@ const DashboardHead = () => {
         })
       }}
       isOn={isAdminMode}/>
-  </div>)
-}
-
-const IconButton = (props) => {
-  return (<div className={`IconButton flex ${props.isActive && "active"}`} onClick={() => {if(props.isActive) props.onClick()}}>
-    <i className={props.icon}></i>
-    <p>{props.text}</p>
   </div>)
 }
 
