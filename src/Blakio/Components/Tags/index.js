@@ -13,3 +13,11 @@ const Tags = (props) => {
 }
 
 export default Tags;
+
+
+// data = {
+//   label: "the text in the input box", string
+//   isSelected: "pressing the button can select it", boolean
+//   isDisabled: "make the button disabled", boolean
+//   onClick: "tells the button what to do when clicked" function
+// }

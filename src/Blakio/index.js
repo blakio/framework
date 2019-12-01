@@ -308,35 +308,10 @@ const DashboardHead = () => {
   </div>)
 }
 
-const DashPaperRoundedHead = (props) => {
-  return (<div className="DashPaperRoundedHead lightGreen">
-    <p><i className={props.icon}></i>{props.sectionName}</p>
-  </div>)
-}
-
 const IconButton = (props) => {
   return (<div className={`IconButton flex ${props.isActive && "active"}`} onClick={() => {if(props.isActive) props.onClick()}}>
     <i className={props.icon}></i>
     <p>{props.text}</p>
-  </div>)
-}
-
-const SquareLabel = (props) => {
-  return (<div
-    className={`SquareLabel ${props.isActive && "active"} ${!props.data.isActive && "deactivated"}`}
-    onClick={() => {
-      props.setIsActive(props.data);
-      if(props.onClick) props.onClick();
-    }}>
-    {props.data[props.fieldKey]}
-  </div>)
-}
-
-const SquareLabelDirectData = (props) => {
-  return (<div
-    className={`SquareLabel ${props.activeText === props.name && "active"}`}
-    onClick={() => props.onClick(props.name)}>
-    {props.name}
   </div>)
 }
 
@@ -472,13 +447,15 @@ const AddBar = (props) => {
     setJobNumber("");
   }
 
+  const labelData = [
+    {label: "Employee", isSelected: (activeText === "Employee"), isDisabled: false, onClick: () => onClick("Employee")},
+    {label: "Job Number", isSelected: (activeText === "Job Number"), isDisabled: false, onClick: () => onClick("Job Number")},
+    {label: "Labor Type", isSelected: (activeText === "Labor Type"), isDisabled: false, onClick: () => onClick("Labor Type")}
+  ]
+
   return (<div className="AddBar">
     <div className="flex" style={{flexDirection: "column"}}>
-      <div>
-        <SquareLabelDirectData onClick={onClick} activeText={activeText} name="Employee"/>
-        <SquareLabelDirectData onClick={onClick} activeText={activeText} name="Job Number"/>
-        <SquareLabelDirectData onClick={onClick} activeText={activeText} name="Labor Type"/>
-      </div>
+      <Tags data={labelData}/>
       <div className="flex" style={{
         width: "20em",
         justifyContent: "space-between"
@@ -607,17 +584,18 @@ const EditBar = (props) => {
     setJobNumber("");
   }
 
+  const labelData = [
+    {label: "Employee", isSelected: (activeText === "Employee"), isDisabled: false, onClick: () => onClick("Employee")}
+  ]
+
+  const employeeData = [];
+  employeeChoices.forEach(data => employeeData.push({ label: data.name, onClick: () => onClickEmployee(data) }));
+
   return (<div className="AddBar">
     <div className="flex" style={{flexDirection: "column"}}>
-      <div>
-        <SquareLabelDirectData onClick={onClick} activeText={activeText} name="Employee"/>
-        {/*<SquareLabelDirectData onClick={onClick} activeText={activeText} name="Job Number"/>*/}
-        {/*<SquareLabelDirectData onClick={onClick} activeText={activeText} name="Labor Type"/>*/}
-      </div>
+      <Tags data={labelData} />
+      {!selectedEmployee && activeText === "Employee" && <Tags data={employeeData} />}
       <div className="flex">
-        {!selectedEmployee && activeText === "Employee" && <div className="flex" style={{flexWrap: "wrap"}}>
-          {employeeChoices.length ? employeeChoices.map(data => <SquareLabelDirectData onClick={() => onClickEmployee(data)} name={data.name}/>) : null}
-        </div>}
         <div className="flex" style={{flexDirection: "column"}}>
           {(activeText === "Employee" && selectedEmployee) && <AddInput type="text" text="full name" value={fullName} onChange={setFullName}/>}
           {(activeText === "Employee" && selectedEmployee) && <AddInput type="text" text="job title" value={jobTitle} onChange={setJobTitle}/>}
