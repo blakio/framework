@@ -48,13 +48,6 @@ body {
   overflow-y: scroll;
 }
 
-#HamburgerMenu {
-  background: var(--darkBlue);
-  color: #fff;
-  border-radius: 4px;
-  margin: 0 1em;
-}
-
 #SideBarHead {
   height: var(--navBarHeight);
   width: var(--SideBarWidth);
@@ -86,37 +79,6 @@ body {
   color: #fff;
   font-size: 1.4em;
   opacity: 0.8;
-}
-
-.Toggle {
-  color: var(--darkGreen);
-}
-
-.Toggle p {
-  margin: 0;
-  margin-left: 0.4em;
-  color: #465b72 !important;
-}
-
-.Toggle i {
-  font-size: 1.4em;
-}
-
-/* Flap */
-#TopLeftFold {
-  position: absolute;
-  top: 0;
-  left: 0;
-  box-shadow: 6px 7px 10px -2px rgba(209,209,209,1);
-  overflow: hidden;
-}
-
-.backFold {
-  transform: rotate(45deg);
-  background-color: #0e325a;
-  position: relative;
-  left: -100%;
-  top: -143%;
 }
 
 /* Dashboard */

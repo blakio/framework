@@ -26,7 +26,10 @@ const {
   Panel,
   PaperHead,
   Tags,
-  IconButton
+  IconButton,
+  TopLeftFold,
+  HamburgerMenu,
+  Toggle
 } = BlakioUI;
 
 const load = (dispatch, bool) => {
@@ -45,20 +48,6 @@ const fetch = (dispatch) => {
 
 const SAMPLE = () => {
   return (<div id="SAMPLE">
-  </div>)
-}
-
-const HamburgerMenu = (props) => {
-  return (<div
-    id="HamburgerMenu"
-    className="flex"
-    style={{
-      height: props.styles.size,
-      width: props.styles.size
-    }}>
-      <i className="fas fa-bars" style={{
-        fontSize: props.styles.size * 0.4
-    }}></i>
   </div>)
 }
 
@@ -179,14 +168,6 @@ const SideBar = () => {
   </div>)
 };
 
-const Toggle = (props) => {
-  return (<div className="Toggle flex" onClick={props.onClick}>
-    {props.isOn && <i className="fas fa-toggle-on"></i>}
-    {!props.isOn && <i className="fas fa-toggle-off"></i>}
-    <p>{props.text}</p>
-  </div>)
-}
-
 const TopBar = () => {
   const {
     dispatch
@@ -196,18 +177,6 @@ const TopBar = () => {
     <DateTimeWeather />
   </div>)
 };
-
-const TopLeftFold = (props) => {
-  // requirements
-  // height and width needs to be an integer
-  const [duration, setDuration] = useState(0);
-  return (<div id="TopLeftFold" style={props.styles}>
-      <div className="backFold" style={{
-        height: props.styles.height * 2,
-        width: props.styles.width * 2
-      }}></div>
-  </div>)
-}
 
 const DatePickerTwoDate = () => {
   const {
@@ -730,7 +699,7 @@ const DashboardBody = () => {
 const Dashboard = () => {
   return (<div id="Dashboard" className="container">
     <ReactNotification />
-    <TopLeftFold styles={styles.TopLeftFold}/>
+    <TopLeftFold styles={{height: 50, width: 50, backgroundColor: "#FFFFFF"}}/>
     <DashboardHead />
     <DashboardBody />
     <DashboardSidePopOut />
@@ -774,18 +743,6 @@ const DashboardSidePopOut = () => {
       }
     })}/>
   </div>)
-}
-
-const styles = {
-  TopLeftFold: {
-    height: 50,
-    width: 50,
-    backgroundColor: "#FFFFFF"
-  },
-  selectBarIcon: {
-    color: "#fff",
-    opacity: 0.6
-  }
 }
 
 const DateTimeWeather = () => {
