@@ -3,22 +3,22 @@
 }
 
 .TagLabel {
-  background-color: #f8f8f8;
-  color: #808080;
+  background-color: #3e739d;
+  color: #fff;
   font-weight: 500;
   padding: 0.4em 2em;
   border-radius: 3px;
-  font-size: 0.9em;
+  font-size: 0.8em;
   margin: 0.4em;
   display: inline-block;
-  border: 1px solid #dcdcdc;
+  border: 1px solid #001c31;
   transition: all 0.5s;
 }
 
 .TagLabel.isDisabled {
-    background-color: #ffeaea;
-    border: 1px solid #fc8e8e;
-    color: #222;
+  background-color: #f8f8f8;
+  color: #808080;
+  border: 1px solid #dcdcdc;
 }
 
 .TagLabel.isSelected {
