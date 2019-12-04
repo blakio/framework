@@ -57,7 +57,7 @@ export default {
     }
     for(let i in state.selectedItems){
       if(state.selectedItems[i].length){
-        state.selectedItems[i].forEach(data => Axios.delete(`${map[i]}/${data.id}`, null, payload.fn))
+        state.selectedItems[i].forEach(data => Axios.delete(`${map[i]}/${data._id}`, null, payload.fn))
       }
     }
     return {
@@ -67,26 +67,26 @@ export default {
   },
   deleteEmployee: (payload, state) => {
     if(state.selectedItems.employees.length){
-      Axios.delete(`employees/${state.selectedItems.employees[0].id}`, null, payload.fn)
+      Axios.delete(`employees/${state.selectedItems.employees[0]._id}`, null, payload.fn)
     }
     return state;
   },
   deleteJobNumber: (payload, state) => {
     if(state.selectedItems.jobNumbers.length){
-      Axios.delete(`jobs/${state.selectedItems.jobNumbers[0].id}`, null, payload.fn)
+      Axios.delete(`jobNumbers/${state.selectedItems.jobNumbers[0]._id}`, null, payload.fn)
     }
     return state;
   },
   deleteLaborType: (payload, state) => {
     if(state.selectedItems.laborTypes.length){
-      Axios.delete(`labortypes/${state.selectedItems.laborTypes[0].id}`, null, payload.fn)
+      Axios.delete(`laborTypes/${state.selectedItems.laborTypes[0]._id}`, null, payload.fn)
     }
     return state
   },
 
   // OTHER
   clockIn: (payload, state) => {
-    const employeesId = state.selectedItems.employees[0].id;
+    const employeesId = state.selectedItems.employees[0]._id;
     const isContractor = state.selectedItems.employees[0].isContractor;
     const isTech = state.selectedItems.employees[0].isTech;
     const laborType = state.selectedItems.laborTypes[0] ? state.selectedItems.laborTypes[0].name : Util.getDefaultLaborType(isContractor, isTech);
@@ -101,7 +101,7 @@ export default {
     }
   },
   clockOut: (payload, state) => {
-    const employeesId = state.selectedItems.employees[0].id;
+    const employeesId = state.selectedItems.employees[0]._id;
     const isContractor = state.selectedItems.employees[0].isContractor;
     const isTech = state.selectedItems.employees[0].isTech;
     const laborType = state.selectedItems.laborTypes[0] ? state.selectedItems.laborTypes[0].name : Util.getDefaultLaborType(isContractor, isTech);
@@ -118,7 +118,7 @@ export default {
     }
   },
   toLunch: (payload, state) => {
-    const employeesId = state.selectedItems.employees[0].id;
+    const employeesId = state.selectedItems.employees[0]._id;
     const isContractor = state.selectedItems.employees[0].isContractor;
     const isTech = state.selectedItems.employees[0].isTech;
     const laborType = state.selectedItems.laborTypes[0] ? state.selectedItems.laborTypes[0].name : Util.getDefaultLaborType(isContractor, isTech);
@@ -133,7 +133,7 @@ export default {
     }
   },
   fromLunch: (payload, state) => {
-    const employeesId = state.selectedItems.employees[0].id;
+    const employeesId = state.selectedItems.employees[0]._id;
     const isContractor = state.selectedItems.employees[0].isContractor;
     const isTech = state.selectedItems.employees[0].isTech;
     const laborType = state.selectedItems.laborTypes[0] ? state.selectedItems.laborTypes[0].name : Util.getDefaultLaborType(isContractor, isTech);
@@ -155,7 +155,7 @@ export default {
     }
     for(let i in state.selectedItems){
       if(state.selectedItems[i].length){
-        state.selectedItems[i].forEach(data => Axios.put(`${map[i]}/${data.id}`, { isActive: false }, payload.fn))
+        state.selectedItems[i].forEach(data => Axios.put(`${map[i]}/${data._id}`, { isActive: false }, payload.fn))
       }
     }
     return {
@@ -171,7 +171,7 @@ export default {
     }
     for(let i in state.selectedItems){
       if(state.selectedItems[i].length){
-        state.selectedItems[i].forEach(data => Axios.put(`${map[i]}/${data.id}`, { isActive: true }, payload.fn))
+        state.selectedItems[i].forEach(data => Axios.put(`${map[i]}/${data._id}`, { isActive: true }, payload.fn))
       }
     }
     return {
@@ -304,6 +304,39 @@ export default {
     return {
       ...state,
       openList: (state.openList !== payload) ? payload : ""
+    }
+  },
+  toggleEmployeeActivation: (payload, state) => {
+    Axios.toggleEmployeeActivation(payload);
+    return {
+      ...state,
+      selectedItems: {
+        laborTypes: [],
+        jobNumbers: [],
+        employees: []
+      }
+    }
+  },
+  toggleJobNumberActivation: (payload, state) => {
+    Axios.toggleJobNumberActivation(payload);
+    return {
+      ...state,
+      selectedItems: {
+        laborTypes: [],
+        jobNumbers: [],
+        employees: []
+      }
+    }
+  },
+  toggleLaborTypeActivation: (payload, state) => {
+    Axios.toggleLaborTypeActivation(payload);
+    return {
+      ...state,
+      selectedItems: {
+        laborTypes: [],
+        jobNumbers: [],
+        employees: []
+      }
     }
   }
 }

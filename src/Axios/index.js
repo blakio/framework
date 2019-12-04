@@ -2,7 +2,7 @@ import axios from "axios";
 import moment from "moment";
 import Types from "../Context/Types.js";
 
-const baseURL = "https://dashboard-api-02.herokuapp.com/api";
+const baseURL = "https://blakiodashserver.herokuapp.com/eps";
 
 const getHeaderObj = () => {
   const data = window.localStorage.data ? JSON.parse(window.localStorage.data) : {};
@@ -69,32 +69,28 @@ export default {
     })
   },
   clockIn: (id, obj, fn) => {
-    let url = `${baseURL}/clockin/${id}`;
-    axios.put(url,  obj, getHeaderObj())
+    let url = `${baseURL}/clockIn/${id}`;
+    axios.post(url,  obj, getHeaderObj())
     .then(data => {if(fn) fn()})
     .catch(error => { console.log(error) });
   },
   startLunch: (id, obj, fn) => {
-    let url = `${baseURL}/startlunch/${id}`;
-    axios.put(url, obj, getHeaderObj())
+    let url = `${baseURL}/toLunch/${id}`;
+    axios.post(url, obj, getHeaderObj())
     .then(data => {if(fn) fn()})
     .catch(error => console.log(JSON.stringify(error)));
   },
   endLunch: (id, obj, fn) => {
-    let url = `${baseURL}/endlunch/${id}`;
-    axios.put(url, obj, getHeaderObj())
+    let url = `${baseURL}/fromLunch/${id}`;
+    axios.post(url, obj, getHeaderObj())
     .then(data => {if(fn) fn()})
     .catch(error => console.log(JSON.stringify(error)));
   },
   clockOut: (id, obj, fn) => {
-    let url = `${baseURL}/clockout/${id}`;
-    axios.put(url, obj, getHeaderObj())
+    let url = `${baseURL}/clockOut/${id}`;
+    axios.post(url, obj, getHeaderObj())
     .then(data => {if(fn) fn()})
     .catch(error => console.log(error));
-  },
-  reset: async (id, fn) => {
-    const resetEmployee = await axios.put(`${baseURL}/reset/${id}`, {}, getHeaderObj());
-    fn();
   },
   addEmployee: (data, fn, errFn) => {
     let url = `${baseURL}/employees`;
@@ -111,7 +107,7 @@ export default {
     });
   },
   addJobNumber: (data, fn, errFn) => {
-    let url = `${baseURL}/jobs`;
+    let url = `${baseURL}/jobNumbers`;
     axios.post(url, data, getHeaderObj()).then(response => {
       if(typeof response.data === "string"){
         errFn(response.data);
@@ -121,7 +117,7 @@ export default {
     });
   },
   addLaborType: (data, fn, errFn) => {
-    let url = `${baseURL}/labortypes`;
+    let url = `${baseURL}/laborTypes`;
     axios.post(url, data, getHeaderObj()).then(response => {
       if(typeof response.data === "string"){
         errFn(response.data);
@@ -150,7 +146,7 @@ export default {
     if(fn) fn();
   },
   fetchLaborTypes: async (dispatch, fn) => {
-    const response = await axios.get(`${baseURL}/labortypes`, getHeaderObj());
+    const response = await axios.get(`${baseURL}/laborTypes`, getHeaderObj());
     dispatch({
       type: Types.SET_LABOR_TYPES,
       payload: response.data
@@ -158,7 +154,7 @@ export default {
     if(fn) fn();
   },
   fetchJobNumbers: async (dispatch, fn) => {
-    const response = await axios.get(`${baseURL}/jobs`, getHeaderObj());
+    const response = await axios.get(`${baseURL}/jobNumbers`, getHeaderObj());
     dispatch({
       type: Types.SET_JOB_NUMBERS,
       payload: response.data
@@ -204,10 +200,49 @@ export default {
     axios.get(string).then(data => {
     })
   },
-  getJobHours: async (jobNumber, fn) => {
-    // const response = await axios.post(`${baseURL}/totaljobhrs`, {
-    //   jobNumber
-    // }, getHeaderObj());
-    // fn();
+  toggleEmployeeActivation: async (payload) => {
+    await axios.post(`${baseURL}/employees/toggleActivation/${payload.id}`, getHeaderObj())
+      .then(response => { payload.fn() })
+      .catch(error => console.log(error));
+  },
+  toggleJobNumberActivation: async (payload) => {
+    await axios.post(`${baseURL}/jobNumbers/toggleActivation/${payload.id}`, getHeaderObj())
+      .then(response => { payload.fn() })
+      .catch(error => console.log(error));
+  },
+  toggleLaborTypeActivation: async (payload) => {
+    await axios.post(`${baseURL}/laborTypes/toggleActivation/${payload.id}`, getHeaderObj())
+      .then(response => { payload.fn() })
+      .catch(error => console.log(error));
   }
 };
+
+// const c = [false, false, false, false, false, false, false, false, false, false, false, false, true, true];
+// const tt = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2];
+// const e = ["MIKE KOWAL", "RYAN MCWILLIAMS", "JOSEPH NEES", "BILL CROISSETTE, JR.", "PAUL WICK", "PAUL BEMENT", "MARK SCHOONOVER", "BEN VEHABOVIC", "SHAWN SAVITZ", "CRAIG FULLER", "COURTNEY JOHNSON", "MICHAEL CLUCAS", "LISA THOMAS", "AMBER", "BILL CROISSETTE", "JAKE SHELLHAMMER"];
+// const t = ["SHOP MANAGER", "MECHANIC/TECH", "DEPARTMENT MANAGER", "PROJECT MANAGER", "APPLICATION ENGINEER", "DESIGN", "PROJECT MANAGER", "PROJECT MANAGER AND PRODUCTION PLANNER", "OFFICE ADMINISTRATION", "SHIPPER/RECEIVER", "WELDER"];
+// const j = ["35000123", "35000234", "35000345", "35000456", "35000567", "35000678", "35000789", "35000891", "35000912", "35000321", "Other"];
+// const l = ["BASE", "CRATE", "DP SWITCH", "ADDER: FLEX HOUSE", "PIPPING ASSEMBLY", "ADDER: PUMPS", "PAINT", "REWORK", "TEST", "OTHER"];
+
+// e.forEach((data, index) => {
+//   axios.post(`${baseURL}/employees`, {
+//     isActive: true,
+//     isContractor: c[index],
+//     isTechnician: !c[index],
+//     jobTitle: t[index],
+//     name: data,
+//     travelTime: tt[index]
+//   }, getHeaderObj())
+// })
+// j.forEach((data, index) => {
+//   axios.post(`${baseURL}/jobNumbers`, {
+//     number: data,
+//     isActive: true
+//   }, getHeaderObj())
+// })
+// l.forEach((data, index) => {
+//   axios.post(`${baseURL}/laborTypes`, {
+//     name: data,
+//     isActive: true
+//   }, getHeaderObj())
+// })

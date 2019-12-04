@@ -39,21 +39,21 @@ export default {
       }
     }
     const {
-      clockInTime,
+      clockIn,
       clockOutTime,
-      startLunch,
-      endLunch,
+      toLunch,
+      fromLunch,
       isTech,
       isContractor
     } = selectedEmployee;
     const isOffice = !isTech && !isContractor;
-    if(text === "CLOCK IN" && !clockInTime){
+    if(text === "CLOCK IN" && !clockIn){
       return buttonActive(isTech, isContractor, isOffice, selectedJob, selectedLaborType)
-    } else if(text === "TO LUNCH" && clockInTime && !startLunch){
+    } else if(text === "TO LUNCH" && clockIn && !toLunch){
       return buttonActive(isTech, isContractor, isOffice, selectedJob, selectedLaborType)
-    } else if(text === "FROM LUNCH" && clockInTime && startLunch && !endLunch){
+    } else if(text === "FROM LUNCH" && clockIn && toLunch && !fromLunch){
       return buttonActive(isTech, isContractor, isOffice, selectedJob, selectedLaborType)
-    } else if(text === "CLOCK OUT" && clockInTime){
+    } else if(text === "CLOCK OUT" && clockIn){
       return buttonActive(isTech, isContractor, isOffice, selectedJob, selectedLaborType)
     }
     return false;

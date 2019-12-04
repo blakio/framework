@@ -329,10 +329,8 @@ const TimeTrackBar = () => {
       <IconButton isActive={Util.getActiveTimeButtomStatus("CLOCK OUT", selectedItems)} text={"CLOCK OUT"} icon="fas fa-clock" onClick={() => dispatch({
         type: Types.CLOCK_OUT,
         payload: () => {
-          Axios.reset(selectedItems.employees[0].id, () => {
-            fetch(dispatch);
-            setConfirmedNotification(employee);
-          })
+          fetch(dispatch);
+          setConfirmedNotification(employee);
         }
       })}/>
     </div>
@@ -674,15 +672,13 @@ const DashboardBody = () => {
   }
 
   const jobNumberButtons = isAdminMode && (<div className="PaperBottomBar flex">
-    <IconButton isActive={Util.hasSelectedJobNumbers(selectedItems)} text={"ACTIVATE"} icon="fas fa-link" onClick={() => dispatch({ type: Types.BULK_ACTIVATE, payload: {fn: () => fetch(dispatch)} })}/>
-    <IconButton isActive={Util.hasSelectedJobNumbers(selectedItems)} text={"DEACTIVATE"} icon="fas fa-unlink" onClick={() => dispatch({ type: Types.BULK_DEACTIVATE, payload: {fn: () => fetch(dispatch)} })}/>
-    <IconButton isActive={Util.hasSelectedJobNumbers(selectedItems)} text={"DELETE"} icon="far fa-trash-alt" onClick={() => dispatch({ type: Types.DELETE_JOB_NUMBER, payload: {fn: () => fetch(dispatch)} })}/>
+    <IconButton isActive={Util.hasSelectedJobNumbers(selectedItems)} text={"TOGGLE"} icon="fas fa-toggle-on" onClick={() => dispatch({ type: Types.TOGGLE_JOB_NUMBER, payload: {id: selectedItems.jobNumbers[0]._id, fn: () => fetch(dispatch)} })}/>
+    <IconButton isActive={Util.hasSelectedJobNumbers(selectedItems)} text={"DELETE"} icon="far fa-trash-alt" onClick={() => dispatch({ type: Types.DELETE_JOB_NUMBER, payload: {id: selectedItems.jobNumbers[0]._id, fn: () => fetch(dispatch)} })}/>
   </div>);
 
   const labelTypeButtons = isAdminMode && (<div className="PaperBottomBar flex">
-    <IconButton isActive={Util.hasSelectedLaborTypes(selectedItems)} text={"ACTIVATE"} icon="fas fa-link" onClick={() => dispatch({ type: Types.BULK_ACTIVATE, payload: {fn: () => fetch(dispatch)} })}/>
-    <IconButton isActive={Util.hasSelectedLaborTypes(selectedItems)} text={"DEACTIVATE"} icon="fas fa-unlink" onClick={() => dispatch({ type: Types.BULK_DEACTIVATE, payload: {fn: () => fetch(dispatch)} })}/>
-    <IconButton isActive={Util.hasSelectedLaborTypes(selectedItems)} text={"DELETE"} icon="far fa-trash-alt" onClick={() => dispatch({ type: Types.DELETE_LABOR_TYPE, payload: {fn: () => fetch(dispatch)} })}/>
+    <IconButton isActive={Util.hasSelectedLaborTypes(selectedItems)} text={"TOGGLE"} icon="fas fa-toggle-on" onClick={() => dispatch({ type: Types.TOGGLE_LABOR_TYPE, payload: {id: selectedItems.laborTypes[0]._id, fn: () => fetch(dispatch)} })}/>
+    <IconButton isActive={Util.hasSelectedLaborTypes(selectedItems)} text={"DELETE"} icon="far fa-trash-alt" onClick={() => dispatch({ type: Types.DELETE_LABOR_TYPE, payload: {id: selectedItems.laborTypes[0]._id, fn: () => fetch(dispatch)} })}/>
   </div>);
 
   return (<div id="dashboardBodyContainer">
@@ -709,20 +705,12 @@ const Dashboard = () => {
 const DashboardSidePopOut = () => {
   const {
     dispatch,
-    isSideBarOpen
+    isSideBarOpen,
+    selectedItems
   } = useContext(DashboardContext);
   return (<div className={`DashboardSidePopOut flex ${isSideBarOpen && "open"}`}>
-    <IconButton isActive={true} text={"ACTIVATE"} icon="fas fa-link" onClick={() => dispatch({ type: Types.BULK_ACTIVATE, payload: {
-        fn: () => {
-          fetch(dispatch);
-          dispatch({
-            type: Types.OPEN_SIDE_BAR,
-            payload: false
-          })
-        }
-      }
-    })}/>
-    <IconButton isActive={true} text={"DEACTIVATE"} icon="fas fa-unlink" onClick={() => dispatch({ type: Types.BULK_DEACTIVATE, payload: {
+    <IconButton isActive={true} text={"TOGGLE"} icon="fas fa-toggle-on" onClick={() => dispatch({ type: Types.TOGGLE_EMPLOYEE, payload: {
+        id: selectedItems.employees[0]._id,
         fn: () => {
           fetch(dispatch);
           dispatch({

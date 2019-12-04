@@ -81,6 +81,12 @@ export default (state, action) => {
       return StateFunctions.isLoading(payload, state);
     case Types.OPENED_LIST:
       return StateFunctions.openedList(payload, state);
+    case Types.TOGGLE_EMPLOYEE:
+      return StateFunctions.toggleEmployeeActivation(payload, state);
+    case Types.TOGGLE_JOB_NUMBER:
+      return StateFunctions.toggleJobNumberActivation(payload, state);
+    case Types.TOGGLE_LABOR_TYPE:
+      return StateFunctions.toggleLaborTypeActivation(payload, state);
 
     default:
     return state;
