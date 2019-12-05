@@ -2,8 +2,8 @@ import axios from "axios";
 import moment from "moment";
 import Types from "../Context/Types.js";
 
-const baseURL = "https://blakiodashserver.herokuapp.com/eps";
-// const baseURL = "http://localhost:5000/eps";
+const local = false;
+const baseURL = local ? "http://localhost:5000/eps" : "https://blakiodashserver.herokuapp.com/eps";
 
 const getHeaderObj = () => {
   const data = window.localStorage.data ? JSON.parse(window.localStorage.data) : {};
