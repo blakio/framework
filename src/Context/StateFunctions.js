@@ -47,24 +47,6 @@ export default {
       jobNumbers
     };
   },
-
-  // DELETE
-  bulkDelete: (payload, state) => {
-    const map = {
-      employees: "employees",
-      laborTypes: "labortypes",
-      jobNumbers: "jobs"
-    }
-    for(let i in state.selectedItems){
-      if(state.selectedItems[i].length){
-        state.selectedItems[i].forEach(data => Axios.delete(`${map[i]}/${data._id}`, null, payload.fn))
-      }
-    }
-    return {
-      ...state,
-      selectedItems: Util.breakRefAndCopy(initialState.selectedItems)
-    };
-  },
   deleteEmployee: (payload, state) => {
     if(state.selectedItems.employees.length){
       Axios.delete(`employees/${state.selectedItems.employees[0]._id}`, null, payload.fn)
