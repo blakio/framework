@@ -515,8 +515,8 @@ const EditBar = (props) => {
         payload: {
           id: selectedEmployee._id,
           edits: [
-            {key: "isContractor", value: isContractor},
-            {key: "isTech", value: isTechnician},
+            {key: "isContractor", value: isContractor || false},
+            {key: "isTech", value: isTechnician || false},
             {key: "jobTitle", value: jobTitle},
             {key: "name", value: fullName},
             {key: "travelTime", value: travelTime},

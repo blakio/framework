@@ -152,8 +152,8 @@ export default {
       noData
     } = payload;
     const response = await axios.post(`${baseURL}/history`, {
-      startDate: moment(startDate).format("YYYY-MM-DD"),
-      endDate: moment(endDate).format("YYYY-MM-DD")
+      startDate,
+      endDate
     }, getHeaderObj());
     payload.success();
     if(response.data.length){

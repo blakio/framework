@@ -92,7 +92,7 @@ export default {
       ...state.selectedItems.employees[0],
       laborType,
       jobNumber,
-      date: moment(new Date).format("YYYY/MM/DD")
+      date: moment(new Date).format("MM/DD/YYYY")
     }, payload);
     return {
       ...state,
