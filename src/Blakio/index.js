@@ -511,15 +511,17 @@ const EditBar = (props) => {
   const edit = (value, data) => {
     if(activeText === "Employee"){
       dispatch({
-        type: Types.UPDATE_EMPLOYEE,
+        type: Types.EDIT_EMPLOYEE,
         payload: {
-          id: selectedEmployee.id,
-          isContractor: isContractor,
-          isTech: isTechnician,
-          jobTitle: jobTitle,
-          name: fullName,
-          travelTime: travelTime,
-          fn: () => { fetch(dispatch) },
+          id: selectedEmployee._id,
+          edits: [
+            {key: "isContractor", value: isContractor},
+            {key: "isTech", value: isTechnician},
+            {key: "jobTitle", value: jobTitle},
+            {key: "name", value: fullName},
+            {key: "travelTime", value: travelTime},
+          ],
+          fn: () => fetch(dispatch),
           warning: res => warning(res)
         }
       })

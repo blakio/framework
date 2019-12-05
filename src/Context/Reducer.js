@@ -31,8 +31,6 @@ export default (state, action) => {
       return StateFunctions.createJobNumber(payload, state);
 
     // DELETE
-    case Types.BULK_DELETE:
-      return StateFunctions.bulkDelete(payload, state);
     case Types.DELETE_EMPLOYEE:
       return StateFunctions.deleteEmployee(payload, state);
     case Types.DELETE_JOB_NUMBER:
@@ -53,8 +51,6 @@ export default (state, action) => {
       return StateFunctions.bulkDeactivate(payload, state);
     case Types.BULK_ACTIVATE:
       return StateFunctions.bulkActivate(payload, state);
-    case Types.UPDATE_EMPLOYEE:
-      return StateFunctions.updateEmployee(payload, state);
     case Types.TOGGLE_ADMIN_MODE:
       return StateFunctions.toggleAdminMode(payload, state);
     case Types.OPEN_MESSAGE:
@@ -87,6 +83,8 @@ export default (state, action) => {
       return StateFunctions.toggleJobNumberActivation(payload, state);
     case Types.TOGGLE_LABOR_TYPE:
       return StateFunctions.toggleLaborTypeActivation(payload, state);
+    case Types.EDIT_EMPLOYEE:
+      return StateFunctions.editEmployee(payload, state);
 
     default:
     return state;

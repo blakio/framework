@@ -338,5 +338,9 @@ export default {
         employees: []
       }
     }
+  },
+  editEmployee: (payload, state) => {
+    Axios.editEmployee(payload);
+    return state
   }
 }

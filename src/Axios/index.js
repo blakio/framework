@@ -3,6 +3,7 @@ import moment from "moment";
 import Types from "../Context/Types.js";
 
 const baseURL = "https://blakiodashserver.herokuapp.com/eps";
+// const baseURL = "http://localhost:5000/eps";
 
 const getHeaderObj = () => {
   const data = window.localStorage.data ? JSON.parse(window.localStorage.data) : {};
@@ -15,24 +16,6 @@ const getHeaderObj = () => {
 }
 
 export default {
-  get: async (path, params, fn) => {
-    await axios.get(`${baseURL}/${path}`, { params }, getHeaderObj())
-      .then(response => { fn && fn(response) })
-      .catch(error => console.log(error));
-  },
-  post: async (path, obj, fn, errorFn) => {
-    await axios.post(`${baseURL}/${path}`, obj, getHeaderObj())
-      .then(response => { fn && fn(response) })
-      .catch(error => {
-        console.log(error);
-        if(errorFn) errorFn(error)
-      });
-  },
-  put: async (path, obj, fn) => {
-    await axios.put(`${baseURL}/${path}`, obj, getHeaderObj())
-      .then(response => { fn && fn(response) })
-      .catch(error => console.log(error));
-  },
   delete: async (path, obj, fn) => {
     await axios.delete(`${baseURL}/${path}`, obj, getHeaderObj())
       .then(response => { fn && fn(response) })
@@ -214,6 +197,10 @@ export default {
     await axios.post(`${baseURL}/laborTypes/toggleActivation/${payload.id}`, getHeaderObj())
       .then(response => { payload.fn() })
       .catch(error => console.log(error));
+  },
+  editEmployee: async (payload) => {
+    await axios.post(`${baseURL}/editEmployee/${payload.id}`, {edits: payload.edits}, getHeaderObj());
+    payload.fn();
   }
 };
 
