@@ -100,36 +100,24 @@ export default {
     const csvData = [];
     data.forEach(data => {
       const usedData = util.breakRefAndCopy(data)
-      delete usedData.createdAt;
-      delete usedData.updatedAt;
-      delete usedData.jobTitle;
 
       usedData.date = moment(data.date).format("MM/DD/YYYY");
-      usedData.clockInTime = util.getTime("clockInTime", data);
-      usedData.clockOutTime = util.getTime("clockOutTime", data);
-      usedData.endLunch = util.getTime("endLunch", data);
-      usedData.startLunch = util.getTime("startLunch", data);
-      usedData.lunchTime = usedData.lunchTime || "no lunch taken"
+      usedData.clockIn = util.getTime("clockIn", data);
+      usedData.clockOut = util.getTime("clockOut", data);
+      usedData.endLunch = util.getTime("fromLunch", data) || "none";
+      usedData.startLunch = util.getTime("toLunch", data) || "none";
+      usedData.lunchTime = usedData.lunchTime || "none";
       usedData.isContractor = data.isContractor ? "Y" : "N";
+      usedData.isTech = data.isTech ? "Y" : "N";
 
-      var end  = data.clockOutTime;
-      var start = data.clockInTime;
-      const difference = moment.utc(moment(end,"DD/MM/YYYY HH:mm:ss").diff(moment(start,"DD/MM/YYYY HH:mm:ss"))).format("HH:mm:ss")
+      usedData.totalHrs = data.totalTime.toFixed(2);
+      usedData.overTime = data.overTime.toFixed(2);
 
-      const timeInHours = (time) => {
-        const timeArray = time.split(":");
-        const hours = parseInt(timeArray[0]);
-        const minutes = parseInt(timeArray[1]);
-        const seconds = parseInt(timeArray[2]);
-        const totalSeconds = (hours * 3600) + (minutes * 60) + seconds;
-        return totalSeconds / 3600;
-      }
-
-      const totalHoursWorked = timeInHours(difference);
-
-      usedData.totalHrs = data.totalHrs && util.getTimeFromString(data.totalHrs);
-      usedData.overTime = (totalHoursWorked > 8) ? parseFloat(totalHoursWorked - 8).toFixed(2) : 0;
-      usedData.lunchTime = data.lunchTime && util.getTimeFromString(data.lunchTime);
+      delete usedData.__v;
+      delete usedData._id;
+      delete usedData.totalTime;
+      delete usedData.startLunch;
+      delete usedData.endLunch;
 
       if(csvData.length === 0){
         const headers = [];

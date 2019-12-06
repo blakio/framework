@@ -10,19 +10,21 @@ export default {
   },
 
   getHeader: {
-    clockInTime: "Clock In",
-    clockOutTime: "Clock Out",
+    clockIn: "Clock In",
+    clockOut: "Clock Out",
     date: "Date",
-    endLunch: "Lunch End",
+    fromLunch: "Lunch End",
     id: "Id",
     isContractor: "Is Contractor",
     jobNumber: "Job #",
     laborType: "Labor",
     lunchTime: "Lunch Hrs",
     name: "Employee",
-    startLunch: "Lunch Start",
+    toLunch: "Lunch Start",
     totalHrs: "Hours Worked",
-    overTime: "Overtime Hrs"
+    overTime: "Overtime Hrs",
+    isTech: "Is Technician",
+    jobTitle: "Job Title"
   },
 
   getTimeFromString: (time) => {
