@@ -1,5 +1,5 @@
 .Toggle {
-  color: var(--darkGreen);
+  color: #3E739D;
 }
 
 .Toggle p {
@@ -9,5 +9,5 @@
 }
 
 .Toggle i {
-  font-size: 1.4em;
+  font-size: 1.8em;
 }
