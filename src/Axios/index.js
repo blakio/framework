@@ -21,36 +21,6 @@ export default {
       .then(response => { fn && fn(response) })
       .catch(error => console.log(error));
   },
-  seed: () => {
-    const c = [false, false, false, false, false, false, false, false, false, false, false, false, true, true];
-    const tt = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2];
-    const e = ["MIKE KOWAL", "RYAN MCWILLIAMS", "JOSEPH NEES", "BILL CROISSETTE, JR.", "PAUL WICK", "PAUL BEMENT", "MARK SCHOONOVER", "BEN VEHABOVIC", "SHAWN SAVITZ", "CRAIG FULLER", "COURTNEY JOHNSON", "MICHAEL CLUCAS", "LISA THOMAS", "AMBER", "BILL CROISSETTE", "JAKE SHELLHAMMER"];
-    const t = ["SHOP MANAGER", "MECHANIC/TECH", "DEPARTMENT MANAGER", "PROJECT MANAGER", "APPLICATION ENGINEER", "DESIGN", "PROJECT MANAGER", "PROJECT MANAGER AND PRODUCTION PLANNER", "OFFICE ADMINISTRATION", "SHIPPER/RECEIVER", "WELDER"];
-    const j = ["35000123", "35000234", "35000345", "35000456", "35000567", "35000678", "35000789", "35000891", "35000912", "35000321", "Other"];
-    const l = ["BASE", "CRATE", "DP SWITCH", "ADDER: FLEX HOUSE", "PIPPING ASSEMBLY", "ADDER: PUMPS", "PAINT", "REWORK", "TEST", "OTHER"];
-
-    e.forEach((data, index) => {
-      axios.post(`${baseURL}/employees`, {
-        isActive: true,
-        isContractor: c[index],
-        jobTitle: t[index],
-        name: data,
-        travelTime: tt[index]
-      }, getHeaderObj())
-    })
-    j.forEach((data, index) => {
-      axios.post(`${baseURL}/jobs`, {
-        number: data,
-        isActive: true
-      }, getHeaderObj())
-    })
-    l.forEach((data, index) => {
-      axios.post(`${baseURL}/laborTypes`, {
-        name: data,
-        isActive: true
-      }, getHeaderObj())
-    })
-  },
   clockIn: (id, obj, fn) => {
     let url = `${baseURL}/clockIn/${id}`;
     axios.post(url,  obj, getHeaderObj())
@@ -203,33 +173,3 @@ export default {
     payload.fn();
   }
 };
-
-// const c = [false, false, false, false, false, false, false, false, false, false, false, false, true, true];
-// const tt = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2];
-// const e = ["MIKE KOWAL", "RYAN MCWILLIAMS", "JOSEPH NEES", "BILL CROISSETTE, JR.", "PAUL WICK", "PAUL BEMENT", "MARK SCHOONOVER", "BEN VEHABOVIC", "SHAWN SAVITZ", "CRAIG FULLER", "COURTNEY JOHNSON", "MICHAEL CLUCAS", "LISA THOMAS", "AMBER", "BILL CROISSETTE", "JAKE SHELLHAMMER"];
-// const t = ["SHOP MANAGER", "MECHANIC/TECH", "DEPARTMENT MANAGER", "PROJECT MANAGER", "APPLICATION ENGINEER", "DESIGN", "PROJECT MANAGER", "PROJECT MANAGER AND PRODUCTION PLANNER", "OFFICE ADMINISTRATION", "SHIPPER/RECEIVER", "WELDER"];
-// const j = ["35000123", "35000234", "35000345", "35000456", "35000567", "35000678", "35000789", "35000891", "35000912", "35000321", "Other"];
-// const l = ["BASE", "CRATE", "DP SWITCH", "ADDER: FLEX HOUSE", "PIPPING ASSEMBLY", "ADDER: PUMPS", "PAINT", "REWORK", "TEST", "OTHER"];
-
-// e.forEach((data, index) => {
-//   axios.post(`${baseURL}/employees`, {
-//     isActive: true,
-//     isContractor: c[index],
-//     isTechnician: !c[index],
-//     jobTitle: t[index],
-//     name: data,
-//     travelTime: tt[index]
-//   }, getHeaderObj())
-// })
-// j.forEach((data, index) => {
-//   axios.post(`${baseURL}/jobNumbers`, {
-//     number: data,
-//     isActive: true
-//   }, getHeaderObj())
-// })
-// l.forEach((data, index) => {
-//   axios.post(`${baseURL}/laborTypes`, {
-//     name: data,
-//     isActive: true
-//   }, getHeaderObj())
-// })

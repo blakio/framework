@@ -386,7 +386,7 @@ const AddBar = (props) => {
         isTech: isTechnician,
         jobTitle: jobTitle,
         name: fullName,
-        travelTime: travelTime
+        travelTime: parseFloat(travelTime)
       }, () => { fetch(dispatch) }, res => warning(res));
     } else if (activeText === "Job Number"){
       Axios.addJobNumber({
@@ -418,8 +418,7 @@ const AddBar = (props) => {
     <div className="flex" style={{flexDirection: "column"}}>
       <Tags data={labelData}/>
       <div className="flex" style={{
-        width: "20em",
-        justifyContent: "space-between"
+        width: "20em"
       }}>
         <div className="flex" style={{flexDirection: "column"}}>
           {(activeText === "Employee") && <AddInput type="text" text="full name" value={fullName} onChange={setFullName}/>}
@@ -442,13 +441,10 @@ const AddBar = (props) => {
               isOn={isTechnician}/>
           </div>}
         </div>
-        {(activeText !== "") && <div>
-          <i className="fas fa-plus-square" style={{
-            color: "var(--darkGreen)",
-            fontSize: "3em"
-          }} onClick={add}></i>
-        </div>}
       </div>
+      {(activeText !== "") && <div style={{marginTop: "1em"}}>
+        <IconButton isActive={true} text={"ADD"} icon="fas fa-plus-square" onClick={add}/>
+      </div>}
     </div>
   </div>)
 }
@@ -580,13 +576,10 @@ const EditBar = (props) => {
               isOn={isTechnician}/>
           </div>}
         </div>
-        {(activeText !== "" && selectedEmployee) && <div>
-          <i className="far fa-edit" style={{
-            color: "var(--darkGreen)",
-            fontSize: "3em"
-          }} onClick={edit}></i>
-        </div>}
       </div>
+      {(activeText !== "" && selectedEmployee) && <div style={{marginTop: "1em"}}>
+        <IconButton isActive={true} text={"EDIT"} icon="far fa-edit" onClick={edit}/>
+      </div>}
     </div>
   </div>)
 }
