@@ -684,7 +684,7 @@ const DashboardBody = () => {
       {!isAdminMode && <Panel heading="time sheet" components={[<TimeTrackBar />]}/>}
       {isAdminMode && <Panel heading="add items here" components={[<AddBar />]}/>}
       {isAdminMode && <Panel heading="edit items here" components={[<EditBar />]}/>}
-      <Panel heading="history" noPadding overflow components={[<Table />]}/>
+      {/*<Panel heading="history" noPadding overflow components={[<Table />]}/>*/}
     </div>
   </div>)
 }
