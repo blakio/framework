@@ -13,9 +13,9 @@
 }
 
 .PanelHeader .heading {
-  font-size: 1rem;
+  font-size: 0.8rem;
   margin: 0.6rem;
-  font-weight: 400;
+  font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 3px;
 }
