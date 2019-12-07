@@ -6,7 +6,7 @@ const Panel = (props) => {
     <div className="PanelHeader flex">
       <p className="heading">{props.heading}</p>
     </div>
-    <div className="PanelBody">
+    <div className={`PanelBody ${props.noPadding && "noPadding"} ${props.overflow && "scroll"}`}>
       {props.components.map(data => data)}
     </div>
   </div>)

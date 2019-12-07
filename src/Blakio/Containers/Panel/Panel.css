@@ -23,3 +23,11 @@
 .PanelBody {
   padding: 1rem;
 }
+
+.noPadding {
+  padding: 0;
+}
+
+.scroll {
+  overflow: scroll;
+}
