@@ -9,6 +9,7 @@ import LoadingScreen from "../Components/LoadingScreen";
 import TopLeftFold from "../Components/TopLeftFold";
 import HamburgerMenu from "../Components/HamburgerMenu";
 import Toggle from "../Components/Toggle";
+import DataVisualization from "../Components/DataVisualization";
 
 export default {
   SideBarPaper,
@@ -20,5 +21,6 @@ export default {
   LoadingScreen,
   TopLeftFold,
   HamburgerMenu,
-  Toggle
+  Toggle,
+  DataVisualization
 }

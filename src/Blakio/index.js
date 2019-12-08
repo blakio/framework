@@ -30,7 +30,8 @@ const {
   TopLeftFold,
   HamburgerMenu,
   Toggle,
-  Table
+  Table,
+  DataVisualization
 } = BlakioUI;
 
 const load = (dispatch, bool) => {
@@ -685,6 +686,7 @@ const DashboardBody = () => {
       {isAdminMode && <Panel heading="add items here" components={[<AddBar />]}/>}
       {isAdminMode && <Panel heading="edit items here" components={[<EditBar />]}/>}
       {/*<Panel heading="history" noPadding overflow components={[<Table />]}/>*/}
+      <Panel heading="charts" components={[<DataVisualization />]} />
     </div>
   </div>)
 }
