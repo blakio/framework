@@ -686,7 +686,7 @@ const DashboardBody = () => {
       {isAdminMode && <Panel heading="add items here" components={[<AddBar />]}/>}
       {isAdminMode && <Panel heading="edit items here" components={[<EditBar />]}/>}
       {/*<Panel heading="history" noPadding overflow components={[<Table />]}/>*/}
-      <Panel heading="charts" components={[<DataVisualization />]} />
+      {/*<Panel heading="charts" components={[<DataVisualization />]} />*/}
     </div>
   </div>)
 }
@@ -777,3 +777,11 @@ export default {
   TopBar,
   Dashboard
 }
+
+
+// grid-column: 1/-1; one row until last column
+
+// grid-column: span 2; starts at current position and spans 2 colums
+
+// grid-template-column: repeat(auto-fit, minmax(100px, 1fr)) makes the colums responsive
+// grid-auto-row: 75px; sets a height for all rows
