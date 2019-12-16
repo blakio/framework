@@ -218,7 +218,9 @@ export default {
         employees: []
       },
       isContractor: false,
-      isSideBarOpen: false
+      isSideBarOpen: false,
+      jobHours: 0,
+      selectedJobForHours: []
     };
   },
   openMessage: (payload, state) => {
@@ -305,5 +307,13 @@ export default {
       ...state,
       openList: (state.openList !== payload) ? payload : ""
     }
-  }
+  },
+  selectJobNumberForHours: (payload, state) => ({ ...state, selectedJobForHours: payload }),
+  getHoursForJobNumber: (payload, state) => {
+    Axios.post(`totaljobhrs`, {
+      jobNumber: payload.jobNumber
+    }, data => payload.fn(data.data));
+    return state;
+  },
+  setJobHours: (payload, state) => ({ ...state, jobHours: payload })
 }

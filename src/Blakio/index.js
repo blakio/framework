@@ -29,7 +29,8 @@ const {
   IconButton,
   TopLeftFold,
   HamburgerMenu,
-  Toggle
+  Toggle,
+  JobHoursSearch
 } = BlakioUI;
 
 const load = (dispatch, bool) => {
@@ -597,7 +598,9 @@ const DashboardBody = () => {
     jobNumbers,
     laborTypes,
     isAdminMode,
-    selectedItems
+    selectedItems,
+    selectedJobForHours,
+    jobHours
   } = useContext(DashboardContext);
 
   useEffect(() => {
@@ -610,6 +613,7 @@ const DashboardBody = () => {
   const laborTypeList = laborTypes.length ? Util.reorderData(laborTypes, isAdminMode) : [];
   const jobNumberArray = [];
   const laborTypeArray = [];
+  const jobNumberHoursData = [];
 
   jobNumberList.forEach(data => jobNumberArray.push({
     label: data.number,
@@ -647,7 +651,37 @@ const DashboardBody = () => {
         })
       }
     }
-  }))
+  }));
+
+  jobNumberList.forEach(data => jobNumberHoursData.push({
+    label: data.number,
+    isSelected: selectedJobForHours[0] && selectedJobForHours[0].number === data.number,
+    onClick: () => {
+      if(selectedJobForHours[0] && selectedJobForHours[0].number === data.number){
+        dispatch({
+          type: Types.SELECT_JOB_NUMBER_FOR_HOURS,
+          payload: []
+        });
+      } else {
+        dispatch({
+          type: Types.SELECT_JOB_NUMBER_FOR_HOURS,
+          payload: [data]
+        })
+        dispatch({
+          type: Types.GET_HOURS_FOR_JOB_NUMBER,
+          payload: {
+            jobNumber: data.number,
+            fn: (hrs) => {
+              dispatch({
+                type: Types.SET_JOB_HOURS,
+                payload: hrs
+              })
+            }
+          }
+        })
+      }
+    }
+  }));
 
   const show = (data) => {
     const {
@@ -692,6 +726,7 @@ const DashboardBody = () => {
       {!isAdminMode && <Panel heading="time sheet" components={[<TimeTrackBar />]}/>}
       {isAdminMode && <Panel heading="add items here" components={[<AddBar />]}/>}
       {isAdminMode && <Panel heading="edit items here" components={[<EditBar />]}/>}
+      {isAdminMode && <Panel heading="job number hours" components={[<JobHoursSearch data={jobNumberHoursData} jobHours={jobHours}/>]}/>}
     </div>
   </div>)
 }

@@ -81,7 +81,12 @@ export default (state, action) => {
       return StateFunctions.isLoading(payload, state);
     case Types.OPENED_LIST:
       return StateFunctions.openedList(payload, state);
-
+    case Types.SELECT_JOB_NUMBER_FOR_HOURS:
+      return StateFunctions.selectJobNumberForHours(payload, state);
+    case Types.GET_HOURS_FOR_JOB_NUMBER:
+      return StateFunctions.getHoursForJobNumber(payload, state);
+    case Types.SET_JOB_HOURS:
+      return StateFunctions.setJobHours(payload, state);
     default:
     return state;
   }

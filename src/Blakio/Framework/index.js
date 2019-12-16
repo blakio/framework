@@ -8,6 +8,7 @@ import LoadingScreen from "../Components/LoadingScreen";
 import TopLeftFold from "../Components/TopLeftFold";
 import HamburgerMenu from "../Components/HamburgerMenu";
 import Toggle from "../Components/Toggle";
+import JobHoursSearch from "../Components/JobHoursSearch";
 
 export default {
   SideBarPaper,
@@ -18,5 +19,6 @@ export default {
   LoadingScreen,
   TopLeftFold,
   HamburgerMenu,
-  Toggle
+  Toggle,
+  JobHoursSearch
 }

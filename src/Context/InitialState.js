@@ -7,6 +7,7 @@ const initialState = {
   isTech: true,
   isSideBarOpen: false,
   openList: "",
+  jobHours: 0,
   message: {
     confirmation: {
       status: false,
@@ -26,6 +27,7 @@ const initialState = {
     jobNumbers: [],
     employees: []
   },
+  selectedJobForHours: [],
   laborTypes: [],
   jobNumbers: [],
   employees: [],
