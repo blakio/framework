@@ -193,7 +193,6 @@ export default {
     return {
       ...state,
       isAdminMode: currentState.isAdminMode,
-      clickedTypes: [],
       selectedItems: {
         laborTypes: [],
         jobNumbers: [],

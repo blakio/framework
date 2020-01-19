@@ -10,6 +10,7 @@ import TopLeftFold from "../Components/TopLeftFold";
 import HamburgerMenu from "../Components/HamburgerMenu";
 import Toggle from "../Components/Toggle";
 import DataVisualization from "../Components/DataVisualization";
+import Separator from "../Components/Separator";
 
 export default {
   SideBarPaper,
@@ -22,5 +23,6 @@ export default {
   TopLeftFold,
   HamburgerMenu,
   Toggle,
-  DataVisualization
+  DataVisualization,
+  Separator
 }

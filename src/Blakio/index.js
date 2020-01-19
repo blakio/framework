@@ -266,7 +266,7 @@ const DashboardHead = () => {
   return (<div id="DashboardHead" className="flex">
     <div className="flex">
       <p style={{
-        margin: 0, marginLeft: 10, fontSize: "1rem", fontWeight: 100
+        margin: 0, marginLeft: 10, fontSize: "1rem", fontWeight: 800, opacity: 0.65
       }}>DASHBOARD</p>
     </div>
     <Toggle
@@ -680,8 +680,8 @@ const DashboardBody = () => {
 
   return (<div id="dashboardBodyContainer">
     <div id="DashboardBody">
-      {show("JOB NUMBERS") && <Panel heading={"JOB NUMBERS"} components={[<Tags data={jobNumberArray}/>, jobNumberButtons]} />}
-      {show("LABOR TYPES") && <Panel heading={"LABOR TYPES"} components={[<Tags data={laborTypeArray}/>, labelTypeButtons]} />}
+      {show("JOB NUMBERS") && <Panel heading={"JOB NUMBERS"} components={[<Tags data={jobNumberArray}/>, <BlakioUI.Separator />, jobNumberButtons]} />}
+      {show("LABOR TYPES") && <Panel heading={"LABOR TYPES"} components={[<Tags data={laborTypeArray}/>, <BlakioUI.Separator />, labelTypeButtons]} />}
       {!isAdminMode && <Panel heading="time sheet" components={[<TimeTrackBar />]}/>}
       {isAdminMode && <Panel heading="add items here" components={[<AddBar />]}/>}
       {isAdminMode && <Panel heading="edit items here" components={[<EditBar />]}/>}
