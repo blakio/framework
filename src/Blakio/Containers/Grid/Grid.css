@@ -1,0 +1,52 @@
+.Grid {
+    display: grid;
+    grid-gap: 6px;
+}
+
+.col1 {
+    grid-template-columns: 1fr;
+}
+
+.col2 {
+    grid-template-columns: 1fr 1fr;
+}
+
+.col3 {
+    grid-template-columns: 1fr 1fr 1fr;
+}
+
+.col4 {
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+}
+
+.col5 {
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+}
+
+.col6 {
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+}
+
+.col7 {
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+}
+
+.col8 {
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+}
+
+.col9 {
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+}
+
+.col10 {
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+}
+
+.col11 {
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+}
+
+.col12 {
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+}

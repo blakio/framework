@@ -163,6 +163,7 @@ const SideBar = () => {
       }
     })
   }
+  debugger
 
   return (<div id="SideBar" className="container flex">
     <SideBarHead />
@@ -680,13 +681,13 @@ const DashboardBody = () => {
 
   return (<div id="dashboardBodyContainer">
     <div id="DashboardBody">
-      {show("JOB NUMBERS") && <Panel heading={"JOB NUMBERS"} components={[<Tags data={jobNumberArray}/>, <BlakioUI.Separator />, jobNumberButtons]} />}
-      {show("LABOR TYPES") && <Panel heading={"LABOR TYPES"} components={[<Tags data={laborTypeArray}/>, <BlakioUI.Separator />, labelTypeButtons]} />}
-      {!isAdminMode && <Panel heading="time sheet" components={[<TimeTrackBar />]}/>}
-      {isAdminMode && <Panel heading="add items here" components={[<AddBar />]}/>}
-      {isAdminMode && <Panel heading="edit items here" components={[<EditBar />]}/>}
-      {/*<Panel heading="history" noPadding overflow components={[<Table />]}/>*/}
-      {/*<Panel heading="charts" components={[<DataVisualization />]} />*/}
+      {show("JOB NUMBERS") && <Panel heading={"JOB NUMBERS"} components={[<Tags key={0} data={jobNumberArray}/>, <BlakioUI.Separator key={1} />, jobNumberButtons]} />}
+      {show("LABOR TYPES") && <Panel heading={"LABOR TYPES"} components={[<Tags key={0} data={laborTypeArray}/>, <BlakioUI.Separator key={1} />, labelTypeButtons]} />}
+      {!isAdminMode && <Panel heading="time sheet" components={[<TimeTrackBar key={0} />]}/>}
+      {isAdminMode && <Panel heading="add items here" components={[<AddBar key={0} />]}/>}
+      {isAdminMode && <Panel heading="edit items here" components={[<EditBar key={0} />]}/>}
+      {/*<Panel heading="history" noPadding overflow components={[<Table key={0} />]}/>*/}
+      {/*<Panel heading="charts" components={[<DataVisualization key={0} />]} />*/}
     </div>
   </div>)
 }
