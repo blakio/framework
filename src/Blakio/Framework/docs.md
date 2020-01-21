@@ -20,9 +20,16 @@ The container of each side bar sections
 | data.data.data.subText      | String     | The sub text |
 | data.data.data.isActive     | Boolean    | active status |
 | data.data.data.onClick      | Function   | click event |
-| data.data.data.component    | Component  | a component that shows in the dtop down intead of the list |
+| data.data.data.component    | Component  | a component that shows in the drop down intead of the list |
 
 ### Panel
+| Attribute                   | Type       | Description           |
+| -------------               | -----      | ------------          |
+| heading                     | String     | the section heading |
+| components                  | Array      | an array of componentns to display from top to bottom |
+| noPadding                   | No Value   | removes the padding |
+| overflow                    | No Value   | make the element scrollable |
+
 ### Table
 ### Grid
 

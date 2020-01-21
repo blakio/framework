@@ -163,8 +163,7 @@ const SideBar = () => {
       }
     })
   }
-  debugger
-
+  
   return (<div id="SideBar" className="container flex">
     <SideBarHead />
     <SideBarPaper data={sideBarData}/>
