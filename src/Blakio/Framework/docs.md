@@ -3,6 +3,7 @@ This framework is meant to help accelerate the development process when building
 
 ### SideBarPaper
 The container of each side bar sections
+
 | Attribute                   | Type       | Description           |
 | -------------               | -----      | ------------          |
 | data                        | Object     | data describes the structure of the side bar paper section |
