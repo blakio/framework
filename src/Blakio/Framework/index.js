@@ -1,17 +1,17 @@
-import SideBarPaper from "../Containers/SideBarPaper";
-import Panel from "../Containers/Panel";
-import Table from "../Containers/Table";
-import Grid from "../Containers/Grid";
+import SideBarPaper from "Blakio/Containers/SideBarPaper";
+import Panel from "Blakio/Containers/Panel";
+import Table from "Blakio/Containers/Table";
+import Grid from "Blakio/Containers/Grid";
 
-import PaperHead from "../Components/PaperHead";
-import Tags from "../Components/Tags";
-import IconButton from "../Components/IconButton";
-import LoadingScreen from "../Components/LoadingScreen";
-import TopLeftFold from "../Components/TopLeftFold";
-import HamburgerMenu from "../Components/HamburgerMenu";
-import Toggle from "../Components/Toggle";
-import DataVisualization from "../Components/DataVisualization";
-import Separator from "../Components/Separator";
+import PaperHead from "Blakio/Components/PaperHead";
+import Tags from "Blakio/Components/Tags";
+import IconButton from "Blakio/Components/IconButton";
+import LoadingScreen from "Blakio/Components/LoadingScreen";
+import TopLeftFold from "Blakio/Components/TopLeftFold";
+import HamburgerMenu from "Blakio/Components/HamburgerMenu";
+import Toggle from "Blakio/Components/Toggle";
+import DataVisualization from "Blakio/Components/DataVisualization";
+import Separator from "Blakio/Components/Separator";
 
 export default {
   SideBarPaper,

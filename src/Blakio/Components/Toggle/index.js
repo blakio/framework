@@ -2,10 +2,16 @@ import React from "react";
 import "./Toggle.css";
 
 const Toggle = (props) => {
-  return (<div className="Toggle flex" onClick={props.onClick}>
-    {props.isOn && <i className="fas fa-toggle-on"></i>}
-    {!props.isOn && <i className="fas fa-toggle-off"></i>}
-    <p>{props.text}</p>
+  const {
+    onClick,
+    isActive,
+    text
+  } = props;
+
+  return (<div className="Toggle flex" onClick={onClick}>
+    {isActive && <i className="fas fa-toggle-on"></i>}
+    {!isActive && <i className="fas fa-toggle-off"></i>}
+    <p>{text}</p>
   </div>)
 }
 

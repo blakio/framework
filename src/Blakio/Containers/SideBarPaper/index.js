@@ -1,26 +1,21 @@
 import React from "react";
-import "./SideBarPaper.css";
 
-import PaperHead from "../../Components/PaperHead";
+import "./SideBarPaper.css";
 import SideBarOption from "../../Components/SideBarOption";
-import SideBarList from "../../Components/SideBarList";
+import PaperHead from "../../Components/PaperHead";
 
 const SideBarPaper = (props) => {
   const {
     head,
     icon,
     data
-  } = props.data;
+  } = props;
   return (<div className="SideBarPaper">
-    <PaperHead text={head} icon={icon}/>
+    <PaperHead text={[head]} icon={icon}/>
     {data.map((d, index) => {
-      if(d.component) return (<div key={index} className={`SideBarListContainer ${d.isOpen && "open"}`}>
-        <SideBarOption data={d}/>
-        {d.isOpen && d.component}
-      </div>);
       return (<div key={index} className={`SideBarListContainer ${d.isOpen && "open"}`}>
         <SideBarOption data={d}/>
-        {d.isOpen && d.data.map((dt, i) => <SideBarList key={i} index={i} data={dt}/>)}
+        {d.isOpen && d.component}
       </div>)
     })}
   </div>)

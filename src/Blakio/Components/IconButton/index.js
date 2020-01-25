@@ -2,9 +2,15 @@ import React from "react";
 import "./IconButton.css";
 
 const IconButton = (props) => {
-  return (<div className={`IconButton flex ${props.isActive && "active"}`} onClick={() => {if(props.isActive) props.onClick()}}>
-    <i className={props.icon}></i>
-    <p>{props.text}</p>
+  const {
+    isActive,
+    icon,
+    text
+  } = props;
+
+  return (<div className={`IconButton flex ${isActive && "isActive"}`} onClick={() => (isActive && props.onClick())}>
+    <i className={icon}></i>
+    <p>{text}</p>
   </div>)
 }
 

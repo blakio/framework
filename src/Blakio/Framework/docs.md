@@ -1,6 +1,9 @@
 # Blakio Framework
 This framework is meant to help accelerate the development process when building dashboards
 
+### CONTAINERS
+-----------------------------
+
 ### SideBarPaper
 The container of each side bar sections
 
@@ -32,19 +35,85 @@ The container of each side bar sections
 | overflow                    | No Value   | make the element scrollable |
 
 ### Table
-### Grid
-
-
-### PaperHead
-### Tags
-### IconButton
-### LoadingScreen
-### TopLeftFold
-### HamburgerMenu
-### Toggle
-### DataVisualization
-### Separator
-
 | Attribute                   | Type       | Description           |
 | -------------               | -----      | ------------          |
 |  |  |  |
+
+### Grid
+| Attribute                   | Type       | Description           |
+| -------------               | -----      | ------------          |
+|  |  |  |
+
+
+### COMPONENTS
+-----------------------------
+
+### PaperHead
+| Attribute                   | Type       | Description           |
+| -------------               | -----      | ------------          |
+| text                        | String     | title of the head |
+| icon                        | String     | icon of the head |
+
+### Tags
+| Attribute                   | Type       | Description           |
+| -------------               | -----      | ------------          |
+| data                        | Object     | an object with the tag metadata |
+| data.isDisabled             | Boolean    | if false, the gets a disabled class |
+| data.isSelected             | Boolean    | if true the button gets a selected class |
+| data.label                  | String     | the label on the tag |
+| data.onClick                | Function   | click event |
+
+### IconButton
+| Attribute                   | Type       | Description           |
+| -------------               | -----      | ------------          |
+| isActive                    | Boolean    | if true the button gets a active class |
+| onClick                     | Function   | click event |
+| icon                        | String     | The icon that appears on the button |
+| text                        | String     | The button text |
+
+### LoadingScreen
+| Attribute                   | Type       | Description           |
+| -------------               | -----      | ------------          |
+| None                        | None       | If shows on page a loading screen shows |
+
+### TopLeftFold
+| Attribute                   | Type       | Description           |
+| -------------               | -----      | ------------          |
+|  |  |  |
+
+### HamburgerMenu
+| Attribute                   | Type       | Description           |
+| -------------               | -----      | ------------          |
+|  |  |  |
+
+### Toggle
+| Attribute                   | Type       | Description           |
+| -------------               | -----      | ------------          |
+|  |  |  |
+
+### DataVisualization
+| Attribute                   | Type       | Description           |
+| -------------               | -----      | ------------          |
+|  |  |  |
+
+### Separator
+| Attribute                   | Type       | Description           |
+| -------------               | -----      | ------------          |
+|  |  |  |
+
+### Table Template
+| Attribute                   | Type       | Description           |
+| -------------               | -----      | ------------          |
+|  |  |  |
+
+```javascript
+data = {
+    head: String, // the title
+    icons: Array, // an array of icons
+    isActive: Boolean, // gives the active status
+    isDisable: Boolean, // disables the component
+    onClick: Function, // click event
+    text: Array, // an array of text for the component
+    components: Array // an array of compontents to render in the component
+}
+```
