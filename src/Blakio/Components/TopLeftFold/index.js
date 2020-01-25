@@ -2,10 +2,20 @@ import React from "react";
 import "./TopLeftFold.css";
 
 const TopLeftFold = (props) => {
-  return (<div id="TopLeftFold" style={props.styles}>
+  const  {
+    height,
+    width,
+    backgroundColor
+  } = props;
+
+  return (<div id="TopLeftFold" style={{
+    height,
+    width,
+    backgroundColor
+  }}>
       <div className="backFold" style={{
-        height: props.styles.height * 2,
-        width: props.styles.width * 2
+        height: height * 2,
+        width: width * 2
       }}></div>
   </div>)
 }

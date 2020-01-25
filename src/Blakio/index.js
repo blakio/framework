@@ -54,11 +54,13 @@ const SAMPLE = () => {
 }
 
 const SideBarHead = () => {
+  const onClick = () => {
+    console.log("clicked menu")
+  }
+
   return (<div id="SideBarHead" className="flex">
     <img src={logo} />
-    {/*<HamburgerMenu styles={{
-      size: 30
-    }}/>*/}
+    <HamburgerMenu size={30} onClick={onClick}/>
   </div>)
 }
 
@@ -274,7 +276,7 @@ const DashboardHead = () => {
           type: Types.TOGGLE_ADMIN_MODE
         })
       }}
-      isOn={isAdminMode}/>
+      isActive={isAdminMode}/>
   </div>)
 }
 
@@ -692,7 +694,7 @@ const DashboardBody = () => {
 const Dashboard = () => {
   return (<div id="Dashboard" className="container">
     <ReactNotification />
-    <TopLeftFold styles={{height: 50, width: 50, backgroundColor: "#FFFFFF"}}/>
+    <TopLeftFold height={50} width={50} backgroundColor="#FFFFFF"/>
     <DashboardHead />
     <DashboardBody />
     <DashboardSidePopOut />

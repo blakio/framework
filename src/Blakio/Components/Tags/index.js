@@ -2,12 +2,16 @@ import React from "react";
 import "./Tags.css";
 
 const Tags = (props) => {
+  const {
+    data
+  } = props;
+
   return (<div className="Tags flex">
-    {props.data.map((data, index) => (<div
+    {data.map((d, index) => (<div
       key={index}
-      onClick={data.onClick}
-      className={`TagLabel ${data.isSelected && "isSelected"} ${data.isDisabled && "isDisabled"}`}>
-      {data.label}
+      onClick={d.onClick}
+      className={`TagLabel ${d.isSelected && "isSelected"} ${d.isDisabled && "isDisabled"}`}>
+      {d.label}
     </div>))}
   </div>)
 }

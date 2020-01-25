@@ -22,15 +22,15 @@
   color: #000;
 }
 
-.IconButton.active {
+.IconButton.isActive {
   background-color: #0ba6a4;
   color: #fff;
 }
 
-.IconButton.active i {
+.IconButton.isActive i {
   color: #fff;
 }
 
-.IconButton.active p {
+.IconButton.isActive p {
   font-weight: 600;
 }
