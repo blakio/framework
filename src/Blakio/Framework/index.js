@@ -6,7 +6,6 @@ import Grid from "Blakio/Containers/Grid";
 import PaperHead from "Blakio/Components/PaperHead";
 import Tags from "Blakio/Components/Tags";
 import IconButton from "Blakio/Components/IconButton";
-import LoadingScreen from "Blakio/Components/LoadingScreen";
 import TopLeftFold from "Blakio/Components/TopLeftFold";
 import HamburgerMenu from "Blakio/Components/HamburgerMenu";
 import Toggle from "Blakio/Components/Toggle";
@@ -21,7 +20,6 @@ export default {
   PaperHead,
   Tags,
   IconButton,
-  LoadingScreen,
   TopLeftFold,
   HamburgerMenu,
   Toggle,

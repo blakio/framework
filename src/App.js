@@ -18,7 +18,7 @@ function App() {
         <Blakio.TopBar />
         <Blakio.Dashboard />
       </div>
-      {state.isLoading && <BlakioUI.LoadingScreen />}
+      {state.isLoading && <Blakio.LoadingScreen />}
     </div>
   </DashboardContext.Provider>);
 }

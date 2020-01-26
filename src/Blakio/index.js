@@ -3,6 +3,7 @@ import { CSVLink } from "react-csv";
 
 import moment from "moment";
 import axios from "axios";
+
 import DatePicker from  "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
@@ -10,12 +11,12 @@ import ReactNotification from 'react-notifications-component'
 import 'react-notifications-component/dist/theme.css';
 import { store } from 'react-notifications-component';
 
+import Loader from 'react-loader-spinner'
+
 import './Blakio.css';
 
 import Util from "../Util";
-
 import logo from "../imgs/logo.png";
-
 import Axios from "../Axios";
 import Types from "../Context/Types";
 import DashboardContext from "../Context/State";
@@ -48,11 +49,6 @@ const fetch = (dispatch) => {
   Axios.fetchLaborTypes(dispatch, () => load(dispatch, false));
 }
 
-const SAMPLE = () => {
-  return (<div id="SAMPLE">
-  </div>)
-}
-
 const SideBarHead = () => {
   const onClick = () => {
     console.log("clicked menu")
@@ -63,122 +59,6 @@ const SideBarHead = () => {
     <HamburgerMenu size={30} onClick={onClick}/>
   </div>)
 }
-
-const SideBar = () => {
-  const {
-    dispatch,
-    employees,
-    isAdminMode,
-    isSideBarOpen,
-    jobNumbers,
-    laborTypes,
-    openList,
-    selectedItems
-  } = useContext(DashboardContext);
-
-  useEffect(() => {
-    load(dispatch, true);
-    Axios.fetchEmployees(dispatch, () => load(dispatch, false));
-  }, []);
-
-  const sideBarData = {
-    head: "timesheet",
-    icon: "fas fa-cog",
-    data: [
-      {
-        head: "employees",
-        icons: ["far fa-user-circle", "fas fa-circle"],
-        isOpen: (openList === "employees"),
-        onClick: () => {
-          dispatch({
-            type: Types.OPENED_LIST,
-            payload: "employees"
-          })
-        },
-        data: []
-      },
-      {
-        head: "historical data",
-        icons: ["far fa-file-alt", "fas fa-circle"],
-        isOpen: (openList === "historical data"),
-        onClick: () => {
-          dispatch({
-            type: Types.OPENED_LIST,
-            payload: "historical data"
-          })
-        },
-        data: [],
-        component: <DatePickerTwoDate />
-      }
-    ]
-  }
-
-  const getIcon = (data) => {
-    if(data.isContractor) return "fas fa-id-card-alt";
-    if(data.isTech) return "fas fa-wrench";
-    return "fas fa-user-tie"
-  }
-
-  const getPushObj = (data) => {
-    return {
-      icon: getIcon(data),
-      text: data.name,
-      subText: data.jobTitle,
-      isActive: (selectedItems.employees[0] && (data.name === selectedItems.employees[0].name)),
-      onClick: () => {
-        const employees = (!selectedItems.employees[0] || (selectedItems.employees[0] && selectedItems.employees[0].name !== data.name)) ? [data] : [];
-        dispatch({
-          type: Types.SET_SELECTED_EMPLOYEES,
-          payload: employees
-        });
-        if(!isAdminMode){
-          dispatch({
-            type: Types.SET_SELECTED_JOB_NUMBERS,
-            payload: data.jobNumber ? [Util.getObjFromArray(data.jobNumber, "number", jobNumbers)] : []
-          });
-          dispatch({
-            type: Types.SET_SELECTED_LABOR_TYPES,
-            payload: data.laborType ? [Util.getObjFromArray(data.laborType, "name", laborTypes)] : []
-          });
-        }
-        if(isAdminMode){
-          dispatch({
-            type: Types.OPEN_SIDE_BAR,
-            payload: employees.length
-          });
-        }
-      }
-    }
-  }
-
-  if(employees.length){
-    const list = Util.getEmployees(employees, isAdminMode);
-    list.forEach(data => {
-      if(!isAdminMode){
-        if(data.isActive){
-          sideBarData.data[0].data.push(getPushObj(data))
-        }
-      } else {
-        sideBarData.data[0].data.push({ ...getPushObj(data), disabled: !data.isActive })
-      }
-    })
-  }
-  
-  return (<div id="SideBar" className="container flex">
-    <SideBarHead />
-    <SideBarPaper head={sideBarData.head} icon={sideBarData.icon} data={sideBarData.data}/>
-  </div>)
-};
-
-const TopBar = () => {
-  const {
-    dispatch
-  } = useContext(DashboardContext);
-
-  return (<div id="TopBar" className="container flex">
-    <DateTimeWeather />
-  </div>)
-};
 
 const DatePickerTwoDate = () => {
   const {
@@ -691,16 +571,6 @@ const DashboardBody = () => {
   </div>)
 }
 
-const Dashboard = () => {
-  return (<div id="Dashboard" className="container">
-    <ReactNotification />
-    <TopLeftFold height={50} width={50} backgroundColor="#FFFFFF"/>
-    <DashboardHead />
-    <DashboardBody />
-    <DashboardSidePopOut />
-  </div>)
-}
-
 const DashboardSidePopOut = () => {
   const {
     dispatch,
@@ -738,33 +608,35 @@ const DateTimeWeather = () => {
   const [temp, setTemp] = useState("");
   const [icon, setIcon] = useState("");
 
-  useEffect(() => {
-    function update() {
-      setTime(moment().format('MM/DD/YYYY hh:mm:ssA'));
-    }
-    setInterval(update, 1000);
-    const apiKey = "1001a1dcc738f2ecade5496fbf796f50";
-    const cityId = "4562144&APPID";
-    const string = `https://api.openweathermap.org/data/2.5/forecast?id=${cityId}=${apiKey}`
-    axios.get(string).then(data => {
+  const second = 1000;
+  const halfHour = 1800000;
+  const baseURL = "https://api.openweathermap.org/data/2.5/forecast";
+  const apiKey = "1001a1dcc738f2ecade5496fbf796f50";
+  const cityId = "4562144";
+  const getWeather = () => {
+    axios.get(`${baseURL}?id=${cityId}&APPID=${apiKey}`).then(data => {
       const K = data.data.list[0].main.temp;
       const F = (K - 273.15) * (9/5) + 32;
       setTemp(`${F.toFixed(2)} F`);
       setIcon(data.data.list[0].weather[0].icon)
-    })
-  }, []);
+    });
+  }
 
-  const {
-    dispatch
-  } = useContext(DashboardContext);
+  useEffect(() => {
+    setInterval(() => {
+      setTime(moment().format('MM/DD/YYYY hh:mm:ssA'));
+    }, second);
+    setInterval(() => {
+      getWeather();
+    }, halfHour);
+    getWeather();
+  }, []);
 
   return (<div id="dateTimeWeather" className="flex">
     <p>
-      <i className="far fa-calendar-alt"></i>
-      {time}
-      {" | "}
+      <i className="far fa-calendar-alt"></i> {`${time} | `}
       <i className="fas fa-temperature-low"></i>
-      {`${temp}`}
+      {temp}
       <span>
         <img src={`https://openweathermap.org/img/wn/${icon}@2x.png`}/>
       </span>
@@ -772,16 +644,149 @@ const DateTimeWeather = () => {
   </div>);
 }
 
+const SideBar = () => {
+  const {
+    dispatch,
+    employees,
+    isAdminMode,
+    isSideBarOpen,
+    jobNumbers,
+    laborTypes,
+    openList,
+    selectedItems
+  } = useContext(DashboardContext);
+
+  useEffect(() => {
+    load(dispatch, true);
+    Axios.fetchEmployees(dispatch, () => load(dispatch, false));
+  }, []);
+
+  const sideBarData = {
+    head: "timesheet",
+    icon: "fas fa-cog",
+    data: [
+      {
+        head: "employees",
+        icons: ["far fa-user-circle", "fas fa-circle"],
+        isOpen: (openList === "employees"),
+        onClick: () => {
+          dispatch({
+            type: Types.OPENED_LIST,
+            payload: "employees"
+          })
+        },
+        data: []
+      },
+      {
+        head: "historical data",
+        icons: ["far fa-file-alt", "fas fa-circle"],
+        isOpen: (openList === "historical data"),
+        onClick: () => {
+          dispatch({
+            type: Types.OPENED_LIST,
+            payload: "historical data"
+          })
+        },
+        data: [],
+        component: <DatePickerTwoDate />
+      }
+    ]
+  }
+
+  const getIcon = (data) => {
+    if(data.isContractor) return "fas fa-id-card-alt";
+    if(data.isTech) return "fas fa-wrench";
+    return "fas fa-user-tie"
+  }
+
+  const getPushObj = (data) => {
+    return {
+      icon: getIcon(data),
+      text: data.name,
+      subText: data.jobTitle,
+      isActive: (selectedItems.employees[0] && (data.name === selectedItems.employees[0].name)),
+      onClick: () => {
+        const employees = (!selectedItems.employees[0] || (selectedItems.employees[0] && selectedItems.employees[0].name !== data.name)) ? [data] : [];
+        dispatch({
+          type: Types.SET_SELECTED_EMPLOYEES,
+          payload: employees
+        });
+        if(!isAdminMode){
+          dispatch({
+            type: Types.SET_SELECTED_JOB_NUMBERS,
+            payload: data.jobNumber ? [Util.getObjFromArray(data.jobNumber, "number", jobNumbers)] : []
+          });
+          dispatch({
+            type: Types.SET_SELECTED_LABOR_TYPES,
+            payload: data.laborType ? [Util.getObjFromArray(data.laborType, "name", laborTypes)] : []
+          });
+        }
+        if(isAdminMode){
+          dispatch({
+            type: Types.OPEN_SIDE_BAR,
+            payload: employees.length
+          });
+        }
+      }
+    }
+  }
+
+  if(employees.length){
+    const list = Util.getEmployees(employees, isAdminMode);
+    list.forEach(data => {
+      if(!isAdminMode){
+        if(data.isActive){
+          sideBarData.data[0].data.push(getPushObj(data))
+        }
+      } else {
+        sideBarData.data[0].data.push({ ...getPushObj(data), disabled: !data.isActive })
+      }
+    })
+  }
+  
+  return (<div id="SideBar" className="container flex">
+    <SideBarHead />
+    <SideBarPaper head={sideBarData.head} icon={sideBarData.icon} data={sideBarData.data}/>
+  </div>)
+}
+
+const TopBar = () => {
+  const {
+    dispatch
+  } = useContext(DashboardContext);
+
+  return (<div id="TopBar" className="container flex">
+    <DateTimeWeather />
+  </div>)
+}
+
+const Dashboard = () => {
+  return (<div id="Dashboard" className="container">
+    <ReactNotification />
+    <TopLeftFold height={50} width={50} backgroundColor="#FFFFFF"/>
+    <DashboardHead />
+    <DashboardBody />
+    <DashboardSidePopOut />
+  </div>)
+}
+
+const LoadingScreen = () => {
+  return (<div className="LoadingScreen flex">
+    <Loader type="MutatingDots" color="#888" height={100} width={100} />
+  </div>)
+}
+
+const SAMPLE = () => {
+  const {
+    dispatch
+  } = useContext(DashboardContext);
+  return (<div id="SAMPLE">
+  </div>)
+}
+
 export default {
   SideBar,
   TopBar,
-  Dashboard
+  Dashboard,
+  LoadingScreen
 }
-
-
-// grid-column: 1/-1; one row until last column
-
-// grid-column: span 2; starts at current position and spans 2 colums
-
-// grid-template-column: repeat(auto-fit, minmax(100px, 1fr)) makes the colums responsive
-// grid-auto-row: 75px; sets a height for all rows
