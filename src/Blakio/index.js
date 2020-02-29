@@ -21,6 +21,8 @@ import Axios from "../Axios";
 import Types from "../Context/Types";
 import DashboardContext from "../Context/State";
 
+import fakeData from "../FakeData";
+
 import BlakioUI from "Blakio/Framework";
 const {
   SideBarPaper,
@@ -656,6 +658,10 @@ const SideBar = () => {
     selectedItems
   } = useContext(DashboardContext);
 
+  const {
+    sideBar
+  } = fakeData(dispatch, Types, openList, selectedItems);
+
   useEffect(() => {
     load(dispatch, true);
     Axios.fetchEmployees(dispatch, () => load(dispatch, false));
@@ -743,11 +749,23 @@ const SideBar = () => {
       }
     })
   }
-  
+
   return (<div id="SideBar" className="container flex">
     <SideBarHead />
+    {sideBar.map((data, index) => {
+      if(data.section === "condensed") return renderCondensed(data, index);
+    })}
     <SideBarPaper head={sideBarData.head} icon={sideBarData.icon} data={sideBarData.data}/>
   </div>)
+}
+
+const renderCondensed = (sideBarData, index) => {
+  const {
+    title,
+    icon,
+    data
+  } = sideBarData;
+  return <SideBarPaper key={index} head={title} icon={icon} data={data}/>
 }
 
 const TopBar = () => {
