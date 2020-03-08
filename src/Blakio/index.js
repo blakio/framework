@@ -21,7 +21,7 @@ import Axios from "../Axios";
 import Types from "../Context/Types";
 import DashboardContext from "../Context/State";
 
-import fakeData from "../FakeData";
+import appData from "../appData";
 
 import BlakioUI from "Blakio/Framework";
 const {
@@ -648,124 +648,23 @@ const DateTimeWeather = () => {
 
 const SideBar = () => {
   const {
-    dispatch,
-    employees,
-    isAdminMode,
-    isSideBarOpen,
-    jobNumbers,
-    laborTypes,
-    openList,
-    selectedItems
+    ...context
   } = useContext(DashboardContext);
 
-  const {
-    sideBar
-  } = fakeData(dispatch, Types, openList, selectedItems);
-
-  useEffect(() => {
-    load(dispatch, true);
-    Axios.fetchEmployees(dispatch, () => load(dispatch, false));
-  }, []);
-
-  const sideBarData = {
-    head: "timesheet",
-    icon: "fas fa-cog",
-    data: [
-      {
-        head: "employees",
-        icons: ["far fa-user-circle", "fas fa-circle"],
-        isOpen: (openList === "employees"),
-        onClick: () => {
-          dispatch({
-            type: Types.OPENED_LIST,
-            payload: "employees"
-          })
-        },
-        data: []
-      },
-      {
-        head: "historical data",
-        icons: ["far fa-file-alt", "fas fa-circle"],
-        isOpen: (openList === "historical data"),
-        onClick: () => {
-          dispatch({
-            type: Types.OPENED_LIST,
-            payload: "historical data"
-          })
-        },
-        data: [],
-        component: <DatePickerTwoDate />
-      }
-    ]
-  }
-
-  const getIcon = (data) => {
-    if(data.isContractor) return "fas fa-id-card-alt";
-    if(data.isTech) return "fas fa-wrench";
-    return "fas fa-user-tie"
-  }
-
-  const getPushObj = (data) => {
-    return {
-      icon: getIcon(data),
-      text: data.name,
-      subText: data.jobTitle,
-      isActive: (selectedItems.employees[0] && (data.name === selectedItems.employees[0].name)),
-      onClick: () => {
-        const employees = (!selectedItems.employees[0] || (selectedItems.employees[0] && selectedItems.employees[0].name !== data.name)) ? [data] : [];
-        dispatch({
-          type: Types.SET_SELECTED_EMPLOYEES,
-          payload: employees
-        });
-        if(!isAdminMode){
-          dispatch({
-            type: Types.SET_SELECTED_JOB_NUMBERS,
-            payload: data.jobNumber ? [Util.getObjFromArray(data.jobNumber, "number", jobNumbers)] : []
-          });
-          dispatch({
-            type: Types.SET_SELECTED_LABOR_TYPES,
-            payload: data.laborType ? [Util.getObjFromArray(data.laborType, "name", laborTypes)] : []
-          });
-        }
-        if(isAdminMode){
-          dispatch({
-            type: Types.OPEN_SIDE_BAR,
-            payload: employees.length
-          });
-        }
-      }
+  const customFn = {
+    selectEmployee: (data) => {
+      console.log(data)
     }
   }
 
-  if(employees.length){
-    const list = Util.getEmployees(employees, isAdminMode);
-    list.forEach(data => {
-      if(!isAdminMode){
-        if(data.isActive){
-          sideBarData.data[0].data.push(getPushObj(data))
-        }
-      } else {
-        sideBarData.data[0].data.push({ ...getPushObj(data), disabled: !data.isActive })
-      }
-    })
-  }
+  Util.adjustSideBarData(appData, context, Types, customFn);
 
   return (<div id="SideBar" className="container flex">
     <SideBarHead />
-    {sideBar.map((data, index) => {
-      if(data.section === "condensed") return renderCondensed(data, index);
-    })}
-    <SideBarPaper head={sideBarData.head} icon={sideBarData.icon} data={sideBarData.data}/>
+    {appData.sideBar.map((data, index) => 
+      <SideBarPaper key={index} {...data} />
+    )}
   </div>)
-}
-
-const renderCondensed = (sideBarData, index) => {
-  const {
-    title,
-    icon,
-    data
-  } = sideBarData;
-  return <SideBarPaper key={index} head={title} icon={icon} data={data}/>
 }
 
 const TopBar = () => {

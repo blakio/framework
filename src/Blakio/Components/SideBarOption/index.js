@@ -4,7 +4,7 @@ import SideBarList from "../../Components/SideBarList";
 
 const SideBarOption = (props) => {
   const {
-    head,
+    title,
     icons,
     onClick,
     isOpen,
@@ -16,10 +16,10 @@ const SideBarOption = (props) => {
       <div className="flex">
         <i className={`firstIcon ${icons[0]}`}></i>
         <div>
-          <p>{head}</p>
+          <p>{title}</p>
         </div>
       </div>
-      {isOpen ? <span>|||</span> : <i className={`secondIcon ${icons[1]}`}></i>}
+      <i className={`secondIcon ${isOpen ? icons[1] : icons[2]}`}></i>
     </div>
     {isOpen && data.map((dt, i) => <SideBarList key={i} index={i} data={dt}/>)}
   </div>)

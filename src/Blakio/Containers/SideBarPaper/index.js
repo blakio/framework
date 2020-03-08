@@ -6,13 +6,15 @@ import PaperHead from "../../Components/PaperHead";
 
 const SideBarPaper = (props) => {
   const {
-    head,
+    title,
     icon,
-    data
+    data,
+    onClick,
+    isOpen
   } = props;
   return (<div className="SideBarPaper">
-    <PaperHead text={[head]} icon={icon}/>
-    {data.map((d, index) => {
+    <PaperHead text={[title]} icon={icon} onClick={onClick}/>
+    {isOpen && data.map((d, index) => {
       return (<div key={index} className={`SideBarListContainer ${d.isOpen && "open"}`}>
         <SideBarOption data={d}/>
         {d.isOpen && d.component}

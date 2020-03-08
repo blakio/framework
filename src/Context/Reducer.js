@@ -6,6 +6,21 @@ export default (state, action) => {
   console.table(action)
 
   switch(action.type){
+
+    case Types.SET_SIDE_BAR_OPTION:
+      return StateFunctions.setSideBarOption(payload, state);
+    case Types.SET_SIDE_BAR_CHILD_OPTION:
+      return StateFunctions.setSideBarChildOption(payload, state);
+    case Types.SET_CHILD_OPTION:
+      return StateFunctions.setChildClickOption(payload, state);
+
+
+
+
+
+
+
+
     // SET
     case Types.SET_SELECTED_ITEMS:
       return StateFunctions.setSelectedItems(payload, state);

@@ -1,4 +1,12 @@
 const initialState = {
+  sideBarOption: null,
+  sideBarChildOption: null,
+  childClickOption: null,
+
+
+
+
+
   token: "",
   isAdminMode: false,
   isAdminLoggedIn: true,

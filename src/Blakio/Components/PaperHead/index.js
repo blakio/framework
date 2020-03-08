@@ -4,10 +4,11 @@ import "./PaperHead.css";
 const PaperHead = (props) => {
   const {
     text,
-    icon
+    icon,
+    onClick
   } = props;
   
-  return (<div className="PaperHead flex">
+  return (<div className="PaperHead flex" onClick={onClick}>
     <div>
       <p>{text[0]}</p>
     </div>

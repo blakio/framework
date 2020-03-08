@@ -7,6 +7,18 @@ import Util from "../Util";
 
 export default {
 
+setSideBarOption: (payload, state) => ({ ...state, sideBarOption: payload }),
+setSideBarChildOption: (payload, state) => ({ ...state, sideBarChildOption: payload }),
+setChildClickOption: (payload, state) => ({ ...state, childClickOption: payload }),
+
+
+
+
+
+
+
+
+
   // SET
   setSelectedItems: (payload, state) => ({ ...state, selectedItems: payload }),
   setEmployees: (payload, state) =>  ({ ...state, employees: payload }),
