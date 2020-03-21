@@ -26,7 +26,6 @@ const {
   IconButton,
   TopLeftFold,
   HamburgerMenu,
-  Toggle,
   Table,
   DataVisualization
 } = BlakioUI;
@@ -93,34 +92,10 @@ const TimeTrackBar = () => {
 
   return (<div id="TimeTrackBar">
     <div className="flex" style={{justifyContent: "space-around"}}>
-      <IconButton isActive={Util.getActiveTimeButtomStatus("CLOCK IN", selectedItems)} text={"CLOCK IN"} icon="fas fa-clock" onClick={() => dispatch({
-        type: Types.CLOCK_IN,
-        payload: () => {
-          fetch(dispatch);
-          setConfirmedNotification(employee);
-        }
-      })}/>
-      <IconButton isActive={Util.getActiveTimeButtomStatus("TO LUNCH", selectedItems)} text={"TO LUNCH"} icon="fas fa-drumstick-bite" onClick={() => dispatch({
-        type: Types.GO_TO_LUNCH,
-        payload: () => {
-          fetch(dispatch);
-          setConfirmedNotification(employee);
-        }
-      })}/>
-      <IconButton isActive={Util.getActiveTimeButtomStatus("FROM LUNCH", selectedItems)} text={"FROM LUNCH"} icon="fas fa-bone" onClick={() => dispatch({
-        type: Types.BACK_FROM_LUNCH,
-        payload: () => {
-          fetch(dispatch);
-          setConfirmedNotification(employee);
-        }
-      })}/>
-      <IconButton isActive={Util.getActiveTimeButtomStatus("CLOCK OUT", selectedItems)} text={"CLOCK OUT"} icon="fas fa-clock" onClick={() => dispatch({
-        type: Types.CLOCK_OUT,
-        payload: () => {
-          fetch(dispatch);
-          setConfirmedNotification(employee);
-        }
-      })}/>
+      <IconButton isActive={true} text={"CLOCK IN"} icon="fas fa-clock" onClick={() => {}}/>
+      <IconButton isActive={false} text={"TO LUNCH"} icon="fas fa-drumstick-bite" onClick={() => {}}/>
+      <IconButton isActive={false} text={"FROM LUNCH"} icon="fas fa-bone" onClick={() => {}}/>
+      <IconButton isActive={false} text={"CLOCK OUT"} icon="fas fa-clock" onClick={() => {}}/>
     </div>
   </div>)
 }
@@ -131,14 +106,14 @@ const DashboardBody = () => {
   } = useContext(DashboardContext);
 
   const components = {
-    timesheet: [<TimeTrackBar />],
-    charts: [<DataVisualization />],
-    table: [<Table />]
+    timesheet: [<TimeTrackBar key={0} />],
+    charts: [<DataVisualization key={0} />],
+    table: [<Table key={0} />]
   }
 
   return (<div id="dashboardBodyContainer">
     <div id="DashboardBody">
-      {appData.dahsboard.map(data => Util.showComponent(data, context) && <Panel heading={data.title} components={[components[data.component]]}/>)}
+      {appData.dahsboard.map((data, index) => Util.showComponent(data, context) && <Panel key={index} heading={data.title} components={[components[data.component]]}/>)}
     </div>
   </div>)
 }
