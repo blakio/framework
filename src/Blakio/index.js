@@ -1,11 +1,7 @@
 import React, { useState, useContext, useEffect } from 'react';
-import { CSVLink } from "react-csv";
 
 import moment from "moment";
 import axios from "axios";
-
-import DatePicker from  "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css";
 
 import ReactNotification from 'react-notifications-component'
 import 'react-notifications-component/dist/theme.css';
@@ -27,8 +23,6 @@ import BlakioUI from "Blakio/Framework";
 const {
   SideBarPaper,
   Panel,
-  PaperHead,
-  Tags,
   IconButton,
   TopLeftFold,
   HamburgerMenu,
@@ -62,103 +56,13 @@ const SideBarHead = () => {
   </div>)
 }
 
-const DatePickerTwoDate = () => {
-  const {
-    dispatch,
-    csvData
-  } = useContext(DashboardContext);
-
-  const [startDate, setStartDate] = useState(new Date());
-  const [endDate, setEndDate] = useState(new Date());
-
-  return (<div className="DatePickerTwoDate flex">
-    <p className="dateLabel">START DATE</p>
-    <DatePicker
-      maxDate={new Date()}
-      selected={startDate}
-      onChange={date => {
-        const isAfterEndDate = moment(date).diff(endDate, 'hours') > 0;
-        if(isAfterEndDate) setEndDate(date);
-
-        setStartDate(date);
-        dispatch({ type: Types.CLEAR_CSV_DATA })
-      }}
-      selectsStart
-      startDate={startDate}
-      endDate={endDate}
-    />
-    <p className="dateLabel">END DATE</p>
-    <DatePicker
-      maxDate={new Date()}
-      selected={endDate}
-      onChange={date => {
-        setEndDate(date)
-        dispatch({ type: Types.CLEAR_CSV_DATA })
-      }}
-      selectsEnd
-      endDate={endDate}
-      minDate={startDate}
-    />
-    <div className="buttonSection flex">
-
-      <IconButton isActive={startDate && endDate} text={"get"} icon="fas fa-file-import" onClick={() => {
-        load(dispatch, true);
-        dispatch({
-          type: Types.GET_CSV_DATA,
-          payload: {
-            startDate,
-            endDate,
-            dispatch,
-            noData: () => {
-              store.addNotification({
-                title: "Warning",
-                message: `No data available for date range`,
-                type: "warning",
-                insert: "top",
-                container: "top-right",
-                animationIn: ["animated", "fadeIn"],
-                animationOut: ["animated", "fadeOut"],
-                showIcon: true,
-                dismiss: {
-                  duration: 5000
-                }
-              });
-            },
-            success: () => load(dispatch, false)
-          }
-        })
-      }}/>
-
-      <CSVLink
-        data={csvData.data}
-        style={{textDecoration: "none"}}
-        filename={`Cummins Wagner Timesheet ${moment(csvData.startDate).format("MM/DD/YYYY")} to ${moment(csvData.endDate).format("MM/DD/YYYY")}.csv`}
-        onClick={() => csvData.data.length > 0}>
-        <IconButton isActive={csvData.data.length} text={"download"} icon="fas fa-file-download" onClick={() => {}}/>
-      </CSVLink>
-    </div>
-  </div>)
-}
-
 const DashboardHead = () => {
-  const {
-    isAdminMode,
-    dispatch
-  } = useContext(DashboardContext);
   return (<div id="DashboardHead" className="flex">
     <div className="flex">
       <p style={{
         margin: 0, marginLeft: 10, fontSize: "1rem", fontWeight: 800, opacity: 0.65
       }}>DASHBOARD</p>
     </div>
-    <Toggle
-      text="Edit"
-      onClick={() => {
-        dispatch({
-          type: Types.TOGGLE_ADMIN_MODE
-        })
-      }}
-      isActive={isAdminMode}/>
   </div>)
 }
 
@@ -221,386 +125,21 @@ const TimeTrackBar = () => {
   </div>)
 }
 
-const AddInput = (props) => {
-  return (<div className="AddInput">
-    <p>{props.text}</p>
-    <input type={props.type} value={props.value} onChange={e => props.onChange(e.target.value)} placeholder={props.placeholder}/>
-  </div>)
-}
-
-const AddBar = (props) => {
-
-  const {
-    dispatch
-  } = useContext(DashboardContext);
-
-  const [activeText, setActiveText] = useState("");
-  const [isContractor, setIsContractor] = useState(false);
-  const [isTechnician, setIsTechnician] = useState(false);
-  const [jobTitle, setJobTitle] = useState("");
-  const [fullName, setFullName] = useState("");
-  const [travelTime, setTravelTime] = useState(0);
-  const [laborType, setLaborType] = useState("");
-  const [jobNumber, setJobNumber] = useState("");
-
-  const onClick = (name) => {
-    (activeText === name) ? setActiveText("") : setActiveText(name);
-  }
-
-  const warning = (message) => {
-    store.addNotification({
-      title: "Warning",
-      message,
-      type: "warning",
-      insert: "top",
-      container: "top-right",
-      animationIn: ["animated", "fadeIn"],
-      animationOut: ["animated", "fadeOut"],
-      dismiss: {
-        duration: 5000
-      }
-    });
-  }
-
-  const add = (value, data) => {
-    if(activeText === "Employee"){
-      Axios.addEmployee({
-        isActive: true,
-        isContractor: isContractor,
-        isTech: isTechnician,
-        jobTitle: jobTitle,
-        name: fullName,
-        travelTime: parseFloat(travelTime)
-      }, () => { fetch(dispatch) }, res => warning(res));
-    } else if (activeText === "Job Number"){
-      Axios.addJobNumber({
-        isActive: true,
-        number: jobNumber
-      }, () => { fetch(dispatch) }, res => warning(res));
-    } else if (activeText === "Labor Type"){
-      Axios.addLaborType({
-        isActive: true,
-        name: laborType
-      }, () => { fetch(dispatch) }, res => warning(res));
-    }
-    setIsContractor(false);
-    setIsTechnician(false);
-    setJobTitle("");
-    setFullName("");
-    setTravelTime(0);
-    setLaborType("");
-    setJobNumber("");
-  }
-
-  const labelData = [
-    {label: "Employee", isSelected: (activeText === "Employee"), isDisabled: false, onClick: () => onClick("Employee")},
-    {label: "Job Number", isSelected: (activeText === "Job Number"), isDisabled: false, onClick: () => onClick("Job Number")},
-    {label: "Labor Type", isSelected: (activeText === "Labor Type"), isDisabled: false, onClick: () => onClick("Labor Type")}
-  ]
-
-  return (<div className="AddBar">
-    <div className="flex" style={{flexDirection: "column"}}>
-      <Tags data={labelData}/>
-      <div className="flex" style={{
-        width: "20em"
-      }}>
-        <div className="flex" style={{flexDirection: "column"}}>
-          {(activeText === "Employee") && <AddInput type="text" text="full name" value={fullName} onChange={setFullName}/>}
-          {(activeText === "Employee") && <AddInput type="text" text="job title" value={jobTitle} onChange={setJobTitle}/>}
-          {(activeText === "Employee") && <AddInput type="number" text="travel time" value={travelTime} onChange={setTravelTime}/>}
-          {(activeText === "Job Number") && <AddInput type="text" text="job number" value={jobNumber} onChange={setJobNumber}/>}
-          {(activeText === "Labor Type") && <AddInput type="text" text="labor type" value={laborType} onChange={setLaborType}/>}
-          {(activeText === "Employee") && <div className="flex" style={{
-            width: "19em",
-            justifyContent: "space-around",
-            marginTop: "1em"
-          }}>
-            <Toggle
-              text="Contractor"
-              onClick={() => setIsContractor(!isContractor)}
-              isOn={isContractor}/>
-            <Toggle
-              text="Technician"
-              onClick={() => setIsTechnician(!isTechnician)}
-              isOn={isTechnician}/>
-          </div>}
-        </div>
-      </div>
-      {(activeText !== "") && <div style={{marginTop: "1em"}}>
-        <IconButton isActive={true} text={"ADD"} icon="fas fa-plus-square" onClick={add}/>
-      </div>}
-    </div>
-  </div>)
-}
-
-const EditBar = (props) => {
-
-  const {
-    dispatch,
-    selectedItems,
-    employees
-  } = useContext(DashboardContext);
-
-  const [activeText, setActiveText] = useState("");
-  const [isContractor, setIsContractor] = useState(false);
-  const [isTechnician, setIsTechnician] = useState(false);
-  const [jobTitle, setJobTitle] = useState("");
-  const [fullName, setFullName] = useState("");
-  const [travelTime, setTravelTime] = useState(0);
-  const [laborType, setLaborType] = useState("");
-  const [jobNumber, setJobNumber] = useState("");
-  const [selectedEmployee, setSelectedEmployee] = useState(null);
-  const [employeeChoices, setEmployeeChoices] = useState([]);
-
-  const onClick = (name) => {
-    if(activeText === name){
-      setActiveText("")
-      setSelectedEmployee(null);
-    } else {
-      setActiveText(name);
-      if(name === "Employee"){
-        setEmployeeChoices(employees)
-      }
-    }
-  }
-
-  const onClickEmployee = (data) => {
-    setSelectedEmployee(data)
-    setFullName(data.name);
-    setIsContractor(data.isContractor);
-    setIsTechnician(data.isTech);
-    setJobTitle(data.jobTitle);
-    setTravelTime(data.travelTime);
-  }
-
-  const warning = (message) => {
-    store.addNotification({
-      title: "Warning",
-      message,
-      type: "warning",
-      insert: "top",
-      container: "top-right",
-      animationIn: ["animated", "fadeIn"],
-      animationOut: ["animated", "fadeOut"],
-      dismiss: {
-        duration: 5000
-      }
-    });
-  }
-
-  const edit = (value, data) => {
-    if(activeText === "Employee"){
-      dispatch({
-        type: Types.EDIT_EMPLOYEE,
-        payload: {
-          id: selectedEmployee._id,
-          edits: [
-            {key: "isContractor", value: isContractor || false},
-            {key: "isTech", value: isTechnician || false},
-            {key: "jobTitle", value: jobTitle},
-            {key: "name", value: fullName},
-            {key: "travelTime", value: travelTime},
-          ],
-          fn: () => fetch(dispatch),
-          warning: res => warning(res)
-        }
-      })
-      setActiveText("");
-      setSelectedEmployee(null);
-    } else if (activeText === "Job Number"){
-      Axios.addJobNumber({
-        isActive: true,
-        number: jobNumber
-      }, () => { fetch(dispatch) }, res => warning(res));
-    } else if (activeText === "Labor Type"){
-      Axios.addLaborType({
-        isActive: true,
-        name: laborType
-      }, () => { fetch(dispatch) }, res => warning(res));
-    }
-    setIsContractor(false);
-    setIsTechnician(false);
-    setJobTitle("");
-    setFullName("");
-    setTravelTime(0);
-    setLaborType("");
-    setJobNumber("");
-  }
-
-  const labelData = [
-    {label: "Employee", isSelected: (activeText === "Employee"), isDisabled: false, onClick: () => onClick("Employee")}
-  ]
-
-  const employeeData = [];
-  employeeChoices.forEach(data => employeeData.push({ label: data.name, onClick: () => onClickEmployee(data) }));
-
-  return (<div className="AddBar">
-    <div className="flex" style={{flexDirection: "column"}}>
-      <Tags data={labelData} />
-      {!selectedEmployee && activeText === "Employee" && <Tags data={employeeData} />}
-      <div className="flex">
-        <div className="flex" style={{flexDirection: "column"}}>
-          {(activeText === "Employee" && selectedEmployee) && <AddInput type="text" text="full name" value={fullName} onChange={setFullName}/>}
-          {(activeText === "Employee" && selectedEmployee) && <AddInput type="text" text="job title" value={jobTitle} onChange={setJobTitle}/>}
-          {(activeText === "Employee" && selectedEmployee) && <AddInput type="number" text="travel time" value={travelTime} onChange={setTravelTime}/>}
-          {(activeText === "Job Number") && <AddInput type="text" text="job number" value={jobNumber} onChange={setJobNumber}/>}
-          {(activeText === "Labor Type") && <AddInput type="text" text="labor type" value={laborType} onChange={setLaborType}/>}
-          {(activeText === "Employee" && selectedEmployee) && <div className="flex" style={{
-            width: "19em",
-            justifyContent: "space-around",
-            marginTop: "1em"
-          }}>
-            <Toggle
-              text="Contractor"
-              onClick={() => setIsContractor(!isContractor)}
-              isOn={isContractor}/>
-            <Toggle
-              text="Technician"
-              onClick={() => setIsTechnician(!isTechnician)}
-              isOn={isTechnician}/>
-          </div>}
-        </div>
-      </div>
-      {(activeText !== "" && selectedEmployee) && <div style={{marginTop: "1em"}}>
-        <IconButton isActive={true} text={"EDIT"} icon="far fa-edit" onClick={edit}/>
-      </div>}
-    </div>
-  </div>)
-}
-
 const DashboardBody = () => {
   const {
-    dispatch,
-    jobNumbers,
-    laborTypes,
-    isAdminMode,
-    selectedItems
+    ...context
   } = useContext(DashboardContext);
 
-  useEffect(() => {
-    load(dispatch, true);
-    Axios.fetchJobNumbers(dispatch);
-    Axios.fetchLaborTypes(dispatch, () => load(dispatch, false));
-  }, []);
-
-  const jobNumberList = jobNumbers.length ? Util.reorderData(jobNumbers, isAdminMode) : [];
-  const laborTypeList = laborTypes.length ? Util.reorderData(laborTypes, isAdminMode) : [];
-  const jobNumberArray = [];
-  const laborTypeArray = [];
-
-  jobNumberList.forEach(data => jobNumberArray.push({
-    label: data.number,
-    isSelected: selectedItems.jobNumbers[0] && selectedItems.jobNumbers[0].number === data.number,
-    isDisabled: !data.isActive,
-    onClick: () => {
-      if(selectedItems.jobNumbers[0] && selectedItems.jobNumbers[0].number === data.number){
-        dispatch({
-          type: Types.SET_SELECTED_JOB_NUMBERS,
-          payload: []
-        })
-      } else {
-        dispatch({
-          type: Types.SET_SELECTED_JOB_NUMBERS,
-          payload: [data]
-        })
-      }
-    }
-  }));
-
-  laborTypeList.forEach(data => laborTypeArray.push({
-    label: data.name,
-    isSelected: selectedItems.laborTypes[0] && selectedItems.laborTypes[0].name === data.name,
-    isDisabled: !data.isActive,
-    onClick: () => {
-      if(selectedItems.laborTypes[0] && selectedItems.laborTypes[0].name === data.name){
-        dispatch({
-          type: Types.SET_SELECTED_LABOR_TYPES,
-          payload: []
-        })
-      } else {
-        dispatch({
-          type: Types.SET_SELECTED_LABOR_TYPES,
-          payload: [data]
-        })
-      }
-    }
-  }))
-
-  const show = (data) => {
-    const {
-      laborTypes,
-      jobNumbers,
-      employees
-    } = selectedItems;
-    if(isAdminMode) return true;
-    if(employees[0]){
-      const {
-        isTech,
-        isContractor
-      } = employees[0];
-      const isOffice = !isTech && !isContractor;
-      if(isContractor){
-        return false;
-      } else if (isTech && (data === "JOB NUMBERS" || data === "LABOR TYPES")) {
-        return true;
-      } else if(isOffice && data === "JOB NUMBERS") {
-        return true;
-      }
-    }
-    return false;
+  const components = {
+    timesheet: [<TimeTrackBar />],
+    charts: [<DataVisualization />],
+    table: [<Table />]
   }
-
-  const jobNumberButtons = isAdminMode && (<div className="PaperBottomBar flex">
-    <IconButton isActive={Util.hasSelectedJobNumbers(selectedItems)} text={"TOGGLE"} icon="fas fa-toggle-on" onClick={() => dispatch({ type: Types.TOGGLE_JOB_NUMBER, payload: {id: selectedItems.jobNumbers[0]._id, fn: () => fetch(dispatch)} })}/>
-    <IconButton isActive={Util.hasSelectedJobNumbers(selectedItems)} text={"DELETE"} icon="far fa-trash-alt" onClick={() => dispatch({ type: Types.DELETE_JOB_NUMBER, payload: {id: selectedItems.jobNumbers[0]._id, fn: () => fetch(dispatch)} })}/>
-  </div>);
-
-  const labelTypeButtons = isAdminMode && (<div className="PaperBottomBar flex">
-    <IconButton isActive={Util.hasSelectedLaborTypes(selectedItems)} text={"TOGGLE"} icon="fas fa-toggle-on" onClick={() => dispatch({ type: Types.TOGGLE_LABOR_TYPE, payload: {id: selectedItems.laborTypes[0]._id, fn: () => fetch(dispatch)} })}/>
-    <IconButton isActive={Util.hasSelectedLaborTypes(selectedItems)} text={"DELETE"} icon="far fa-trash-alt" onClick={() => dispatch({ type: Types.DELETE_LABOR_TYPE, payload: {id: selectedItems.laborTypes[0]._id, fn: () => fetch(dispatch)} })}/>
-  </div>);
 
   return (<div id="dashboardBodyContainer">
     <div id="DashboardBody">
-      {show("JOB NUMBERS") && <Panel heading={"JOB NUMBERS"} components={[<Tags key={0} data={jobNumberArray}/>, <BlakioUI.Separator key={1} />, jobNumberButtons]} />}
-      {show("LABOR TYPES") && <Panel heading={"LABOR TYPES"} components={[<Tags key={0} data={laborTypeArray}/>, <BlakioUI.Separator key={1} />, labelTypeButtons]} />}
-      {!isAdminMode && <Panel heading="time sheet" components={[<TimeTrackBar key={0} />]}/>}
-      {isAdminMode && <Panel heading="add items here" components={[<AddBar key={0} />]}/>}
-      {isAdminMode && <Panel heading="edit items here" components={[<EditBar key={0} />]}/>}
-      {/*<Panel heading="history" noPadding overflow components={[<Table key={0} />]}/>*/}
-      {/*<Panel heading="charts" components={[<DataVisualization key={0} />]} />*/}
+      {appData.dahsboard.map(data => Util.showComponent(data, context) && <Panel heading={data.title} components={[components[data.component]]}/>)}
     </div>
-  </div>)
-}
-
-const DashboardSidePopOut = () => {
-  const {
-    dispatch,
-    isSideBarOpen,
-    selectedItems
-  } = useContext(DashboardContext);
-  return (<div className={`DashboardSidePopOut flex ${isSideBarOpen && "open"}`}>
-    <IconButton isActive={true} text={"TOGGLE"} icon="fas fa-toggle-on" onClick={() => dispatch({ type: Types.TOGGLE_EMPLOYEE, payload: {
-        id: selectedItems.employees[0]._id,
-        fn: () => {
-          fetch(dispatch);
-          dispatch({
-            type: Types.OPEN_SIDE_BAR,
-            payload: false
-          })
-        }
-      }
-    })}/>
-    <IconButton isActive={true} text={"DELETE"} icon="far fa-trash-alt" onClick={() => dispatch({ type: Types.DELETE_EMPLOYEE, payload: {
-        fn: () => {
-          fetch(dispatch);
-          dispatch({
-            type: Types.OPEN_SIDE_BAR,
-            payload: false
-          })
-        }
-      }
-    })}/>
   </div>)
 }
 
@@ -652,6 +191,12 @@ const SideBar = () => {
   } = useContext(DashboardContext);
 
   const customFn = {
+    selectTimesheet: (data) => {
+      console.log(data)
+    },
+    selectEmployeeDropwdown: (data) => {
+      console.log(data)
+    },
     selectEmployee: (data) => {
       console.log(data)
     }
@@ -668,10 +213,6 @@ const SideBar = () => {
 }
 
 const TopBar = () => {
-  const {
-    dispatch
-  } = useContext(DashboardContext);
-
   return (<div id="TopBar" className="container flex">
     <DateTimeWeather />
   </div>)
@@ -683,7 +224,6 @@ const Dashboard = () => {
     <TopLeftFold height={50} width={50} backgroundColor="#FFFFFF"/>
     <DashboardHead />
     <DashboardBody />
-    <DashboardSidePopOut />
   </div>)
 }
 
