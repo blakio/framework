@@ -37,20 +37,13 @@ const load = (dispatch, bool) => {
   });
 }
 
-const fetch = (dispatch) => {
-  load(dispatch, true);
-  Axios.fetchEmployees(dispatch);
-  Axios.fetchJobNumbers(dispatch);
-  Axios.fetchLaborTypes(dispatch, () => load(dispatch, false));
-}
-
 const SideBarHead = () => {
   const onClick = () => {
     console.log("clicked menu")
   }
 
   return (<div id="SideBarHead" className="flex">
-    <img src={logo} />
+    <img src={logo} alt="logo" />
     <HamburgerMenu size={30} onClick={onClick}/>
   </div>)
 }
@@ -128,7 +121,7 @@ const DateTimeWeather = () => {
   const halfHour = 1800000;
   const baseURL = "https://api.openweathermap.org/data/2.5/forecast";
   const apiKey = "1001a1dcc738f2ecade5496fbf796f50";
-  const cityId = "4562144";
+  const cityId = "4560349";
   const getWeather = () => {
     axios.get(`${baseURL}?id=${cityId}&APPID=${apiKey}`).then(data => {
       const K = data.data.list[0].main.temp;
@@ -154,7 +147,7 @@ const DateTimeWeather = () => {
       <i className="fas fa-temperature-low"></i>
       {temp}
       <span>
-        <img src={`https://openweathermap.org/img/wn/${icon}@2x.png`}/>
+        <img src={`https://openweathermap.org/img/wn/${icon}@2x.png`} alt="weather icon"/>
       </span>
     </p>
   </div>);
