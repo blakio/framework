@@ -99,6 +99,14 @@ body {
   padding-right: 2rem;
 }
 
+#DashboardTitleText {
+  margin: 0px 0px 0px 10px;
+  font-size: 1rem;
+  font-weight: 800;
+  opacity: 0.45;
+  letter-spacing: 3px;
+}
+
 #dashboardBodyContainer {
   height: calc((100vh - var(--navBarHeight) - var(--navBarHeight)) * 0.95);
   overflow: scroll;

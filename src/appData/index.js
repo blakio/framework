@@ -95,7 +95,7 @@ export default {
     dahsboard: [
         {
             title: "time sheet",
-            conditions: [101],
+            conditions: [100, 101],
             component: "timesheet"
         },
         {

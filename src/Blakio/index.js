@@ -51,9 +51,7 @@ const SideBarHead = () => {
 const DashboardHead = () => {
   return (<div id="DashboardHead" className="flex">
     <div className="flex">
-      <p style={{
-        margin: 0, marginLeft: 10, fontSize: "1rem", fontWeight: 800, opacity: 0.65
-      }}>DASHBOARD</p>
+      <p id="DashboardTitleText">DASHBOARD</p>
     </div>
   </div>)
 }
