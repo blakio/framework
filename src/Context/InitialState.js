@@ -1,8 +1,9 @@
 const initialState = {
+  sideBar: [],
   sideBarOption: null,
   sideBarChildOption: null,
   childClickOption: null,
-
+  dashboard: [],
 
 
 

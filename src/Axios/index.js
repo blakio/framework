@@ -1,28 +1,43 @@
 import axios from "axios";
 
-const baseURL = "http://localhost:5000/eps";
+var axiosInstance = axios.create({
+  baseURL: 'http://localhost:5000/api'
+});
 
 export default {
 
+  //GET
+  get: (table, fn) => {
+    axiosInstance.get(`/table/${table}`)
+      .then(data => fn(data))
+      .catch(err => console.log(err));
+  },
+
+  // SIDE BAR
+  getSideBar: (fn) => {
+    axiosInstance.get("/sidebar")
+      .then(data => fn(data))
+      .catch(err => console.log(err));
+  },
 
   // TIME SHEET CALLS
   clockIn: (id, obj, fn) => {
-    axios.post(`${baseURL}/clockIn/${id}`,  obj)
+    axiosInstance.post(`/clockIn/${id}`,  obj)
     .then(data => {if(fn) fn()})
     .catch(error => { console.log(error) });
   },
   startLunch: (id, obj, fn) => {
-    axios.post(`${baseURL}/toLunch/${id}`, obj)
+    axiosInstance.post(`/toLunch/${id}`, obj)
     .then(data => {if(fn) fn()})
     .catch(error => console.log(JSON.stringify(error)));
   },
   endLunch: (id, obj, fn) => {
-    axios.post(`${baseURL}/fromLunch/${id}`, obj)
+    axiosInstance.post(`/fromLunch/${id}`, obj)
     .then(data => {if(fn) fn()})
     .catch(error => console.log(JSON.stringify(error)));
   },
   clockOut: (id, obj, fn) => {
-    axios.post(`${baseURL}/clockOut/${id}`, obj)
+    axiosInstance.post(`/clockOut/${id}`, obj)
     .then(data => {if(fn) fn()})
     .catch(error => console.log(error));
   }

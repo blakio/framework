@@ -7,10 +7,11 @@ import Util from "../Util";
 
 export default {
 
-setSideBarOption: (payload, state) => ({ ...state, sideBarOption: payload }),
-setSideBarChildOption: (payload, state) => ({ ...state, sideBarChildOption: payload }),
+setSideBar: (payload, state) => ({ ...state, sideBar: payload }),
+setSideBarOption:  (payload, state) => ({ ...state, sideBarOption: payload }),
+setSideBarChildOption:  (payload, state) => ({ ...state, sideBarChildOption: payload }),
 setChildClickOption: (payload, state) => ({ ...state, childClickOption: payload }),
-
+setDashboard: (payload, state) => ({ ...state, dashboard: payload }),
 
 
 

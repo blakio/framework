@@ -7,13 +7,16 @@ export default (state, action) => {
 
   switch(action.type){
 
+    case Types.SET_SIDE_BAR:
+      return StateFunctions.setSideBar(payload, state);
     case Types.SET_SIDE_BAR_OPTION:
       return StateFunctions.setSideBarOption(payload, state);
     case Types.SET_SIDE_BAR_CHILD_OPTION:
       return StateFunctions.setSideBarChildOption(payload, state);
     case Types.SET_CHILD_OPTION:
       return StateFunctions.setChildClickOption(payload, state);
-
+    case Types.SET_DASHBOARD:
+      return StateFunctions.setDashboard(payload, state);
 
 
 

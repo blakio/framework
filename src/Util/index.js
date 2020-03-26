@@ -1,24 +1,25 @@
 export default {
 
   // formats the side bar data and includes functionality
-  adjustSideBarData: (appData, context, Types, customFn) => {
+  adjustSideBarData: (context, Types, customFn) => {
     const {
       dispatch,
+      sideBar,
       sideBarOption,
       sideBarChildOption
     } = context;
 
     // map data to sidebar buttons
-    appData.sideBar.forEach(data => {
+    sideBar.forEach(data => {
       // is the option current selected
-      const isSelected = data.id === sideBarOption;
+      const isSelected = data._id === sideBarOption;
       // if the open is selected it is opened
       data.isOpen = isSelected;
       // sets the click event of the parent dropdown
       data.onClick = () => {
         dispatch({
           type: Types.SET_SIDE_BAR_OPTION,
-          payload: isSelected ? null : data.id
+          payload: isSelected ? null : data._id
         })
         // if there is a custom function option, fire it after the dispatch to open the option
         if(data.fn) customFn[data.fn](data)
@@ -28,7 +29,7 @@ export default {
       // loops through the inner dropdowns "Children"
       data.data.forEach(list => {
         // is the child selected
-        const isChildSelected = sideBarChildOption === list.id;
+        const isChildSelected = sideBarChildOption === list._id;
         // sets the open status
         list.isOpen = isChildSelected
         // set the click event
@@ -36,13 +37,13 @@ export default {
           // click event to toggle the open status
           dispatch({
             type: Types.SET_SIDE_BAR_CHILD_OPTION,
-            payload: isChildSelected ? null : list.id
+            payload: isChildSelected ? null : list._id
           })
           // open the grandchildren if the option is a dropdown
           if(list.types.includes("list") && list.types.includes("click")){
             dispatch({
               type: list.clickType,
-              payload: list.id
+              payload: list._id
             })
           }
           // fires a custom function if it includes one

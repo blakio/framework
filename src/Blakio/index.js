@@ -96,6 +96,17 @@ const DashboardBody = () => {
     ...context
   } = useContext(DashboardContext);
 
+  const setDashboardState = (data) => {
+    context.dispatch({
+      type: Types.SET_DASHBOARD,
+      payload: data.data
+    })
+  }
+
+  useEffect(() => {
+    Axios.get("Dashboard", setDashboardState)
+  }, []);
+
   const components = {
     timesheet: [<TimeTrackBar key={0} />],
     charts: [<DataVisualization key={0} />],
@@ -104,7 +115,7 @@ const DashboardBody = () => {
 
   return (<div id="dashboardBodyContainer">
     <div id="DashboardBody">
-      {appData.dahsboard.map((data, index) => Util.showComponent(data, context) && <Panel key={index} heading={data.title} components={[components[data.component]]}/>)}
+      {context.dashboard.map((data, index) => Util.showComponent(data, context) && <Panel key={index} heading={data.title} components={[components[data.component]]}/>)}
     </div>
   </div>)
 }
@@ -152,9 +163,21 @@ const DateTimeWeather = () => {
 }
 
 const SideBar = () => {
+
   const {
     ...context
   } = useContext(DashboardContext);
+
+  const setSideBarState = (data) => {
+    context.dispatch({
+      type: Types.SET_SIDE_BAR,
+      payload: data.data
+    })
+  }
+
+  useEffect(() => {
+    Axios.getSideBar(setSideBarState)
+  }, []);
 
   const customFn = {
     selectTimesheet: (data) => {
@@ -168,11 +191,11 @@ const SideBar = () => {
     }
   }
 
-  Util.adjustSideBarData(appData, context, Types, customFn);
+  Util.adjustSideBarData(context, Types, customFn);
 
   return (<div id="SideBar" className="container flex">
     <SideBarHead />
-    {appData.sideBar.map((data, index) => 
+    {context.sideBar.map((data, index) => 
       <SideBarPaper key={index} {...data} />
     )}
   </div>)
