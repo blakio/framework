@@ -13,10 +13,7 @@ export default {
     sideBar: [
         {
             id: 100,
-            section: "condensed",
             title: "Timesheet",
-            icon: "far fa-dot-circle", // fas fa-dot-circle
-            isOpen: null,
             fn: "selectTimesheet",
             data: [
                 {
@@ -45,50 +42,32 @@ export default {
         },
         {
             id: 200,
-            section: "condensed",
             title: "Directory",
-            icon: "far fa-dot-circle",
-            isOpen: null,
             data: []
         },
         {
             id: 300,
-            section: "condensed",
             title: "KPI reporting",
-            icon: "far fa-dot-circle",
-            isOpen: null,
             data: []
         },
         {
             id: 400,
-            section: "condensed",
             title: "Kiosk",
-            icon: "far fa-dot-circle",
-            isOpen: null,
             data: []
         },
         {
             id: 500,
-            section: "condensed",
             title: "Document storage",
-            icon: "far fa-dot-circle",
-            isOpen: null,
             data: []
         },
         {
             id: 600,
-            section: "condensed",
             title: "Messaging",
-            icon: "far fa-dot-circle",
-            isOpen: null,
             data: []
         },
         {
             id: 700,
-            section: "condensed",
             title: "Alert",
-            icon: "far fa-dot-circle",
-            isOpen: null,
             data: []
         }
     ],
