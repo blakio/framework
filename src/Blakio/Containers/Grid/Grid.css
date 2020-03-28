@@ -4,6 +4,12 @@
     margin: 6px;
 }
 
+.Grid .Grid,
+.Grid .Grid .Grid,
+.Grid .Grid .Grid .Grid {
+    margin: 0px;
+}
+
 .col1_1_2 {
     grid-template-columns: 1fr 1fr 2fr;
 }

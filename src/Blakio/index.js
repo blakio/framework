@@ -116,11 +116,18 @@ const DashboardBody = () => {
 
   return (<div id="dashboardBodyContainer">
     <div id="DashboardBody">
-      <Grid grid="2">
+      <Grid grid="1_1_2">
+
         <Panel />
         <Panel />
-        <Panel />
-        <Panel />
+
+        <Grid grid="4">
+          <Panel />
+          <Panel />
+          <Panel />
+          <Panel />
+        </Grid>
+        
       </Grid>
       <Grid grid="3">
         <Panel />
