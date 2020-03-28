@@ -3,6 +3,7 @@ import "./Grid.css";
 
 const Grid = (props) => {
   return (<div className={`Grid col${props.grid}`}>
+    {props.children}
   </div>)
 }
 

@@ -15,7 +15,7 @@ const Panel = (props) => {
       <p className="heading">{heading}</p>
     </div>
     <div className={`PanelBody ${noPadding && "noPadding"} ${overflow && "scroll"}`}>
-      {components.map(data => data)}
+      {components && components.map(data => data)}
     </div>
   </div>)
 }

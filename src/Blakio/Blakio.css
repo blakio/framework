@@ -116,10 +116,10 @@ body {
   width: 95%;
   margin: 2.5% auto;
 
-  display: grid;
+  /* display: grid;
   grid-template-columns: repeat(2, 1fr);
   grid-gap: 1rem;
-  grid-auto-rows: minmax(20px, auto);
+  grid-auto-rows: minmax(20px, auto); */
 }
 
 #dateTimeWeather {

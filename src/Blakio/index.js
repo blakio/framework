@@ -27,7 +27,8 @@ const {
   TopLeftFold,
   HamburgerMenu,
   Table,
-  DataVisualization
+  DataVisualization,
+  Grid
 } = BlakioUI;
 
 const load = (dispatch, bool) => {
@@ -115,7 +116,18 @@ const DashboardBody = () => {
 
   return (<div id="dashboardBodyContainer">
     <div id="DashboardBody">
-      {context.dashboard.map((data, index) => Util.showComponent(data, context) && <Panel key={index} heading={data.title} components={[components[data.component]]}/>)}
+      <Grid grid="2">
+        <Panel />
+        <Panel />
+        <Panel />
+        <Panel />
+      </Grid>
+      <Grid grid="3">
+        <Panel />
+        <Panel />
+        <Panel />
+      </Grid>
+      {/* {context.dashboard.map((data, index) => Util.showComponent(data, context) && <Panel key={index} heading={data.title} components={[components[data.component]]}/>)} */}
     </div>
   </div>)
 }
