@@ -2,7 +2,15 @@
   grid-template-columns: repeat(1, 1fr) !important;
 }
 
-.Grid.col3 {
+.Grid.col3,
+.Grid.col1_1_2,
+.Grid.col2_1_1 {
+  grid-template-columns: repeat(3, 1fr) !important;
+}
+
+.Grid.col3,
+.Grid.col1_1_2,
+.Grid.col2_1_1 {
   grid-template-columns: repeat(2, 1fr) !important;
 }
 

@@ -4,6 +4,22 @@
     margin: 6px;
 }
 
+.col1_1_2 {
+    grid-template-columns: 1fr 1fr 2fr;
+}
+
+.col2_1_1 {
+    grid-template-columns: 2fr 1fr 1fr;
+}
+
+.col1_2 {
+    grid-template-columns: 1fr 2fr;
+}
+
+.col2_1 {
+    grid-template-columns: 1fr 2fr;
+}
+
 .col1 {
     grid-template-columns: 1fr;
 }
