@@ -23,7 +23,6 @@ import BlakioUI from "Blakio/Framework";
 const {
   SideBarPaper,
   Panel,
-  IconButton,
   TopLeftFold,
   HamburgerMenu,
   Table,
@@ -57,41 +56,6 @@ const DashboardHead = () => {
   </div>)
 }
 
-const TimeTrackBar = () => {
-  const {
-    dispatch,
-    selectedItems
-  } = useContext(DashboardContext);
-
-  const setConfirmedNotification = () => {
-    store.addNotification({
-      title: "Confirmation",
-      message: `Your punch is Confirmed ${employee}`,
-      type: "success",
-      insert: "top",
-      container: "top-right",
-      animationIn: ["animated", "fadeIn"],
-      animationOut: ["animated", "fadeOut"],
-      showIcon: true,
-      dismiss: {
-        duration: 5000,
-        onScreen: true
-      }
-    });
-  }
-
-  const employee = selectedItems.employees[0] && selectedItems.employees[0].name;
-
-  return (<div id="TimeTrackBar">
-    <div className="flex" style={{justifyContent: "space-around"}}>
-      <IconButton isActive={true} text={"CLOCK IN"} icon="fas fa-clock" onClick={() => {}}/>
-      <IconButton isActive={false} text={"TO LUNCH"} icon="fas fa-drumstick-bite" onClick={() => {}}/>
-      <IconButton isActive={false} text={"FROM LUNCH"} icon="fas fa-bone" onClick={() => {}}/>
-      <IconButton isActive={false} text={"CLOCK OUT"} icon="fas fa-clock" onClick={() => {}}/>
-    </div>
-  </div>)
-}
-
 const DashboardBody = () => {
   const {
     ...context
@@ -109,32 +73,25 @@ const DashboardBody = () => {
   }, []);
 
   const components = {
-    timesheet: [<TimeTrackBar key={0} />],
     charts: [<DataVisualization key={0} />],
     table: [<Table key={0} />]
   }
 
+  const pageContent = context.dashboard.filter(data => Util.showComponent(data, context));
+
+  const grid = [];
+
+  pageContent.forEach(data => Util.setGrid(grid, data));
+  Util.getGridClasses(grid)
+
   return (<div id="dashboardBodyContainer">
     <div id="DashboardBody">
-      <Grid grid="1_1_2">
-
-        <Panel />
-        <Panel />
-
-        <Grid grid="4">
-          <Panel />
-          <Panel />
-          <Panel />
-          <Panel />
-        </Grid>
-        
-      </Grid>
-      <Grid grid="3">
-        <Panel />
-        <Panel />
-        <Panel />
-      </Grid>
-      {/* {context.dashboard.map((data, index) => Util.showComponent(data, context) && <Panel key={index} heading={data.title} components={[components[data.component]]}/>)} */}
+      {grid.map((gridData, index) => (<Grid key={index} grid={gridData.class}>
+        {gridData.components.map((data, i) => 
+          data.title ?
+            <Panel key={i} heading={data.title} components={[]}></Panel> :
+            <Panel key={i} empty={true} heading={data.title} components={[]}></Panel>)}
+      </Grid>))}
     </div>
   </div>)
 }

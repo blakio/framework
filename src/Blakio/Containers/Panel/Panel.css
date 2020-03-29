@@ -31,3 +31,11 @@
 .scroll {
   overflow: scroll;
 }
+
+.Panel.empty {
+  background-color: #e8e4e4;
+}
+
+.Panel.empty .PanelHeader {
+  background-color: transparent;
+}

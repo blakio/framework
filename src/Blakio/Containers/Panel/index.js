@@ -7,10 +7,11 @@ const Panel = (props) => {
     heading,
     noPadding,
     overflow,
-    components
+    components,
+    empty
   } = props;
 
-  return (<div className="Panel">
+  return (<div className={`Panel ${empty && "empty"}`}>
     <div className="PanelHeader flex">
       <p className="heading">{heading}</p>
     </div>
