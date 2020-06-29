@@ -17,6 +17,8 @@ import Axios from "../Axios";
 import Types from "../Context/Types";
 import DashboardContext from "../Context/State";
 
+import CustomComponents from "./CustomComponents";
+
 import appData from "../appData";
 
 import BlakioUI from "Blakio/Framework";

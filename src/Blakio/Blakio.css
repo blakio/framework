@@ -8,6 +8,10 @@
   --paperPadding: 0.6em;
   --darkGreen: #1a89ac;
   --lightGreen: #56acc7;
+
+  --blueGrey: #A3AECE;
+  --lightBlue: #3F5E83;
+  --darkFoldBlue: #0e325a;
 }
 
 body {
@@ -232,4 +236,8 @@ body {
   background-color: rgba(255, 255, 255, 0.2);
   top: 0;
   left: 0;
+}
+
+.opacityZero {
+  opacity: 0;
 }
