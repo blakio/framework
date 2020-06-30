@@ -41,6 +41,4 @@ export default {
     .then(data => {if(fn) fn()})
     .catch(error => console.log(error));
   }
-  
-
 };

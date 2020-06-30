@@ -1,6 +1,11 @@
 import React, { useReducer } from 'react';
 import './App.css';
-import Blakio from "./Blakio";
+import {
+  SideBar,
+  TopBar,
+  Dashboard,
+  LoadingScreen
+} from "./Blakio";
 import BlakioUI from "./Blakio/Framework";
 
 import "react-loader-spinner/dist/loader/css/react-spinner-loader.css"
@@ -13,12 +18,12 @@ function App() {
   const [state, dispatch] = useReducer(Reducer, initialState);
   return (<DashboardContext.Provider value={{...state, dispatch}}>
     <div id="App">
-      <Blakio.SideBar />
+      <SideBar />
       <div id="ContentArea">
-        <Blakio.TopBar />
-        <Blakio.Dashboard />
+        <TopBar />
+        <Dashboard />
       </div>
-      {state.isLoading && <Blakio.LoadingScreen />}
+      {state.isLoading && <LoadingScreen />}
     </div>
   </DashboardContext.Provider>);
 }

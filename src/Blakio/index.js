@@ -208,7 +208,7 @@ const SAMPLE = () => {
   </div>)
 }
 
-export default {
+export {
   SideBar,
   TopBar,
   Dashboard,
