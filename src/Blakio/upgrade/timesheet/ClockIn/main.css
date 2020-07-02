@@ -1,0 +1,8 @@
+.paperContainer {
+    display: flex;
+    justify-content: space-between;
+}
+
+.clockInBox {
+    display: flex;
+}

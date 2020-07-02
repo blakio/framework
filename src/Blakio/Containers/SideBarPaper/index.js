@@ -8,18 +8,11 @@ const SideBarPaper = (props) => {
   const {
     title,
     icon,
-    data,
     onClick,
-    isOpen
+    selected
   } = props;
-  return (<div className="SideBarPaper">
+  return (<div className={`SideBarPaper ${selected && "active"}`}>
     <PaperHead text={[title]} icon={icon} onClick={onClick}/>
-    {isOpen && data.map((d, index) => {
-      return (<div key={index} className={`SideBarListContainer ${d.isOpen && "open"}`}>
-        <SideBarOption data={d}/>
-        {d.isOpen && d.component}
-      </div>)
-    })}
   </div>)
 }
 

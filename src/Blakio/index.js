@@ -17,20 +17,17 @@ import Axios from "../Axios";
 import Types from "../Context/Types";
 import DashboardContext from "../Context/State";
 
-import CustomComponents from "./CustomComponents";
-
-import appData from "../appData";
-
 import BlakioUI from "Blakio/Framework";
+
+import ClockIn from "./upgrade/timesheet/ClockIn/index.js";
+
 const {
   SideBarPaper,
-  Panel,
   TopLeftFold,
   HamburgerMenu,
-  Table,
-  DataVisualization,
   Grid
 } = BlakioUI;
+
 
 const load = (dispatch, bool) => {
   dispatch({
@@ -58,42 +55,23 @@ const DashboardHead = () => {
   </div>)
 }
 
+const TimeSheet = props => {
+  if(!props.show) return <div></div>;
+  return (<div>
+    <Grid grid="2">
+      <ClockIn />
+    </Grid>
+  </div>)
+}
+
 const DashboardBody = () => {
   const {
     ...context
   } = useContext(DashboardContext);
 
-  const setDashboardState = (data) => {
-    context.dispatch({
-      type: Types.SET_DASHBOARD,
-      payload: data.data
-    })
-  }
-
-  useEffect(() => {
-    Axios.get("Dashboard", setDashboardState)
-  }, []);
-
-  const components = {
-    charts: [<DataVisualization key={0} />],
-    table: [<Table key={0} />]
-  }
-
-  const pageContent = context.dashboard.filter(data => Util.showComponent(data, context));
-
-  const grid = [];
-
-  pageContent.forEach(data => Util.setGrid(grid, data));
-  Util.getGridClasses(grid)
-
   return (<div id="dashboardBodyContainer">
     <div id="DashboardBody">
-      {grid.map((gridData, index) => (<Grid key={index} grid={gridData.class}>
-        {gridData.components.map((data, i) => 
-          data.title ?
-            <Panel key={i} heading={data.title} components={[]}></Panel> :
-            <Panel key={i} empty={true} heading={data.title} components={[]}></Panel>)}
-      </Grid>))}
+      <TimeSheet show={context.sideBarOption === "1"}/>
     </div>
   </div>)
 }
@@ -156,6 +134,15 @@ const SideBar = () => {
   useEffect(() => {
     Axios.getSideBar(setSideBarState)
   }, []);
+
+  useEffect(() => {
+    if(context.sideBar.length && !context.sideBarOption){
+      context.dispatch({
+        type: Types.SET_SIDE_BAR_OPTION,
+        payload: context.sideBar[0]._id
+      })
+    }
+  }, [context.sideBar])
 
   const customFn = {
     selectTimesheet: (data) => {

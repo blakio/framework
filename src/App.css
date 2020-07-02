@@ -20,3 +20,55 @@
   position: fixed;
   max-width: calc(100% - var(--SideBarWidth))
 }
+
+
+
+
+
+
+
+
+:root {
+  --grey: #DCE3EA;
+  --dashBackgroundColor: #F5F5F5;
+  --midGrey: #888;
+  --lineLightGrey: #ddd;
+  --green: #45B6B1;
+  /* --blue: #65C3DF; */
+  --blue: #34649a;
+  --red: #FF6B6B;
+  --silver: #C4CCDB;
+}
+
+.App {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #F5F5F5;
+}
+
+
+.green {
+  background-color: var(--green);
+}
+
+.blue {
+  background-color: var(--blue);
+}
+
+.red {
+  background-color: var(--red);
+}
+
+.greenText {
+  color: var(--green);
+}
+
+.blueText {
+  color: var(--blue);
+}
+
+.redText {
+  color: var(--red);
+}

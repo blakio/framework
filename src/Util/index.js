@@ -42,15 +42,19 @@ export default {
       data.isOpen = isSelected;
       // sets the click event of the parent dropdown
       data.onClick = () => {
-        dispatch({
-          type: Types.SET_SIDE_BAR_OPTION,
-          payload: isSelected ? null : data._id
-        })
-        // if there is a custom function option, fire it after the dispatch to open the option
-        if(data.fn) customFn[data.fn](data)
+        if(!isSelected){
+          dispatch({
+            type: Types.SET_SIDE_BAR_OPTION,
+            payload: isSelected ? null : data._id
+          })
+          // if there is a custom function option, fire it after the dispatch to open the option
+          if(data.fn) customFn[data.fn](data)
+        }
       }
       // sets the open icon if the option is open, otherwise set the closed icon
       data.icon = isSelected ? "fas fa-dot-circle" : "far fa-dot-circle";
+      // sets the active background color
+      data.selected = isSelected;
       // loops through the inner dropdowns "Children"
       data.data.forEach(list => {
         // is the child selected
