@@ -6,12 +6,13 @@ import moment from "moment";
 import Util from "../Util";
 
 export default {
+  shortMenu: (payload, state) => ({ ...state, shortMenu: payload }),
 
-setSideBar: (payload, state) => ({ ...state, sideBar: payload }),
-setSideBarOption:  (payload, state) => ({ ...state, sideBarOption: payload }),
-setSideBarChildOption:  (payload, state) => ({ ...state, sideBarChildOption: payload }),
-setChildClickOption: (payload, state) => ({ ...state, childClickOption: payload }),
-setDashboard: (payload, state) => ({ ...state, dashboard: payload }),
+  setSideBar: (payload, state) => ({ ...state, sideBar: payload }),
+  setSideBarOption:  (payload, state) => ({ ...state, sideBarOption: payload }),
+  setSideBarChildOption:  (payload, state) => ({ ...state, sideBarChildOption: payload }),
+  setChildClickOption: (payload, state) => ({ ...state, childClickOption: payload }),
+  setDashboard: (payload, state) => ({ ...state, dashboard: payload }),
 
 
 

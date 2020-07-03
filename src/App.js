@@ -6,7 +6,6 @@ import {
   Dashboard,
   LoadingScreen
 } from "./Blakio";
-import BlakioUI from "./Blakio/Framework";
 
 import "react-loader-spinner/dist/loader/css/react-spinner-loader.css"
 
@@ -19,7 +18,7 @@ function App() {
   return (<DashboardContext.Provider value={{...state, dispatch}}>
     <div id="App">
       <SideBar />
-      <div id="ContentArea">
+      <div id="ContentArea" className={`${state.shortMenu && "shortMenu"}`}>
         <TopBar />
         <Dashboard />
       </div>

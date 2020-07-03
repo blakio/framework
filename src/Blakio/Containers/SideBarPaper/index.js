@@ -9,10 +9,16 @@ const SideBarPaper = (props) => {
     title,
     icon,
     onClick,
-    selected
+    selected,
+    closedIcon,
+    shortMenu
   } = props;
   return (<div className={`SideBarPaper ${selected && "active"}`}>
-    <PaperHead text={[title]} icon={icon} onClick={onClick}/>
+    {
+      shortMenu ?
+        <PaperHead icon={closedIcon} onClick={onClick}/> :
+        <PaperHead text={[title]} icon={icon} onClick={onClick}/>
+    }
   </div>)
 }
 

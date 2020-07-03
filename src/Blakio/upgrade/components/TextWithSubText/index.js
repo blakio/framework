@@ -16,6 +16,8 @@ const TextWithSubText = props => {
         className={`bigTextInput ${props.textColor}`}
         placeholder={props.bigText}
         ref={e => setInputRef(e)}
+        value={props.inputText}
+        onChange={e => props.setInputText(e.target.value)}
     />) : (<p className="bigText">{props.bigText}</p>)
 
     return (<div>

@@ -37,20 +37,43 @@ const load = (dispatch, bool) => {
 }
 
 const SideBarHead = () => {
+  const [isClosed, setIsClosed] = useState(false);
+  const {
+    ...context
+  } = useContext(DashboardContext);
+
   const onClick = () => {
-    console.log("clicked menu")
+    setIsClosed(!isClosed);
+    context.dispatch({
+      type: Types.SHORT_MENU,
+      payload: !isClosed
+    })
   }
 
-  return (<div id="SideBarHead" className="flex">
-    <img src={logo} alt="logo" />
-    <HamburgerMenu size={30} onClick={onClick}/>
+  const margin = isClosed ? "0 0.1em" : "0 1em";
+  const width = isClosed ? 45 : null;
+
+  return (<div id="SideBarHead" className={`flex ${context.shortMenu && "shortMenu"}`}>
+    {!isClosed && <img src={logo} alt="logo" />}
+    <div
+      style={{
+        margin
+      }}
+    >
+      <HamburgerMenu size={30} width={width} onClick={onClick}/>
+    </div>
   </div>)
 }
 
 const DashboardHead = () => {
+  const {
+    ...context
+  } = useContext(DashboardContext);
+  const selected = context.sideBar.filter(data => data._id === context.sideBarOption);
+  const label = context.sideBar.length && selected[0] && selected[0].title.toUpperCase();
   return (<div id="DashboardHead" className="flex">
     <div className="flex">
-      <p id="DashboardTitleText">DASHBOARD</p>
+      <p id="DashboardTitleText">{label}</p>
     </div>
   </div>)
 }
@@ -158,10 +181,10 @@ const SideBar = () => {
 
   Util.adjustSideBarData(context, Types, customFn);
 
-  return (<div id="SideBar" className="container flex">
+  return (<div id="SideBar" className={`container flex ${context.shortMenu && "shortMenu"}`}>
     <SideBarHead />
-    {context.sideBar.map((data, index) => 
-      <SideBarPaper key={index} {...data} />
+    {context.sideBar.map((data, index) =>
+      <SideBarPaper key={index} {...data} shortMenu={context.shortMenu} />
     )}
   </div>)
 }

@@ -9,9 +9,9 @@ const PaperHead = (props) => {
   } = props;
   
   return (<div className="PaperHead flex" onClick={onClick}>
-    <div>
+    {text && <div>
       <p>{text[0]}</p>
-    </div>
+    </div>}
     <i className={icon}></i>
   </div>)
 }

@@ -1,4 +1,6 @@
 const initialState = {
+  shortMenu: false,
+
   sideBar: [],
   sideBarOption: null,
   sideBarChildOption: null,

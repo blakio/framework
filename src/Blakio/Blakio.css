@@ -4,6 +4,7 @@
   --selectHoverColor: #0e325a;
   --darkBlue: #00254e;
   --SideBarWidth: 17em;
+  --SideBarWidthClosed: 3em;
   --navBarHeight: 4.7em;
   --paperPadding: 0.6em;
   --darkGreen: #1a89ac;
@@ -50,12 +51,22 @@ body {
   flex-direction: column;
   justify-content: flex-start;
   overflow-y: scroll;
+  transition: width 0.4s;
+}
+
+#SideBar.shortMenu {
+  width: var(--SideBarWidthClosed);
 }
 
 #SideBarHead {
   height: var(--navBarHeight);
   width: var(--SideBarWidth);
   justify-content: space-between;
+  transition: width 0.4s;
+}
+
+#SideBarHead.shortMenu {
+  width: var(--SideBarWidthClosed);
 }
 
 #SideBarHead img {

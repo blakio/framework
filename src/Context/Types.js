@@ -1,8 +1,13 @@
 export default {
 
-  // standard
+  // upgrade
+  SHORT_MENU: "SHORT_MENU",
   SET_SIDE_BAR: "SET_SIDE_BAR",
   SET_SIDE_BAR_OPTION: "SET_SIDE_BAR_OPTION",
+
+  ////////////////////////////
+
+  // standard
   SET_SIDE_BAR_CHILD_OPTION: "SET_SIDE_BAR_CHILD_OPTION",
   SET_CHILD_CLICK_OPTION: "SET_CHILD_CLICK_OPTION",
   SET_DASHBOARD: "SET_DASHBOARD",

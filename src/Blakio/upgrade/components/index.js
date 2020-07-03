@@ -7,6 +7,7 @@ import OnOff from "./OnOff";
 import Table from "./Table";
 import Button from "./Button";
 import Form from "./Form";
+import Autocomplete from "./Autocomplete";
 
 export {
     Paper,
@@ -17,5 +18,6 @@ export {
     OnOff,
     Table,
     Button,
-    Form
+    Form,
+    Autocomplete
 }

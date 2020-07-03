@@ -340,12 +340,14 @@ export const sideBar = {
         {
             data: [],
             title: "Timesheet",
-            _id: "1"
+            _id: "1",
+            closedIcon: "fas fa-clock"
         },
         {
             data: [],
-            title: "Employee Directory",
-            _id: "2"
+            title: "Employee_Directory",
+            _id: "2",
+            closedIcon: "fas fa-user-tie"
         }
     ]
 }

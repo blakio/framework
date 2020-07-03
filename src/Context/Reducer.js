@@ -7,6 +7,9 @@ export default (state, action) => {
 
   switch(action.type){
 
+    case Types.SHORT_MENU:
+      return StateFunctions.shortMenu(payload, state);
+
     case Types.SET_SIDE_BAR:
       return StateFunctions.setSideBar(payload, state);
     case Types.SET_SIDE_BAR_OPTION:
