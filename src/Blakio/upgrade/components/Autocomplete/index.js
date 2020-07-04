@@ -2,7 +2,7 @@ import React from "react";
 import "./main.css";
 
 const getName = (filteresList) => {
-    return filteresList[0]["firstName"] + filteresList[0]["lastName"]
+    return `${filteresList[0]["firstName"]} ${filteresList[0]["lastName"]}`;
 }
 
 const Autocomplete = props => {
@@ -12,12 +12,12 @@ const Autocomplete = props => {
         list,
         setInputText,
         setSmallText,
-        selected
+        select
     } = props;
 
     const filteresList = list.filter(data => {
-        const name = data["firstName"] + data["lastName"]
-        return name.toLowerCase().includes(value.toLowerCase())
+        const name = `${data["firstName"]} ${data["lastName"]}`;
+        return name.toLowerCase().includes(value.toLowerCase());
     });
 
     return (<div style={props.style}>
@@ -26,11 +26,11 @@ const Autocomplete = props => {
                 {value && filteresList.map((data, index) => <li
                     key={index}
                     onClick={e => {
-                        setInputText(data["firstName"] + data["lastName"])
-                        setSmallText(data.title)
-                        // selected(data)
+                        setInputText(`${data["firstName"]} ${data["lastName"]}`);
+                        setSmallText(data.title);
+                        select(data);
                     }}
-                >{data["firstName"] + data["lastName"]}</li>)}
+                >{`${data["firstName"]} ${data["lastName"]}`}</li>)}
             </ul>
         </div>}
     </div>

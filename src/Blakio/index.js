@@ -85,7 +85,7 @@ const TimeSheet = props => {
 
   if(!props.show) return <div></div>;
 
-  const clockTime = () => {
+  const clockTime = selected => {
     const employee = context.clockInEmployee;
     if(employee){
       console.log(employee)
@@ -99,12 +99,33 @@ const TimeSheet = props => {
     })
   }
 
+  const setClockInEmployee = employee => {
+    let done = false;
+    context.employees.forEach(data => {
+      if(!done){
+        if(`${data["firstName"]} ${data["lastName"]}`.toLowerCase() === employee.toLowerCase()){
+          context.dispatch({
+            type: Types.CLOCK_IN_EMPLOYEE,
+            payload: data
+          });
+          done = true;
+        } else {
+          context.dispatch({
+            type: Types.CLOCK_IN_EMPLOYEE,
+            payload: null
+          })
+        }
+      }
+    })
+  }
+
   return (<div>
     <Grid grid="2">
       <ClockIn
        employees={context.employees}
        clockTime={clockTime}
        selectEmployee={selectEmployee}
+       setClockInEmployee={setClockInEmployee}
       />
     </Grid>
   </div>)

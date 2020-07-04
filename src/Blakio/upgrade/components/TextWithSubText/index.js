@@ -10,22 +10,26 @@ const getInput = (
     setInputText,
     setSmallText,
     hasAutocomplate,
-    employees
+    employees,
+    select,
+    fn
 ) => {
     return (<div>
         <input
             className={`bigTextInput ${textColor}`}
             placeholder={bigText}
             value={inputText}
-            onChange={e => setInputText(e.target.value)}
+            onChange={e => {
+                setInputText(e.target.value);
+                fn(e.target.value)
+            }}
         />
         {hasAutocomplate && <Autocomplete
             list={employees}
             value={inputText}
             setInputText={setInputText}
             setSmallText={setSmallText}
-            // style={styles}
-            // selected={props.selectEmployee}
+            select={select}
         />}
     </div>)
 }
@@ -40,10 +44,11 @@ const TextWithSubText = props => {
         inputText,
         setInputText,
         setSmallText,
-        selectEmployee,
+        select,
 
         hasAutocomplate,
-        employees
+        employees,
+        fn
     } = props;
 
     const text = isInputField ? (
@@ -54,7 +59,9 @@ const TextWithSubText = props => {
             setInputText,
             setSmallText,
             hasAutocomplate,
-            employees
+            employees,
+            select,
+            fn
         )
     ) : (<p className="bigText">{bigText}</p>);
     

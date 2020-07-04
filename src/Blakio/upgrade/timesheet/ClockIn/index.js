@@ -1,6 +1,5 @@
 import React, {
-    useState,
-    useEffect
+    useState
 } from "react";
 import "./main.css";
 
@@ -13,31 +12,23 @@ import {
 
 const ClockIn = props => {
 
+    const {
+        employees,
+        clockTime,
+        selectEmployee,
+        setClockInEmployee
+    } = props;
+
     const [inputText, setInputText] = useState("");
     const [smallText, setSmallText] = useState("");
-
-    useEffect(() => {
-        const hasFoundEmployee = props.employees.map(data => {
-            const name = data["firstName"] + data["lastName"]
-            return name.toLowerCase() === inputText.toLowerCase();
-        });
-        if(hasFoundEmployee.length){
-            console.log("found")
-        }
-    }, [inputText])
 
     const icon = (<div className="clockInBox">
         <Icon
             isBtn
             helpText="submit"
-            onClick={() => props.clockTime()}
+            onClick={() => clockTime(inputText)}
         />
     </div>);
-    const styles = {
-        width: "60%",
-        position: "absolute",
-        left: "30%"
-    }
 
     return (<div>
         <Paper
@@ -55,10 +46,11 @@ const ClockIn = props => {
                         inputText={inputText}
                         setInputText={setInputText}
                         setSmallText={setSmallText}
-                        selectEmployee={props.selectEmployee}
+                        select={selectEmployee}
 
                         hasAutocomplate={true}
-                        employees={props.employees}
+                        employees={employees}
+                        fn={setClockInEmployee}
                     />
                 </div>
             </div>
