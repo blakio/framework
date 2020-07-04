@@ -26,13 +26,12 @@ export default {
   breakRefAndCopy: obj => (JSON.parse(JSON.stringify(obj))),
 
   // formats the side bar data and includes functionality
-  adjustSideBarData: (context, Types, customFn) => {
+  adjustSideBarData: (state, dispatch, Types, customFn) => {
     const {
-      dispatch,
       sideBar,
       sideBarOption,
       sideBarChildOption
-    } = context;
+    } = state;
 
     // map data to sidebar buttons
     sideBar.forEach(data => {

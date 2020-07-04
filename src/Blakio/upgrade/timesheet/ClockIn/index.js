@@ -6,8 +6,7 @@ import "./main.css";
 import {
     Paper,
     Icon,
-    TextWithSubText,
-    Autocomplete
+    TextWithSubText
 } from "../../components";
 
 const ClockIn = props => {

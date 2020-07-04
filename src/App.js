@@ -9,22 +9,22 @@ import {
 
 import "react-loader-spinner/dist/loader/css/react-spinner-loader.css"
 
-import DashboardContext from "./Context/State";
-import Reducer from "./Context/Reducer";
-import initialState from "./Context/InitialState";
+import {
+  StateProvider,
+  StateContext
+} from "./Context/State";
 
 function App() {
-  const [state, dispatch] = useReducer(Reducer, initialState);
-  return (<DashboardContext.Provider value={{...state, dispatch}}>
+  return (<StateProvider>
     <div id="App">
       <SideBar />
-      <div id="ContentArea" className={`${state.shortMenu && "shortMenu"}`}>
+      <div id="ContentArea" className={`${StateContext.shortMenu && "shortMenu"}`}>
         <TopBar />
         <Dashboard />
       </div>
-      {state.isLoading && <LoadingScreen />}
+      {StateContext.isLoading && <LoadingScreen />}
     </div>
-  </DashboardContext.Provider>);
+  </StateProvider>);
 }
 
 export default App;

@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import moment from "moment";
 import axios from "axios";
@@ -15,7 +15,10 @@ import Util from "../Util";
 import logo from "../imgs/logo.png";
 import Axios from "../Axios";
 import Types from "../Context/Types";
-import DashboardContext from "../Context/State";
+import {
+  StateContext
+} from "../Context/State";
+
 
 import BlakioUI from "Blakio/Framework";
 
@@ -37,14 +40,12 @@ const load = (dispatch, bool) => {
 }
 
 const SideBarHead = () => {
+  const [state, dispatch] = StateContext();
   const [isClosed, setIsClosed] = useState(false);
-  const {
-    ...context
-  } = useContext(DashboardContext);
 
   const onClick = () => {
     setIsClosed(!isClosed);
-    context.dispatch({
+    dispatch({
       type: Types.SHORT_MENU,
       payload: !isClosed
     })
@@ -53,7 +54,7 @@ const SideBarHead = () => {
   const margin = isClosed ? "0 0.1em" : "0 1em";
   const width = isClosed ? 45 : null;
 
-  return (<div id="SideBarHead" className={`flex ${context.shortMenu && "shortMenu"}`}>
+  return (<div id="SideBarHead" className={`flex ${state.shortMenu && "shortMenu"}`}>
     {!isClosed && <img src={logo} alt="logo" />}
     <div
       style={{
@@ -66,11 +67,10 @@ const SideBarHead = () => {
 }
 
 const DashboardHead = () => {
-  const {
-    ...context
-  } = useContext(DashboardContext);
-  const selected = context.sideBar.filter(data => data._id === context.sideBarOption);
-  const label = context.sideBar.length && selected[0] && selected[0].title.toUpperCase();
+  const [state, dispatch] = StateContext();
+
+  const selected = state.sideBar.filter(data => data._id === state.sideBarOption);
+  const label = state.sideBar.length && selected[0] && selected[0].title.toUpperCase();
   return (<div id="DashboardHead" className="flex">
     <div className="flex">
       <p id="DashboardTitleText">{label}</p>
@@ -79,21 +79,20 @@ const DashboardHead = () => {
 }
 
 const TimeSheet = props => {
-  const {
-    ...context
-  } = useContext(DashboardContext);
+
+  const [state, dispatch] = StateContext();
 
   if(!props.show) return <div></div>;
 
   const clockTime = selected => {
-    const employee = context.clockInEmployee;
+    const employee = state.clockInEmployee;
     if(employee){
       console.log(employee)
     }
   }
 
   const selectEmployee = selected => {
-    context.dispatch({
+    dispatch({
       type: Types.CLOCK_IN_EMPLOYEE,
       payload: selected
     })
@@ -101,16 +100,16 @@ const TimeSheet = props => {
 
   const setClockInEmployee = employee => {
     let done = false;
-    context.employees.forEach(data => {
+    state.employees.forEach(data => {
       if(!done){
         if(`${data["firstName"]} ${data["lastName"]}`.toLowerCase() === employee.toLowerCase()){
-          context.dispatch({
+          dispatch({
             type: Types.CLOCK_IN_EMPLOYEE,
             payload: data
           });
           done = true;
         } else {
-          context.dispatch({
+          dispatch({
             type: Types.CLOCK_IN_EMPLOYEE,
             payload: null
           })
@@ -122,7 +121,7 @@ const TimeSheet = props => {
   return (<div>
     <Grid grid="2">
       <ClockIn
-       employees={context.employees}
+       employees={state.employees}
        clockTime={clockTime}
        selectEmployee={selectEmployee}
        setClockInEmployee={setClockInEmployee}
@@ -141,14 +140,13 @@ const EmployeeDirectory = props => {
 }
 
 const DashboardBody = () => {
-  const {
-    ...context
-  } = useContext(DashboardContext);
+  const [state, dispatch] = StateContext();
+
 
   return (<div id="dashboardBodyContainer">
     <div id="DashboardBody">
-      <TimeSheet show={context.sideBarOption === "1"} />
-      <EmployeeDirectory show={context.sideBarOption === "2"}/>
+      <TimeSheet show={state.sideBarOption === "1"} />
+      <EmployeeDirectory show={state.sideBarOption === "2"}/>
     </div>
   </div>)
 }
@@ -196,13 +194,11 @@ const DateTimeWeather = () => {
 }
 
 const SideBar = () => {
+  const [state, dispatch] = StateContext();
 
-  const {
-    ...context
-  } = useContext(DashboardContext);
 
   const setSideBarState = (data) => {
-    context.dispatch({
+    dispatch({
       type: Types.SET_SIDE_BAR,
       payload: data.data
     })
@@ -213,13 +209,13 @@ const SideBar = () => {
   }, []);
 
   useEffect(() => {
-    if(context.sideBar.length && !context.sideBarOption){
-      context.dispatch({
+    if(state.sideBar.length && !state.sideBarOption){
+      dispatch({
         type: Types.SET_SIDE_BAR_OPTION,
-        payload: context.sideBar[0]._id
+        payload: state.sideBar[0]._id
       })
     }
-  }, [context.sideBar])
+  }, [state.sideBar])
 
   const customFn = {
     selectTimesheet: (data) => {
@@ -233,12 +229,12 @@ const SideBar = () => {
     }
   }
 
-  Util.adjustSideBarData(context, Types, customFn);
+  Util.adjustSideBarData(state, dispatch, Types, customFn);
 
-  return (<div id="SideBar" className={`container flex ${context.shortMenu && "shortMenu"}`}>
+  return (<div id="SideBar" className={`container flex ${state.shortMenu && "shortMenu"}`}>
     <SideBarHead />
-    {context.sideBar.map((data, index) =>
-      <SideBarPaper key={index} {...data} shortMenu={context.shortMenu} />
+    {state.sideBar.map((data, index) =>
+      <SideBarPaper key={index} {...data} shortMenu={state.shortMenu} />
     )}
   </div>)
 }
@@ -265,9 +261,6 @@ const LoadingScreen = () => {
 }
 
 const SAMPLE = () => {
-  const {
-    dispatch
-  } = useContext(DashboardContext);
   return (<div id="SAMPLE">
   </div>)
 }
