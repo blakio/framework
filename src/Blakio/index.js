@@ -79,10 +79,42 @@ const DashboardHead = () => {
 }
 
 const TimeSheet = props => {
+  const {
+    ...context
+  } = useContext(DashboardContext);
+
+  if(!props.show) return <div></div>;
+
+  const clockTime = () => {
+    const employee = context.clockInEmployee;
+    if(employee){
+      console.log(employee)
+    }
+  }
+
+  const selectEmployee = selected => {
+    context.dispatch({
+      type: Types.CLOCK_IN_EMPLOYEE,
+      payload: selected
+    })
+  }
+
+  return (<div>
+    <Grid grid="2">
+      <ClockIn
+       employees={context.employees}
+       clockTime={clockTime}
+       selectEmployee={selectEmployee}
+      />
+    </Grid>
+  </div>)
+}
+
+const EmployeeDirectory = props => {
   if(!props.show) return <div></div>;
   return (<div>
     <Grid grid="2">
-      <ClockIn />
+      employee directory
     </Grid>
   </div>)
 }
@@ -94,7 +126,8 @@ const DashboardBody = () => {
 
   return (<div id="dashboardBodyContainer">
     <div id="DashboardBody">
-      <TimeSheet show={context.sideBarOption === "1"}/>
+      <TimeSheet show={context.sideBarOption === "1"} />
+      <EmployeeDirectory show={context.sideBarOption === "2"}/>
     </div>
   </div>)
 }

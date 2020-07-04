@@ -47,7 +47,7 @@ const Table = (props) => {
         })}
       </tr>
       {data.body.map((data, index) => {
-        return (<tr key={index} class={`${index % 2 !== 0 && "even"}`}>
+        return (<tr key={index} className={`${index % 2 !== 0 && "even"}`}>
           {data.map((d, i) => {
             return (<td key={i}>
               <div className="row">
@@ -67,7 +67,7 @@ const Table = (props) => {
           <p>{`${low} - ${high}`}</p>
         </div>
         <div className="BottomBarBtn flex" onClick={next}>
-          <i class="fas fa-angle-right"></i>
+          <i className="fas fa-angle-right"></i>
         </div>
       </div>
       <p>{`${onScreen} out of ${total}`}</p>

@@ -1,5 +1,6 @@
 import React, {
-    useState
+    useState,
+    useEffect
 } from "react";
 import "./main.css";
 
@@ -10,8 +11,33 @@ import {
     Autocomplete
 } from "../../components";
 
-const ClockIn = () => {
+const ClockIn = props => {
+
     const [inputText, setInputText] = useState("");
+    const [smallText, setSmallText] = useState("");
+
+    useEffect(() => {
+        const hasFoundEmployee = props.employees.map(data => {
+            const name = data["firstName"] + data["lastName"]
+            return name.toLowerCase() === inputText.toLowerCase();
+        });
+        if(hasFoundEmployee.length){
+            console.log("found")
+        }
+    }, [inputText])
+
+    const icon = (<div className="clockInBox">
+        <Icon
+            isBtn
+            helpText="submit"
+            onClick={() => props.clockTime()}
+        />
+    </div>);
+    const styles = {
+        width: "60%",
+        position: "absolute",
+        left: "30%"
+    }
 
     return (<div>
         <Paper
@@ -19,30 +45,20 @@ const ClockIn = () => {
             color="blue"
         >
             <div className="paperContainer">
-                <div className="clockInBox">
-                    <Icon
-                        isBtn
-                        helpText="submit"
-                    />
-                </div>
+                {icon}
                 <div>
                     <TextWithSubText
                         isInputField
                         textColor="blueText"
                         bigText="Employee ID"
-                        smallText=""
+                        smallText={smallText}
                         inputText={inputText}
                         setInputText={setInputText}
-                    />
-                    <Autocomplete
-                        list={["Jasmin Burke", "Isaiah Harrison"]}
-                        value={inputText}
-                        setInputText={setInputText}
-                        style={{
-                            width: "60%",
-                            position: "absolute",
-                            left: "30%"
-                        }}
+                        setSmallText={setSmallText}
+                        selectEmployee={props.selectEmployee}
+
+                        hasAutocomplate={true}
+                        employees={props.employees}
                     />
                 </div>
             </div>

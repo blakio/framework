@@ -1,28 +1,66 @@
-import React, {
-    useEffect,
-    useState
-} from "react";
+import React from "react";
 import "./main.css";
+
+import Autocomplete from "../Autocomplete";
+
+const getInput = (
+    textColor,
+    bigText,
+    inputText,
+    setInputText,
+    setSmallText,
+    hasAutocomplate,
+    employees
+) => {
+    return (<div>
+        <input
+            className={`bigTextInput ${textColor}`}
+            placeholder={bigText}
+            value={inputText}
+            onChange={e => setInputText(e.target.value)}
+        />
+        {hasAutocomplate && <Autocomplete
+            list={employees}
+            value={inputText}
+            setInputText={setInputText}
+            setSmallText={setSmallText}
+            // style={styles}
+            // selected={props.selectEmployee}
+        />}
+    </div>)
+}
 
 const TextWithSubText = props => {
 
-    const [inputRef, setInputRef] = useState(null);
+    const {
+        isInputField,
+        textColor,
+        bigText,
+        smallText,
+        inputText,
+        setInputText,
+        setSmallText,
+        selectEmployee,
 
-    useEffect(() => {
-        inputRef && inputRef.focus();
-    }, [inputRef]);
+        hasAutocomplate,
+        employees
+    } = props;
 
-    const bigText = props.isInputField ? (<input
-        className={`bigTextInput ${props.textColor}`}
-        placeholder={props.bigText}
-        ref={e => setInputRef(e)}
-        value={props.inputText}
-        onChange={e => props.setInputText(e.target.value)}
-    />) : (<p className="bigText">{props.bigText}</p>)
-
+    const text = isInputField ? (
+        getInput(
+            textColor,
+            bigText,
+            inputText,
+            setInputText,
+            setSmallText,
+            hasAutocomplate,
+            employees
+        )
+    ) : (<p className="bigText">{bigText}</p>);
+    
     return (<div>
-        {bigText}
-        <p className="smallText">{props.smallText}</p>
+        {text}
+        <p className="smallText">{smallText}</p>
     </div>);
 }
 

@@ -1,16 +1,36 @@
 import React from "react";
 import "./main.css";
 
+const getName = (filteresList) => {
+    return filteresList[0]["firstName"] + filteresList[0]["lastName"]
+}
+
 const Autocomplete = props => {
 
-    const selected = props.list.filter(data => data.toLowerCase().includes(props.value.toLowerCase()));
+    const {
+        value,
+        list,
+        setInputText,
+        setSmallText,
+        selected
+    } = props;
+
+    const filteresList = list.filter(data => {
+        const name = data["firstName"] + data["lastName"]
+        return name.toLowerCase().includes(value.toLowerCase())
+    });
 
     return (<div style={props.style}>
-        {props.value !== selected[0] && <div>
+        {filteresList.length && value !== getName(filteresList) && <div>
             <ul>
-                {props.value && selected.map(data => <li
-                    onClick={e => props.setInputText(e.target.innerText)}
-                >{data}</li>)}
+                {value && filteresList.map((data, index) => <li
+                    key={index}
+                    onClick={e => {
+                        setInputText(data["firstName"] + data["lastName"])
+                        setSmallText(data.title)
+                        // selected(data)
+                    }}
+                >{data["firstName"] + data["lastName"]}</li>)}
             </ul>
         </div>}
     </div>

@@ -2,9 +2,9 @@ import React from "react";
 import "./main.css";
 
 const Icon = props => {
-    return (<div>
+    return (<div onClick={props.onClick ? props.onClick : () => {}}>
         <div className={`icon ${props.helpText && "hasHelpText"} ${props.isBtn && "iconBtn"}`}>
-            <i class="far fa-clock"></i>
+            <i className="far fa-clock"></i>
         </div>
         <p className="buttonHelpText">{props.helpText}</p>
     </div>);
