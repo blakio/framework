@@ -7,8 +7,8 @@ import Util from "../Util";
 
 export default {
   shortMenu: (payload, state) => ({ ...state, shortMenu: payload }),
-  setSideBar: (payload, state) => ({ ...state, sideBar: payload }),
-  setSideBarOption:  (payload, state) => ({ ...state, sideBarOption: payload }),
+  setSideBar: (payload, state) => ({ ...state, sideBarOptions: { ...state.sideBarOptions, sideBar: payload } }),
+  setSideBarOption:  (payload, state) => ({ ...state, sideBarOptions: { ...state.sideBarOptions, sideBarOption: payload } }),
   setEmployees: (payload, state) =>  ({ ...state, employees: payload }),
   toggleDownloadScreen: (payload, state) => {
     const currentState = Util.breakRefAndCopy(state);
@@ -19,4 +19,8 @@ export default {
     }
   },
   clockInEmployee: (payload, state) =>  ({ ...state, clockInEmployee: payload }),
+
+  // timesheet
+  setClockInInputValue: (payload, state) =>  ({ ...state, timeSheet: { ...state.timeSheet, clockIn: { ...state.timeSheet.clockIn, inputValue: payload }} }),
+  setClockInSelectedEmployee: (payload, state) =>  ({ ...state, timeSheet: { ...state.timeSheet, clockIn: { ...state.timeSheet.clockIn, selectedEmployee: payload }} }),
 }

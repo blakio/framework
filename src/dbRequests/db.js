@@ -335,7 +335,7 @@ export const timeClock = [
     }
 ]
 
-export const sideBar = {
+export const sideBarOptions = {
     data: [
         {
             data: [],

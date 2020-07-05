@@ -69,8 +69,8 @@ const SideBarHead = () => {
 const DashboardHead = () => {
   const [state, dispatch] = StateContext();
 
-  const selected = state.sideBar.filter(data => data._id === state.sideBarOption);
-  const label = state.sideBar.length && selected[0] && selected[0].title.toUpperCase();
+  const selected = state.sideBarOptions.sideBar.filter(data => data._id === state.sideBarOption);
+  const label = state.sideBarOptions.sideBar.length && selected[0] && selected[0].title.toUpperCase();
   return (<div id="DashboardHead" className="flex">
     <div className="flex">
       <p id="DashboardTitleText">{label}</p>
@@ -79,53 +79,10 @@ const DashboardHead = () => {
 }
 
 const TimeSheet = props => {
-
-  const [state, dispatch] = StateContext();
-
   if(!props.show) return <div></div>;
-
-  const clockTime = selected => {
-    const employee = state.clockInEmployee;
-    if(employee){
-      console.log(employee)
-    }
-  }
-
-  const selectEmployee = selected => {
-    dispatch({
-      type: Types.CLOCK_IN_EMPLOYEE,
-      payload: selected
-    })
-  }
-
-  const setClockInEmployee = employee => {
-    let done = false;
-    state.employees.forEach(data => {
-      if(!done){
-        if(`${data["firstName"]} ${data["lastName"]}`.toLowerCase() === employee.toLowerCase()){
-          dispatch({
-            type: Types.CLOCK_IN_EMPLOYEE,
-            payload: data
-          });
-          done = true;
-        } else {
-          dispatch({
-            type: Types.CLOCK_IN_EMPLOYEE,
-            payload: null
-          })
-        }
-      }
-    })
-  }
-
   return (<div>
     <Grid grid="2">
-      <ClockIn
-       employees={state.employees}
-       clockTime={clockTime}
-       selectEmployee={selectEmployee}
-       setClockInEmployee={setClockInEmployee}
-      />
+      <ClockIn/>
     </Grid>
   </div>)
 }
@@ -145,8 +102,8 @@ const DashboardBody = () => {
 
   return (<div id="dashboardBodyContainer">
     <div id="DashboardBody">
-      <TimeSheet show={state.sideBarOption === "1"} />
-      <EmployeeDirectory show={state.sideBarOption === "2"}/>
+      <TimeSheet show={state.sideBarOptions.sideBarOption === "1"} />
+      <EmployeeDirectory show={state.sideBarOptions.sideBarOption === "2"}/>
     </div>
   </div>)
 }
@@ -209,13 +166,13 @@ const SideBar = () => {
   }, []);
 
   useEffect(() => {
-    if(state.sideBar.length && !state.sideBarOption){
+    if(state.sideBarOptions.sideBar.length && !state.sideBarOptions.sideBarOption){
       dispatch({
         type: Types.SET_SIDE_BAR_OPTION,
-        payload: state.sideBar[0]._id
+        payload: state.sideBarOptions.sideBar[0]._id
       })
     }
-  }, [state.sideBar])
+  }, [state.sideBarOptions.sideBar])
 
   const customFn = {
     selectTimesheet: (data) => {
@@ -233,7 +190,7 @@ const SideBar = () => {
 
   return (<div id="SideBar" className={`container flex ${state.shortMenu && "shortMenu"}`}>
     <SideBarHead />
-    {state.sideBar.map((data, index) =>
+    {state.sideBarOptions.sideBar.map((data, index) =>
       <SideBarPaper key={index} {...data} shortMenu={state.shortMenu} />
     )}
   </div>)

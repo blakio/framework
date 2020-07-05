@@ -16,8 +16,13 @@ export default (state, action) => {
       return StateFunctions.setEmployees(payload, state);
     case Types.TOGGLE_DOWNLOAD_SCREEN:
       return StateFunctions.toggleDownloadScreen(payload, state);
-    case Types.CLOCK_IN_EMPLOYEE:
-      return StateFunctions.clockInEmployee(payload, state);
+
+    // timesheet
+    case Types.SET_CLOCK_IN_INPUT_VALUE:
+      return StateFunctions.setClockInInputValue(payload, state);
+    case Types.SET_CLOCK_IN_SELECTED_EMPLOYEE:
+      return StateFunctions.setClockInSelectedEmployee(payload, state);
+
     default:
       return state;
   }

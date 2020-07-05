@@ -9,14 +9,17 @@ import {
     TextWithSubText
 } from "../../components";
 
+import {
+    StateContext
+} from "Context/State";
+import Types from "Context/Types"
+
 const ClockIn = props => {
+    const [state, dispatch] = StateContext();
 
     const {
-        employees,
-        clockTime,
-        selectEmployee,
-        setClockInEmployee
-    } = props;
+        employeeDirectory
+    } = state;
 
     const [inputText, setInputText] = useState("");
     const [smallText, setSmallText] = useState("");
@@ -25,9 +28,51 @@ const ClockIn = props => {
         <Icon
             isBtn
             helpText="submit"
-            onClick={() => clockTime(inputText)}
+            onClick={() => {
+                clockTime(inputText)
+            }}
         />
     </div>);
+
+    const setEmployee = value => {
+        dispatch({
+            type: Types.SET_CLOCK_IN_INPUT_VALUE,
+            payload: value
+        });
+    }
+
+    const setSelectedEmployee = value => {
+        dispatch({
+            type: Types.SET_CLOCK_IN_SELECTED_EMPLOYEE,
+            payload: value
+        });
+    }
+
+    const selectEmployee = selected => {
+        setEmployee(`${selected["firstName"]} ${selected["lastName"]}`);
+        setSelectedEmployee(selected);
+    }
+
+    const setClockInEmployee = employee => {
+        let done = false;
+        employeeDirectory.employees.forEach(data => {
+          if(!done){
+            if(`${data["firstName"]} ${data["lastName"]}`.toLowerCase() === employee.toLowerCase()){
+                setSelectedEmployee(data)
+                done = true;
+            } else {
+                setSelectedEmployee(null)
+            }
+          }
+        })
+    }
+
+    const clockTime = selected => {
+        const employee = state.clockInEmployee;
+        if(employee){
+          console.log(employee)
+        }
+    }
 
     return (<div>
         <Paper
@@ -48,8 +93,10 @@ const ClockIn = props => {
                         select={selectEmployee}
 
                         hasAutocomplate={true}
-                        employees={employees}
+                        employees={employeeDirectory.employees}
                         fn={setClockInEmployee}
+
+                        onClick={setEmployee}
                     />
                 </div>
             </div>

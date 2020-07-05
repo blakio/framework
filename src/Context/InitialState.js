@@ -3,12 +3,21 @@ import {
 } from "../dbRequests/db.js";
 
 const initialState = {
-  shortMenu: false,
-  sideBarOption: null,
-  sideBar: [],
+  sideBarOptions: {
+    shortMenu: false,
+    sideBarOption: null,
+    sideBar: [],
+  },
   isDownloadScreen: false,
-  employees,
-  clockInEmployee: null
+  timeSheet: {
+    clockIn: {
+      selectedEmployee: null,
+      inputValue: null
+    }
+  },
+  employeeDirectory: {
+    employees
+  }
 };
 
 export default initialState;

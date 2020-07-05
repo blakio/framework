@@ -1,7 +1,7 @@
 import axios from "axios";
 
 import {
-  sideBar
+  sideBarOptions
 } from "../dbRequests/db.js";
 
 var axiosInstance = axios.create({
@@ -12,7 +12,7 @@ export default {
 
   // SIDE BAR
   getSideBar: (fn) => {
-    fn(sideBar);
+    fn(sideBarOptions);
     // axiosInstance.get("/sidebar")
     //   .then(data => fn(data))
     //   .catch(err => console.log(err));

@@ -28,10 +28,14 @@ export default {
   // formats the side bar data and includes functionality
   adjustSideBarData: (state, dispatch, Types, customFn) => {
     const {
+      sideBarOptions
+    } = state;
+
+    const {
       sideBar,
       sideBarOption,
       sideBarChildOption
-    } = state;
+    } = sideBarOptions;
 
     // map data to sidebar buttons
     sideBar.forEach(data => {
