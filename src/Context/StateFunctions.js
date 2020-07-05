@@ -6,7 +6,7 @@ import moment from "moment";
 import Util from "../Util";
 
 export default {
-  shortMenu: (payload, state) => ({ ...state, shortMenu: payload }),
+  shortMenu: (payload, state) => ({ ...state, sideBarOptions: { ...state.sideBarOptions, shortMenu: payload } }),
   setSideBar: (payload, state) => ({ ...state, sideBarOptions: { ...state.sideBarOptions, sideBar: payload } }),
   setSideBarOption:  (payload, state) => ({ ...state, sideBarOptions: { ...state.sideBarOptions, sideBarOption: payload } }),
   setEmployees: (payload, state) =>  ({ ...state, employees: payload }),

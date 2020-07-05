@@ -54,7 +54,7 @@ const SideBarHead = () => {
   const margin = isClosed ? "0 0.1em" : "0 1em";
   const width = isClosed ? 45 : null;
 
-  return (<div id="SideBarHead" className={`flex ${state.shortMenu && "shortMenu"}`}>
+  return (<div id="SideBarHead" className={`flex ${state.sideBarOptions.shortMenu && "shortMenu"}`}>
     {!isClosed && <img src={logo} alt="logo" />}
     <div
       style={{
@@ -188,10 +188,10 @@ const SideBar = () => {
 
   Util.adjustSideBarData(state, dispatch, Types, customFn);
 
-  return (<div id="SideBar" className={`container flex ${state.shortMenu && "shortMenu"}`}>
+  return (<div id="SideBar" className={`container flex ${state.sideBarOptions.shortMenu && "shortMenu"}`}>
     <SideBarHead />
     {state.sideBarOptions.sideBar.map((data, index) =>
-      <SideBarPaper key={index} {...data} shortMenu={state.shortMenu} />
+      <SideBarPaper key={index} {...data} shortMenu={state.sideBarOptions.shortMenu} />
     )}
   </div>)
 }

@@ -14,14 +14,20 @@ import {
   StateContext
 } from "./Context/State";
 
+const ContentArea = () => {
+  const [state, dispatch] = StateContext();
+
+  return (<div id="ContentArea" className={`${state.sideBarOptions.shortMenu && "shortMenu"}`}>
+    <TopBar />
+    <Dashboard />
+</div>)
+}
+
 function App() {
   return (<StateProvider>
     <div id="App">
       <SideBar />
-      <div id="ContentArea" className={`${StateContext.shortMenu && "shortMenu"}`}>
-        <TopBar />
-        <Dashboard />
-      </div>
+      <ContentArea />
       {StateContext.isLoading && <LoadingScreen />}
     </div>
   </StateProvider>);
