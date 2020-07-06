@@ -28,9 +28,7 @@ const ClockIn = props => {
         <Icon
             isBtn
             helpText="submit"
-            onClick={() => {
-                clockTime(inputText)
-            }}
+            onClick={() => clockTime()}
         />
     </div>);
 
@@ -54,23 +52,27 @@ const ClockIn = props => {
     }
 
     const setClockInEmployee = employee => {
-        let done = false;
+        let set = false;
         employeeDirectory.employees.forEach(data => {
-          if(!done){
+          if(!set){
             if(`${data["firstName"]} ${data["lastName"]}`.toLowerCase() === employee.toLowerCase()){
                 setSelectedEmployee(data)
-                done = true;
-            } else {
-                setSelectedEmployee(null)
+                set = true;
             }
           }
-        })
+        });
+        if(!set){
+            setSelectedEmployee(null)
+        }
     }
 
     const clockTime = selected => {
-        const employee = state.clockInEmployee;
+        const employee = state.timeSheet.clockIn.selectedEmployee;
         if(employee){
-          console.log(employee)
+            console.log({
+                id: employee._id,
+                time: Date.now()
+            })
         }
     }
 

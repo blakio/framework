@@ -1,6 +1,6 @@
 export const employees = [
     {
-        id: 1,
+        _id: 1,
         firstName: "Isaiah",
         lastName: "Harrison",
         dob: "05/28/1989",
@@ -19,7 +19,7 @@ export const employees = [
         updatedById: null
     },
     {
-        id: 2,
+        _id: 2,
         firstName: "Jasmin",
         lastName: "Burke",
         dob: "07/18/1994",
@@ -38,7 +38,7 @@ export const employees = [
         updatedById: null
     },
     {
-        id: 3,
+        _id: 3,
         firstName: "Jessica",
         lastName: "Sanchez",
         dob: "08/26/2001",
@@ -57,7 +57,7 @@ export const employees = [
         updatedById: null
     },
     {
-        id: 4,
+        _id: 4,
         firstName: "Sharlot",
         lastName: "Rose",
         dob: "01/02/2000",
