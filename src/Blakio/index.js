@@ -69,7 +69,7 @@ const SideBarHead = () => {
 const DashboardHead = () => {
   const [state, dispatch] = StateContext();
 
-  const selected = state.sideBarOptions.sideBar.filter(data => data._id === state.sideBarOption);
+  const selected = state.sideBarOptions.sideBar.filter(data => data._id === state.sideBarOptions.sideBarOption);
   const label = state.sideBarOptions.sideBar.length && selected[0] && selected[0].title.toUpperCase();
   return (<div id="DashboardHead" className="flex">
     <div className="flex">
