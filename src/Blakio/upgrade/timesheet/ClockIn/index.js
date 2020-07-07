@@ -21,8 +21,15 @@ const ClockIn = props => {
         employeeDirectory
     } = state;
 
-    const [inputText, setInputText] = useState("");
-    const [smallText, setSmallText] = useState("");
+    const clockTime = () => {
+        const employee = state.timeSheet.clockIn.selectedEmployee;
+        if(employee){
+            console.log({
+                id: employee._id,
+                time: Date.now()
+            })
+        }
+    }
 
     const icon = (<div className="clockInBox">
         <Icon
@@ -32,23 +39,27 @@ const ClockIn = props => {
         />
     </div>);
 
-    const setEmployee = value => {
+    const setClockInInputValue = value => {
         dispatch({
             type: Types.SET_CLOCK_IN_INPUT_VALUE,
             payload: value
         });
     }
 
-    const setSelectedEmployee = value => {
+    const setClockInSelectedEmployee = value => {
         dispatch({
             type: Types.SET_CLOCK_IN_SELECTED_EMPLOYEE,
             payload: value
         });
+        dispatch({
+            type: Types.SET_EMPLOYEE_TITLE,
+            payload: value ? value.title : ""
+        })
     }
 
     const selectEmployee = selected => {
-        setEmployee(`${selected["firstName"]} ${selected["lastName"]}`);
-        setSelectedEmployee(selected);
+        setClockInInputValue(`${selected["firstName"]} ${selected["lastName"]}`);
+        setClockInSelectedEmployee(selected);
     }
 
     const setClockInEmployee = employee => {
@@ -56,24 +67,19 @@ const ClockIn = props => {
         employeeDirectory.employees.forEach(data => {
           if(!set){
             if(`${data["firstName"]} ${data["lastName"]}`.toLowerCase() === employee.toLowerCase()){
-                setSelectedEmployee(data)
+                setClockInSelectedEmployee(data)
                 set = true;
             }
           }
         });
         if(!set){
-            setSelectedEmployee(null)
+            setClockInSelectedEmployee(null);
         }
+        setClockInInputValue(employee)
     }
 
-    const clockTime = selected => {
-        const employee = state.timeSheet.clockIn.selectedEmployee;
-        if(employee){
-            console.log({
-                id: employee._id,
-                time: Date.now()
-            })
-        }
+    const getListValue = data => {
+        return `${data["firstName"]} ${data["lastName"]}`;
     }
 
     return (<div>
@@ -88,17 +94,14 @@ const ClockIn = props => {
                         isInputField
                         textColor="blueText"
                         bigText="Employee ID"
-                        smallText={smallText}
-                        inputText={inputText}
-                        setInputText={setInputText}
-                        setSmallText={setSmallText}
-                        select={selectEmployee}
-
+                        smallText={state.timeSheet.clockIn.employeeTitle}
+                        inputText={state.timeSheet.clockIn.inputValue}
+                        
                         hasAutocomplate={true}
                         employees={employeeDirectory.employees}
-                        fn={setClockInEmployee}
-
-                        onClick={setEmployee}
+                        onChange={setClockInEmployee}
+                        getListValue={getListValue}
+                        autoCompleteOnClick={selectEmployee}
                     />
                 </div>
             </div>

@@ -10,9 +10,8 @@ const Autocomplete = props => {
     const {
         value,
         list,
-        setInputText,
-        setSmallText,
-        select
+        onClick,
+        getListValue
     } = props;
 
     const filteresList = list.filter(data => {
@@ -25,12 +24,8 @@ const Autocomplete = props => {
             <ul>
                 {value && filteresList.map((data, index) => <li
                     key={index}
-                    onClick={e => {
-                        setInputText(`${data["firstName"]} ${data["lastName"]}`);
-                        setSmallText(data.title);
-                        select(data);
-                    }}
-                >{`${data["firstName"]} ${data["lastName"]}`}</li>)}
+                    onClick={() => onClick(data)}
+                >{getListValue(data)}</li>)}
             </ul>
         </div>}
     </div>

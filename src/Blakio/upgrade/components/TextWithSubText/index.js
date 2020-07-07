@@ -7,13 +7,11 @@ const getInput = (
     textColor,
     bigText,
     inputText,
-    setInputText,
-    setSmallText,
     hasAutocomplate,
     employees,
-    select,
-    fn,
-    onClick
+    autoCompleteOnClick,
+    onChange,
+    getListValue
 ) => {
 
     return (<div>
@@ -22,17 +20,14 @@ const getInput = (
             placeholder={bigText}
             value={inputText}
             onChange={e => {
-                setInputText(e.target.value);
-                fn(e.target.value)
-                onClick(e.target.value)
+                onChange(e.target.value)
             }}
         />
         {hasAutocomplate && <Autocomplete
             list={employees}
             value={inputText}
-            setInputText={setInputText}
-            setSmallText={setSmallText}
-            select={select}
+            onClick={autoCompleteOnClick}
+            getListValue={getListValue}
         />}
     </div>)
 }
@@ -45,14 +40,12 @@ const TextWithSubText = props => {
         bigText,
         smallText,
         inputText,
-        setInputText,
-        setSmallText,
-        select,
-
+        
         hasAutocomplate,
         employees,
-        fn,
-        onClick
+        onChange,
+        getListValue,
+        autoCompleteOnClick
     } = props;
 
     const text = isInputField ? (
@@ -60,13 +53,11 @@ const TextWithSubText = props => {
             textColor,
             bigText,
             inputText,
-            setInputText,
-            setSmallText,
             hasAutocomplate,
             employees,
-            select,
-            fn,
-            onClick
+            autoCompleteOnClick,
+            onChange,
+            getListValue
         )
     ) : (<p className="bigText">{bigText}</p>);
     
