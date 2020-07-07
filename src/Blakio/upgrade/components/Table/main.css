@@ -8,8 +8,9 @@ table {
 
 th, td {
     line-height: 20px;
-    font-size: 24px;
+    font-size: 14px;
     border-bottom: 1px solid var(--lineLightGrey);
     padding: 0.4em 1em;
     color: var(--midGrey);
+    text-align: left;
 }

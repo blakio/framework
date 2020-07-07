@@ -27,6 +27,15 @@
   max-width: calc(100% - var(--SideBarWidthClosed))
 }
 
+/* #ContentArea .paper {
+  max-width: calc(74% - var(--navBarHeight));
+  overflow: scroll;
+}
+
+#ContentArea.shortMenu .paper {
+  max-width: calc(88% - var(--navBarHeight));
+  overflow: scroll;
+} */
 
 
 

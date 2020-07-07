@@ -23,6 +23,7 @@ import {
 import BlakioUI from "Blakio/Framework";
 
 import ClockIn from "./upgrade/timesheet/ClockIn/index.js";
+import EmployeeTable from "./upgrade/employeeDirectory/EmployeeTable";
 
 const {
   SideBarPaper,
@@ -90,8 +91,8 @@ const TimeSheet = props => {
 const EmployeeDirectory = props => {
   if(!props.show) return <div></div>;
   return (<div>
-    <Grid grid="2">
-      employee directory
+    <Grid grid="1">
+      <EmployeeTable />
     </Grid>
   </div>)
 }
