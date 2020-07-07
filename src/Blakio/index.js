@@ -72,9 +72,10 @@ const DashboardHead = () => {
 
   const selected = state.sideBarOptions.sideBar.filter(data => data._id === state.sideBarOptions.sideBarOption);
   const label = state.sideBarOptions.sideBar.length && selected[0] && selected[0].title.toUpperCase();
+  console.log(label)
   return (<div id="DashboardHead" className="flex">
     <div className="flex">
-      <p id="DashboardTitleText">{label}</p>
+      <p id="DashboardTitleText">{typeof label === "string" && label.replace("_", " ")}</p>
     </div>
   </div>)
 }
