@@ -4,12 +4,16 @@ import "./main.css";
 const Table = props => {
     return (<div>
         <table>
-            <tr>
-                {props.th.map(data => <th>{data}</th>)}
-            </tr>
-            {props.td.map(data => (<tr>
-                {data.map(d => <td>{d}</td>)}
-            </tr>))}
+            <thead>
+                <tr>
+                    {props.th.map((data, index) => <th key={index}>{data}</th>)}
+                </tr>
+            </thead>
+            <tbody>
+                {props.td.map(data => (<tr>
+                    {data.map((d, i) => <td key={i}>{d}</td>)}
+                </tr>))}
+            </tbody>
         </table>
     </div>);
 }

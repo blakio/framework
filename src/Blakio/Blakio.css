@@ -125,7 +125,6 @@ body {
 #dashboardBodyContainer {
   height: calc((100vh - var(--navBarHeight) - var(--navBarHeight)) * 0.95);
   overflow: scroll;
-  overflow-x: hidden;
 }
 
 #DashboardBody {
