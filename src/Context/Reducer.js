@@ -6,6 +6,9 @@ export default (state, action) => {
   console.table(action)
 
   switch(action.type){
+    case Types.IS_LOADING:
+      return StateFunctions.isLoading(payload, state);
+      
     case Types.GET_EMPLOYEES:
       return StateFunctions.getEmployees(payload, state);
 

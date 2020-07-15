@@ -1,4 +1,6 @@
 export default {
+  IS_LOADING: "IS_LOADING",
+  
   // initial data load
   GET_EMPLOYEES: "GET_EMPLOYEES",
   

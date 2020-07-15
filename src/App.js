@@ -17,6 +17,11 @@ import {
 } from "./Context/State";
 import Types from './Context/Types';
 
+const Loading = () => {
+  const [state, dispatch] = StateContext();
+  return state.isLoading && <LoadingScreen />
+}
+
 const ContentArea = () => {
   const [state, dispatch] = StateContext();
 
@@ -46,7 +51,7 @@ function App() {
     <div id="App">
       <SideBar />
       <ContentArea />
-      {StateContext.isLoading && <LoadingScreen />}
+      <Loading />
     </div>
   </StateProvider>);
 }

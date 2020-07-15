@@ -2,6 +2,8 @@ import Util from "../Util";
 import Axios from "../Axios";
 
 export default {
+  isLoading: (payload, state) => ({ ...state, isLoading: payload }),
+  
   getEmployees: (payload, state) => {
     Axios.getEmployees().then(employees => {
       payload.fn(employees.data)

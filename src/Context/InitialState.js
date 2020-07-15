@@ -1,4 +1,5 @@
 const initialState = {
+  isLoading: false,
   sideBarOptions: {
     shortMenu: false,
     sideBarOption: null,
