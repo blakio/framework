@@ -1,7 +1,3 @@
-import {
-  employees
-} from "../dbRequests/db.js";
-
 const initialState = {
   sideBarOptions: {
     shortMenu: false,
@@ -17,7 +13,8 @@ const initialState = {
     }
   },
   employeeDirectory: {
-    employees
+    employees: [],
+    isEditing: false
   }
 };
 

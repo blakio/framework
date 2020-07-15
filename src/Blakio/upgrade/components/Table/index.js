@@ -1,7 +1,13 @@
-import React from "react";
+import React, {
+    useRef,
+    createRef,
+} from "react";
 import "./main.css";
 
 const Table = props => {
+    const elementsRef = useRef(props.td.map(data => data.map(d => createRef())));
+    props.setRefs(elementsRef);
+
     return (<div>
         <table>
             <thead>
@@ -10,8 +16,8 @@ const Table = props => {
                 </tr>
             </thead>
             <tbody>
-                {props.td.map(data => (<tr>
-                    {data.map((d, i) => <td key={i}>{d}</td>)}
+                {props.td.map((data, index) => (<tr key={index}>
+                    {data.map((d, i) => <td key={i}>{props.getData(d, props.fields[i], props.ids[index], elementsRef.current[index][i])}</td>)}
                 </tr>))}
             </tbody>
         </table>
@@ -20,6 +26,7 @@ const Table = props => {
 
 export default Table;
 
+// getData = (data) => data
 // const th = ["Firstname", "Lastname", "Age"];
 // const td = [
 //     ["Jill", "Smith", "50"],

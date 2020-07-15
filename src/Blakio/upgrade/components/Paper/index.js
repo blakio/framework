@@ -11,6 +11,7 @@ const Paper = props => {
         {props.title && <HeaderStrip
             title={props.title}
             color={props.color}
+            buttons={props.buttons}
         />}
         {props.children}
         <PaperFold />

@@ -10,12 +10,32 @@ var axiosInstance = axios.create({
 
 export default {
 
-  // SIDE BAR
-  getSideBar: (fn) => {
-    fn(sideBarOptions);
-    // axiosInstance.get("/sidebar")
-    //   .then(data => fn(data))
-    //   .catch(err => console.log(err));
+  getEmployees: async () => {
+    return await axiosInstance.get("/table/Employee");
   },
+
+  // SIDE BAR
+  getSideBar: async (fn) => {
+    const sidebarOptions = await axiosInstance.get("/table/SidebarOptions");
+    fn({
+      data: sidebarOptions.data
+    })
+  },
+
+  getTime: async () => {
+    return await axiosInstance.get("/time");
+  },
+
+  recordEmployeeTime: async (data) => {
+    return await axiosInstance.post("/table/Time", data);
+  },
+
+  getEmployeeTimeLog: async () => {
+    return await axiosInstance.get("/table/Time");
+  },
+
+  addToTimeLog: async (employeeId, data, field, isClockedIn) => {
+    return await axiosInstance.post("/table/Time", {query: {employeeId}, data, field, setFields: {isClockedIn}});
+  }
 
 };

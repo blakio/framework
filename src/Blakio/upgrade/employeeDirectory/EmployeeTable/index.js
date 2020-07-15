@@ -10,6 +10,8 @@ import {
     Table
 } from "../../components";
 
+import Types from "../../../../Context/Types";
+
 const EmployeeTable = () => {
     const [state, dispatch] = StateContext();
 
@@ -22,7 +24,9 @@ const EmployeeTable = () => {
         "Emergency Contact",
         "Title",
         "Department",
-    ])
+    ]);
+
+    const ids = state.employeeDirectory.employees.map(data => data._id);
 
     const getTd = () => {
         const td = []
@@ -39,15 +43,96 @@ const EmployeeTable = () => {
         return td;
     }
 
+    const fields = [
+        "firstName",
+        "lastName",
+        "dob",
+        "phone",
+        "email",
+        "emergencyContact",
+        "title",
+        "department",
+    ];
+
+    const getInputType = (field) => {
+        return field === "dob" ? "date" : "";
+    }
+
+    const getData = (data, field, id, ref) => {
+        return state.employeeDirectory.isEditing ? <input id={id} field={field} type={getInputType(field)} className="tableInput" placeholder={data} ref={ref} /> : data;
+    }
+
+    let refs;
+    const setRefs = (inputRefs) => {
+        refs = inputRefs
+    }
+
+    const getChanges = (ref) => {
+        const changes = {}
+        ref.current.forEach(data => {
+            data.forEach(d => {
+                const value = d.current.value.trim()
+                if(value.length){
+                    const {
+                        id,
+                        field
+                    } = d.current.attributes;
+                    if(changes[id.value]){
+                        changes[id.value].push({
+                            field: field.value,
+                            value
+                        })
+                    } else {
+                        changes[id.value] = [{
+                            field: field.value,
+                            value
+                        }]
+                    }
+                }
+            })
+        })
+        return changes;
+    }
 
     return (<div className="timeSummary">
         <Paper
             title="Employee Directory"
             color="blue"
+            buttons={ !state.employeeDirectory.isEditing ? 
+                [{
+                    type: "edit",
+                    color: "blue",
+                    onClick: () => {
+                        dispatch({
+                            type: Types.TOGGLE_EMPLOYEE_EDITING_STATUS
+                        })
+                    }
+                }] : [{
+                    type: "cancel",
+                    color: "blue",
+                    onClick: () => {
+                        dispatch({
+                            type: Types.TOGGLE_EMPLOYEE_EDITING_STATUS
+                        })
+                    }
+                },
+                {
+                    type: "submit",
+                    color: "blue",
+                    onClick: () => {
+                        const changes = getChanges(refs)
+                        console.log(changes)
+                    }
+                }]
+            }
         >
             <Table
                 th={getTh()}
                 td={getTd()}
+                getData={getData}
+                fields={fields}
+                ids={ids}
+                setRefs={setRefs}
             />
         </Paper>
     </div>);

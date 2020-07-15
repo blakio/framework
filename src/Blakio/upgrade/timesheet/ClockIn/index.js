@@ -14,6 +14,8 @@ import {
 } from "Context/State";
 import Types from "Context/Types"
 
+import Axios from "../../../../Axios/index.js";
+
 const ClockIn = props => {
     const [state, dispatch] = StateContext();
 
@@ -21,12 +23,41 @@ const ClockIn = props => {
         employeeDirectory
     } = state;
 
+    const submitNewEmployee = (employeeId, time) => {
+        Axios.recordEmployeeTime({
+            employeeId,
+            isClockedIn: true,
+            time
+        }).then(data => {
+            console.log("Successfully logged in employees");
+        }).catch(err => {
+            console.log("Unable to clock employee in at this time. Please try again later");
+        })
+    }
+
     const clockTime = () => {
         const employee = state.timeSheet.clockIn.selectedEmployee;
         if(employee){
-            console.log({
-                id: employee._id,
-                time: Date.now()
+            Axios.getTime().then(data => {
+                Axios.getEmployeeTimeLog().then(log => {
+                    if(log.data.length){
+                        let found = false;
+                        log.data.forEach(logData => {
+                            if(logData.employeeId === employee._id){
+                                found = true;
+                                const fieldToPushTo = "time"
+                                Axios.addToTimeLog(employee._id, data.data, fieldToPushTo, !logData.isClockedIn);
+                            }
+                        });
+                        if(!found){
+                            submitNewEmployee(employee._id, data.data)
+                        }
+                    } else {
+                        submitNewEmployee(employee._id, data.data)
+                    }
+                })
+            }).catch(err => {
+                console.log("Unable to get the current time. Please try again later");
             })
         }
     }

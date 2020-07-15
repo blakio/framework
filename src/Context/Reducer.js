@@ -6,6 +6,9 @@ export default (state, action) => {
   console.table(action)
 
   switch(action.type){
+    case Types.GET_EMPLOYEES:
+      return StateFunctions.getEmployees(payload, state);
+
     case Types.SHORT_MENU:
       return StateFunctions.shortMenu(payload, state);
     case Types.SET_SIDE_BAR:
@@ -24,6 +27,10 @@ export default (state, action) => {
       return StateFunctions.setEmployeeTitle(payload, state);
     case Types.SET_CLOCK_IN_SELECTED_EMPLOYEE:
       return StateFunctions.setClockInSelectedEmployee(payload, state);
+
+     // employee directory
+    case Types.TOGGLE_EMPLOYEE_EDITING_STATUS:
+      return StateFunctions.toggleEmployeeEditingStatus(payload, state);
 
     default:
       return state;

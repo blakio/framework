@@ -32,7 +32,6 @@ const {
   Grid
 } = BlakioUI;
 
-
 const load = (dispatch, bool) => {
   dispatch({
     type: Types.IS_LOADING,
@@ -72,7 +71,6 @@ const DashboardHead = () => {
 
   const selected = state.sideBarOptions.sideBar.filter(data => data._id === state.sideBarOptions.sideBarOption);
   const label = state.sideBarOptions.sideBar.length && selected[0] && selected[0].title.toUpperCase();
-  console.log(label)
   return (<div id="DashboardHead" className="flex">
     <div className="flex">
       <p id="DashboardTitleText">{typeof label === "string" && label.replace("_", " ")}</p>
@@ -104,8 +102,8 @@ const DashboardBody = () => {
 
   return (<div id="dashboardBodyContainer">
     <div id="DashboardBody">
-      <TimeSheet show={state.sideBarOptions.sideBarOption === "1"} />
-      <EmployeeDirectory show={state.sideBarOptions.sideBarOption === "2"}/>
+      <TimeSheet show={state.sideBarOptions.sideBarOption === "5f0bae5dd1bcc57d8bdf0cd1"} />
+      <EmployeeDirectory show={state.sideBarOptions.sideBarOption === "5f0bae6ed1bcc57d8bdf0cd2"}/>
     </div>
   </div>)
 }
