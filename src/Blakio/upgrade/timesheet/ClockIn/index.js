@@ -23,21 +23,46 @@ const ClockIn = props => {
         employeeDirectory
     } = state;
 
-    const submitNewEmployee = (employeeId, time) => {
+    const submitNewEmployee = (employeeId, time, firstName) => {
         Axios.recordEmployeeTime({
             employeeId,
             isClockedIn: true,
             time
         }).then(data => {
+            dispatch({
+                type: Types.IS_LOADING,
+                payload: false
+            })
             console.log("Successfully logged in employees");
+            props.store.addNotification({
+                title: `Thanks ${firstName}`,
+                message: "Successfully logged time",
+                type: "success",
+                insert: "top",
+                container: "top-left",
+                animationIn: ["animated", "fadeIn"],
+                animationOut: ["animated", "fadeOut"],
+                dismiss: {
+                  duration: 5000,
+                  onScreen: true
+                }
+            });
         }).catch(err => {
-            console.log("Unable to clock employee in at this time. Please try again later");
+            dispatch({
+                type: Types.IS_LOADING,
+                payload: false
+            })
+            props.showError("Sorry", "Unable to clock employee in at this time. Please try again later.")
         })
     }
 
     const clockTime = () => {
         const employee = state.timeSheet.clockIn.selectedEmployee;
         if(employee){
+            dispatch({
+                type: Types.IS_LOADING,
+                payload: true
+            })
             Axios.getTime().then(data => {
                 Axios.getEmployeeTimeLog().then(log => {
                     if(log.data.length){
@@ -46,18 +71,40 @@ const ClockIn = props => {
                             if(logData.employeeId === employee._id){
                                 found = true;
                                 const fieldToPushTo = "time"
-                                Axios.addToTimeLog(employee._id, data.data, fieldToPushTo, !logData.isClockedIn);
+                                Axios.addToTimeLog(employee._id, data.data, fieldToPushTo, !logData.isClockedIn).then(data => {
+                                    dispatch({
+                                        type: Types.IS_LOADING,
+                                        payload: false
+                                    })
+                                    props.showSuccess(`Thanks ${employee.firstName}`, "Successfully logged time")
+                                }).catch(err => {
+                                    dispatch({
+                                        type: Types.IS_LOADING,
+                                        payload: false
+                                    })
+                                    props.showError(`Sorry ${employee.firstName}`, "Error logging time. Please try again later.");
+                                });
                             }
                         });
                         if(!found){
-                            submitNewEmployee(employee._id, data.data)
+                            submitNewEmployee(employee._id, data.data, employee.firstName)
                         }
                     } else {
-                        submitNewEmployee(employee._id, data.data)
+                        submitNewEmployee(employee._id, data.data, employee.firstName)
                     }
+                }).catch(err => {
+                    dispatch({
+                        type: Types.IS_LOADING,
+                        payload: false
+                    });
+                    props.showError("Sorry", "Unable to clock employee in at this time. Please try again later");
                 })
             }).catch(err => {
-                console.log("Unable to get the current time. Please try again later");
+                dispatch({
+                    type: Types.IS_LOADING,
+                    payload: false
+                })
+                props.showError("Sorry", "Unable to clock employee in at this time. Please try again later");
             })
         }
     }

@@ -78,11 +78,43 @@ const DashboardHead = () => {
   </div>)
 }
 
+const showError = (title, message) => {
+  store.addNotification({
+      title,
+      message,
+      type: "danger",
+      insert: "top",
+      container: "top-left",
+      animationIn: ["animated", "fadeIn"],
+      animationOut: ["animated", "fadeOut"],
+      dismiss: {
+        duration: 5000,
+        onScreen: true
+      }
+  });
+}
+
+const showSuccess = (title, message) => {
+  store.addNotification({
+      title,
+      message,
+      type: "success",
+      insert: "top",
+      container: "top-left",
+      animationIn: ["animated", "fadeIn"],
+      animationOut: ["animated", "fadeOut"],
+      dismiss: {
+        duration: 5000,
+        onScreen: true
+      }
+  });
+}
+
 const TimeSheet = props => {
   if(!props.show) return <div></div>;
   return (<div>
     <Grid grid="2">
-      <ClockIn/>
+      <ClockIn showSuccess={showSuccess} showError={showError} />
     </Grid>
   </div>)
 }
