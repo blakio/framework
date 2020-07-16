@@ -20,14 +20,14 @@ const Autocomplete = props => {
     });
 
     return (<div style={props.style}>
-        {filteresList.length && value !== getName(filteresList) && <div>
+        {filteresList.length && value !== getName(filteresList) ? <div>
             <ul>
                 {value && filteresList.map((data, index) => <li
                     key={index}
                     onClick={() => onClick(data)}
                 >{getListValue(data)}</li>)}
             </ul>
-        </div>}
+        </div> : ""}
     </div>
     );
 }
