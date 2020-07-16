@@ -1,5 +1,7 @@
 import Types from "../Context/Types";
 
+import { store } from 'react-notifications-component';
+
 const total = (a, b) => {
   return parseInt(a) + parseInt(b);
 }
@@ -52,7 +54,37 @@ export default {
     })
   },
 
-
+  showError: (title, message) => {
+    store.addNotification({
+        title,
+        message,
+        type: "danger",
+        insert: "top",
+        container: "top-right",
+        animationIn: ["animated", "fadeIn"],
+        animationOut: ["animated", "fadeOut"],
+        dismiss: {
+          duration: 5000,
+          onScreen: true
+        }
+    });
+  },
+  
+  showSuccess: (title, message) => {
+    store.addNotification({
+        title,
+        message,
+        type: "success",
+        insert: "top",
+        container: "top-right",
+        animationIn: ["animated", "fadeIn"],
+        animationOut: ["animated", "fadeOut"],
+        dismiss: {
+          duration: 5000,
+          onScreen: true
+        }
+    });
+  },
 
 
 

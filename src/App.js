@@ -9,6 +9,9 @@ import {
   LoadingScreen
 } from "./Blakio";
 
+import ReactNotification from 'react-notifications-component'
+import 'react-notifications-component/dist/theme.css';
+
 import "react-loader-spinner/dist/loader/css/react-spinner-loader.css"
 
 import {
@@ -33,6 +36,7 @@ const ContentArea = () => {
 
 function App() {
   return (<StateProvider>
+    <ReactNotification />
     <div id="App">
       <SideBar />
       <ContentArea />

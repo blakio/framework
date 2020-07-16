@@ -3,10 +3,6 @@ import React, { useState, useEffect } from 'react';
 import moment from "moment";
 import axios from "axios";
 
-import ReactNotification from 'react-notifications-component'
-import 'react-notifications-component/dist/theme.css';
-import { store } from 'react-notifications-component';
-
 import Loader from 'react-loader-spinner'
 
 import './Blakio.css';
@@ -78,43 +74,11 @@ const DashboardHead = () => {
   </div>)
 }
 
-const showError = (title, message) => {
-  store.addNotification({
-      title,
-      message,
-      type: "danger",
-      insert: "top",
-      container: "top-left",
-      animationIn: ["animated", "fadeIn"],
-      animationOut: ["animated", "fadeOut"],
-      dismiss: {
-        duration: 5000,
-        onScreen: true
-      }
-  });
-}
-
-const showSuccess = (title, message) => {
-  store.addNotification({
-      title,
-      message,
-      type: "success",
-      insert: "top",
-      container: "top-left",
-      animationIn: ["animated", "fadeIn"],
-      animationOut: ["animated", "fadeOut"],
-      dismiss: {
-        duration: 5000,
-        onScreen: true
-      }
-  });
-}
-
 const TimeSheet = props => {
   if(!props.show) return <div></div>;
   return (<div>
     <Grid grid="2">
-      <ClockIn showSuccess={showSuccess} showError={showError} />
+      <ClockIn />
     </Grid>
   </div>)
 }
@@ -236,7 +200,6 @@ const TopBar = () => {
 
 const Dashboard = () => {
   return (<div id="Dashboard" className="container">
-    <ReactNotification />
     <TopLeftFold height={50} width={50} backgroundColor="#FFFFFF"/>
     <DashboardHead />
     <DashboardBody />

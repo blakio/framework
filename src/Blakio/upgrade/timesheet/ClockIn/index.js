@@ -31,7 +31,7 @@ const ClockIn = props => {
             time
         }).then(data => {
             Util.load(dispatch, false);
-            props.showSuccess(`Thanks ${firstName}`, "Successfully Clocked In");
+            Util.showSuccess(`Thanks ${firstName}`, "Successfully Clocked In");
             setPaperTitle("Clock Out");
         }).catch(err => errorLoggingIn(err))
     }
@@ -39,7 +39,7 @@ const ClockIn = props => {
     const errorLoggingIn = err => {
         console.log(err)
         Util.load(dispatch, false);
-        props.showError(strings.timesheet.cantClockIn.title, strings.timesheet.cantClockIn.body);
+        Util.showError(strings.timesheet.cantClockIn.title, strings.timesheet.cantClockIn.body);
     }
 
     const clockTime = () => {
@@ -57,7 +57,7 @@ const ClockIn = props => {
                     const fieldToPushTo = "time";
                     Axios.addToTimeLog(employee._id, data.data, fieldToPushTo, !log.data[0].isClockedIn).then(() => {
                         Util.load(dispatch, false);
-                        props.showSuccess(`Thanks ${employee.firstName}`, `Successfully ${log.data[0].isClockedIn ? "Clocked Out" : "Clocked In"}`);
+                        Util.showSuccess(`Thanks ${employee.firstName}`, `Successfully ${log.data[0].isClockedIn ? "Clocked Out" : "Clocked In"}`);
                         setPaperTitle(log.data[0].isClockedIn ? "Clock In" : "Clock Out");
                     }).catch(err => errorLoggingIn(err));
                 } else {
