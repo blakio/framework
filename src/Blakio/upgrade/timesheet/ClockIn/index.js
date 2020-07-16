@@ -19,7 +19,7 @@ const ClockIn = props => {
     const [state, dispatch] = StateContext();
     useEffect(() => { Util.getEmployees(dispatch) }, []);
 
-    const defaultClockInText = "Enter Name To Clock Time";
+    const defaultClockInText = "Enter Name To Clock In";
     const [paperTitle, setPaperTitle] = useState(defaultClockInText);
 
     const { employeeDirectory } = state;
@@ -31,7 +31,7 @@ const ClockIn = props => {
             time
         }).then(data => {
             Util.load(dispatch, false);
-            props.showSuccess(`Thanks ${firstName}`, "Successfully logged time");
+            props.showSuccess(`Thanks ${firstName}`, "Successfully Clocked In");
             setPaperTitle("Clock Out");
         }).catch(err => errorLoggingIn(err))
     }
@@ -57,7 +57,7 @@ const ClockIn = props => {
                     const fieldToPushTo = "time";
                     Axios.addToTimeLog(employee._id, data.data, fieldToPushTo, !log.data[0].isClockedIn).then(() => {
                         Util.load(dispatch, false);
-                        props.showSuccess(`Thanks ${employee.firstName}`, "Successfully logged time");
+                        props.showSuccess(`Thanks ${employee.firstName}`, `Successfully ${log.data[0].isClockedIn ? "Clocked Out" : "Clocked In"}`);
                         setPaperTitle(log.data[0].isClockedIn ? "Clock In" : "Clock Out");
                     }).catch(err => errorLoggingIn(err));
                 } else {
@@ -130,7 +130,7 @@ const ClockIn = props => {
     return (<div>
         <Paper
             title={paperTitle}
-            color="blue"
+            color="green"
         >
             <div className="paperContainer">
                 {icon}
@@ -138,7 +138,7 @@ const ClockIn = props => {
                     <TextWithSubText
                         isInputField
                         textColor="blueText"
-                        bigText="Employee ID"
+                        bigText="Enter Name"
                         smallText={getSmallText()}
                         inputText={state.timeSheet.clockIn.inputValue}
                         

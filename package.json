@@ -10,7 +10,7 @@
     "react-datepicker": "^2.10.0",
     "react-dom": "^16.12.0",
     "react-loader-spinner": "^3.1.5",
-    "react-notifications-component": "^2.2.3",
+    "react-notifications-component": "^2.4.0",
     "react-scripts": "3.2.0",
     "react-vis": "^1.11.7"
   },
