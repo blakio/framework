@@ -19,9 +19,7 @@ const getInput = (
             className={`bigTextInput ${textColor}`}
             placeholder={bigText}
             value={inputText}
-            onChange={e => {
-                onChange(e.target.value)
-            }}
+            onChange={e => onChange(e.target.value)}
         />
         {hasAutocomplate && <Autocomplete
             list={employees}

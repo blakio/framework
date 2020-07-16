@@ -1,3 +1,5 @@
+import Types from "../Context/Types";
+
 const total = (a, b) => {
   return parseInt(a) + parseInt(b);
 }
@@ -24,6 +26,38 @@ const columnToClassMapper = {
 export default {
 
   breakRefAndCopy: obj => (JSON.parse(JSON.stringify(obj))),
+
+  hasMatchingStrings: (str1, str2) => {
+    return str1.toLowerCase() === str2.toLowerCase();
+  },
+
+  getEmployees: dispatch => {
+    dispatch({
+      type: Types.GET_EMPLOYEES,
+      payload: {
+        fn: (employees) => {
+          dispatch({
+            type: Types.SET_EMPLOYEES,
+            payload: employees
+          })
+        }
+      }
+    })
+  },
+
+  load: (dispatch, isLoading) => {
+    dispatch({
+      type: Types.IS_LOADING,
+      payload: isLoading
+    })
+  },
+
+
+
+
+
+
+
 
   // formats the side bar data and includes functionality
   adjustSideBarData: (state, dispatch, Types, customFn) => {
@@ -184,4 +218,13 @@ export default {
     })
   }
 
+}
+
+export const strings = {
+  timesheet: {
+    cantClockIn: {
+      title: "Sorry",
+      body: "Unable to submit. Please try again later."
+    }
+  }
 }

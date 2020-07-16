@@ -1,5 +1,6 @@
 import React, {
-    useState
+    useState,
+    useEffect
 } from "react";
 import "./main.css";
 
@@ -9,19 +10,19 @@ import {
     TextWithSubText
 } from "../../components";
 
-import {
-    StateContext
-} from "Context/State";
+import { StateContext } from "Context/State";
 import Types from "Context/Types"
-
 import Axios from "../../../../Axios/index.js";
+import Util, { strings } from "../../../../Util";
 
 const ClockIn = props => {
     const [state, dispatch] = StateContext();
+    useEffect(() => { Util.getEmployees(dispatch) }, []);
 
-    const {
-        employeeDirectory
-    } = state;
+    const defaultClockInText = "Enter Name To Clock Time";
+    const [paperTitle, setPaperTitle] = useState(defaultClockInText);
+
+    const { employeeDirectory } = state;
 
     const submitNewEmployee = (employeeId, time, firstName) => {
         Axios.recordEmployeeTime({
@@ -29,84 +30,41 @@ const ClockIn = props => {
             isClockedIn: true,
             time
         }).then(data => {
-            dispatch({
-                type: Types.IS_LOADING,
-                payload: false
-            })
-            console.log("Successfully logged in employees");
-            props.store.addNotification({
-                title: `Thanks ${firstName}`,
-                message: "Successfully logged time",
-                type: "success",
-                insert: "top",
-                container: "top-left",
-                animationIn: ["animated", "fadeIn"],
-                animationOut: ["animated", "fadeOut"],
-                dismiss: {
-                  duration: 5000,
-                  onScreen: true
-                }
-            });
-        }).catch(err => {
-            dispatch({
-                type: Types.IS_LOADING,
-                payload: false
-            })
-            props.showError("Sorry", "Unable to clock employee in at this time. Please try again later.")
-        })
+            Util.load(dispatch, false);
+            props.showSuccess(`Thanks ${firstName}`, "Successfully logged time");
+            setPaperTitle("Clock Out");
+        }).catch(err => errorLoggingIn(err))
+    }
+
+    const errorLoggingIn = err => {
+        console.log(err)
+        Util.load(dispatch, false);
+        props.showError(strings.timesheet.cantClockIn.title, strings.timesheet.cantClockIn.body);
     }
 
     const clockTime = () => {
         const employee = state.timeSheet.clockIn.selectedEmployee;
-        if(employee){
-            dispatch({
-                type: Types.IS_LOADING,
-                payload: true
-            })
-            Axios.getTime().then(data => {
-                Axios.getEmployeeTimeLog().then(log => {
-                    if(log.data.length){
-                        let found = false;
-                        log.data.forEach(logData => {
-                            if(logData.employeeId === employee._id){
-                                found = true;
-                                const fieldToPushTo = "time"
-                                Axios.addToTimeLog(employee._id, data.data, fieldToPushTo, !logData.isClockedIn).then(data => {
-                                    dispatch({
-                                        type: Types.IS_LOADING,
-                                        payload: false
-                                    })
-                                    props.showSuccess(`Thanks ${employee.firstName}`, "Successfully logged time")
-                                }).catch(err => {
-                                    dispatch({
-                                        type: Types.IS_LOADING,
-                                        payload: false
-                                    })
-                                    props.showError(`Sorry ${employee.firstName}`, "Error logging time. Please try again later.");
-                                });
-                            }
-                        });
-                        if(!found){
-                            submitNewEmployee(employee._id, data.data, employee.firstName)
-                        }
-                    } else {
-                        submitNewEmployee(employee._id, data.data, employee.firstName)
-                    }
-                }).catch(err => {
-                    dispatch({
-                        type: Types.IS_LOADING,
-                        payload: false
-                    });
-                    props.showError("Sorry", "Unable to clock employee in at this time. Please try again later");
-                })
-            }).catch(err => {
-                dispatch({
-                    type: Types.IS_LOADING,
-                    payload: false
-                })
-                props.showError("Sorry", "Unable to clock employee in at this time. Please try again later");
-            })
-        }
+        if(!employee) return;
+
+        Util.load(dispatch, true);
+        Axios.getTime().then(data => {
+            Axios.getEmployeeTimeLog({
+                query: { employeeId: employee._id }
+            }).then(log => {
+                Util.load(dispatch, false);
+                const hasPreviouslyLogTime = log.data.length;
+                if(hasPreviouslyLogTime){
+                    const fieldToPushTo = "time";
+                    Axios.addToTimeLog(employee._id, data.data, fieldToPushTo, !log.data[0].isClockedIn).then(() => {
+                        Util.load(dispatch, false);
+                        props.showSuccess(`Thanks ${employee.firstName}`, "Successfully logged time");
+                        setPaperTitle(log.data[0].isClockedIn ? "Clock In" : "Clock Out");
+                    }).catch(err => errorLoggingIn(err));
+                } else {
+                    submitNewEmployee(employee._id, data.data, employee.firstName)
+                }
+            }).catch(err => errorLoggingIn(err));
+        }).catch(err => errorLoggingIn(err));
     }
 
     const icon = (<div className="clockInBox">
@@ -117,52 +75,61 @@ const ClockIn = props => {
         />
     </div>);
 
-    const setClockInInputValue = value => {
+    const setInputValue = value => {
         dispatch({
             type: Types.SET_CLOCK_IN_INPUT_VALUE,
             payload: value
         });
     }
 
-    const setClockInSelectedEmployee = value => {
+    const setEmployee = value => {
         dispatch({
             type: Types.SET_CLOCK_IN_SELECTED_EMPLOYEE,
             payload: value
         });
-        dispatch({
-            type: Types.SET_EMPLOYEE_TITLE,
-            payload: value ? value.title : ""
-        })
+        if(value){
+            Axios.getEmployeeTimeLog({
+                query: { employeeId: value._id }
+            }).then(log => {
+                const lastLoggedTime = log.data[log.data.length - 1];
+                if(lastLoggedTime){
+                    setPaperTitle( lastLoggedTime.isClockedIn ? "Clock Out" : "Clock In");
+                } else {
+                    setPaperTitle("Clock In") 
+                }
+            });
+        } else {
+            setPaperTitle(defaultClockInText);
+        }
     }
 
     const selectEmployee = selected => {
-        setClockInInputValue(`${selected["firstName"]} ${selected["lastName"]}`);
-        setClockInSelectedEmployee(selected);
+        setInputValue(`${selected["firstName"]} ${selected["lastName"]}`);
+        setEmployee(selected);
     }
 
     const setClockInEmployee = employee => {
-        let set = false;
+        let selected = null;
         employeeDirectory.employees.forEach(data => {
-          if(!set){
-            if(`${data["firstName"]} ${data["lastName"]}`.toLowerCase() === employee.toLowerCase()){
-                setClockInSelectedEmployee(data)
-                set = true;
+            if(Util.hasMatchingStrings(`${data["firstName"]} ${data["lastName"]}`, employee)){
+                selected = data;
             }
-          }
         });
-        if(!set){
-            setClockInSelectedEmployee(null);
-        }
-        setClockInInputValue(employee)
+        setEmployee(selected);
+        setInputValue(employee);
     }
 
     const getListValue = data => {
         return `${data["firstName"]} ${data["lastName"]}`;
     }
 
+    const getSmallText = () => {
+        return state.timeSheet.clockIn.selectedEmployee ? state.timeSheet.clockIn.selectedEmployee.title : ""
+    }
+
     return (<div>
         <Paper
-            title="Clock In"
+            title={paperTitle}
             color="blue"
         >
             <div className="paperContainer">
@@ -172,7 +139,7 @@ const ClockIn = props => {
                         isInputField
                         textColor="blueText"
                         bigText="Employee ID"
-                        smallText={state.timeSheet.clockIn.employeeTitle}
+                        smallText={getSmallText()}
                         inputText={state.timeSheet.clockIn.inputValue}
                         
                         hasAutocomplate={true}

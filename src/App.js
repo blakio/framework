@@ -25,21 +25,6 @@ const Loading = () => {
 const ContentArea = () => {
   const [state, dispatch] = StateContext();
 
-  // load initial data
-  useEffect(() => {
-    dispatch({
-      type: Types.GET_EMPLOYEES,
-      payload: {
-        fn: (employees) => {
-          dispatch({
-            type: Types.SET_EMPLOYEES,
-            payload: employees
-          })
-        }
-      }
-    })
-  }, []);
-
   return (<div id="ContentArea" className={`${state.sideBarOptions.shortMenu && "shortMenu"}`}>
     <TopBar />
     <Dashboard />

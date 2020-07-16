@@ -26,8 +26,6 @@ export default (state, action) => {
     // timesheet
     case Types.SET_CLOCK_IN_INPUT_VALUE:
       return StateFunctions.setClockInInputValue(payload, state);
-    case Types.SET_EMPLOYEE_TITLE:
-      return StateFunctions.setEmployeeTitle(payload, state);
     case Types.SET_CLOCK_IN_SELECTED_EMPLOYEE:
       return StateFunctions.setClockInSelectedEmployee(payload, state);
 

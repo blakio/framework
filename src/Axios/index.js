@@ -30,8 +30,8 @@ export default {
     return await axiosInstance.post("/table/Time", data);
   },
 
-  getEmployeeTimeLog: async () => {
-    return await axiosInstance.get("/table/Time");
+  getEmployeeTimeLog: async (query) => {
+    return await query ? axiosInstance.post("/table/search/Time", query) : axiosInstance.get("/table/Time");
   },
 
   addToTimeLog: async (employeeId, data, field, isClockedIn) => {
