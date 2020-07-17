@@ -6,11 +6,18 @@ table {
     text-align: center;
 }
 
+
 th, td {
     line-height: 20px;
-    font-size: 14px;
+    font-size: 13px;
     border-bottom: 1px solid var(--lineLightGrey);
     padding: 0.4em 1em;
     color: var(--midGrey);
     text-align: left;
+    white-space: nowrap;
+    color: var(--darkerGrey);
+}
+
+th {
+    font-weight: 800;
 }

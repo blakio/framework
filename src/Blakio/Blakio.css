@@ -13,6 +13,7 @@
   --blueGrey: #A3AECE;
   --lightBlue: #3F5E83;
   --darkFoldBlue: #0e325a;
+  --darkerGrey: #707070;
 }
 
 body {
@@ -142,7 +143,7 @@ body {
   border-radius: 2em;
   height: 2.4em;
   width: 26em;
-  background-color: #0e325a;
+  background-color: var(--darkFoldBlue);
   color: #fff;
   border: 1px solid #001f40;
   margin: 0 auto;
@@ -190,7 +191,7 @@ body {
 }
 
 .DatePickerTwoDate {
-  background-color: #0e325a;
+  background-color: var(--darkFoldBlue);
   height: 14em;
   flex-direction: column;
   color: #fff;

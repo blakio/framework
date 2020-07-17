@@ -8,7 +8,7 @@
 
 .backFold {
   transform: rotate(45deg);
-  background-color: #0e325a;
+  background-color: var(--darkFoldBlue);
   position: relative;
   left: -100%;
   top: -143%;
