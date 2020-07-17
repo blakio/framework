@@ -11,6 +11,7 @@ import {
 } from "../../components";
 
 import Types from "../../../../Context/Types";
+import Util from "../../../../Util";
 
 const EmployeeTable = () => {
     const [state, dispatch] = StateContext();
@@ -33,8 +34,8 @@ const EmployeeTable = () => {
         state.employeeDirectory.employees.forEach(data => td.push([
             data.firstName,
             data.lastName,
-            data.dob,
-            data.phone,
+            Util.formatDate(data.dob),
+            Util.formatPhoneNumber(`${data.phone}`),
             data.email,
             data.emergencyContact,
             data.title,

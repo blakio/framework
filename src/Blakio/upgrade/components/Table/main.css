@@ -18,6 +18,11 @@ th, td {
     color: var(--darkerGrey);
 }
 
+th:hover,
+td:hover {
+    background-color: var(--dashBackgroundColor);
+}
+
 th {
     font-weight: 800;
 }

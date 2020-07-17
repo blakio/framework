@@ -130,7 +130,7 @@ const ClockIn = props => {
     return (<div>
         <Paper
             title={paperTitle}
-            color="green"
+            color={paperTitle !== "Clock Out" ? "green" : "red"}
         >
             <div className="paperContainer">
                 {icon}

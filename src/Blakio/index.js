@@ -19,6 +19,8 @@ import {
 import BlakioUI from "Blakio/Framework";
 
 import ClockIn from "./upgrade/timesheet/ClockIn/index.js";
+import TimeSummary from "./upgrade/timesheet/TimeSummary/index.js";
+
 import EmployeeTable from "./upgrade/employeeDirectory/EmployeeTable";
 
 const {
@@ -79,6 +81,7 @@ const TimeSheet = props => {
   return (<div>
     <Grid grid="2">
       <ClockIn />
+      <TimeSummary />
     </Grid>
   </div>)
 }
