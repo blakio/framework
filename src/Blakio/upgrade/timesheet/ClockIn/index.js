@@ -55,13 +55,13 @@ const ClockIn = props => {
                 const hasPreviouslyLogTime = log.data.length;
                 if(hasPreviouslyLogTime){
                     const fieldToPushTo = "time";
-                    Axios.addToTimeLog(employee._id, data.data, fieldToPushTo, !log.data[0].isClockedIn).then(() => {
+                    Axios.addToTimeLog(employee._id, { ...data.data, hasClockedIn: !log.data[0].isClockedIn }, fieldToPushTo, !log.data[0].isClockedIn).then(() => {
                         Util.load(dispatch, false);
                         Util.showSuccess(`Thanks ${employee.firstName}`, `Successfully ${log.data[0].isClockedIn ? "Clocked Out" : "Clocked In"}`);
                         setPaperTitle(log.data[0].isClockedIn ? "Clock In" : "Clock Out");
                     }).catch(err => errorLoggingIn(err));
                 } else {
-                    submitNewEmployee(employee._id, data.data, employee.firstName)
+                    submitNewEmployee(employee._id, { ...data.data, hasClockedIn: true }, employee.firstName)
                 }
             }).catch(err => errorLoggingIn(err));
         }).catch(err => errorLoggingIn(err));

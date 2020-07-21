@@ -1,9 +1,5 @@
 import axios from "axios";
 
-import {
-  sideBarOptions
-} from "../dbRequests/db.js";
-
 var axiosInstance = axios.create({
   baseURL: 'http://localhost:5000/api'
 });
@@ -36,6 +32,10 @@ export default {
 
   addToTimeLog: async (employeeId, data, field, isClockedIn) => {
     return await axiosInstance.post("/table/Time", {query: {employeeId}, data, field, setFields: {isClockedIn}});
+  },
+
+  getTimeOverRange: async (employeeId, query) => {
+    return await axiosInstance.post(`/table/aggregate/Time/${employeeId}`, {query});
   }
 
 };

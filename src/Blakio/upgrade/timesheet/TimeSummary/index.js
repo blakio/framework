@@ -1,20 +1,43 @@
-import React from "react";
+import React, {
+    useEffect,
+    useState
+} from "react";
 import "./main.css";
+
+import moment from "moment";
 
 import {
     Paper,
     Table
 } from "../../components";
 
-const TimeSummary = () => {
+import Util from "../../../../Util";
+import Axios from "../../../../Axios";
+import { StateContext } from "Context/State";
 
-    const th = ["", "Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+const TimeSummary = () => {
+    const [state, dispatch] = StateContext();
+    const [offset, setOffset] = useState(null)
+
+    useEffect(() => {
+        const epochWeek = Util.getCurrentWeekInEpoch(offset);
+        const range = [epochWeek[0], epochWeek[epochWeek.length - 1]];
+        const query = [
+            { "$unwind": "$time" },
+            { "$match": { "time.timestamp": { "$gte": range[0], "$lte": range[1] } } }
+        ];
+        Axios.getTimeOverRange(state.timeSheet.clockIn.selectedEmployee._id, query).then(data => {
+            console.log(data)
+        })
+    }, [offset]);
+    
+    const th = ["", ...Util.getCurrentWeek(offset)];
     const td = [
-        ["Clock In Time", "8", "8", "8", "8", "8", "8", "8"],
-        ["Clock Out Time", "8", "8", "8", "8", "8", "8", "8"],
-        ["Clock In Time", "8", "8", "8", "8", "8", "8", "8"],
-        ["Clock Out Time", "8", "8", "8", "8", "8", "8", "8"]
-    ]
+        ["Clock In", "8", "8", "8", "8", "8", "8", "8"],
+        ["Clock Out", "8", "8", "8", "8", "8", "8", "8"],
+        ["Clock In", "8", "8", "8", "8", "8", "8", "8"],
+        ["Clock Out", "8", "8", "8", "8", "8", "8", "8"]
+    ];
 
     return (<div className="timeSummary">
         <Paper

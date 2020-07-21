@@ -77,12 +77,16 @@ const DashboardHead = () => {
 }
 
 const TimeSheet = props => {
+  const [state, dispatch] = StateContext();
+
   if(!props.show) return <div></div>;
   return (<div>
     <Grid grid="2">
       <ClockIn />
-      <TimeSummary />
     </Grid>
+    {state.timeSheet.clockIn.selectedEmployee && <Grid grid="1">
+      <TimeSummary />
+    </Grid>}
   </div>)
 }
 
