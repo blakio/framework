@@ -28,6 +28,8 @@ export default (state, action) => {
       return StateFunctions.setClockInInputValue(payload, state);
     case Types.SET_CLOCK_IN_SELECTED_EMPLOYEE:
       return StateFunctions.setClockInSelectedEmployee(payload, state);
+    case Types.SELECTED_EMPLOYEE_IS_CLOCKED_IN:
+      return StateFunctions.selectedEmployeeIsClockedIn(payload, state);
 
      // employee directory
     case Types.TOGGLE_EMPLOYEE_EDITING_STATUS:

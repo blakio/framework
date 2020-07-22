@@ -19,9 +19,6 @@ const ClockIn = props => {
     const [state, dispatch] = StateContext();
     useEffect(() => { Util.getEmployees(dispatch) }, []);
 
-    const defaultClockInText = "Enter Name To Clock In";
-    const [paperTitle, setPaperTitle] = useState(defaultClockInText);
-
     const { employeeDirectory } = state;
 
     const submitNewEmployee = (employeeId, time, firstName) => {
@@ -32,7 +29,10 @@ const ClockIn = props => {
         }).then(data => {
             Util.load(dispatch, false);
             Util.showSuccess(`Thanks ${firstName}`, "Successfully Clocked In");
-            setPaperTitle("Clock Out");
+            dispatch({
+                type: Types.SELECTED_EMPLOYEE_IS_CLOCKED_IN,
+                payload: true
+            });
         }).catch(err => errorLoggingIn(err))
     }
 
@@ -58,7 +58,10 @@ const ClockIn = props => {
                     Axios.addToTimeLog(employee._id, { ...data.data, hasClockedIn: !log.data[0].isClockedIn }, fieldToPushTo, !log.data[0].isClockedIn).then(() => {
                         Util.load(dispatch, false);
                         Util.showSuccess(`Thanks ${employee.firstName}`, `Successfully ${log.data[0].isClockedIn ? "Clocked Out" : "Clocked In"}`);
-                        setPaperTitle(log.data[0].isClockedIn ? "Clock In" : "Clock Out");
+                        dispatch({
+                            type: Types.SELECTED_EMPLOYEE_IS_CLOCKED_IN,
+                            payload: !log.data[0].isClockedIn
+                        });
                     }).catch(err => errorLoggingIn(err));
                 } else {
                     submitNewEmployee(employee._id, { ...data.data, hasClockedIn: true }, employee.firstName)
@@ -93,13 +96,22 @@ const ClockIn = props => {
             }).then(log => {
                 const lastLoggedTime = log.data[log.data.length - 1];
                 if(lastLoggedTime){
-                    setPaperTitle( lastLoggedTime.isClockedIn ? "Clock Out" : "Clock In");
+                    dispatch({
+                        type: Types.SELECTED_EMPLOYEE_IS_CLOCKED_IN,
+                        payload: lastLoggedTime.isClockedIn
+                    });
                 } else {
-                    setPaperTitle("Clock In") 
+                    dispatch({
+                        type: Types.SELECTED_EMPLOYEE_IS_CLOCKED_IN,
+                        payload: false
+                    });
                 }
             });
         } else {
-            setPaperTitle(defaultClockInText);
+            dispatch({
+                type: Types.SELECTED_EMPLOYEE_IS_CLOCKED_IN,
+                payload: null
+            });
         }
     }
 
@@ -127,10 +139,18 @@ const ClockIn = props => {
         return state.timeSheet.clockIn.selectedEmployee ? state.timeSheet.clockIn.selectedEmployee.title : ""
     }
 
+    const getPaperText = () => {
+        let text = "Enter Name To Clock In";
+        if(state.timeSheet.clockIn.selectedEmployeeIsClockedIn !== null){
+            text = state.timeSheet.clockIn.selectedEmployeeIsClockedIn ? "Clock Out": "Clock In";
+        }
+        return text;
+    }
+
     return (<div>
         <Paper
-            title={paperTitle}
-            color={paperTitle !== "Clock Out" ? "green" : "red"}
+            title={getPaperText()}
+            color={getPaperText() !== "Clock Out" ? "green" : "red"}
         >
             <div className="paperContainer">
                 {icon}

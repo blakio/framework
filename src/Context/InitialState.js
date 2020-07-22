@@ -9,6 +9,7 @@ const initialState = {
   timeSheet: {
     clockIn: {
       selectedEmployee: null,
+      selectedEmployeeIsClockedIn: null,
       inputValue: ""
     }
   },
