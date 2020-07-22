@@ -1,13 +1,11 @@
 import React, {
+    useEffect,
     useRef,
     createRef,
 } from "react";
 import "./main.css";
 
 const Table = props => {
-    const elementsRef = useRef(props.td.map(data => data.map(d => createRef())));
-    props.setRefs(elementsRef);
-
     return (<div>
         <table>
             <thead>
@@ -17,7 +15,7 @@ const Table = props => {
             </thead>
             <tbody>
                 {props.td.map((data, index) => (<tr key={index}>
-                    {data.map((d, i) => <td key={i}>{props.getData(d, props.fields[i], props.ids[index], elementsRef.current[index][i])}</td>)}
+                    {data.map((d, i) => <td key={i}>{props.getData(d)}</td>)}
                 </tr>))}
             </tbody>
         </table>

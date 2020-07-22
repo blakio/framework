@@ -17,7 +17,11 @@ import { StateContext } from "Context/State";
 
 const TimeSummary = () => {
     const [state, dispatch] = StateContext();
-    const [offset, setOffset] = useState(null)
+    const [offset, setOffset] = useState(null);
+    const [tableData, setTableData] = useState({
+        th: [],
+        td: []
+    });
 
     useEffect(() => {
         const epochWeek = Util.getCurrentWeekInEpoch(offset);
@@ -26,18 +30,49 @@ const TimeSummary = () => {
             { "$unwind": "$time" },
             { "$match": { "time.timestamp": { "$gte": range[0], "$lte": range[1] } } }
         ];
-        Axios.getTimeOverRange(state.timeSheet.clockIn.selectedEmployee._id, query).then(data => {
-            console.log(data)
-        })
+        const currentWeek = Util.getCurrentWeek(offset);
+        Axios.getTimeOverRange(state.timeSheet.clockIn.selectedEmployee._id, query).then(dates => {
+            const weekHours = {};
+            currentWeek.forEach(day => (weekHours[day] = []));
+            dates.data.forEach(date => {
+                const formattedTime = moment(date.time.formatted).format("hh:mm:ss a");
+                const formattedDate = moment(date.time.formatted).format("MMMM Do, ddd");
+                weekHours[formattedDate].push({
+                    time: formattedTime,
+                    clockIn: date.time.hasClockedIn
+                });
+            });
+            let highestIndex = 0;
+            for(let i in weekHours){
+                if(weekHours[i].length > highestIndex){
+                    highestIndex = weekHours[i].length;
+                }
+            }
+            for(let i in weekHours){
+                weekHours[i].length = highestIndex;
+            }
+            const td = [];
+            for(let i = 0; i < highestIndex; i++){
+                td.push([]);
+            }
+
+            let weekIndex = 0;
+            for(let key in weekHours){
+                for(let j = 0; j < weekHours[key].length; j++){
+                    if(weekHours[key][j]){
+                        td[j][weekIndex] = `${weekHours[key][j].clockIn ? "N": "O"} : ${weekHours[key][j].time}`;
+                    } else {
+                        td[j][weekIndex] = "";
+                    }
+                }
+                weekIndex++;
+            }
+            setTableData({
+                th: currentWeek,
+                td
+            })
+        });
     }, [offset]);
-    
-    const th = ["", ...Util.getCurrentWeek(offset)];
-    const td = [
-        ["Clock In", "8", "8", "8", "8", "8", "8", "8"],
-        ["Clock Out", "8", "8", "8", "8", "8", "8", "8"],
-        ["Clock In", "8", "8", "8", "8", "8", "8", "8"],
-        ["Clock Out", "8", "8", "8", "8", "8", "8", "8"]
-    ];
 
     return (<div className="timeSummary">
         <Paper
@@ -45,14 +80,21 @@ const TimeSummary = () => {
             color="blue"
         >
             <Table
-                th={th}
-                td={td}
+                th={tableData.th}
+                td={tableData.td}
                 setRefs={() => {}}
-                getTd={() => td}
-                getTh={() => th}
+                getTd={() => tableData.td}
+                getTh={() => tableData.th}
                 fields={[]}
                 ids={[]}
-                getData={value => value}
+                getData={value => {
+                    if(!value) return "";
+                    if(value.includes("N")){
+                        return <span><i className="fas fa-arrow-right greenText"></i> {value.replace("N :", "")}</span>
+                    } else {
+                        return <span><i className="fas fa-arrow-left redText"></i> {value.replace("O :", "")}</span>
+                    }
+                }}
             ></Table>
         </Paper>
     </div>);
