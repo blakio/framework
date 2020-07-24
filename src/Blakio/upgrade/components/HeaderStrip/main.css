@@ -49,3 +49,8 @@
 .headerBtn i {
     font-size: 0.9em;
 }
+
+.csvLink {
+    text-decoration: none;
+    color: inherit;
+}

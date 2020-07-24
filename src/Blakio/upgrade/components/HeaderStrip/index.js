@@ -1,6 +1,8 @@
 import React from "react";
 import "./main.css";
 
+import { CSVLink } from "react-csv";
+
 const HeaderStrip = props => {
 
     const iconMapper = {
@@ -13,7 +15,13 @@ const HeaderStrip = props => {
         return (<div className="headerButtons">
             {props.buttons.map((data, index) => {
                 return (<div key={index} onClick={data.onClick} className={`headerBtn ${data.color}`}>
-                    <i className={iconMapper[data.type]}></i>
+                    {
+                        data.csvData ?
+                        <CSVLink className="csvLink" data={data.csvData} filename={data.csvFileName}>
+                            <i className={data.customIcon || iconMapper[data.type]}></i>
+                        </CSVLink> :
+                        <i className={data.customIcon || iconMapper[data.type]}></i>
+                    }
                 </div>)
             })}
         </div>)
