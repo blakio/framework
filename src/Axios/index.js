@@ -36,6 +36,10 @@ export default {
 
   getTimeOverRange: async (employeeId, query) => {
     return await axiosInstance.post(`/table/aggregate/Time/${employeeId}`, {query});
+  },
+
+  getDayTotalHours: async (id, day) => {
+    return await axiosInstance.post(`/timesheet/hours/day/${id}`, { day })
   }
 
 };

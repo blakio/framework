@@ -106,7 +106,7 @@ export default {
     return null
   },
 
-  getCurrentWeek: (offset, epoch) => {
+  getCurrentWeek: (offset) => {
     var currentDate = moment();
     var weekStart = currentDate.startOf('week');
     var days = [];
@@ -115,6 +115,20 @@ export default {
         days.push(moment(weekStart).add(i, 'days').add(offset * 7, 'days').format("MMMM Do, ddd"));
       } else {
         days.push(moment(weekStart).add(i, 'days').format("MMMM Do, ddd"));
+      }
+    }
+    return days;
+  },
+
+  getCurrentWeekWithYear: (offset) => {
+    var currentDate = moment();
+    var weekStart = currentDate.startOf('week');
+    var days = [];
+    for (var i = 0; i <= 6; i++) {
+      if(offset){
+        days.push(moment(weekStart).add(i, 'days').add(offset * 7, 'days').format("MM/DD/YY"));
+      } else {
+        days.push(moment(weekStart).add(i, 'days').format("MM/DD/YY"));
       }
     }
     return days;

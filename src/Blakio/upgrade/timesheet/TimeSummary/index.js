@@ -31,47 +31,66 @@ const TimeSummary = () => {
             { "$match": { "time.timestamp": { "$gte": range[0], "$lte": range[1] } } }
         ];
         const currentWeek = Util.getCurrentWeek(offset);
-        Axios.getTimeOverRange(state.timeSheet.clockIn.selectedEmployee._id, query).then(dates => {
-            const weekHours = {};
-            currentWeek.forEach(day => (weekHours[day] = []));
-            dates.data.forEach(date => {
-                const formattedTime = moment(date.time.formatted).format("hh:mm:ss a");
-                const formattedDate = moment(date.time.formatted).format("MMMM Do, ddd");
-                weekHours[formattedDate].push({
-                    time: formattedTime,
-                    clockIn: date.time.hasClockedIn
+        const currentWeekWithYear = Util.getCurrentWeekWithYear(offset);
+        const employeeId = state.timeSheet.clockIn.selectedEmployee._id;
+        const dayHrs = [];
+        const getHoursForDays = () => {
+            const { length } = dayHrs;
+            if(length !== 7){
+                Axios.getDayTotalHours(employeeId, currentWeekWithYear[length]).then(data => {
+                    dayHrs.push(`Total Hrs: ${data.data.hours}`);
+                    getHoursForDays();
+                })
+            } else {
+                getTimeBreakdown()
+            }
+        };
+        getHoursForDays();
+        
+        const getTimeBreakdown = () => {
+            Axios.getTimeOverRange(state.timeSheet.clockIn.selectedEmployee._id, query).then(dates => {            
+                const weekHours = {};
+                currentWeek.forEach(day => (weekHours[day] = []));
+                dates.data.forEach(date => {
+                    const formattedTime = moment(date.time.formatted).format("hh:mm:ss a");
+                    const formattedDate = moment(date.time.formatted).format("MMMM Do, ddd");
+                    weekHours[formattedDate].push({
+                        time: formattedTime,
+                        clockIn: date.time.hasClockedIn
+                    });
                 });
-            });
-            let highestIndex = 0;
-            for(let i in weekHours){
-                if(weekHours[i].length > highestIndex){
-                    highestIndex = weekHours[i].length;
-                }
-            }
-            for(let i in weekHours){
-                weekHours[i].length = highestIndex;
-            }
-            const td = [];
-            for(let i = 0; i < highestIndex; i++){
-                td.push([]);
-            }
-
-            let weekIndex = 0;
-            for(let key in weekHours){
-                for(let j = 0; j < weekHours[key].length; j++){
-                    if(weekHours[key][j]){
-                        td[j][weekIndex] = `${weekHours[key][j].clockIn ? "I": "O"} : ${weekHours[key][j].time}`;
-                    } else {
-                        td[j][weekIndex] = "";
+                let highestIndex = 0;
+                for(let i in weekHours){
+                    if(weekHours[i].length > highestIndex){
+                        highestIndex = weekHours[i].length;
                     }
                 }
-                weekIndex++;
-            }
-            setTableData({
-                th: currentWeek,
-                td
+                for(let i in weekHours){
+                    weekHours[i].length = highestIndex;
+                }
+                const td = [];
+                for(let i = 0; i < highestIndex; i++){
+                    td.push([]);
+                }
+    
+                let weekIndex = 0;
+                for(let key in weekHours){
+                    for(let j = 0; j < weekHours[key].length; j++){
+                        if(weekHours[key][j]){
+                            td[j][weekIndex] = `${weekHours[key][j].clockIn ? "I": "O"} : ${weekHours[key][j].time}`;
+                        } else {
+                            td[j][weekIndex] = "";
+                        }
+                    }
+                    weekIndex++;
+                }
+                td.push(dayHrs);
+                setTableData({
+                    th: currentWeek,
+                    td
+                });
             });
-        });
+        }
         // note: this will reload twice because of state.timeSheet.clockIn.selectedEmployeeIsClockedIn
     }, [offset, state.timeSheet.clockIn.selectedEmployeeIsClockedIn]);
 
@@ -109,7 +128,9 @@ const TimeSummary = () => {
                 ids={[]}
                 getData={value => {
                     if(!value) return "";
-                    if(value.includes("I")){
+                    if(value.includes("Total")){
+                        return <span>{value}</span>
+                    } else if(value.includes("I")){
                         return <span><i className="fas fa-arrow-right greenText"></i> {value.replace("I :", "")}</span>
                     } else {
                         return <span><i className="fas fa-arrow-left redText"></i> {value.replace("O :", "")}</span>
