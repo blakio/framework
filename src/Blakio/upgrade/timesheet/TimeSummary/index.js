@@ -60,7 +60,7 @@ const TimeSummary = () => {
             for(let key in weekHours){
                 for(let j = 0; j < weekHours[key].length; j++){
                     if(weekHours[key][j]){
-                        td[j][weekIndex] = `${weekHours[key][j].clockIn ? "N": "O"} : ${weekHours[key][j].time}`;
+                        td[j][weekIndex] = `${weekHours[key][j].clockIn ? "I": "O"} : ${weekHours[key][j].time}`;
                     } else {
                         td[j][weekIndex] = "";
                     }
@@ -70,14 +70,34 @@ const TimeSummary = () => {
             setTableData({
                 th: currentWeek,
                 td
-            })
+            });
         });
-    }, [offset]);
+        // note: this will reload twice because of state.timeSheet.clockIn.selectedEmployeeIsClockedIn
+    }, [offset, state.timeSheet.clockIn.selectedEmployeeIsClockedIn]);
 
     return (<div className="timeSummary">
         <Paper
             title="Time Summary"
             color="blue"
+            buttons={[
+                {
+                    onClick: () => setOffset(offset - 1),
+                    color: "blue",
+                    customIcon: "fas fa-angle-left"
+                },
+                {
+                    onClick: () => setOffset(offset + 1),
+                    color: "blue",
+                    customIcon: "fas fa-angle-right"
+                },
+                {
+                    color: "blue",
+                    customIcon: "fas fa-file-download",
+                    onClick: () => {},
+                    csvData: [tableData.th, ...tableData.td],
+                    csvFileName: `${state.timeSheet.clockIn.selectedEmployee.firstName} ${state.timeSheet.clockIn.selectedEmployee.lastName}'s timesheet`
+                }
+            ]}
         >
             <Table
                 th={tableData.th}
@@ -89,8 +109,8 @@ const TimeSummary = () => {
                 ids={[]}
                 getData={value => {
                     if(!value) return "";
-                    if(value.includes("N")){
-                        return <span><i className="fas fa-arrow-right greenText"></i> {value.replace("N :", "")}</span>
+                    if(value.includes("I")){
+                        return <span><i className="fas fa-arrow-right greenText"></i> {value.replace("I :", "")}</span>
                     } else {
                         return <span><i className="fas fa-arrow-left redText"></i> {value.replace("O :", "")}</span>
                     }
