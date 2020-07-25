@@ -37,7 +37,7 @@ const EmployeeTable = () => {
             Util.formatDate(data.dob),
             Util.formatPhoneNumber(`${data.phone}`),
             data.email,
-            data.emergencyContact,
+            Util.formatPhoneNumber(data.emergencyContact),
             data.title,
             data.department
         ]));
