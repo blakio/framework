@@ -138,14 +138,18 @@ export default {
     var currentDate = moment();
     var weekStart = currentDate.startOf('week');
     var epoch = [];
-    for (var i = 0; i <= 6; i++) {
+    for (var i = 0; i <= 7; i++) {
       if(offset){
-        epoch.push(moment(weekStart).add(i, 'days').add(offset * 7, 'days').unix())
+        epoch.push(moment(weekStart).add(i, 'days').add(offset * 7, 'days'))
       } else {
-        epoch.push(moment(weekStart).add(i, 'days').unix())
+        epoch.push(moment(weekStart).add(i, 'days'))
       }
     }
-    return epoch;
+    const lastDayReplacement = moment(epoch[epoch.length - 1]).subtract(1, "minute");
+    epoch[6] = lastDayReplacement;
+    epoch.pop();
+    const unix = epoch.map(data => moment(data).unix());
+    return unix;
   },
 
 

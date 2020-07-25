@@ -19,6 +19,7 @@ import {
 import BlakioUI from "Blakio/Framework";
 
 import ClockIn from "./upgrade/timesheet/ClockIn/index.js";
+import WorkedHours from "./upgrade/timesheet/WorkedHours/index.js";
 import TimeSummary from "./upgrade/timesheet/TimeSummary/index.js";
 
 import EmployeeTable from "./upgrade/employeeDirectory/EmployeeTable";
@@ -83,6 +84,9 @@ const TimeSheet = props => {
   return (<div>
     <Grid grid="2">
       <ClockIn />
+      <Grid grid="2">
+        {state.timeSheet.clockIn.totalHrs ? <WorkedHours /> : <div></div>}
+      </Grid>
     </Grid>
     {state.timeSheet.clockIn.selectedEmployee && <Grid grid="1">
       <TimeSummary />

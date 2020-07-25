@@ -14,6 +14,7 @@ import {
 import Util from "../../../../Util";
 import Axios from "../../../../Axios";
 import { StateContext } from "Context/State";
+import Types from "../../../../Context/Types";
 
 const TimeSummary = () => {
     const [state, dispatch] = StateContext();
@@ -34,21 +35,28 @@ const TimeSummary = () => {
         const currentWeekWithYear = Util.getCurrentWeekWithYear(offset);
         const employeeId = state.timeSheet.clockIn.selectedEmployee._id;
         const dayHrs = [];
+        const dayHrsNumbers = [];
         const getHoursForDays = () => {
             const { length } = dayHrs;
             if(length !== 7){
                 Axios.getDayTotalHours(employeeId, currentWeekWithYear[length]).then(data => {
                     dayHrs.push(`Total Hrs: ${data.data.hours}`);
+                    dayHrsNumbers.push(parseFloat(data.data.hours));
                     getHoursForDays();
                 })
             } else {
+                const totalHours = dayHrsNumbers.reduce((a, b) => a + b, 0)
+                dispatch({
+                    type: Types.SET_TOTAL_HOURS,
+                    payload: totalHours
+                })
                 getTimeBreakdown()
             }
         };
         getHoursForDays();
         
         const getTimeBreakdown = () => {
-            Axios.getTimeOverRange(state.timeSheet.clockIn.selectedEmployee._id, query).then(dates => {            
+            Axios.getTimeOverRange(state.timeSheet.clockIn.selectedEmployee._id, query).then(dates => {  
                 const weekHours = {};
                 currentWeek.forEach(day => (weekHours[day] = []));
                 dates.data.forEach(date => {

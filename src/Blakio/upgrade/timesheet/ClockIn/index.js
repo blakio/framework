@@ -75,6 +75,7 @@ const ClockIn = props => {
             isBtn
             helpText="submit"
             onClick={() => clockTime()}
+            icon="far fa-clock"
         />
     </div>);
 

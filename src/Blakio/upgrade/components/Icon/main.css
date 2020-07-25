@@ -1,3 +1,15 @@
+.iconContainer {
+    display: flex;
+    flex-direction: column;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.iconText {
+    font-size: 1.8em;
+}
+
 .icon {
     background-color: var(--silver);
     height: 5em;
