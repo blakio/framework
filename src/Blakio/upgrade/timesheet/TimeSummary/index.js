@@ -6,6 +6,9 @@ import "./main.css";
 
 import moment from "moment";
 
+import TimePicker from 'rc-time-picker';
+import 'rc-time-picker/assets/index.css';
+
 import {
     Paper,
     Table
@@ -64,7 +67,9 @@ const TimeSummary = () => {
                     const formattedDate = moment(date.time.formatted).format("MMMM Do, ddd");
                     weekHours[formattedDate].push({
                         time: formattedTime,
-                        clockIn: date.time.hasClockedIn
+                        clockIn: date.time.hasClockedIn,
+                        employeeId: date._id,
+                        timeId: date.time._id
                     });
                 });
                 let highestIndex = 0;
@@ -134,6 +139,9 @@ const TimeSummary = () => {
                 getTh={() => tableData.th}
                 fields={[]}
                 ids={[]}
+                getHeadData={value => {
+                    return value;
+                }}
                 getData={value => {
                     if(!value) return "";
                     if(value.includes("Total")){
@@ -144,7 +152,23 @@ const TimeSummary = () => {
                         return <span><i className="fas fa-arrow-left redText"></i> {value.replace("O :", "")}</span>
                     }
                 }}
+                onClick={data => {
+                    console.log(data)
+                    // setReplacement
+                }}
             ></Table>
+            {/* {replacement ? <div className="timesheetReplacementTime">
+                <p className="timeReplacementText">Enter a replacement time:</p>
+                <TimePicker
+                    showSecond={false}
+                    use12Hours={true}
+                    defaultValue={moment()}
+                />
+                <div className="timeSelectBox">
+                    <button>Submit</button>
+                    <button>Cancel</button>
+                </div>
+            </div> : <div></div>} */}
         </Paper>
     </div>);
 }

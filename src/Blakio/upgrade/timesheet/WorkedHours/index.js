@@ -2,8 +2,7 @@ import React from "react";
 
 import {
     Paper,
-    Icon,
-    TextWithSubText
+    Icon
 } from "../../components";
 
 import { StateContext } from "Context/State";

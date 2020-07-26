@@ -59,6 +59,8 @@ const EmployeeTable = () => {
         return field === "dob" ? "date" : "";
     }
 
+    const getHeadData = value => value;
+
     const getData = (data, field, id, ref) => {
         return state.employeeDirectory.isEditing ? <input id={id} field={field} type={getInputType(field)} className="tableInput" placeholder={data} ref={ref} /> : data;
     }
@@ -130,6 +132,7 @@ const EmployeeTable = () => {
             <Table
                 th={getTh()}
                 td={getTd()}
+                getHeadData={getHeadData}
                 getData={getData}
                 fields={fields}
                 ids={ids}
