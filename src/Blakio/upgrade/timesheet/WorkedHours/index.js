@@ -18,7 +18,7 @@ const WorkedHours = () => {
             <Icon
                 helpText="HOURS"
                 onClick={() => {}}
-                text={state.timeSheet.clockIn.totalHrs.toFixed(2)}
+                text={state.timeSheet.clockIn.totalHrs ? state.timeSheet.clockIn.totalHrs.toFixed(2) : 0}
             />
         </Paper>
     </div>)

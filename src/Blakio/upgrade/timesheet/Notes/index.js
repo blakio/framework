@@ -10,7 +10,7 @@ const Notes = () => {
             color="green"
         >
             <p>No new note</p>
-            <textarea maxlength="50" placeholder="max 50 characters"></textarea>
+            <textarea maxlength="50" placeholder="max 50 characters" rows="4"></textarea>
         </Paper>
     </div>)
 }

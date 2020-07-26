@@ -87,7 +87,7 @@ const TimeSheet = props => {
     <Grid grid="2">
       <ClockIn />
       <Grid grid="2">
-        {state.timeSheet.clockIn.totalHrs && state.timeSheet.clockIn.selectedEmployee ? <WorkedHours /> : <div></div>}
+        {state.timeSheet.clockIn.selectedEmployee ? <WorkedHours /> : <div></div>}
         {state.timeSheet.clockIn.selectedEmployee ? <Notes /> : <div></div>}
       </Grid>
     </Grid>
