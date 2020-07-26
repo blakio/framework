@@ -53,6 +53,7 @@
   --blue: #34649a;
   --red: #FF6B6B;
   --silver: #C4CCDB;
+  --orange: #FC763C;
 }
 
 .App {
@@ -76,6 +77,10 @@
   background-color: var(--red);
 }
 
+.orange {
+  background-color: var(--orange);
+}
+
 .greenText {
   color: var(--green);
 }
@@ -86,4 +91,8 @@
 
 .redText {
   color: var(--red);
+}
+
+.orangeText {
+  color: var(--orange);
 }
