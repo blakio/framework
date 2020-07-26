@@ -65,12 +65,14 @@ const TimeSummary = () => {
                 dates.data.forEach(date => {
                     const formattedTime = moment(date.time.formatted).format("hh:mm:ss a");
                     const formattedDate = moment(date.time.formatted).format("MMMM Do, ddd");
-                    weekHours[formattedDate].push({
-                        time: formattedTime,
-                        clockIn: date.time.hasClockedIn,
-                        employeeId: date._id,
-                        timeId: date.time._id
-                    });
+                    if(weekHours[formattedDate]){
+                        weekHours[formattedDate].push({
+                            time: formattedTime,
+                            clockIn: date.time.hasClockedIn,
+                            employeeId: date._id,
+                            timeId: date.time._id
+                        });
+                    }
                 });
                 let highestIndex = 0;
                 for(let i in weekHours){

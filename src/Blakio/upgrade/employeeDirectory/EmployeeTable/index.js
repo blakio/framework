@@ -101,33 +101,33 @@ const EmployeeTable = () => {
         <Paper
             title="Employee Directory"
             color="blue"
-            buttons={ !state.employeeDirectory.isEditing ? 
-                [{
-                    type: "edit",
-                    color: "blue",
-                    onClick: () => {
-                        dispatch({
-                            type: Types.TOGGLE_EMPLOYEE_EDITING_STATUS
-                        })
-                    }
-                }] : [{
-                    type: "cancel",
-                    color: "blue",
-                    onClick: () => {
-                        dispatch({
-                            type: Types.TOGGLE_EMPLOYEE_EDITING_STATUS
-                        })
-                    }
-                },
-                {
-                    type: "submit",
-                    color: "blue",
-                    onClick: () => {
-                        const changes = getChanges(refs)
-                        console.log(changes)
-                    }
-                }]
-            }
+            // buttons={ !state.employeeDirectory.isEditing ? 
+            //     [{
+            //         type: "edit",
+            //         color: "blue",
+            //         onClick: () => {
+            //             dispatch({
+            //                 type: Types.TOGGLE_EMPLOYEE_EDITING_STATUS
+            //             })
+            //         }
+            //     }] : [{
+            //         type: "cancel",
+            //         color: "blue",
+            //         onClick: () => {
+            //             dispatch({
+            //                 type: Types.TOGGLE_EMPLOYEE_EDITING_STATUS
+            //             })
+            //         }
+            //     },
+            //     {
+            //         type: "submit",
+            //         color: "blue",
+            //         onClick: () => {
+            //             const changes = getChanges(refs)
+            //             console.log(changes)
+            //         }
+            //     }]
+            // }
         >
             <Table
                 th={getTh()}
@@ -137,6 +137,7 @@ const EmployeeTable = () => {
                 fields={fields}
                 ids={ids}
                 setRefs={setRefs}
+                onClick={() => {}}
             />
         </Paper>
     </div>);

@@ -3,6 +3,7 @@ import Types from "../Context/Types";
 import { store } from 'react-notifications-component';
 
 import moment from "moment";
+import mtz from "moment-timezone";
 
 const total = (a, b) => {
   return parseInt(a) + parseInt(b);
@@ -148,7 +149,15 @@ export default {
     const lastDayReplacement = moment(epoch[epoch.length - 1]).subtract(1, "minute");
     epoch[6] = lastDayReplacement;
     epoch.pop();
-    const unix = epoch.map(data => moment(data).unix());
+
+    const tzDifference = mtz(moment()).tz("America/New_York").format();
+    const diffString = tzDifference.slice(tzDifference.length - 6);
+    const split = diffString.split(":");
+    const sign = split[0].includes("-") ? "subtract" : "add";
+    const hours = split[0].replace("-", "");
+    const minutes = split[1];
+
+    const unix = epoch.map(data => moment(data)[sign](hours, "hours")[sign](minutes, "minutes").unix());
     return unix;
   },
 

@@ -24,6 +24,7 @@ import TimeSummary from "./upgrade/timesheet/TimeSummary/index.js";
 import Notes from "./upgrade/timesheet/Notes/index.js";
 
 import EmployeeTable from "./upgrade/employeeDirectory/EmployeeTable";
+import EmployeeForm from "./upgrade/employeeDirectory/EmployeeForm";
 
 const {
   SideBarPaper,
@@ -101,6 +102,7 @@ const EmployeeDirectory = props => {
   return (<div>
     <Grid grid="1">
       <EmployeeTable />
+      <EmployeeForm />
     </Grid>
   </div>)
 }
