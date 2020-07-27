@@ -48,7 +48,7 @@ const Notes = () => {
         if(trimmedNote.length > 0){
             Axios.createWeeklyNote({
                 note: trimmedNote,
-                weekNumber: moment().week(),
+                weekNumber: state.timeSheet.clockIn.weekNumber,
                 year: moment().year(),
                 employeeId: state.timeSheet.clockIn.selectedEmployee._id
             }).then(data => {
