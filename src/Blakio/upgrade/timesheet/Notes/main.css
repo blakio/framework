@@ -35,3 +35,13 @@
     font-size: 13px;
     color: var(--darkerGrey);
 }
+
+.weeklyNoteTextareaContainer {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+.weeklyNoteTextareaContainer .submitBtn {
+    margin: 0;
+}

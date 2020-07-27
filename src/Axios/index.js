@@ -40,6 +40,18 @@ export default {
 
   getDayTotalHours: async (id, day) => {
     return await axiosInstance.post(`/timesheet/hours/day/${id}`, { day })
+  },
+
+  createWeeklyNote: async (query) => {
+    return await axiosInstance.post("/table/Note", query);
+  },
+
+  findWeeklyNotes: async (query) => {
+    return await axiosInstance.post("/table/search/Note", query);
+  },
+
+  deleteWeeklyNote: async (id) => {
+    return await axiosInstance.delete(`/table/Note/${id}`);
   }
 
 };

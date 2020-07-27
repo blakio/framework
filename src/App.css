@@ -52,6 +52,8 @@
   /* --blue: #65C3DF; */
   --blue: #34649a;
   --red: #FF6B6B;
+  --mediumRed: #FF4444;
+  --darkRed: #F00;
   --silver: #C4CCDB;
   --orange: #FC763C;
 }
