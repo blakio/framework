@@ -43,16 +43,19 @@ const Notes = () => {
         }).catch(err => console.log(err));
     };
 
-    const onClick = newNote => {
-        Axios.createWeeklyNote({
-            note: newNote,
-            weekNumber: moment().week(),
-            year: moment().year(),
-            employeeId: state.timeSheet.clockIn.selectedEmployee._id
-        }).then(data => {
-            setNewNotes("");
-            getNotes();
-        }).catch(err => console.log(err))
+    const onClick = () => {
+        const trimmedNote = newNote.trim();
+        if(trimmedNote.length > 0){
+            Axios.createWeeklyNote({
+                note: trimmedNote,
+                weekNumber: moment().week(),
+                year: moment().year(),
+                employeeId: state.timeSheet.clockIn.selectedEmployee._id
+            }).then(data => {
+                setNewNotes("");
+                getNotes();
+            }).catch(err => console.log(err))
+        }
     }
 
     return (<div>
@@ -67,8 +70,8 @@ const Notes = () => {
                 </div>
             ))}
             <div className="weeklyNoteTextareaContainer">
-                <textarea maxLength="50" placeholder="max 50 characters" value={newNote} onChange={e => setNewNotes(e.target.value)}></textarea>
-                <button className="submitBtn" onClick={() => onClick(newNote)}>Submit</button>
+                <textarea maxLength="50" placeholder="max 50 characters" value={newNote} onChange={e => setNewNotes(e.target.value)} onKeyDown={e => e.key === "Enter" && onClick()}></textarea>
+                <button className="submitBtn" onClick={() => onClick()}>Submit</button>
             </div>
         </Paper>
     </div>)
