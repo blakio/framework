@@ -21,7 +21,7 @@ const Notes = () => {
         Axios.findWeeklyNotes({
             query: {
                 employeeId: state.timeSheet.clockIn.selectedEmployee._id,
-                weekNumber: moment().week(),
+                weekNumber: state.timeSheet.clockIn.weekNumber,
                 year: moment().year()
             }
         }).then(data => {
@@ -33,7 +33,7 @@ const Notes = () => {
 
     useEffect(() => {
         getNotes();
-    }, []);
+    }, [state.timeSheet.clockIn.weekNumber]);
 
     const getValue = value => value.note;
 

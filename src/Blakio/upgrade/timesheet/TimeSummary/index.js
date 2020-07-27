@@ -104,6 +104,12 @@ const TimeSummary = () => {
                     th: currentWeek,
                     td
                 });
+
+                const weekNumber = dates.data.length ? moment(dates.data[0].time.formatted).week() : null;
+                dispatch({
+                    type: Types.SET_WEEK_NUMBER,
+                    payload: weekNumber
+                })
             });
         }
         // note: this will reload twice because of state.timeSheet.clockIn.selectedEmployeeIsClockedIn

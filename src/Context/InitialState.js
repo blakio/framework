@@ -10,7 +10,8 @@ const initialState = {
     clockIn: {
       selectedEmployee: null,
       selectedEmployeeIsClockedIn: null,
-      inputValue: ""
+      inputValue: "",
+      weekNumber: null
     }
   },
   employeeDirectory: {
