@@ -12,7 +12,7 @@ const WorkedHours = () => {
 
     return (<div>
         <Paper
-            title="Hours Worked"
+            title="Weekly Hrs"
             color="green"
         >
             <Icon

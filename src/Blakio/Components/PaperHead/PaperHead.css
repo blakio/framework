@@ -15,6 +15,7 @@
 
 .PaperHead p {
   margin: 0;
+  white-space: nowrap;
 }
 
 .PaperHead i {

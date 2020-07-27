@@ -74,7 +74,7 @@ const DashboardHead = () => {
   const label = state.sideBarOptions.sideBar.length && selected[0] && selected[0].title.toUpperCase();
   return (<div id="DashboardHead" className="flex">
     <div className="flex">
-      <p id="DashboardTitleText">{typeof label === "string" && label.replace("_", " ")}</p>
+      <p id="DashboardTitleText">{label ? label : ""}</p>
     </div>
   </div>)
 }
@@ -86,7 +86,7 @@ const TimeSheet = props => {
   return (<div>
     <Grid grid="2">
       <ClockIn />
-      <Grid grid="2">
+      <Grid grid="1_2">
         {state.timeSheet.clockIn.selectedEmployee ? <WorkedHours /> : <div></div>}
         {state.timeSheet.clockIn.selectedEmployee ? <Notes /> : <div></div>}
       </Grid>

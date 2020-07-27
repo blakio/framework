@@ -1,0 +1,37 @@
+
+.cancelBtn {
+    background-color: var(--red);;
+    border-color: var(--red);
+    font-weight: 500;
+    border: 1px solid transparent;
+    padding: 7px 10px;
+    font-size: 0.8em;
+    color: #fff;
+    margin-bottom: 0;
+    cursor: pointer;
+    user-select: none;
+    border-radius: 0.2em;
+    margin: 0.4em;
+}
+
+.cancelBtn:hover {
+    background-color: var(--mediumRed);;
+}
+
+.cancelBtn:active {
+    background-color: var(--darkRed);;
+    box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+}
+
+.notesHolder {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.notesHolder p {
+    margin: 0;
+    line-height: 20px;
+    font-size: 13px;
+    color: var(--darkerGrey);
+}
