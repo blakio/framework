@@ -31,14 +31,35 @@ const EmployeeForm = () => {
     }
 
     const handleChange = e => {
+        let {
+            value
+        } = e.target;
+
+        const type = e.target.getAttribute("type");
+
+        if((type === "phone" || type === "emergencyContact")){
+            if(isNaN(value) || value.length > 10) {
+                return;
+            }
+        }
+
+        value = value.trim()
+
+        const objKey = e.target.getAttribute("type");
+        const key = objKey === "employeeEmail" ? "email" : objKey;
+
         setFormValues({
             ...formValues,
-            [e.target.getAttribute("type")]: e.target.value
+            [key]: value
         })
     }
 
     const onSubmit = () => {
-        console.log(formValues)
+        console.log({
+            ...formValues,
+            phone: parseInt(formValues.phone),
+            emergencyContact: parseInt(formValues.emergencyContact)
+        })
     }
 
     const onCancel = () => {
@@ -63,7 +84,7 @@ const EmployeeForm = () => {
                 <p>Phone</p>
                 <input className="employeeInput" placeholder="Enter text" type="phone" onChange={handleChange} value={formValues.phone}/>
                 <p>Email</p>
-                <input className="employeeInput" placeholder="Enter text" type="email" onChange={handleChange} value={formValues.email}/>
+                <input className="employeeInput" placeholder="Enter text" type="employeeEmail" onChange={handleChange} value={formValues.email}/>
                 <p>Emergency Contact</p>
                 <input className="employeeInput" placeholder="Enter text" type="emergencyContact" onChange={handleChange} value={formValues.emergencyContact}/>
                 <p>Title</p>
