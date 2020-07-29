@@ -19,7 +19,8 @@ th, td {
 }
 
 th:hover,
-td:hover {
+td:hover,
+tr.selected td {
     background-color: var(--dashBackgroundColor);
 }
 

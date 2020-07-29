@@ -8,7 +8,8 @@ import "./main.css";
 const Table = props => {
 
     const {
-        onClick
+        onClick,
+        isSelected
     } = props;
 
     return (<div>
@@ -19,7 +20,7 @@ const Table = props => {
                 </tr>
             </thead>
             <tbody>
-                {props.td.map((data, index) => (<tr key={index}>
+                {props.td.map((data, index) => (<tr key={index} class={`${isSelected(props.ids[index]) && "selected"}`}>
                     {data.map((d, i) => <td key={i} onClick={() => onClick(props.ids[index])}>{props.getData(d)}</td>)}
                 </tr>))}
             </tbody>

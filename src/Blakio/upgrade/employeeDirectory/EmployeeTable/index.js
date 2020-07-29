@@ -57,7 +57,11 @@ const EmployeeTable = () => {
 
     const getHeadData = value => value;
 
-    const getData = (data) => data;
+    const getData = data => data;
+
+    const isSelected = id => {
+        return id === state.employeeDirectory.updateId;
+    }
 
     return (<div className="timeSummary">
         <Paper
@@ -69,6 +73,7 @@ const EmployeeTable = () => {
                 td={getTd()}
                 getHeadData={getHeadData}
                 getData={getData}
+                isSelected={isSelected}
                 fields={fields}
                 ids={ids}
                 onClick={id => dispatch({

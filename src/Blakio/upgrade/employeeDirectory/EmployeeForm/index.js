@@ -36,7 +36,7 @@ const EmployeeForm = () => {
         department: ""
     }
 
-    const [formValues, setFormValues] = useState({});
+    const [formValues, setFormValues] = useState(defaultInputValue);
 
     useEffect(() => {
         const employee = employees.filter(data => data._id === updateId)[0];
@@ -152,6 +152,11 @@ const EmployeeForm = () => {
                 <DatePicker
                     selected={getValue("dob")}
                     onChange={handleDateChange}
+                    // showTimeSelect
+                    // timeIntervals={5}
+                    // minDate={new Date()}
+                    // maxDate={addMonths(new Date(), 5)}
+                    // showDisabledMonthNavigation
                 />
                 <p>Phone</p>
                 <input className="employeeInput" placeholder="Enter text" type="phone" onChange={handleChange} value={getValue("phone")}/>
