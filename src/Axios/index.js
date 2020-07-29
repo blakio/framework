@@ -52,6 +52,23 @@ export default {
 
   deleteWeeklyNote: async (id) => {
     return await axiosInstance.delete(`/table/Note/${id}`);
+  },
+
+  addEmployee: async (employee) => {
+    return await axiosInstance.post('/table/Employee', employee);
+  },
+
+  updateEmployee: async (updatedEmployee, employeeId) => {
+    return await axiosInstance.post("/table/Employee", {
+      setFields: updatedEmployee,
+      query: {
+        _id: "5f1f3cac7b8c5bd8e13b69c0"
+      }
+    });
+  },
+
+  deleteEmployee: async (employeeId) => {
+    return await axiosInstance.delete(`/table/Employee/${employeeId}`);
   }
 
 };

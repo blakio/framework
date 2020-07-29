@@ -15,12 +15,12 @@ const Table = props => {
         <table>
             <thead>
                 <tr>
-                    {props.th.map((data, index) => <th key={index} onClick={() => onClick(data)}>{props.getHeadData(data)}</th>)}
+                    {props.th.map((data, index) => <th key={index}>{props.getHeadData(data)}</th>)}
                 </tr>
             </thead>
             <tbody>
                 {props.td.map((data, index) => (<tr key={index}>
-                    {data.map((d, i) => <td key={i} onClick={() => onClick(d)}>{props.getData(d)}</td>)}
+                    {data.map((d, i) => <td key={i} onClick={() => onClick(props.ids[index])}>{props.getData(d)}</td>)}
                 </tr>))}
             </tbody>
         </table>

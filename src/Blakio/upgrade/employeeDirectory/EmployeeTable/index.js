@@ -30,7 +30,7 @@ const EmployeeTable = () => {
     const ids = state.employeeDirectory.employees.map(data => data._id);
 
     const getTd = () => {
-        const td = []
+        const td = [];
         state.employeeDirectory.employees.forEach(data => td.push([
             data.firstName,
             data.lastName,
@@ -55,79 +55,14 @@ const EmployeeTable = () => {
         "department",
     ];
 
-    const getInputType = (field) => {
-        return field === "dob" ? "date" : "";
-    }
-
     const getHeadData = value => value;
 
-    const getData = (data, field, id, ref) => {
-        return state.employeeDirectory.isEditing ? <input id={id} field={field} type={getInputType(field)} className="tableInput" placeholder={data} ref={ref} /> : data;
-    }
-
-    let refs;
-    const setRefs = (inputRefs) => {
-        refs = inputRefs
-    }
-
-    const getChanges = (ref) => {
-        const changes = {}
-        ref.current.forEach(data => {
-            data.forEach(d => {
-                const value = d.current.value.trim()
-                if(value.length){
-                    const {
-                        id,
-                        field
-                    } = d.current.attributes;
-                    if(changes[id.value]){
-                        changes[id.value].push({
-                            field: field.value,
-                            value
-                        })
-                    } else {
-                        changes[id.value] = [{
-                            field: field.value,
-                            value
-                        }]
-                    }
-                }
-            })
-        })
-        return changes;
-    }
+    const getData = (data) => data;
 
     return (<div className="timeSummary">
         <Paper
             title="Employee Directory"
             color="blue"
-            // buttons={ !state.employeeDirectory.isEditing ? 
-            //     [{
-            //         type: "edit",
-            //         color: "blue",
-            //         onClick: () => {
-            //             dispatch({
-            //                 type: Types.TOGGLE_EMPLOYEE_EDITING_STATUS
-            //             })
-            //         }
-            //     }] : [{
-            //         type: "cancel",
-            //         color: "blue",
-            //         onClick: () => {
-            //             dispatch({
-            //                 type: Types.TOGGLE_EMPLOYEE_EDITING_STATUS
-            //             })
-            //         }
-            //     },
-            //     {
-            //         type: "submit",
-            //         color: "blue",
-            //         onClick: () => {
-            //             const changes = getChanges(refs)
-            //             console.log(changes)
-            //         }
-            //     }]
-            // }
         >
             <Table
                 th={getTh()}
@@ -136,8 +71,10 @@ const EmployeeTable = () => {
                 getData={getData}
                 fields={fields}
                 ids={ids}
-                setRefs={setRefs}
-                onClick={() => {}}
+                onClick={id => dispatch({
+                    type: Types.UPDATE_EMPLOYEE,
+                    payload: id !== state.employeeDirectory.updateId ? id : null
+                })}
             />
         </Paper>
     </div>);

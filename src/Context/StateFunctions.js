@@ -34,4 +34,6 @@ export default {
 
   // employee directory
   toggleEmployeeEditingStatus: (payload, state) =>  ({ ...state, employeeDirectory: { ...state.employeeDirectory, isEditing: !state.employeeDirectory.isEditing } }),
+  updateEmployee: (payload, state) =>  ({ ...state, employeeDirectory: { ...state.employeeDirectory, updateId: payload } }),
+
 }

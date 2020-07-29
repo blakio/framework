@@ -16,7 +16,8 @@ const initialState = {
   },
   employeeDirectory: {
     employees: [],
-    isEditing: false
+    isEditing: false,
+    updateId: null
   }
 };
 

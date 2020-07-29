@@ -38,6 +38,8 @@ export default (state, action) => {
      // employee directory
     case Types.TOGGLE_EMPLOYEE_EDITING_STATUS:
       return StateFunctions.toggleEmployeeEditingStatus(payload, state);
+    case Types.UPDATE_EMPLOYEE:
+      return StateFunctions.updateEmployee(payload, state);
 
     default:
       return state;

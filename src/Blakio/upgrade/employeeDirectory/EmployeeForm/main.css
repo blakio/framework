@@ -39,12 +39,26 @@
     margin: 1em;
 }
 
+.submitBtn.red {
+    background-color: var(--red);
+}
+
 .submitBtn:hover {
     background-color: #367fa9;
 }
 
+.submitBtn.red:hover {
+    background-color: var(--darkRed);
+    box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+}
+
 .submitBtn:active {
     background-color: #367fa9;
+    box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+}
+
+.submitBtn.red:active {
+    background-color: var(--red);
     box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
 }
 
