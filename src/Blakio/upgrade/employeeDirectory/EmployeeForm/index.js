@@ -17,6 +17,12 @@ import {
     StateContext
 } from "Context/State";
 
+import Util from "../../../../Util";
+const {
+    showError,
+    showSuccess
+} = Util;
+
 const EmployeeForm = () => {
 
     const [state, dispatch] = StateContext();
@@ -89,6 +95,8 @@ const EmployeeForm = () => {
 
     const onSubmit = () => {
         const method = updateId ? "updateEmployee" : "addEmployee";
+        const title = updateId ? "Update Employee" : "Add Employee";
+        const message = updateId ? "Successfully updated employee" : "Successfully added employee";
         Axios[method]({
             ...formValues,
             phone: parseInt(formValues.phone),
@@ -106,7 +114,11 @@ const EmployeeForm = () => {
                 }
             });
             onCancel();
-        }).catch(err => console.log(err));
+            showSuccess(title, message)
+        }).catch(err => {
+            console.log(err);
+            showError("Error", "Please try again later");
+        });
     }
 
     const onCancel = () => {
@@ -131,7 +143,11 @@ const EmployeeForm = () => {
                 }
             });
             onCancel();
-        }).catch(err => console.log(err));
+            showSuccess("Delete Employee", "Successfully deleted employee")
+        }).catch(err => {
+            console.log(err);
+            showError("Error", "Please try again later");
+        });
     }
 
     const getValue = (key) => {

@@ -26,6 +26,7 @@ const TimeSummary = () => {
         th: [],
         td: []
     });
+    const [adjustTimeId, setAdjustTimeId] = useState(false);
 
     useEffect(() => {
         const epochWeek = Util.getCurrentWeekInEpoch(offset);
@@ -84,8 +85,10 @@ const TimeSummary = () => {
                     weekHours[i].length = highestIndex;
                 }
                 const td = [];
+                const individualIds = [];
                 for(let i = 0; i < highestIndex; i++){
                     td.push([]);
+                    individualIds.push([]);
                 }
     
                 let weekIndex = 0;
@@ -93,16 +96,20 @@ const TimeSummary = () => {
                     for(let j = 0; j < weekHours[key].length; j++){
                         if(weekHours[key][j]){
                             td[j][weekIndex] = `${weekHours[key][j].clockIn ? "I": "O"} : ${weekHours[key][j].time}`;
+                            individualIds[j][weekIndex] = weekHours[key][j].timeId;
                         } else {
+                            individualIds[j][weekIndex] = null;
                             td[j][weekIndex] = "";
                         }
                     }
                     weekIndex++;
                 }
                 td.push(dayHrs);
+                individualIds.push(dayHrs);
                 setTableData({
                     th: currentWeek,
-                    td
+                    td,
+                    individualIds
                 });
 
                 const weekNumber = dates.data.length ? moment(dates.data[0].time.formatted).week() : null;
@@ -114,6 +121,8 @@ const TimeSummary = () => {
         }
         // note: this will reload twice because of state.timeSheet.clockIn.selectedEmployeeIsClockedIn
     }, [offset, state.timeSheet.clockIn.selectedEmployeeIsClockedIn]);
+
+    const isSelected = id => id === adjustTimeId;
 
     return (<div className="timeSummary">
         <Paper
@@ -142,6 +151,8 @@ const TimeSummary = () => {
             <Table
                 th={tableData.th}
                 td={tableData.td}
+                individualIds={tableData.individualIds}
+                isSelected={isSelected}
                 setRefs={() => {}}
                 getTd={() => tableData.td}
                 getTh={() => tableData.th}
@@ -160,9 +171,8 @@ const TimeSummary = () => {
                         return <span><i className="fas fa-arrow-left redText"></i> {value.replace("O :", "")}</span>
                     }
                 }}
-                onClick={data => {
-                    console.log(data)
-                    // setReplacement
+                onClick={id => {
+                    id === adjustTimeId ? setAdjustTimeId(false) : setAdjustTimeId(id);
                 }}
             ></Table>
             {/* {replacement ? <div className="timesheetReplacementTime">

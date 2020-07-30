@@ -9,7 +9,8 @@ const Table = props => {
 
     const {
         onClick,
-        isSelected
+        isSelected,
+        individualIds
     } = props;
 
     return (<div>
@@ -20,8 +21,8 @@ const Table = props => {
                 </tr>
             </thead>
             <tbody>
-                {props.td.map((data, index) => (<tr key={index} class={`${isSelected && isSelected(props.ids[index]) && "selected"}`}>
-                    {data.map((d, i) => <td key={i} onClick={() => onClick(props.ids[index])}>{props.getData(d)}</td>)}
+                {props.td.map((data, index) => (<tr key={index}>
+                    {data.map((d, i) => <td key={i} onClick={() => onClick(props.ids[index] || individualIds[index][i])} className={`${isSelected && isSelected(props.ids[index] || individualIds[index][i]) && "selected"}`}>{props.getData(d)}</td>)}
                 </tr>))}
             </tbody>
         </table>
