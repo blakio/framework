@@ -9,6 +9,9 @@ import moment from "moment";
 import TimePicker from 'rc-time-picker';
 import 'rc-time-picker/assets/index.css';
 
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+
 import {
     Paper,
     Table
@@ -163,6 +166,17 @@ const TimeSummary = () => {
                 }}
                 getData={value => {
                     if(!value) return "";
+
+                    // return <DatePicker
+                    //     selected={Date.now()}
+                    //     onChange={handleDateChange}
+                    //     showTimeSelect
+                    //     timeIntervals={5}
+                    //     minDate={new Date()}
+                    //     maxDate={addMonths(new Date(), 5)}
+                    //     showDisabledMonthNavigation
+                    // />
+
                     if(value.includes("Total")){
                         return <span>{value}</span>
                     } else if(value.includes("I")){
@@ -172,10 +186,11 @@ const TimeSummary = () => {
                     }
                 }}
                 onClick={id => {
+                    if(!id) return;
                     id === adjustTimeId ? setAdjustTimeId(false) : setAdjustTimeId(id);
                 }}
             ></Table>
-            {/* {replacement ? <div className="timesheetReplacementTime">
+            {/* {adjustTimeId ? <div className="timesheetReplacementTime">
                 <p className="timeReplacementText">Enter a replacement time:</p>
                 <TimePicker
                     showSecond={false}
