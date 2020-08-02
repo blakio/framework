@@ -6,7 +6,8 @@ import {
   SideBar,
   TopBar,
   Dashboard,
-  LoadingScreen
+  LoadingScreen,
+  LogIn
 } from "./Blakio";
 
 import ReactNotification from 'react-notifications-component'
@@ -37,11 +38,12 @@ const ContentArea = () => {
 function App() {
   return (<StateProvider>
     <ReactNotification />
-    <div id="App">
+    <LogIn />
+    {/* <div id="App">
       <SideBar />
       <ContentArea />
       <Loading />
-    </div>
+    </div> */}
   </StateProvider>);
 }
 

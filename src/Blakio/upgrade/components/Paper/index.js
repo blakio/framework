@@ -14,7 +14,9 @@ const Paper = props => {
             buttons={props.buttons}
         />}
         {props.children}
-        <PaperFold />
+        <PaperFold
+            customFoldColor={props.customFoldColor}
+        />
         {props.loading && <div>
             <div className="loading"></div>
             <div className="loading"></div>

@@ -1,0 +1,80 @@
+#loginForm {
+    height: 15em;
+    width: 30em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: var(--darkerGrey);
+    margin: 0 auto;
+    top: 25vh;
+    position: relative;
+    border-radius: 0.2em;
+}
+
+.loginFormContainer {
+    height: 12em;
+    width: 26em;
+}
+
+#loginForm input {
+    display: block;
+    width: 90%;
+    padding: 6px 12px;
+    font-size: 1em !important;
+    line-height: 1.42857143;
+    color: #555;
+    background-color: #fff;
+    background-image: none;
+    border: 1px solid rgba(0, 0, 0, 0.1) !important;
+    border-radius: 3px;
+    -webkit-box-shadow: none !important;
+    box-shadow: none !important;
+    -webkit-transition: none !important;
+    -o-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s !important;
+    transition: none !important;
+}
+
+#loginForm .submitBtn {
+    background-color: #3c8dbc;
+    border-color: #367fa9;
+    font-weight: 500;
+    border: 1px solid transparent;
+    padding: 7px 10px;
+    font-size: 0.8em;
+    color: #fff;
+    margin-bottom: 0;
+    line-height: 1.6em;
+    cursor: pointer;
+    user-select: none;
+    border-radius: 0.3em;
+    margin: 1em;
+}
+
+.submitBtn.red {
+    background-color: var(--red);
+}
+
+.submitBtn:hover {
+    background-color: #367fa9;
+}
+
+.submitBtn.red:hover {
+    background-color: var(--darkRed);
+    box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+}
+
+.submitBtn:active {
+    background-color: #367fa9;
+    box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+}
+
+.submitBtn.red:active {
+    background-color: var(--red);
+    box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+}
+
+.react-datepicker__input-container input {
+    border: 1px solid rgba(0, 0, 0, 0.1) !important;
+    border-radius: 3px;
+    font-size: 1em;
+}

@@ -1,9 +1,12 @@
 import React from "react";
 import "./main.css";
 
-const PaperFold = () => {
+const PaperFold = props => {
+    const { customFoldColor } = props;
     return (<div id="panelBottomFold">
-    <div id="panelBottomFoldTransparent"></div>
+    <div id="panelBottomFoldTransparent" style={customFoldColor ? {
+        backgroundColor: customFoldColor
+    } : {}}></div>
 </div>);
 }
 

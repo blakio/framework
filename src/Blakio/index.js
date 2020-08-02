@@ -26,6 +26,8 @@ import Notes from "./upgrade/timesheet/Notes/index.js";
 import EmployeeTable from "./upgrade/employeeDirectory/EmployeeTable";
 import EmployeeForm from "./upgrade/employeeDirectory/EmployeeForm";
 
+import LoginScreen from "./upgrade/loginScreen";
+
 const {
   SideBarPaper,
   TopLeftFold,
@@ -227,12 +229,14 @@ const LoadingScreen = () => {
   </div>)
 }
 
-const SAMPLE = () => {
-  return (<div id="SAMPLE">
+const LogIn = () => {
+  return (<div>
+    <LoginScreen />
   </div>)
 }
 
 export {
+  LogIn,
   SideBar,
   TopBar,
   Dashboard,

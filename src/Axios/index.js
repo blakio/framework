@@ -1,7 +1,10 @@
 import axios from "axios";
 
 var axiosInstance = axios.create({
-  baseURL: 'http://localhost:5000/api'
+  baseURL: 'http://localhost:5000/api',
+  headers: {
+    blakio_store: localStorage.getItem("blakio_store")
+  }
 });
 
 export default {
@@ -69,6 +72,10 @@ export default {
 
   deleteEmployee: async (employeeId) => {
     return await axiosInstance.delete(`/table/Employee/${employeeId}`);
+  },
+
+  getTimeChangeConstraints: async (employeeId, query) => {
+    return await axiosInstance.post(`/table/aggregate/Time/${employeeId}`, { query });
   }
 
 };
