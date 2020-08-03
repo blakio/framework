@@ -6,6 +6,9 @@ export default (state, action) => {
   console.table(action)
 
   switch(action.type){
+    case Types.IS_LOGGED_IN:
+      return StateFunctions.isLoggedIn(payload, state);
+
     case Types.IS_LOADING:
       return StateFunctions.isLoading(payload, state);
       

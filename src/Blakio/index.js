@@ -72,7 +72,7 @@ const SideBarHead = () => {
 const DashboardHead = () => {
   const [state, dispatch] = StateContext();
 
-  const selected = state.sideBarOptions.sideBar.filter(data => data._id === state.sideBarOptions.sideBarOption);
+  const selected = state.sideBarOptions.sideBar.filter(data => data.title === state.sideBarOptions.sideBarOption);
   const label = state.sideBarOptions.sideBar.length && selected[0] && selected[0].title.toUpperCase();
   return (<div id="DashboardHead" className="flex">
     <div className="flex">
@@ -115,8 +115,8 @@ const DashboardBody = () => {
 
   return (<div id="dashboardBodyContainer">
     <div id="DashboardBody">
-      <TimeSheet show={state.sideBarOptions.sideBarOption === "5f0bae5dd1bcc57d8bdf0cd1"} />
-      <EmployeeDirectory show={state.sideBarOptions.sideBarOption === "5f0bae6ed1bcc57d8bdf0cd2"}/>
+      <TimeSheet show={state.sideBarOptions.sideBarOption === "Timesheet"} />
+      <EmployeeDirectory show={state.sideBarOptions.sideBarOption === "Employee Directory"}/>
     </div>
   </div>)
 }
@@ -182,7 +182,7 @@ const SideBar = () => {
     if(state.sideBarOptions.sideBar.length && !state.sideBarOptions.sideBarOption){
       dispatch({
         type: Types.SET_SIDE_BAR_OPTION,
-        payload: state.sideBarOptions.sideBar[0]._id
+        payload: state.sideBarOptions.sideBar[0].title
       })
     }
   }, [state.sideBarOptions.sideBar])

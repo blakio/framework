@@ -2,6 +2,8 @@ import Util from "../Util";
 import Axios from "../Axios";
 
 export default {
+  isLoggedIn: (payload, state) => ({ ...state, isLoggedIn: payload }),
+  
   isLoading: (payload, state) => ({ ...state, isLoading: payload }),
   
   getEmployees: (payload, state) => {

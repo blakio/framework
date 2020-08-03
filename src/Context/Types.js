@@ -1,4 +1,5 @@
 export default {
+  IS_LOGGED_IN: "IS_LOGGED_IN",
   IS_LOADING: "IS_LOADING",
   
   // initial data load

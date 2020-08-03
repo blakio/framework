@@ -179,7 +179,7 @@ export default {
     // map data to sidebar buttons
     sideBar.forEach(data => {
       // is the option current selected
-      const isSelected = data._id === sideBarOption;
+      const isSelected = data.title === sideBarOption;
       // if the open is selected it is opened
       data.isOpen = isSelected;
       // sets the click event of the parent dropdown
@@ -187,7 +187,7 @@ export default {
         if(!isSelected){
           dispatch({
             type: Types.SET_SIDE_BAR_OPTION,
-            payload: isSelected ? null : data._id
+            payload: isSelected ? null : data.title
           })
           // if there is a custom function option, fire it after the dispatch to open the option
           if(data.fn) customFn[data.fn](data)
@@ -197,34 +197,6 @@ export default {
       data.icon = isSelected ? "fas fa-dot-circle" : "far fa-dot-circle";
       // sets the active background color
       data.selected = isSelected;
-      // loops through the inner dropdowns "Children"
-      data.data.forEach(list => {
-        // is the child selected
-        const isChildSelected = sideBarChildOption === list._id;
-        // sets the open status
-        list.isOpen = isChildSelected
-        // set the click event
-        list.onClick = () => {
-          // click event to toggle the open status
-          dispatch({
-            type: Types.SET_SIDE_BAR_CHILD_OPTION,
-            payload: isChildSelected ? null : list._id
-          })
-          // open the grandchildren if the option is a dropdown
-          if(list.types.includes("list") && list.types.includes("click")){
-            dispatch({
-              type: list.clickType,
-              payload: list._id
-            })
-          }
-          // fires a custom function if it includes one
-          if(list.fn) customFn[list.fn](list);
-        }
-        // loop through any grandchildren options and sets the custom functions
-        list.data.forEach(childList => {
-          childList.onClick = () => customFn[childList.fn](childList);
-        })
-      })
     });
   },
 

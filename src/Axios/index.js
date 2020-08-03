@@ -1,6 +1,6 @@
 import axios from "axios";
 
-var axiosInstance = axios.create({
+let axiosInstance = axios.create({
   baseURL: 'http://localhost:5000/api',
   headers: {
     blakio_store: localStorage.getItem("blakio_store")
@@ -8,6 +8,15 @@ var axiosInstance = axios.create({
 });
 
 export default {
+
+  resetAxiosInstance: () => {
+    axiosInstance = axios.create({
+      baseURL: 'http://localhost:5000/api',
+      headers: {
+        blakio_store: localStorage.getItem("blakio_store")
+      }
+    });
+  },
 
   getEmployees: async () => {
     return await axiosInstance.get("/table/Employee");
@@ -76,6 +85,11 @@ export default {
 
   getTimeChangeConstraints: async (employeeId, query) => {
     return await axiosInstance.post(`/table/aggregate/Time/${employeeId}`, { query });
+  },
+
+  logIn: async (pin, checkLocalStorage) => {
+    const body = checkLocalStorage ? { check: pin } : { pin }
+    return await axiosInstance.post(`/login`, body);
   }
 
 };

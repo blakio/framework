@@ -20,6 +20,7 @@ import {
   StateContext
 } from "./Context/State";
 import Types from './Context/Types';
+import Axios from './Axios';
 
 const Loading = () => {
   const [state, dispatch] = StateContext();
@@ -35,15 +36,43 @@ const ContentArea = () => {
 </div>)
 }
 
+const Content = () => {
+
+  const [state, dispatch] = StateContext();
+
+  useEffect(() => {
+    const store = localStorage.getItem("blakio_store");
+    if(store){
+      const checkLocalStorage = true;
+      Axios.logIn(store, checkLocalStorage).then(data => {
+        if(data.data.logIn){
+          dispatch({
+            type: Types.IS_LOGGED_IN,
+            payload: true
+          })
+        } else {
+          localStorage.removeItem("blakio_store")
+        }
+      }).catch(err => console.log(err))
+    }
+  }, []);
+
+  return (<div>
+    {!state.isLoggedIn ? 
+     <LogIn /> : (
+      <div id="App">
+        <SideBar />
+        <ContentArea />
+        <Loading />
+      </div>
+     )}
+  </div>)
+}
+
 function App() {
   return (<StateProvider>
     <ReactNotification />
-    <LogIn />
-    {/* <div id="App">
-      <SideBar />
-      <ContentArea />
-      <Loading />
-    </div> */}
+    <Content />
   </StateProvider>);
 }
 
