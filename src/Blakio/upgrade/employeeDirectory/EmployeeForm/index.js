@@ -184,7 +184,7 @@ const EmployeeForm = () => {
                 <input className="employeeInput" placeholder="Enter text" type="title" onChange={handleChange} value={getValue("title")}/>
                 <p>Department</p>
                 <input className="employeeInput" placeholder="Enter text" type="department" onChange={handleChange} value={getValue("department")}/>
-                <button className="submitBtn" onClick={onSubmit}>Update</button>
+                <button className="submitBtn" onClick={onSubmit}>{updateId ? "Update" : "Add"}</button>
                 <button className="submitBtn" onClick={onCancel}>Cancel</button>
                 {updateId && <button className="submitBtn red" onClick={onDelete}>Delete</button>}
             </div>
