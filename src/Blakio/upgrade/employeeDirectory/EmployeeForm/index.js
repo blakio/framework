@@ -101,7 +101,7 @@ const EmployeeForm = () => {
             ...formValues,
             phone: parseInt(formValues.phone),
             emergencyContact: parseInt(formValues.emergencyContact)
-        }).then(data => {
+        }, updateId).then(data => {
             dispatch({
                 type: Types.GET_EMPLOYEES,
                 payload: {

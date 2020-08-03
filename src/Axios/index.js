@@ -70,11 +70,11 @@ export default {
     return await axiosInstance.post('/table/Employee', employee);
   },
 
-  updateEmployee: async (updatedEmployee, employeeId) => {
+  updateEmployee: async (updatedEmployee, _id) => {
     return await axiosInstance.post("/table/Employee", {
       setFields: updatedEmployee,
       query: {
-        _id: "5f1f3cac7b8c5bd8e13b69c0"
+        _id
       }
     });
   },
