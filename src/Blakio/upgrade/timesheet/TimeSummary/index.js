@@ -17,10 +17,10 @@ import {
     Table
 } from "../../components";
 
-import Util from "../../../../Util";
-import Axios from "../../../../Axios";
-import { StateContext } from "Context/State";
-import Types from "../../../../Context/Types";
+import Util from "blakio_util";
+import Axios from "blakio_axios";
+import { StateContext } from "blakio_context/State";
+import Types from "blakio_context/Types";
 
 const TimeSummary = () => {
     const [state, dispatch] = StateContext();
@@ -185,9 +185,23 @@ const TimeSummary = () => {
                         return <span><i className="fas fa-arrow-left redText"></i> {value.replace("O :", "")}</span>
                     }
                 }}
-                onClick={id => {
-                    if(!id) return;
-                    id === adjustTimeId ? setAdjustTimeId(false) : setAdjustTimeId(id);
+                onClick={timeId => {
+                    // const employeeId = state.timeSheet.clockIn.selectedEmployee._id;
+                    // const query = [
+                    //     { "$unwind": "$time" },
+                    //     { "$match": { "time._id": { "$gte": timeId } } }
+                    //     // { $limit : 1 }
+                    // ];
+
+                    // // { "$match": { "time._id": { "$gt": timeId, "$lt": timeId } } },
+                    // // db.posts.find({_id: {$gt: curId}}).sort({_id: 1 }).limit(1)
+                    // // db.posts.find({_id: {$lt: curId}}).sort({_id: -1 }).limit(1)
+
+                    // Axios.getTimeChangeConstraints(employeeId, query).then(data => {
+                    //     console.log(data);
+                    // })
+                    // if(!timeId) return;
+                    // timeId === adjustTimeId ? setAdjustTimeId(false) : setAdjustTimeId(timeId);
                 }}
             ></Table>
             {/* {adjustTimeId ? <div className="timesheetReplacementTime">

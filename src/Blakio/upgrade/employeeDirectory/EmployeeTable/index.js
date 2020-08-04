@@ -3,15 +3,15 @@ import "./main.css";
 
 import {
     StateContext
-} from "Context/State";
+} from "blakio_context/State";
 
 import {
     Paper,
     Table
 } from "../../components";
 
-import Types from "../../../../Context/Types";
-import Util from "../../../../Util";
+import Types from "blakio_context/Types";
+import Util from "blakio_util";
 
 const EmployeeTable = () => {
     const [state, dispatch] = StateContext();

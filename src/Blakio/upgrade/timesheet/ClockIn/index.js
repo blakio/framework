@@ -1,5 +1,4 @@
 import React, {
-    useState,
     useEffect
 } from "react";
 import "./main.css";
@@ -10,10 +9,10 @@ import {
     TextWithSubText
 } from "../../components";
 
-import { StateContext } from "Context/State";
-import Types from "Context/Types"
-import Axios from "../../../../Axios/index.js";
-import Util, { strings } from "../../../../Util";
+import { StateContext } from "blakio_context/State";
+import Types from "blakio_context/Types"
+import Axios from "blakio_axios";
+import Util, { strings } from "blakio_util";
 
 const ClockIn = props => {
     const [state, dispatch] = StateContext();

@@ -18,9 +18,9 @@ import "react-loader-spinner/dist/loader/css/react-spinner-loader.css"
 import {
   StateProvider,
   StateContext
-} from "./Context/State";
-import Types from './Context/Types';
-import Axios from './Axios';
+} from "blakio_context/State";
+import Types from 'blakio_context/Types';
+import Axios from 'blakio_axios';
 
 const Loading = () => {
   const [state, dispatch] = StateContext();

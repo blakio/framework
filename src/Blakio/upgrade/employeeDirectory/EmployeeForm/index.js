@@ -10,14 +10,14 @@ import {
     Paper
 } from "../../components";
 
-import Axios from "../../../../Axios";
+import Axios from "blakio_axios";
 
-import Types from "../../../../Context/Types";
+import Types from "blakio_context/Types";
 import {
     StateContext
-} from "Context/State";
+} from "blakio_context/State";
 
-import Util from "../../../../Util";
+import Util from "blakio_util";
 const {
     showError,
     showSuccess

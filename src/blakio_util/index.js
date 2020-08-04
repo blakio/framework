@@ -1,4 +1,4 @@
-import Types from "../Context/Types";
+import Types from "blakio_context/Types";
 
 import { store } from 'react-notifications-component';
 

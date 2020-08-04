@@ -3,13 +3,13 @@ import "./main.css";
 
 import moment from "moment";
 
-import Axios from "../../../../Axios";
+import Axios from "blakio_axios";
 
 import {
     Paper
 } from "../../components";
 
-import { StateContext } from "Context/State";
+import { StateContext } from "blakio_context/State";
 
 const Notes = () => {
     const [state, dispatch] = StateContext();

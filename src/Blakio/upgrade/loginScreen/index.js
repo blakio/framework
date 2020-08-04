@@ -5,13 +5,13 @@ import {
     Paper
 } from "../components";
 
-import Axios from "../../../Axios/index.js";
+import Axios from "blakio_axios";
 
 import {
     StateContext
-} from "Context/State";
-import Util from "../../../Util";
-import Types from "Context/Types"
+} from "blakio_context/State";
+import Util from "blakio_util";
+import Types from "blakio_context/Types"
 
 const Login = () => {
 

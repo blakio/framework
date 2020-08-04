@@ -1,5 +1,5 @@
-import Util from "../Util";
-import Axios from "../Axios";
+import Util from "blakio_util";
+import Axios from "blakio_axios";
 
 export default {
   isLoggedIn: (payload, state) => ({ ...state, isLoggedIn: payload }),

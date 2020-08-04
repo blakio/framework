@@ -7,13 +7,13 @@ import Loader from 'react-loader-spinner'
 
 import './Blakio.css';
 
-import Util from "../Util";
+import Util from "blakio_util";
 import logo from "../imgs/logo.png";
-import Axios from "../Axios";
-import Types from "../Context/Types";
+import Axios from "blakio_axios";
+import Types from "blakio_context/Types";
 import {
   StateContext
-} from "../Context/State";
+} from "blakio_context/State";
 
 
 import BlakioUI from "Blakio/Framework";
