@@ -8,7 +8,7 @@ import {
   Dashboard,
   LoadingScreen,
   LogIn
-} from "./Blakio";
+} from "./blakio";
 
 import ReactNotification from 'react-notifications-component'
 import 'react-notifications-component/dist/theme.css';
