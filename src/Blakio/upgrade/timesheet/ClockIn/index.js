@@ -14,25 +14,27 @@ import Types from "blakio_context/Types"
 import Axios from "blakio_axios";
 import Util, { strings } from "blakio_util";
 
-const ClockIn = props => {
+const ClockIn = () => {
+
     const [state, dispatch] = StateContext();
+
     useEffect(() => { Util.getEmployees(dispatch) }, []);
 
     const { employeeDirectory } = state;
 
-    const submitNewEmployee = (employeeId, time, firstName) => {
-        Axios.recordEmployeeTime({
-            employeeId,
-            isClockedIn: true,
-            time
-        }).then(data => {
+    const submitNewEmployee = async (employeeId, time, firstName) => {
+        try {
+            await Axios.recordEmployeeTime({ employeeId, isClockedIn: true, time });
             Util.load(dispatch, false);
             Util.showSuccess(`Thanks ${firstName}`, "Successfully Clocked In");
             dispatch({
                 type: Types.SELECTED_EMPLOYEE_IS_CLOCKED_IN,
                 payload: true
             });
-        }).catch(err => errorLoggingIn(err))
+            Util.load(dispatch, false);
+        } catch(err) {
+            errorLoggingIn(err)
+        }
     }
 
     const errorLoggingIn = err => {
@@ -41,32 +43,35 @@ const ClockIn = props => {
         Util.showError(strings.timesheet.cantClockIn.title, strings.timesheet.cantClockIn.body);
     }
 
-    const clockTime = () => {
+    const clockTime = async () => {
+
         const employee = state.timeSheet.clockIn.selectedEmployee;
         if(!employee) return;
 
         Util.load(dispatch, true);
-        Axios.getTime().then(data => {
-            Axios.getEmployeeTimeLog({
-                query: { employeeId: employee._id }
-            }).then(log => {
+
+        try {
+            const time = await Axios.getTime();
+            const timeLog = await Axios.getEmployeeTimeLog({ query: { employeeId: employee._id } });
+    
+            const hasPreviouslyLogTime = timeLog.data.length;
+            if(hasPreviouslyLogTime){
+                const fieldToPushTo = "time";
+                await Axios.addToTimeLog(employee._id, { ...time.data, hasClockedIn: !timeLog.data[0].isClockedIn }, fieldToPushTo, !timeLog.data[0].isClockedIn);
+
+                Util.showSuccess(`Thanks ${employee.firstName}`, `Successfully ${timeLog.data[0].isClockedIn ? "Clocked Out" : "Clocked In"}`);
+                dispatch({
+                    type: Types.SELECTED_EMPLOYEE_IS_CLOCKED_IN,
+                    payload: !timeLog.data[0].isClockedIn
+                });
                 Util.load(dispatch, false);
-                const hasPreviouslyLogTime = log.data.length;
-                if(hasPreviouslyLogTime){
-                    const fieldToPushTo = "time";
-                    Axios.addToTimeLog(employee._id, { ...data.data, hasClockedIn: !log.data[0].isClockedIn }, fieldToPushTo, !log.data[0].isClockedIn).then(() => {
-                        Util.load(dispatch, false);
-                        Util.showSuccess(`Thanks ${employee.firstName}`, `Successfully ${log.data[0].isClockedIn ? "Clocked Out" : "Clocked In"}`);
-                        dispatch({
-                            type: Types.SELECTED_EMPLOYEE_IS_CLOCKED_IN,
-                            payload: !log.data[0].isClockedIn
-                        });
-                    }).catch(err => errorLoggingIn(err));
-                } else {
-                    submitNewEmployee(employee._id, { ...data.data, hasClockedIn: true }, employee.firstName)
-                }
-            }).catch(err => errorLoggingIn(err));
-        }).catch(err => errorLoggingIn(err));
+            } else {
+                submitNewEmployee(employee._id, { ...time.data, hasClockedIn: true }, employee.firstName);
+            }
+        } catch(err) {
+            errorLoggingIn(err);
+            Util.load(dispatch, false);
+        }
     }
 
     const icon = (<div className="clockInBox">
