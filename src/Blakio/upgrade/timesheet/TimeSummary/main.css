@@ -5,23 +5,3 @@
 li.rc-time-picker-panel-select-option-selected {
     background-color: var(--silver) !important;
 }
-
-.timesheetReplacementTime {
-    color: var(--red);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    font-weight: 700;
-}
-
-.timeReplacementText {
-    margin-bottom: 0.4em;
-}
-
-.timeSelectBox {
-    display: flex;
-    justify-content: space-between;
-    width: 8em;
-    margin: 0.4em;
-}

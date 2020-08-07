@@ -1,4 +1,4 @@
-ul {
+.autoComplete ul {
     color: #fff;
     padding: 0.2em 0;
 
@@ -11,7 +11,7 @@ ul {
     padding-inline-start: 0px;
 }
 
-li {
+.autoComplete li {
     background-color: var(--darkFoldBlue);
     list-style-type: none;
     line-height: 2em;
@@ -22,6 +22,6 @@ li {
     border-bottom: 1px solid #465b72;
 }
 
-li:hover {
+.autoComplete li:hover {
     opacity: 0.8;
 }

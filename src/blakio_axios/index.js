@@ -83,13 +83,21 @@ export default {
     return await axiosInstance.delete(`/table/Employee/${employeeId}`);
   },
 
-  getTimeChangeConstraints: async (employeeId, query) => {
-    return await axiosInstance.post(`/table/aggregate/Time/${employeeId}`, { query });
+  findTimeBoundaries: async (employeeId, timestamp) => {
+    const boundaries = await axiosInstance.post(`/getTimeBoundaries/${employeeId}/${timestamp}`);
+    return {
+      prev: boundaries.data.prev && boundaries.data.prev.time.formatted,
+      next: boundaries.data.next && boundaries.data.next.time.formatted
+    }
   },
 
   logIn: async (pin, checkLocalStorage) => {
     const body = checkLocalStorage ? { check: pin } : { pin }
     return await axiosInstance.post(`/login`, body);
+  },
+
+  updateClockinTime: async (query) => {
+    return await axiosInstance.post(`/updateTime`, query);
   }
 
 };

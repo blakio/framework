@@ -19,7 +19,7 @@ const Autocomplete = props => {
         return name.toLowerCase().includes(value.toLowerCase());
     });
 
-    return (<div style={props.style}>
+    return (<div className="autoComplete" style={props.style}>
         {filteresList.length && value !== getName(filteresList) ? <div>
             <ul>
                 {value && filteresList.map((data, index) => <li

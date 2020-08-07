@@ -30,8 +30,22 @@ const TimeSummary = () => {
         td: []
     });
     const [adjustTimeId, setAdjustTimeId] = useState(false);
+    const [dateMapper, setDateMapper] = useState({});
+    const [dateMapperFormatted, setDateMapperFormatted] = useState({});
 
-    useEffect(() => {
+    const [minDate, setMinDate] = useState(null);
+    const [maxDate, setMaxDate] = useState(null);
+
+    const setDateIdToTimeStampMapper = (data) => {
+        const mapper = {};
+        const mapperFormatted = {};
+        data.forEach(d => mapper[d.time._id] = d.time.timestamp);
+        data.forEach(d => mapperFormatted[d.time._id] = d.time.formatted);
+        setDateMapper(mapper);
+        setDateMapperFormatted(mapperFormatted);
+    }
+
+    const updateTimeTable = () => {
         const epochWeek = Util.getCurrentWeekInEpoch(offset);
         const range = [epochWeek[0], epochWeek[epochWeek.length - 1]];
         const query = [
@@ -63,7 +77,8 @@ const TimeSummary = () => {
         getHoursForDays();
         
         const getTimeBreakdown = () => {
-            Axios.getTimeOverRange(state.timeSheet.clockIn.selectedEmployee._id, query).then(dates => {  
+            Axios.getTimeOverRange(state.timeSheet.clockIn.selectedEmployee._id, query).then(dates => {
+                setDateIdToTimeStampMapper(dates.data)
                 const weekHours = {};
                 currentWeek.forEach(day => (weekHours[day] = []));
                 dates.data.forEach(date => {
@@ -122,10 +137,42 @@ const TimeSummary = () => {
                 })
             });
         }
+    }
+
+    useEffect(() => {
+        updateTimeTable()
         // note: this will reload twice because of state.timeSheet.clockIn.selectedEmployeeIsClockedIn
     }, [offset, state.timeSheet.clockIn.selectedEmployeeIsClockedIn]);
 
-    const isSelected = id => id === adjustTimeId;
+    const isSelected = id => (adjustTimeId && id === adjustTimeId);
+
+    const handleDateChange = data => {
+        const formatted = moment(data._d).toISOString()
+        const offsetInMin = moment().utcOffset();
+
+        const isBefore = !maxDate ? true : moment(data._d).isBefore(maxDate);
+        const isAfter = !minDate ? true : moment(data._d).isAfter(minDate);
+        const isBeforeCurrentTime = moment().isAfter(data._d);
+        if(isBeforeCurrentTime && ((isBefore && isAfter) || (!minDate && !maxDate))){
+            Axios.updateClockinTime({
+                id: adjustTimeId,
+                formatted,
+                timestamp: moment(formatted).add(offsetInMin, "minutes").unix()
+            }).then(data => {
+                updateTimeTable();
+            }).catch(err => Util.showError("Error", "error loading time table"))
+        } else {
+            if(!isBeforeCurrentTime){
+                Util.showError("Time error", `Time must be before ${moment().format("MMMM Do YYYY, h:mm:ss a")}`)
+            } else if(!minDate){
+                Util.showError("Time error", `Time must be before ${moment(maxDate).format("MMMM Do YYYY, h:mm:ss a")}`)
+            } else if(!maxDate){
+                Util.showError("Time error", `Time must be after ${moment(minDate).format("MMMM Do YYYY, h:mm:ss a")}`)
+            } else {
+                Util.showError("Time error", `Time must be between ${moment(minDate).format("MMMM Do YYYY, h:mm:ss a")} and ${moment(maxDate).format("MMMM Do YYYY, h:mm:ss a")}`)
+            }
+        }
+    }
 
     return (<div className="timeSummary">
         <Paper
@@ -164,18 +211,20 @@ const TimeSummary = () => {
                 getHeadData={value => {
                     return value;
                 }}
-                getData={value => {
+                getData={(value, id) => {
                     if(!value) return "";
 
-                    // return <DatePicker
-                    //     selected={Date.now()}
-                    //     onChange={handleDateChange}
-                    //     showTimeSelect
-                    //     timeIntervals={5}
-                    //     minDate={new Date()}
-                    //     maxDate={addMonths(new Date(), 5)}
-                    //     showDisabledMonthNavigation
-                    // />
+                    if(id === adjustTimeId && !adjustTimeId.includes("Total")){
+                        return (<div>
+                            <TimePicker
+                                showSecond={true}
+                                use12Hours={true}
+                                defaultValue={moment(dateMapperFormatted[id])}
+                                onChange={handleDateChange}
+                                addon={() => {}}
+                            />
+                        </div>)
+                    }
 
                     if(value.includes("Total")){
                         return <span>{value}</span>
@@ -185,37 +234,18 @@ const TimeSummary = () => {
                         return <span><i className="fas fa-arrow-left redText"></i> {value.replace("O :", "")}</span>
                     }
                 }}
-                onClick={timeId => {
-                    // const employeeId = state.timeSheet.clockIn.selectedEmployee._id;
-                    // const query = [
-                    //     { "$unwind": "$time" },
-                    //     { "$match": { "time._id": { "$gte": timeId } } }
-                    //     // { $limit : 1 }
-                    // ];
+                onClick={async (timeId) => {
+                    const employeeId = state.timeSheet.clockIn.selectedEmployee._id;
 
-                    // // { "$match": { "time._id": { "$gt": timeId, "$lt": timeId } } },
-                    // // db.posts.find({_id: {$gt: curId}}).sort({_id: 1 }).limit(1)
-                    // // db.posts.find({_id: {$lt: curId}}).sort({_id: -1 }).limit(1)
-
-                    // Axios.getTimeChangeConstraints(employeeId, query).then(data => {
-                    //     console.log(data);
-                    // })
-                    // if(!timeId) return;
-                    // timeId === adjustTimeId ? setAdjustTimeId(false) : setAdjustTimeId(timeId);
+                    const timestamp = dateMapper[timeId];
+                    if(timestamp){
+                        const timeBoundaries = await Axios.findTimeBoundaries(employeeId, timestamp);
+                        setMinDate(timeBoundaries.prev && new Date(timeBoundaries.prev))
+                        setMaxDate(timeBoundaries.next && new Date(timeBoundaries.next))
+                    }
+                    setAdjustTimeId(timeId);
                 }}
             ></Table>
-            {/* {adjustTimeId ? <div className="timesheetReplacementTime">
-                <p className="timeReplacementText">Enter a replacement time:</p>
-                <TimePicker
-                    showSecond={false}
-                    use12Hours={true}
-                    defaultValue={moment()}
-                />
-                <div className="timeSelectBox">
-                    <button>Submit</button>
-                    <button>Cancel</button>
-                </div>
-            </div> : <div></div>} */}
         </Paper>
     </div>);
 }
