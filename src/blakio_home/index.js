@@ -55,7 +55,7 @@ const SideBarHead = () => {
   }
 
   const margin = isClosed ? "0 0.1em" : "0 1em";
-  const width = isClosed ? 45 : null;
+  const width = isClosed ? 42 : null;
 
   return (<div id="SideBarHead" className={`flex ${state.sideBarOptions.shortMenu && "shortMenu"}`}>
     {!isClosed && <img src={logo} alt="logo" />}
@@ -210,7 +210,9 @@ const SideBar = () => {
 }
 
 const TopBar = () => {
-  return (<div id="TopBar" className="container flex">
+  const [state, dispatch] = StateContext();
+
+  return (<div id="TopBar" className={`container flex ${state.sideBarOptions.shortMenu && "shortMenu"}`}>
     <DateTimeWeather />
   </div>)
 }
@@ -218,7 +220,7 @@ const TopBar = () => {
 const Dashboard = () => {
   const [state, dispatch] = StateContext();
 
-  return (<div id="Dashboard" className="container">
+  return (<div id="Dashboard" className={`container ${state.sideBarOptions.shortMenu && "shortMenu"}`}>
     {!state.sideBarOptions.shortMenu && <TopLeftFold height={50} width={50} backgroundColor="#FFFFFF"/>}
     {!state.sideBarOptions.shortMenu && <DashboardHead />}
     <DashboardBody />

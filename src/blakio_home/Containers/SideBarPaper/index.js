@@ -3,6 +3,9 @@ import React from "react";
 import "./SideBarPaper.css";
 import SideBarOption from "../../Components/SideBarOption";
 import PaperHead from "../../Components/PaperHead";
+import {
+  StateContext
+} from "blakio_context/State";
 
 const SideBarPaper = (props) => {
   const {
@@ -13,7 +16,10 @@ const SideBarPaper = (props) => {
     closedIcon,
     shortMenu
   } = props;
-  return (<div className={`SideBarPaper ${selected && "active"}`}>
+
+  const [state, dispatch] = StateContext();
+
+  return (<div className={`SideBarPaper ${selected && "active"} ${state.sideBarOptions.shortMenu && "shortMenu"}`}>
     {
       shortMenu ?
         <PaperHead icon={closedIcon} onClick={onClick}/> :

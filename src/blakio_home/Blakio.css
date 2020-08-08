@@ -80,6 +80,10 @@ body {
   height: var(--navBarHeight);
 }
 
+#TopBar.shortMenu {
+  display: none;
+}
+
 #TopBar > * {
   margin: 1em;
 }
@@ -106,6 +110,10 @@ body {
   overflow: hidden;
 }
 
+#Dashboard.shortMenu {
+  min-height: 100%;
+}
+
 #DashboardHead {
   border-bottom: 1px solid #ddd;
   height: 4rem;
@@ -129,7 +137,7 @@ body {
 }
 
 #dashboardBodyContainer.shortMenu {
-  height: 88vh;
+  height: 96vh;
 }
 
 #DashboardBody {
