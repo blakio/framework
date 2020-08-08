@@ -54,8 +54,8 @@ const SideBarHead = () => {
     })
   }
 
-  const margin = isClosed ? "0 0.1em" : "0 1em";
-  const width = isClosed ? 42 : null;
+  const margin = isClosed ? "0 auto" : "0 1em";
+  const width = isClosed ? 62 : null;
 
   return (<div id="SideBarHead" className={`flex ${state.sideBarOptions.shortMenu && "shortMenu"}`}>
     {!isClosed && <img src={logo} alt="logo" />}
