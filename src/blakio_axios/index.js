@@ -1,7 +1,8 @@
 import axios from "axios";
 
-const dev = false;
-const baseURL = dev ? "http://localhost:5000/api" : "https://blakiodashboardserver.herokuapp.com/api"
+// const dev = false;
+// const baseURL = dev ? "http://localhost:5000/api" : "https://blakiodashboardserver.herokuapp.com/api"
+const baseURL = "https://blakiodashboardserver.herokuapp.com/api"
 
 let axiosInstance = axios.create({
   baseURL,
