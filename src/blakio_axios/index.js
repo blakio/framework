@@ -1,7 +1,10 @@
 import axios from "axios";
 
+const dev = false;
+const baseURL = dev ? "http://localhost:5000/api" : "https://blakiodashboardserver.herokuapp.com/api"
+
 let axiosInstance = axios.create({
-  baseURL: 'http://localhost:5000/api',
+  baseURL,
   headers: {
     blakio_store: localStorage.getItem("blakio_store")
   }
@@ -11,7 +14,7 @@ export default {
 
   resetAxiosInstance: () => {
     axiosInstance = axios.create({
-      baseURL: 'http://localhost:5000/api',
+      baseURL,
       headers: {
         blakio_store: localStorage.getItem("blakio_store")
       }
