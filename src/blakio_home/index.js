@@ -113,7 +113,7 @@ const DashboardBody = () => {
   const [state, dispatch] = StateContext();
 
 
-  return (<div id="dashboardBodyContainer">
+  return (<div id="dashboardBodyContainer" className={state.sideBarOptions.shortMenu && "shortMenu"}>
     <div id="DashboardBody">
       <TimeSheet show={state.sideBarOptions.sideBarOption === "Timesheet"} />
       <EmployeeDirectory show={state.sideBarOptions.sideBarOption === "Employee Directory"}/>
