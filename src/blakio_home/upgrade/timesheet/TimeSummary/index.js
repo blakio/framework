@@ -76,7 +76,12 @@ const TimeSummary = () => {
                 const weekHours = {};
                 currentWeek.forEach(day => (weekHours[day] = []));
                 dates.data.forEach(date => {
-                    const formattedTime = moment(date.time.formatted).format("hh:mm:ss a");
+                    const tIndex = date.time.formatted.indexOf("T");
+                    const mTime = date.time.formatted.slice(tIndex + 1);
+                    const suffix = mTime.slice(mTime.indexOf("."), mTime.length);
+                    const militaryTime = mTime.replace(suffix, "");
+
+                    const formattedTime = moment(militaryTime, 'HH:mm:ss').format("hh:mm:ss a");
                     const formattedDate = moment(date.time.formatted).format("MMMM Do, ddd");
                     if(weekHours[formattedDate]){
                         weekHours[formattedDate].push({
