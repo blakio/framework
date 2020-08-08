@@ -16,7 +16,7 @@ import {
 } from "blakio_context/State";
 
 
-import BlakioUI from "blakio/Framework";
+import BlakioUI from "blakio_home/Framework";
 
 import ClockIn from "./upgrade/timesheet/ClockIn/index.js";
 import WorkedHours from "./upgrade/timesheet/WorkedHours/index.js";
