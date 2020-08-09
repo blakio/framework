@@ -11,6 +11,19 @@ let axiosInstance = axios.create({
   }
 });
 
+window.blakio_setSideBarOptions = () => {
+  const sideBarOptions = [
+    { title: "Timesheet", closedIcon: "fas fa-clock" },
+    { title: "Employee Directory", closedIcon: "fas fa-user-tie" }
+  ];
+
+  const insertOption = async (data) => {
+    await axiosInstance.post("/table/SidebarOptions", data);
+  }
+
+  sideBarOptions.forEach(data => insertOption(data))
+}
+
 export default {
 
   resetAxiosInstance: () => {
