@@ -156,28 +156,31 @@ const TimeSummary = () => {
 
     const handleDateChange = data => {
         const offsetInMin = moment().utcOffset();
-        const formatted = moment(data._d).add(offsetInMin, "minutes").toISOString()
+        const formatted = moment(data._d).add(offsetInMin, "minutes").toISOString();
 
-        const isBefore = !maxDate ? true : moment(data._d).isBefore(maxDate);
-        const isAfter = !minDate ? true : moment(data._d).isAfter(minDate);
+        const max = moment(maxDate).add(offsetInMin * -1, "minutes");
+        const min = moment(minDate).add(offsetInMin * -1, "minutes");
+        const isBefore = !maxDate ? true : moment(data._d).isBefore(max);
+        const isAfter = !minDate ? true : moment(data._d).isAfter(min);
         const isBeforeCurrentTime = moment().isAfter(data._d);
-        if(isBeforeCurrentTime && ((isBefore && isAfter) || (!minDate && !maxDate))){
+        if((isBeforeCurrentTime || (isBefore && isAfter)) && ((isBefore && isAfter) || (!minDate && !maxDate))){
             Axios.updateClockinTime({
                 id: adjustTimeId,
                 formatted,
                 timestamp: moment(formatted).add(offsetInMin, "minutes").unix()
             }).then(data => {
                 updateTimeTable();
+                Util.showSuccess("Sucess", `Sucessfully changed time`)
             }).catch(err => Util.showError("Error", "error loading time table"))
         } else {
             if(!isBeforeCurrentTime){
-                Util.showError("Time error", `Time must be before ${moment().format("MMMM Do YYYY, h:mm:ss a")}`)
+                Util.showError("Time error", `Time must be before ${moment().add(offsetInMin * -1, "minutes").format("MMMM Do YYYY, h:mm:ss a")}`)
             } else if(!minDate){
-                Util.showError("Time error", `Time must be before ${moment(maxDate).format("MMMM Do YYYY, h:mm:ss a")}`)
+                Util.showError("Time error", `Time must be before ${moment(maxDate).add(offsetInMin * -1, "minutes").format("MMMM Do YYYY, h:mm:ss a")}`)
             } else if(!maxDate){
-                Util.showError("Time error", `Time must be after ${moment(minDate).format("MMMM Do YYYY, h:mm:ss a")}`)
+                Util.showError("Time error", `Time must be after ${moment(minDate).add(offsetInMin * -1, "minutes").format("MMMM Do YYYY, h:mm:ss a")}`)
             } else {
-                Util.showError("Time error", `Time must be between ${moment(minDate).format("MMMM Do YYYY, h:mm:ss a")} and ${moment(maxDate).format("MMMM Do YYYY, h:mm:ss a")}`)
+                Util.showError("Time error", `Time must be between ${moment(minDate).add(offsetInMin * -1, "minutes").format("MMMM Do YYYY, h:mm:ss a")} and ${moment(maxDate).add(offsetInMin * -1, "minutes").format("MMMM Do YYYY, h:mm:ss a")}`)
             }
         }
     }
