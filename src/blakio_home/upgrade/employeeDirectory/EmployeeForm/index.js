@@ -82,8 +82,6 @@ const EmployeeForm = () => {
             }
         }
 
-        value = value.trim()
-
         const objKey = e.target.getAttribute("type");
         const key = objKey === "employeeEmail" ? "email" : objKey;
 

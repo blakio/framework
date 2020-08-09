@@ -79,7 +79,10 @@ const TimeSummary = () => {
         getHoursForDays();
         
         const getTimeBreakdown = () => {
+            Util.load(dispatch, true);
             Axios.getTimeOverRange(state.timeSheet.clockIn.selectedEmployee._id, query).then(dates => {
+                Util.load(dispatch, false);
+
                 setDateIdToTimeStampMapper(dates.data)
                 const weekHours = {};
                 currentWeek.forEach(day => (weekHours[day] = []));
@@ -137,6 +140,9 @@ const TimeSummary = () => {
                     type: Types.SET_WEEK_NUMBER,
                     payload: weekNumber
                 })
+            }).catch(err => {
+                Util.load(dispatch, true);
+                Util.showError("Error", "error loading page")
             });
         }
     }
