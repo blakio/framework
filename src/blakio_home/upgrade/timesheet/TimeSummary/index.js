@@ -30,6 +30,14 @@ const TimeSummary = () => {
     const [minDate, setMinDate] = useState(null);
     const [maxDate, setMaxDate] = useState(null);
 
+    const getLocalTime = (date) => {
+        const tIndex = date.time.formatted.indexOf("T");
+        const mTime = date.time.formatted.slice(tIndex + 1);
+        const suffix = mTime.slice(mTime.indexOf("."), mTime.length);
+        const militaryTime = mTime.replace(suffix, "");
+        return moment(militaryTime, 'HH:mm:ss').format("hh:mm:ss a");
+    }
+
     const setDateIdToTimeStampMapper = (data) => {
         const mapper = {};
         const mapperFormatted = {};
@@ -76,12 +84,7 @@ const TimeSummary = () => {
                 const weekHours = {};
                 currentWeek.forEach(day => (weekHours[day] = []));
                 dates.data.forEach(date => {
-                    const tIndex = date.time.formatted.indexOf("T");
-                    const mTime = date.time.formatted.slice(tIndex + 1);
-                    const suffix = mTime.slice(mTime.indexOf("."), mTime.length);
-                    const militaryTime = mTime.replace(suffix, "");
-
-                    const formattedTime = moment(militaryTime, 'HH:mm:ss').format("hh:mm:ss a");
+                    const formattedTime = getLocalTime(date);
                     const formattedDate = moment(date.time.formatted).format("MMMM Do, ddd");
                     if(weekHours[formattedDate]){
                         weekHours[formattedDate].push({
@@ -146,8 +149,8 @@ const TimeSummary = () => {
     const isSelected = id => (adjustTimeId && id === adjustTimeId);
 
     const handleDateChange = data => {
-        const formatted = moment(data._d).toISOString()
         const offsetInMin = moment().utcOffset();
+        const formatted = moment(data._d).add(offsetInMin, "minutes").toISOString()
 
         const isBefore = !maxDate ? true : moment(data._d).isBefore(maxDate);
         const isAfter = !minDate ? true : moment(data._d).isAfter(minDate);
@@ -214,11 +217,13 @@ const TimeSummary = () => {
                     if(!value) return "";
 
                     if(id === adjustTimeId && !adjustTimeId.includes("Total")){
+                        const offsetInMin = moment().utcOffset() * -1;
+                        const defaultValue = moment(dateMapperFormatted[id]).add(offsetInMin, "minutes");
                         return (<div>
                             <TimePicker
                                 showSecond={true}
                                 use12Hours={true}
-                                defaultValue={moment(dateMapperFormatted[id])}
+                                defaultValue={defaultValue}
                                 onChange={handleDateChange}
                                 addon={() => {}}
                             />
