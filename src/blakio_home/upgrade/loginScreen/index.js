@@ -22,6 +22,7 @@ const Login = () => {
     const onChange = e => setPin(e.target.value);
 
     const onSubmit = () => {
+        Util.load(dispatch, true);
         Axios.logIn(pin).then(data => {
             localStorage.setItem("blakio_store", data.data.store);
             Axios.resetAxiosInstance();
@@ -29,11 +30,13 @@ const Login = () => {
                 type: Types.IS_LOGGED_IN,
                 payload: true
             })
+            Util.load(dispatch, false);
         }).catch(err => {
             const {
                 title,
                 message
             } = err.response.data
+            Util.load(dispatch, false);
             Util.showError(title, message);
         })
     }

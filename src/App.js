@@ -21,6 +21,7 @@ import {
 } from "blakio_context/State";
 import Types from 'blakio_context/Types';
 import Axios from 'blakio_axios';
+import Util from "blakio_util";
 
 const Loading = () => {
   const [state, dispatch] = StateContext();
@@ -43,8 +44,10 @@ const Content = () => {
   useEffect(() => {
     const store = localStorage.getItem("blakio_store");
     if(store){
+      Util.load(dispatch, true);
       const checkLocalStorage = true;
       Axios.logIn(store, checkLocalStorage).then(data => {
+        Util.load(dispatch, false);
         if(data.data.logIn){
           dispatch({
             type: Types.IS_LOGGED_IN,
@@ -53,7 +56,10 @@ const Content = () => {
         } else {
           localStorage.removeItem("blakio_store")
         }
-      }).catch(err => console.log(err))
+      }).catch(err => {
+        Util.load(dispatch, false);
+        console.log(err)
+      })
     }
   }, []);
 
