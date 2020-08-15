@@ -14,7 +14,8 @@ let axiosInstance = axios.create({
 window.blakio_setSideBarOptions = () => {
   const sideBarOptions = [
     { title: "Timesheet", closedIcon: "fas fa-clock" },
-    { title: "Employee Directory", closedIcon: "fas fa-user-tie" }
+    { title: "Employee Directory", closedIcon: "fas fa-user-tie" },
+    { title: "Point Of Sale", closedIcon: "fas fa-credit-card" }
   ];
 
   const insertOption = async (data) => {

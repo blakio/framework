@@ -2,7 +2,8 @@
 .Grid.col2_1_1,
 .Grid.col1_1_2,
 .Grid.col2_1_1,
-.Grid.col4 {
+.Grid.col4,
+.Grid.col2_1 {
     grid-template-columns: repeat(1, 1fr) !important;
 }
 

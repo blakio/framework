@@ -26,6 +26,9 @@ import Notes from "./upgrade/timesheet/Notes/index.js";
 import EmployeeTable from "./upgrade/employeeDirectory/EmployeeTable";
 import EmployeeForm from "./upgrade/employeeDirectory/EmployeeForm";
 
+import ItemScreen from "./upgrade/pointOfSale/ItemScreen";
+import PurchaseScreen from "./upgrade/pointOfSale/PurchaseScreen";
+
 import LoginScreen from "./upgrade/loginScreen";
 
 const {
@@ -109,6 +112,16 @@ const EmployeeDirectory = props => {
   </div>)
 }
 
+const PointOfSale = props => {
+  if(!props.show) return <div></div>;
+  return (<div>
+    <Grid grid="2_1">
+      <ItemScreen />
+      <PurchaseScreen />
+    </Grid>
+  </div>)
+}
+
 const DashboardBody = () => {
   const [state, dispatch] = StateContext();
 
@@ -117,6 +130,7 @@ const DashboardBody = () => {
     <div id="DashboardBody">
       <TimeSheet show={state.sideBarOptions.sideBarOption === "Timesheet"} />
       <EmployeeDirectory show={state.sideBarOptions.sideBarOption === "Employee Directory"}/>
+      <PointOfSale show={state.sideBarOptions.sideBarOption === "Point Of Sale"}/>
     </div>
   </div>)
 }
