@@ -1,9 +1,10 @@
 import React from "react";
 
 import {
-    Paper,
-    Icon
+    Paper
 } from "../../components";
+
+import "./main.css";
 
 import { StateContext } from "blakio_context/State";
 
@@ -15,11 +16,9 @@ const WorkedHours = () => {
             title="Weekly Hrs"
             color="green"
         >
-            <Icon
-                helpText="HOURS"
-                onClick={() => {}}
-                text={state.timeSheet.clockIn.totalHrs ? state.timeSheet.clockIn.totalHrs.toFixed(2) : 0}
-            />
+            <p
+                className="hoursWorkedText blueText"
+            >{state.timeSheet.clockIn.totalHrs ? state.timeSheet.clockIn.totalHrs.toFixed(2) : 0}</p>
         </Paper>
     </div>)
 }
