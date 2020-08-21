@@ -28,3 +28,7 @@
 .Grid.col9 {
   grid-template-columns: repeat(5, 1fr) !important;
 }
+
+.Grid.splitWidth {
+  grid-template-columns: repeat(2, 1fr) !important;
+}

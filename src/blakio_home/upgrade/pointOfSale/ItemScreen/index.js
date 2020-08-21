@@ -26,6 +26,7 @@ const ItemScreen = () => {
                         title={`$${data.price}/${data.unit}`}
                         width={"90%"}
                         backgroundIcon={true}
+                        noPadding
                     />)
                 }
                 return;

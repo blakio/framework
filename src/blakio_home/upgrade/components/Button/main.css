@@ -63,3 +63,7 @@
     text-transform: uppercase;
     letter-spacing: 3px;
 }
+
+.button.noPadding {
+    padding: 0;
+}

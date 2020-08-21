@@ -33,3 +33,7 @@
 .Grid.col12 {
     grid-template-columns: repeat(7, 1fr) !important;
 }
+
+.Grid.splitWidth {
+    grid-template-columns: repeat(2, 1fr) !important;
+}
