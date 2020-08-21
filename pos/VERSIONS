@@ -1,0 +1,19 @@
+These are the version numbers of the PayPalHere SDK and
+what is new in this release.
+
+1.1.3
+  - Feat: Payment.requestCancellation added, throws events actionSuccess/actionFailure
+
+1.1.1
+  - Feat: Support verifone readers
+  - Fix: Payment.subscribe now returns events as functions
+  - Fix: Setup.startUIFlow now accepts reader object and returns a promise
+
+1.0.0
+  Introducing:
+  - PPH SDK support for browsers on Windows 10 systems
+  - Chip Card Reader support via browsers
+  - Chip and Tap Reader support via browsers
+
+Limited Beta
+  - Initial beta release of PPH Web SDK

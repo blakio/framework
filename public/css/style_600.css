@@ -1,11 +1,16 @@
 .Grid.col7,
 .Grid.col8,
-.Grid.col9 {
+.Grid.col9,
+.Grid.col2_1 {
     grid-template-columns: repeat(1, 1fr) !important;
 }
 
 .Grid.col10,
 .Grid.col11,
 .Grid.col12 {
+    grid-template-columns: repeat(2, 1fr) !important;
+}
+
+.Grid.splitWidth {
     grid-template-columns: repeat(2, 1fr) !important;
 }
