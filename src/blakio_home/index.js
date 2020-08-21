@@ -115,8 +115,13 @@ const EmployeeDirectory = props => {
 const PointOfSale = props => {
   if(!props.show) return <div></div>;
   return (<div>
-    <Grid grid="2_1">
-      <ItemScreen />
+    <Grid grid="2">
+      <div style={{
+        height: "70vh",
+        overflowY: "scroll"
+      }}>
+        <ItemScreen />
+      </div>
       <PurchaseScreen />
     </Grid>
   </div>)
