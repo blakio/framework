@@ -6,13 +6,15 @@ import "./main.css";
 import {
     Paper,
     Icon,
-    TextWithSubText
-} from "../../components";
+    Input
+} from "blakio_home/page/components";
 
 import { StateContext } from "blakio_context/State";
 import Types from "blakio_context/Types"
 import Axios from "blakio_axios";
 import Util, { strings } from "blakio_util";
+
+import Button from "blakio_home/page/components/Button";
 
 const ClockIn = () => {
 
@@ -158,22 +160,21 @@ const ClockIn = () => {
             color={getPaperText() !== "Clock Out" ? "green" : "red"}
         >
             <div className="paperContainer">
-                {icon}
-                <div>
-                    <TextWithSubText
-                        isInputField
-                        textColor="blueText"
-                        bigText="Enter Name"
-                        smallText={getSmallText()}
-                        inputText={state.timeSheet.clockIn.inputValue}
-                        
-                        hasAutocomplate={true}
-                        employees={employeeDirectory.employees}
-                        onChange={setClockInEmployee}
-                        getListValue={getListValue}
-                        autoCompleteOnClick={selectEmployee}
-                    />
-                </div>
+                <Button
+                    icon="far fa-clock"
+                    text="Submit"
+                    onClick={clockTime}
+                />
+                <Input
+                    textColor="blueText"
+                    bigText="Enter Name"
+                    smallText={getSmallText()}
+                    inputText={state.timeSheet.clockIn.inputValue}
+                    employees={employeeDirectory.employees}
+                    onChange={setClockInEmployee}
+                    getListValue={getListValue}
+                    autoCompleteOnClick={selectEmployee}
+                />
             </div>
         </Paper>
     </div>)

@@ -1,6 +1,6 @@
 .btnHolder {
     display: inline-block;
-    margin: 0.5em;
+    margin: 0 0.5em;
 }
 
 .btnTitle {
@@ -57,10 +57,10 @@
 }
 
 .button p {
-    font-size: 0.9em;
+    font-size: 0.8em;
     margin: 0;
     font-weight: 500;
-    text-transform: uppercase;
+    /* text-transform: uppercase; */
     letter-spacing: 3px;
 }
 
