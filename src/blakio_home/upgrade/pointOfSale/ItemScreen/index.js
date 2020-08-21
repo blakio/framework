@@ -21,10 +21,10 @@ const ItemScreen = () => {
             {products.map(data => {
                 if(data.active){
                     return (<Button
-                        icon={icons[data.category]}
+                        // icon={icons[data.category]}
                         text={data.name}
                         title={`$${data.price}/${data.unit}`}
-                        width={200}
+                        width={"90%"}
                         backgroundIcon={true}
                     />)
                 }

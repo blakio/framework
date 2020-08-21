@@ -6,11 +6,11 @@ const Button = props => {
     if(props.width){
         addtionalStyle = {...addtionalStyle, width: props.width}
     }
-    return (<div className="btnHolder">
-        {props.title ? <p className="btnTitle">{props.title}</p> : <div></div>}
-        <div className={`button ${props.selected && "selected"} ${props.backgroundIcon && "backgroundIcon"}`} style={addtionalStyle}>
+    return (<div className="btnHolder" style={addtionalStyle}>
+        <div className={`button ${props.selected && "selected"} ${props.backgroundIcon && "backgroundIcon"}`} style={{width: "100%"}}>
             <i className={props.icon}></i>
             <p>{props.text}</p>
+            {props.title ? <p className="btnTitle">{props.title}</p> : <div></div>}
         </div>
     </div>);
 }
