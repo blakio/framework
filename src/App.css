@@ -18,5 +18,83 @@
   right: 0;
   top: 0;
   position: fixed;
-  max-width: calc(100% - var(--SideBarWidth))
+  max-width: calc(100% - var(--SideBarWidth));
+  transition: max-width 0.4s;
+}
+
+#ContentArea.shortMenu {
+  min-width: calc(100% - var(--SideBarWidthClosed));
+  max-width: calc(100% - var(--SideBarWidthClosed))
+}
+
+/* #ContentArea .paper {
+  max-width: calc(74% - var(--navBarHeight));
+  overflow: scroll;
+}
+
+#ContentArea.shortMenu .paper {
+  max-width: calc(88% - var(--navBarHeight));
+  overflow: scroll;
+} */
+
+
+
+
+
+
+
+:root {
+  --grey: #DCE3EA;
+  --dashBackgroundColor: #F5F5F5;
+  --midGrey: #888;
+  --lineLightGrey: #ddd;
+  --green: #45B6B1;
+  /* --blue: #65C3DF; */
+  --blue: #34649a;
+  --red: #FF6B6B;
+  --mediumRed: #FF4444;
+  --darkRed: #F00;
+  --silver: #C4CCDB;
+  --orange: #FC763C;
+}
+
+.App {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #F5F5F5;
+}
+
+
+.green {
+  background-color: var(--green);
+}
+
+.blue {
+  background-color: var(--blue);
+}
+
+.red {
+  background-color: var(--red);
+}
+
+.orange {
+  background-color: var(--orange);
+}
+
+.greenText {
+  color: var(--green);
+}
+
+.blueText {
+  color: var(--blue);
+}
+
+.redText {
+  color: var(--red);
+}
+
+.orangeText {
+  color: var(--orange);
 }

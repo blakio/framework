@@ -1,0 +1,263 @@
+:root {
+  --fadedBlue: rgba(14, 50, 90, 0.4);
+  --barHeight: 3em;
+  --selectHoverColor: #0e325a;
+  --darkBlue: #00254e;
+  --SideBarWidth: 17em;
+  --SideBarWidthClosed: 5em;
+  --navBarHeight: 4.7em;
+  --paperPadding: 0.6em;
+  --darkGreen: #1a89ac;
+  --lightGreen: #56acc7;
+
+  --blueGrey: #A3AECE;
+  --lightBlue: #3F5E83;
+  --darkFoldBlue: #0e325a;
+  --darkerGrey: #707070;
+}
+
+body {
+  font-family: 'Muli', sans-serif;
+  background-color: var(--darkBlue);
+}
+
+/* global classes */
+.container {
+  position: relative;
+}
+
+.lightGreen {
+  background-color: var(--lightGreen);
+}
+
+.darkGreen {
+  background-color: var(--darkGreen);
+}
+
+.PaperBottomBar {
+  justify-content: space-around;
+  align-self: end;
+}
+
+#TimeTrackBar {
+  background-color: #fff;
+  display: grid;
+  grid-template-columns: 1fr;
+}
+
+/* SideBar */
+#SideBar {
+  width: var(--SideBarWidth);
+  min-height: 100vh;
+  flex-direction: column;
+  justify-content: flex-start;
+  overflow-y: scroll;
+  transition: width 0.4s;
+}
+
+#SideBar.shortMenu {
+  width: var(--SideBarWidthClosed);
+}
+
+#SideBarHead {
+  height: var(--navBarHeight);
+  width: var(--SideBarWidth);
+  justify-content: space-between;
+  transition: width 0.4s;
+}
+
+#SideBarHead.shortMenu {
+  width: var(--SideBarWidthClosed);
+}
+
+#SideBarHead img {
+  height: 100%;
+  margin-left: 1em;
+}
+
+/* TopBar */
+#TopBar {
+  height: var(--navBarHeight);
+}
+
+#TopBar.shortMenu {
+  display: none;
+}
+
+#TopBar > * {
+  margin: 1em;
+}
+
+#TopBar > .topBarOptions {
+  position: absolute;
+  left: 1em;
+  align-self: baseline;
+  margin-top: 1.4em;
+}
+
+#TopBar > .topBarOptions > i {
+  color: #fff;
+  font-size: 1.4em;
+  opacity: 0.8;
+}
+
+/* Dashboard */
+#Dashboard {
+  width: 100%;
+  min-height: calc(100% - var(--navBarHeight));
+  background-color: #F5F5F5;
+  flex-wrap: wrap;
+  overflow: hidden;
+}
+
+#Dashboard.shortMenu {
+  min-height: 100%;
+}
+
+#DashboardHead {
+  border-bottom: 1px solid #ddd;
+  height: 4rem;
+  color: #0d325a;
+  justify-content: space-between;
+  padding-left: 4rem;
+  padding-right: 2rem;
+}
+
+#DashboardTitleText {
+  margin: 0px 0px 0px 10px;
+  font-size: 1rem;
+  font-weight: 800;
+  opacity: 0.45;
+  letter-spacing: 3px;
+}
+
+#dashboardBodyContainer {
+  height: calc((100vh - var(--navBarHeight) - var(--navBarHeight)) * 0.95);
+  overflow: scroll;
+}
+
+#dashboardBodyContainer.shortMenu {
+  height: 96vh;
+}
+
+#DashboardBody {
+  width: 95%;
+  margin: 2.5% auto;
+  max-width: 80em;
+}
+
+#dateTimeWeather {
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.1);
+  border-radius: 2em;
+  height: 2.4em;
+  width: 26em;
+  background-color: var(--darkFoldBlue);
+  color: #fff;
+  border: 1px solid #001f40;
+  margin: 0 auto;
+}
+
+#dateTimeWeather p {
+  letter-spacing: 3px;
+  font-size: 0.8em;
+  line-height: 2.5;
+}
+
+#dateTimeWeather img {
+  height: 2em;
+}
+
+#dateTimeWeather i {
+  margin-right: 1em;
+}
+
+.AddBar {
+  background-color: #fff;
+  border-radius: 4px;
+  display: grid;
+  grid-template-columns: 1fr;
+}
+
+.AddInput p {
+  margin: 1em 0 0 0;
+  text-transform: uppercase;
+  color: var(--darkGreen);
+  font-weight: 400;
+}
+
+.AddInput input {
+  font-size: 1.2em;
+  height: 1.4em;
+}
+
+.AddInput i {
+  color: var(--darkGreen);
+  margin-left: 0.2em;
+  font-size: 2em;
+  position: relative;
+  top: 0.1em;
+}
+
+.DatePickerTwoDate {
+  background-color: var(--darkFoldBlue);
+  height: 14em;
+  flex-direction: column;
+  color: #fff;
+}
+
+.dateLabel {
+  font-size: 0.8rem;
+  margin: 0;
+  margin: 0.8em 0 0.4em 0;
+}
+
+.react-datepicker__input-container input {
+  font-size: 1.2rem;
+  text-align: center;
+  font-family: 'Muli', sans-serif;
+}
+
+.buttonSection {
+  height: 5rem;
+  width: 100%;
+  margin-top: 0.4em;
+}
+
+.dateButtons {
+  height: 5rem;
+  width: 5.4rem;
+  background-color: var(--lightGreen);
+  margin: 0.4em;
+  border-radius: 2px;
+  flex-direction: column;
+}
+
+.DashboardSidePopOut {
+  height: 100%;
+  width: 6em;
+  background-color: #fff;
+  position: absolute;
+  top: 0;
+  left: -6.2em;
+  flex-direction: column;
+  transition: all 0.5s;
+  border: 1px solid #cecece;
+  background-color: #F5F5F5;
+}
+
+.DashboardSidePopOut.open {
+  left: 0;
+}
+
+.LoadingScreen {
+  position: absolute;
+  height: 100vh;
+  width: 100vw;
+  background-color: rgba(255, 255, 255, 0.2);
+  top: 0;
+  left: 0;
+}
+
+.opacityZero {
+  opacity: 0;
+}

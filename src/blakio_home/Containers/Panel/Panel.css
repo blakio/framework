@@ -1,0 +1,121 @@
+.Panel {
+  min-height: 2rem;
+  background-color: #fff;
+  border-radius: 6px;
+  overflow: hidden;
+  border-bottom: 2px solid #ddd;
+}
+
+.PanelHeader {
+  background-color: #3E739D;
+  padding: 0.2rem;
+  color: #fff;
+}
+
+.PanelHeader .heading {
+  font-size: 0.8rem;
+  margin: 0.6rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+}
+
+.PanelBody {
+  padding: 1rem;
+}
+
+.noPadding {
+  padding: 0;
+}
+
+.scroll {
+  overflow: scroll;
+}
+
+.Panel.empty {
+  background-color: #e8e4e4;
+  opacity: 0.4;
+}
+
+.Panel.empty .PanelHeader {
+  background-color: transparent;
+}
+
+.PanelHeader.whiteHead {
+  background-color: #fff;
+}
+
+.PanelHeader.none {
+  height: 0;
+  padding: 0;
+}
+
+.PanelHead {
+  justify-content: space-between;
+  padding: 0 17px;
+  color: #757575;
+}
+
+.PanelHeadLabel {
+  position: relative;
+}
+
+.PanelHeadLabel::before {
+  content: "";
+  position: absolute;
+  height: 1px;
+  width: 1.2em;
+  top: 0;
+  left: 0;
+  background-color: var(--darkBlue);
+  background-color: #455d78;
+}
+
+.panelHeadRightSideOptions > span {
+  margin-left: 1em;
+  color: #455d78;
+  opacity: 0.8;
+}
+
+.panelHeadTopLabel {
+  margin-top: 14px;
+  margin-bottom: 0;
+  font-weight: 400;
+  font-size: 15px;
+  letter-spacing: 1px;
+}
+
+.panelHeadTopLabelFirstWord {
+  color: var(--darkBlue);
+  color: #455d78;
+  font-weight: 800;
+}
+
+.panelHeadBottomLabel {
+  margin-top: 0;
+  font-size: 13px;
+  font-weight: 400;
+  letter-spacing: 1px;
+}
+
+.PanelHeadOptionBtn {
+
+}
+
+.PanelHeadRemovalBtn {
+  font-size: 22px;
+}
+
+.Panel.darkTheme {
+  background-color: var(--darkBlue);
+  color: #fff;
+}
+
+.Panel.darkTheme .PanelHeadLabel::before {
+  background-color: #fff;
+}
+
+.Panel.darkTheme .PanelHead,
+.Panel.darkTheme .panelHeadTopLabelFirstWord {
+  color: #fff;
+}

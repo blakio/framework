@@ -1,0 +1,39 @@
+.Grid.col1_1_2,
+.Grid.col2_1_1,
+.Grid.col1_1_2,
+.Grid.col2_1_1,
+.Grid.col4,
+.Grid.col2_1 {
+    grid-template-columns: repeat(1, 1fr) !important;
+}
+
+.Grid.col5,
+.Grid.col6 {
+    grid-template-columns: repeat(2, 1fr) !important;
+}
+
+
+.Grid.col7,
+.Grid.col8 {
+    grid-template-columns: repeat(3, 1fr) !important;
+}
+
+.Grid.col9 {
+    grid-template-columns: repeat(4, 1fr) !important;
+}
+
+.Grid.col10 {
+    grid-template-columns: repeat(5, 1fr) !important;
+}
+
+.Grid.col11 {
+    grid-template-columns: repeat(6, 1fr) !important;
+}
+
+.Grid.col12 {
+    grid-template-columns: repeat(7, 1fr) !important;
+}
+
+.Grid.splitWidth {
+    grid-template-columns: repeat(2, 1fr) !important;
+}

@@ -1,0 +1,29 @@
+table {
+    border-spacing: 0;
+    width: 100%;
+    margin: 20px auto 15px;
+    padding: 0;
+    text-align: center;
+}
+
+
+th, td {
+    line-height: 20px;
+    font-size: 13px;
+    border-bottom: 1px solid var(--lineLightGrey);
+    padding: 0.4em 1em;
+    color: var(--midGrey);
+    text-align: left;
+    white-space: nowrap;
+    color: var(--darkerGrey);
+}
+
+th:hover,
+td:hover,
+tr td.selected {
+    background-color: var(--dashBackgroundColor);
+}
+
+th {
+    font-weight: 800;
+}

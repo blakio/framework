@@ -1,0 +1,57 @@
+.headerStrip {
+    position: relative;
+    left: -1em;
+    padding-left: 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    margin-bottom: 1em;
+}
+
+.headerStrip p {
+    margin: 0;
+    color: #fff;
+    font-size: 13px;
+    letter-spacing: 3px;
+    padding: 4px 22px;
+    white-space: nowrap;
+}
+
+.headerButtons {
+    position: relative;
+    left: 1em;
+    display: flex;
+}
+
+.headerBtn {
+    height: 2em;
+    width: 2em;
+    border-radius: 50%;
+    margin: 0 0.2em;
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.headerBtn.blue {
+    background-color: var(--blue);
+}
+
+.headerBtn.red {
+    background-color: var(--red);
+}
+
+.headerBtn.green {
+    background-color: var(--green);
+}
+
+.headerBtn i {
+    font-size: 0.9em;
+}
+
+.csvLink {
+    text-decoration: none;
+    color: inherit;
+}

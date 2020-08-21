@@ -1,0 +1,25 @@
+.paper {
+    background-color: #fff;
+    position: relative;
+    padding: 1em;
+    padding-bottom: 2em;
+}
+
+.loading {
+    width: 20em;
+    height: 3em;
+    margin: 1em;
+    animation: loading 1.5s infinite;
+}
+
+@keyframes loading {
+  0% {
+      background-color: #fbfbfb;
+  }
+  50% {
+      background-color: #e2e2e2;
+  }
+  100% {
+    background-color: #fbfbfb;
+  }
+}

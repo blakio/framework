@@ -1,0 +1,76 @@
+.Grid {
+    display: grid;
+    grid-gap: 6px;
+    margin: 6px;
+    overflow: scroll;
+}
+
+.Grid .Grid,
+.Grid .Grid .Grid,
+.Grid .Grid .Grid .Grid {
+    margin: 0px;
+}
+
+.col1_1_2 {
+    grid-template-columns: 1fr 1fr 2fr;
+}
+
+.col2_1_1 {
+    grid-template-columns: 2fr 1fr 1fr;
+}
+
+.col1_2 {
+    grid-template-columns: 1fr 2fr;
+}
+
+.col2_1 {
+    grid-template-columns: 2fr 1fr;
+}
+
+.col1 {
+    grid-template-columns: 1fr;
+}
+
+.col2 {
+    grid-template-columns: 1fr 1fr;
+}
+
+.col3 {
+    grid-template-columns: 1fr 1fr 1fr;
+}
+
+.col4 {
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+}
+
+.col5 {
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+}
+
+.col6 {
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+}
+
+.col7 {
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+}
+
+.col8 {
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+}
+
+.col9 {
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+}
+
+.col10 {
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+}
+
+.col11 {
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+}
+
+.col12 {
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+}

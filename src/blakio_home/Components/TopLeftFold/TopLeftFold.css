@@ -1,0 +1,15 @@
+#TopLeftFold {
+  position: absolute;
+  top: 0;
+  left: 0;
+  box-shadow: 6px 7px 10px -2px rgba(209,209,209,1);
+  overflow: hidden;
+}
+
+.backFold {
+  transform: rotate(45deg);
+  background-color: var(--darkFoldBlue);
+  position: relative;
+  left: -100%;
+  top: -143%;
+}

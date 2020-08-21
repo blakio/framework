@@ -1,0 +1,19 @@
+#panelBottomFold {
+    height: 1.2em;
+    width: 1.2em;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    background-color: var(--grey);
+    overflow: hidden;
+}
+
+#panelBottomFoldTransparent {
+    height: 3em;
+    width: 3em;
+    position: relative;
+    top: 0.18em;
+    left: 0.18em;
+    background-color: var(--dashBackgroundColor);
+    transform: rotate(45deg);
+}

@@ -1,0 +1,27 @@
+.autoComplete ul {
+    color: #fff;
+    padding: 0.2em 0;
+
+    display: block;
+    list-style-type: disc;
+    margin-block-start: 0em;
+    margin-block-end: 0em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    padding-inline-start: 0px;
+}
+
+.autoComplete li {
+    background-color: var(--darkFoldBlue);
+    list-style-type: none;
+    line-height: 2em;
+    padding: 0 1em;
+    display: block;
+    cursor: pointer;
+    font-size: 1.4em;
+    border-bottom: 1px solid #465b72;
+}
+
+.autoComplete li:hover {
+    opacity: 0.8;
+}

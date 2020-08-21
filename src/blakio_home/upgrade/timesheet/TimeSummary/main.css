@@ -1,0 +1,7 @@
+.timeSummary {
+    
+}
+
+li.rc-time-picker-panel-select-option-selected {
+    background-color: var(--silver) !important;
+}
