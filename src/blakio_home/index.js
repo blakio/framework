@@ -18,18 +18,18 @@ import {
 
 import BlakioUI from "blakio_home/Framework";
 
-import ClockIn from "./upgrade/timesheet/ClockIn/index.js";
-import WorkedHours from "./upgrade/timesheet/WorkedHours/index.js";
-import TimeSummary from "./upgrade/timesheet/TimeSummary/index.js";
-import Notes from "./upgrade/timesheet/Notes/index.js";
+import ClockIn from "./page/timesheet/ClockIn/index.js";
+import WorkedHours from "./page/timesheet/WorkedHours/index.js";
+import TimeSummary from "./page/timesheet/TimeSummary/index.js";
+import Notes from "./page/timesheet/Notes/index.js";
 
-import EmployeeTable from "./upgrade/employeeDirectory/EmployeeTable";
-import EmployeeForm from "./upgrade/employeeDirectory/EmployeeForm";
+import EmployeeTable from "./page/employeeDirectory/EmployeeTable";
+import EmployeeForm from "./page/employeeDirectory/EmployeeForm";
 
-import ItemScreen from "./upgrade/pointOfSale/ItemScreen";
-import PurchaseScreen from "./upgrade/pointOfSale/PurchaseScreen";
+import ItemScreen from "./page/pointOfSale/ItemScreen";
+import PurchaseScreen from "./page/pointOfSale/PurchaseScreen";
 
-import LoginScreen from "./upgrade/loginScreen";
+import LoginScreen from "./page/loginScreen";
 
 const {
   SideBarPaper,

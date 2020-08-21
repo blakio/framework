@@ -1,7 +1,7 @@
-.bigText {
-    margin: 0;
-    font-size: 3em;
-    font-weight: 700;
+.inputContiner {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
 }
 
 .bigTextInput {
@@ -9,8 +9,6 @@
     font-size: 3em;
     font-weight: 700;
     width: 90%;
-    position: relative;
-    left: 10%;
     text-align: end;
     border: 1px solid #b2b1b1;
 }

@@ -7,60 +7,53 @@ const getInput = (
     textColor,
     bigText,
     inputText,
-    hasAutocomplate,
     employees,
     autoCompleteOnClick,
     onChange,
     getListValue
 ) => {
 
-    return (<div>
+    return (<div className="inputContiner">
         <input
             className={`bigTextInput ${textColor}`}
             placeholder={bigText}
             value={inputText}
             onChange={e => onChange(e.target.value)}
         />
-        {hasAutocomplate && <Autocomplete
+        <Autocomplete
             list={employees}
             value={inputText}
             onClick={autoCompleteOnClick}
             getListValue={getListValue}
-        />}
+        />
     </div>)
 }
 
 const TextWithSubText = props => {
 
     const {
-        isInputField,
         textColor,
         bigText,
         smallText,
         inputText,
-        
-        hasAutocomplate,
         employees,
         onChange,
         getListValue,
         autoCompleteOnClick
     } = props;
 
-    const text = isInputField ? (
-        getInput(
-            textColor,
-            bigText,
-            inputText,
-            hasAutocomplate,
-            employees,
-            autoCompleteOnClick,
-            onChange,
-            getListValue
-        )
-    ) : (<p className="bigText">{bigText}</p>);
+    const input = getInput(
+        textColor,
+        bigText,
+        inputText,
+        employees,
+        autoCompleteOnClick,
+        onChange,
+        getListValue
+    )
     
     return (<div>
-        {text}
+        {input}
         <p className="smallText">{smallText}</p>
     </div>);
 }
