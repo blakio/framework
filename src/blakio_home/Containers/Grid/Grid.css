@@ -2,7 +2,6 @@
     display: grid;
     grid-gap: 6px;
     margin: 6px;
-    overflow: scroll;
 }
 
 .Grid .Grid,

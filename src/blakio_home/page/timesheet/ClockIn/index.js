@@ -122,11 +122,6 @@ const ClockIn = () => {
         }
     }
 
-    const selectEmployee = selected => {
-        setInputValue(`${selected["firstName"]} ${selected["lastName"]}`);
-        setEmployee(selected);
-    }
-
     const setClockInEmployee = employee => {
         let selected = null;
         employeeDirectory.employees.forEach(data => {
@@ -136,10 +131,6 @@ const ClockIn = () => {
         });
         setEmployee(selected);
         setInputValue(employee);
-    }
-
-    const getListValue = data => {
-        return `${data["firstName"]} ${data["lastName"]}`;
     }
 
     const getSmallText = () => {
@@ -166,14 +157,10 @@ const ClockIn = () => {
                     onClick={clockTime}
                 />
                 <Input
-                    textColor="blueText"
                     bigText="Enter Name"
                     smallText={getSmallText()}
-                    inputText={state.timeSheet.clockIn.inputValue}
                     employees={employeeDirectory.employees}
                     onChange={setClockInEmployee}
-                    getListValue={getListValue}
-                    autoCompleteOnClick={selectEmployee}
                 />
             </div>
         </Paper>

@@ -1,55 +1,41 @@
 import React from "react";
 import "./main.css";
 
-import Autocomplete from "../Autocomplete";
+import 'react-widgets/dist/css/react-widgets.css';
+import Combobox from 'react-widgets/lib/Combobox'
 
 const getInput = (
-    textColor,
     bigText,
-    inputText,
     employees,
-    autoCompleteOnClick,
-    onChange,
-    getListValue
+    onChange
 ) => {
 
+    let data = []
+    employees.forEach(empl => data.push(`${empl.firstName} ${empl.lastName}`));
+
     return (<div className="inputContiner">
-        <input
-            className={`bigTextInput ${textColor}`}
+        <Combobox
+            data={data}
             placeholder={bigText}
-            value={inputText}
-            onChange={e => onChange(e.target.value)}
-        />
-        <Autocomplete
-            list={employees}
-            value={inputText}
-            onClick={autoCompleteOnClick}
-            getListValue={getListValue}
+            onChange={onChange}
+            filter='contains'
         />
     </div>)
 }
 
-const TextWithSubText = props => {
+const Input = props => {
 
     const {
-        textColor,
         bigText,
         smallText,
-        inputText,
         employees,
-        onChange,
-        getListValue,
-        autoCompleteOnClick
+        onChange
     } = props;
 
     const input = getInput(
-        textColor,
         bigText,
-        inputText,
         employees,
-        autoCompleteOnClick,
-        onChange,
-        getListValue
+        onChange
     )
     
     return (<div>
@@ -58,4 +44,4 @@ const TextWithSubText = props => {
     </div>);
 }
 
-export default TextWithSubText;
+export default Input;

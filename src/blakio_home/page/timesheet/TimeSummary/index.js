@@ -150,7 +150,7 @@ const TimeSummary = () => {
     useEffect(() => {
         updateTimeTable()
         // note: this will reload twice because of state.timeSheet.clockIn.selectedEmployeeIsClockedIn
-    }, [offset, state.timeSheet.clockIn.selectedEmployeeIsClockedIn]);
+    }, [offset, state.timeSheet.clockIn.selectedEmployeeIsClockedIn, state.timeSheet.clockIn.selectedEmployee]);
 
     const isSelected = id => (adjustTimeId && id === adjustTimeId);
 

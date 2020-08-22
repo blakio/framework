@@ -102,7 +102,9 @@ const TimeSheet = props => {
         {state.timeSheet.clockIn.selectedEmployee ? <Notes /> : <div></div>}
       </Grid>
     </Grid>
-    {state.timeSheet.clockIn.selectedEmployee && <Grid grid="1">
+    {state.timeSheet.clockIn.selectedEmployee && <Grid grid="1" additionalStyles={{
+      overflowX: "scroll"
+    }}>
       <TimeSummary />
     </Grid>}
   </div>)
