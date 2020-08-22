@@ -2,7 +2,7 @@ import React from "react";
 import "./Grid.css";
 
 const Grid = (props) => {
-  return (<div className={`Grid col${props.grid} ${props.splitWidth && "splitWidth"}`}>
+  return (<div className={`Grid col${props.grid} ${props.splitWidth && "splitWidth"}`} style={props.additionalStyles || {}}>
     {props.children}
   </div>)
 }
