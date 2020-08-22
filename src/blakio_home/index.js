@@ -113,7 +113,9 @@ const TimeSheet = props => {
 const EmployeeDirectory = props => {
   if(!props.show) return <div></div>;
   return (<div>
-    <Grid grid="1">
+    <Grid grid="1" additionalStyles={{
+      overflowX: "scroll"
+    }}>
       <EmployeeTable />
       <EmployeeForm />
     </Grid>
