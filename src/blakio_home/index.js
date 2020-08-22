@@ -57,6 +57,12 @@ const SideBarHead = () => {
     })
   }
 
+  useEffect(() => {
+    if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
+      onClick();
+    }
+  }, []);
+
   const margin = isClosed ? "0 auto" : "0 1em";
   const width = isClosed ? 62 : null;
 
