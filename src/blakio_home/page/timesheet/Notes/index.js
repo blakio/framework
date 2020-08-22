@@ -17,11 +17,16 @@ const Notes = () => {
     const [newNote, setNewNotes] = useState("");
     const [notes, setNotes] = useState([]);
 
+    const {
+        weekNumber,
+        selectedEmployee
+    } = state.timeSheet.clockIn;
+
     const getNotes = () => {
         Axios.findWeeklyNotes({
             query: {
-                employeeId: state.timeSheet.clockIn.selectedEmployee._id,
-                weekNumber: state.timeSheet.clockIn.weekNumber,
+                employeeId: selectedEmployee._id,
+                weekNumber,
                 year: moment().year()
             }
         }).then(data => {
@@ -33,7 +38,7 @@ const Notes = () => {
 
     useEffect(() => {
         getNotes();
-    }, [state.timeSheet.clockIn.weekNumber]);
+    }, [weekNumber]);
 
     const getValue = value => value.note;
 
@@ -48,9 +53,9 @@ const Notes = () => {
         if(trimmedNote.length > 0){
             Axios.createWeeklyNote({
                 note: trimmedNote,
-                weekNumber: state.timeSheet.clockIn.weekNumber,
+                weekNumber,
                 year: moment().year(),
-                employeeId: state.timeSheet.clockIn.selectedEmployee._id
+                employeeId: selectedEmployee._id
             }).then(data => {
                 setNewNotes("");
                 getNotes();
@@ -63,7 +68,7 @@ const Notes = () => {
             title="Notes for week"
             color="green"
         >
-            {notes.map((data, index) => (
+            {weekNumber && notes.map((data, index) => (
                 <div className="notesHolder" key={index}>
                     <p>{getValue(data)}</p>
                     <button className="cancelBtn" onClick={() => onDelete(data)}>x</button>
