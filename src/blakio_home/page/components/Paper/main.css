@@ -3,6 +3,7 @@
     position: relative;
     padding: 1em;
     padding-bottom: 2em;
+    height: calc(100% - 3em);
 }
 
 .loading {
