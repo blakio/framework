@@ -235,6 +235,7 @@ const TimeSummary = () => {
                                 defaultValue={defaultValue}
                                 onChange={handleDateChange}
                                 addon={() => {}}
+                                open={isSelected}
                             />
                         </div>)
                     }
