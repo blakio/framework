@@ -261,3 +261,8 @@ body {
 .opacityZero {
   opacity: 0;
 }
+
+.footer {
+  height: 10em;
+  width: 100%;
+}

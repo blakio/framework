@@ -137,6 +137,11 @@ const PointOfSale = props => {
   </div>)
 }
 
+const Footer = () => {
+  return (<div className="footer">
+  </div>)
+}
+
 const DashboardBody = () => {
   const [state, dispatch] = StateContext();
 
@@ -147,6 +152,7 @@ const DashboardBody = () => {
       <EmployeeDirectory show={state.sideBarOptions.sideBarOption === "Employee Directory"}/>
       <PointOfSale show={state.sideBarOptions.sideBarOption === "Point Of Sale"}/>
     </div>
+    <Footer />
   </div>)
 }
 
