@@ -19,6 +19,7 @@ const getInput = (
             placeholder={bigText}
             onChange={onChange}
             filter='contains'
+            dropUp
         />
     </div>)
 }
