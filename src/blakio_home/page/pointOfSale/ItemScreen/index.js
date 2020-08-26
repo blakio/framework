@@ -162,6 +162,7 @@ const ItemScreen = () => {
                 textField='name'
                 value={searchValue}
                 dropUp
+                placeholder="Select items here"
             />  
             {cart.length ? <button className="submitBtn" onClick={clearCart}>Clear Cart</button> : <div></div>}
         </Paper>
