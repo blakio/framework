@@ -27,7 +27,6 @@ import EmployeeTable from "./page/employeeDirectory/EmployeeTable";
 import EmployeeForm from "./page/employeeDirectory/EmployeeForm";
 
 import ItemScreen from "./page/pointOfSale/ItemScreen";
-import PurchaseScreen from "./page/pointOfSale/PurchaseScreen";
 
 import LoginScreen from "./page/loginScreen";
 

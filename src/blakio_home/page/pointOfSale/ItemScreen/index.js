@@ -43,7 +43,7 @@ const ItemScreen = () => {
         })
     }
 
-    useEffect(async () => {
+    useEffect(() => {
         getProductData();
     }, []);
 
