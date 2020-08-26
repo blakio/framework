@@ -15,6 +15,8 @@ import Combobox from 'react-widgets/lib/Combobox'
 
 const ItemScreen = () => {
 
+    const [searchValue, setSearchValue] = useState("")
+
     const [tableHead, setTableHead] = useState([
         "Remove",
         "Product",
@@ -151,10 +153,14 @@ const ItemScreen = () => {
                             type: Types.ADD_TO_CART,
                             payload: data
                         });
+                        setSearchValue("")
+                    } else {
+                        setSearchValue(data)
                     }
                 }}
                 filter='contains'
                 textField='name'
+                value={searchValue}
                 dropUp
             />  
             {cart.length ? <button className="submitBtn" onClick={clearCart}>Clear Cart</button> : <div></div>}
