@@ -1,0 +1,128 @@
+// The URL where the Point of Sale app will send the transaction results.
+var callbackUrl = "https://blakiodashboard.herokuapp.com/purchased";
+
+// Your application ID
+var applicationId = "sq0idp-4CVw5fpKwLHOxXyqa1LoZQ";
+
+// The total and currency code should come from your transaction flow.
+// For now, we are hardcoding them.
+var transactionTotal = "100";
+var currencyCode = "USD";
+
+// The version of the Point of Sale SDK that you are using.
+var sdkVersion = "v2.0";
+
+export const openURL = () => {
+    // Configure the allowable tender types
+    var tenderTypes =
+     `com.squareup.pos.TENDER_CARD, \
+      com.squareup.pos.TENDER_CARD_ON_FILE, \
+      com.squareup.pos.TENDER_CASH, \  
+      com.squareup.pos.TENDER_OTHER`;
+  
+    var posUrl =
+      "intent:#Intent;" +
+      "action=com.squareup.pos.action.CHARGE;" +
+      "package=com.squareup;" +
+      "S.com.squareup.pos.WEB_CALLBACK_URI=" + callbackUrl + ";" +
+      "S.com.squareup.pos.CLIENT_ID=" + applicationId + ";" +
+      "S.com.squareup.pos.API_VERSION=" + sdkVersion + ";" +
+      "i.com.squareup.pos.TOTAL_AMOUNT=" + transactionTotal + ";" +
+      "S.com.squareup.pos.CURRENCY_CODE=" + currencyCode + ";" +
+      "S.com.squareup.pos.TENDER_TYPES=" + tenderTypes + ";" +
+      "end";
+  
+    window.open(posUrl);
+}
+
+
+
+
+
+/////////////////////
+
+
+
+
+//If successful, Square Point of Sale returns the following parameters.
+const clientTransactionId = "com.squareup.pos.CLIENT_TRANSACTION_ID";
+const transactionId = "com.squareup.pos.SERVER_TRANSACTION_ID";
+
+//If there's an error, Square Point of Sale returns the following parameters.
+const errorField = "com.squareup.pos.ERROR_CODE";
+
+//Get the URL parameters and puts them in an array
+function getUrlParams(URL) {
+    var vars = {};
+    var parts = URL.replace(/[?&]+([^=&]+)=([^&]*)/gi,
+        function (m, key, value) {
+            vars[key] = value;
+
+        });
+    return vars;
+}
+
+// Makes a result string for success situation
+function handleSuccess(transactionInfo) {
+    var resultString = "";
+
+    if (clientTransactionId in transactionInfo) {
+        resultString += `Client Transaction ID: ${transactionInfo[clientTransactionId]} `;
+    }
+    if (transactionId in transactionInfo) {
+        resultString += `Transaction ID: ${transactionInfo[transactionId]}`;
+    }
+    else {
+        resultString += "Transaction ID: NO CARD USED";
+    }
+    return resultString;
+}
+
+// Makes an error string for error situation
+function handleError(transactionInfo) {
+    var resultString = "";
+
+    if (errorField in transactionInfo) {
+        resultString += "Client Transaction ID: " + transactionInfo[clientTransactionId] + "<br>";
+    }
+    if (transactionId in transactionInfo) {
+        resultString += "Transaction ID: " + transactionInfo[transactionId] + "     <br>";
+    }
+    else {
+        resultString += "Transaction ID: PROCESSED OFFLINE OR NO CARD USED<br>";
+    }
+    return resultString;
+}
+
+//get the data URL and encode in JSON
+function getTransactionInfo(URL) {
+    var data = decodeURI(URL.searchParams.get("data"));
+
+    console.log("data: " + data);
+    var transactionInfo = JSON.parse(data);
+    return transactionInfo;
+}
+
+// Determines whether error or success based on urlParams, then prints the string
+export const printResponse = (showSuccess, showError) => {
+    var responseUrl = window.location.href;
+    var transactionInfo = getTransactionInfo(responseUrl);
+    var resultString = "";
+
+    if (errorField in transactionInfo) {
+        resultString = handleError(transactionInfo);
+        showError("Error", resultString);
+    } else {
+        resultString = handleSuccess(transactionInfo);
+        showSuccess("Success", resultString);
+    }
+}
+
+
+
+// //If successful, Square Point of Sale returns the following parameters.
+// const clientTransactionId = "client_transaction_id";
+// const transactionId = "transaction_id";
+
+// //If there's an error, Square Point of Sale returns the following parameters.
+// const errorField = "error_code";

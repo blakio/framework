@@ -13,7 +13,20 @@ import Types from 'blakio_context/Types';
 
 import Combobox from 'react-widgets/lib/Combobox'
 
+import {
+    printResponse,
+    openURL
+} from "./pos.js";
+
+import Util from "blakio_util";
+
 const ItemScreen = () => {
+
+    useEffect(() => {
+        if(window.location.href.includes("/purchase")){
+            printResponse(Util.showSuccess, Util.showError);
+        }
+    }, [])
 
     const [searchValue, setSearchValue] = useState("")
 
@@ -132,6 +145,10 @@ const ItemScreen = () => {
         })
     }
 
+    const buy = () => {
+        openURL()
+    }
+
     return (<div>
         <Paper
             title="Cart"
@@ -163,8 +180,11 @@ const ItemScreen = () => {
                 value={searchValue}
                 dropUp
                 placeholder="Select items here"
-            />  
-            {cart.length ? <button className="submitBtn" onClick={clearCart}>Clear Cart</button> : <div></div>}
+            />
+            <div>
+                {cart.length ? <button className="submitBtn" onClick={clearCart}>Clear Cart</button> : <div></div>}
+                {cart.length ? <button className="submitBtn" onClick={buy}>Buy</button> : <div></div>}
+            </div>
         </Paper>
     </div>)
 }
