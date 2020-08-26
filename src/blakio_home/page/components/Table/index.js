@@ -22,7 +22,14 @@ const Table = props => {
             </thead>
             <tbody>
                 {props.td.map((data, index) => (<tr key={index}>
-                    {data.map((d, i) => <td key={i} onClick={() => onClick(props.ids[index] || individualIds[index][i])} className={`${isSelected && isSelected(props.ids[index] || individualIds[index][i]) && "selected"}`}>{props.getData(d, individualIds && individualIds[index][i])}</td>)}
+                    {data.map((d, i) => {
+                        const getParam = () => {
+                            if(props && props.ids && props.ids[index]) return props.ids[index]
+                            if(individualIds && individualIds[index] && individualIds[index][i]) return individualIds[index][i];
+                            return null
+                        }
+                        return (<td key={i} onClick={() => onClick(getParam())} style={props.additionalStyles && props.additionalStyles[index][i] || {}} className={`${isSelected && isSelected(props.ids[index] || individualIds[index][i]) && "selected"}`}>{props.getData(d, individualIds && individualIds[index][i])}</td>)
+                    })}
                 </tr>))}
             </tbody>
         </table>

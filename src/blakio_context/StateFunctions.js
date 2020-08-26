@@ -38,4 +38,35 @@ export default {
   toggleEmployeeEditingStatus: (payload, state) =>  ({ ...state, employeeDirectory: { ...state.employeeDirectory, isEditing: !state.employeeDirectory.isEditing } }),
   updateEmployee: (payload, state) =>  ({ ...state, employeeDirectory: { ...state.employeeDirectory, updateId: payload } }),
 
+  // point of sale
+  addToCart: (payload, state) => {
+    const {
+      cart
+    } = state.pointOfSale;
+    const isSelected = cart.some(data => data._id === payload._id)
+    if(isSelected) return state;
+    return ({ ...state, pointOfSale: { ...state.pointOfSale, cart: [ ...cart, payload ] } });
+  },
+  removeFromCart: (payload, state) => {
+    const adjustedCart = state.pointOfSale.cart.filter(data => data._id !== payload);
+    return ({ ...state, pointOfSale: { ...state.pointOfSale, cart: adjustedCart } })
+  },
+  clearCart: (payload, state) => ({ ...state, pointOfSale: { ...state.pointOfSale, cart: [] } }),
+  setCartItems: (payload, state) => ({ ...state, pointOfSale: { ...state.pointOfSale, items: [ ...payload ] } }),
+  adjustItemQuantity: (payload, state) => {
+    const {
+      id,
+      quantity
+    } = payload;
+    const currentCart = [...state.pointOfSale.cart];
+    let index;
+    currentCart.forEach((data, i) => {
+      if(data._id === id){
+        index = i
+      }
+    });
+    currentCart[index].quantity = quantity;
+    return ({ ...state, pointOfSale: { ...state.pointOfSale, cart: currentCart } })
+  },
+
 }

@@ -19,6 +19,10 @@ const initialState = {
     employees: [],
     isEditing: false,
     updateId: null
+  },
+  pointOfSale: {
+    cart: [],
+    items: []
   }
 };
 

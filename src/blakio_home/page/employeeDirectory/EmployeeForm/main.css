@@ -23,45 +23,6 @@
     transition: none !important;
 }
 
-.submitBtn {
-    background-color: #3c8dbc;
-    border-color: #367fa9;
-    font-weight: 500;
-    border: 1px solid transparent;
-    padding: 7px 10px;
-    font-size: 0.8em;
-    color: #fff;
-    margin-bottom: 0;
-    line-height: 1.6em;
-    cursor: pointer;
-    user-select: none;
-    border-radius: 0.3em;
-    margin: 1em;
-}
-
-.submitBtn.red {
-    background-color: var(--red);
-}
-
-.submitBtn:hover {
-    background-color: #367fa9;
-}
-
-.submitBtn.red:hover {
-    background-color: var(--darkRed);
-    box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
-}
-
-.submitBtn:active {
-    background-color: #367fa9;
-    box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
-}
-
-.submitBtn.red:active {
-    background-color: var(--red);
-    box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
-}
-
 .react-datepicker__input-container input {
     border: 1px solid rgba(0, 0, 0, 0.1) !important;
     border-radius: 3px;

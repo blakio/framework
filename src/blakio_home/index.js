@@ -31,6 +31,8 @@ import PurchaseScreen from "./page/pointOfSale/PurchaseScreen";
 
 import LoginScreen from "./page/loginScreen";
 
+import 'react-widgets/dist/css/react-widgets.css';
+
 const {
   SideBarPaper,
   TopLeftFold,
@@ -125,14 +127,13 @@ const EmployeeDirectory = props => {
 const PointOfSale = props => {
   if(!props.show) return <div></div>;
   return (<div>
-    <Grid grid="2" splitWidth>
+    <Grid grid="1">
       <div style={{
         height: "90vh",
         overflowY: "scroll"
       }}>
         <ItemScreen />
       </div>
-      <PurchaseScreen />
     </Grid>
   </div>)
 }

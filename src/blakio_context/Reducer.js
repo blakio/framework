@@ -44,6 +44,18 @@ export default (state, action) => {
     case Types.UPDATE_EMPLOYEE:
       return StateFunctions.updateEmployee(payload, state);
 
+    // point of sale
+    case Types.ADD_TO_CART:
+      return StateFunctions.addToCart(payload, state);
+    case Types.REMOVE_FROM_CART:
+      return StateFunctions.removeFromCart(payload, state);
+    case Types.CLEAR_CART:
+      return StateFunctions.clearCart(payload, state);
+    case Types.SET_CART_ITEMS:
+      return StateFunctions.setCartItems(payload, state);
+    case Types.ADJUST_ITEM_QUANTITY:
+      return StateFunctions.adjustItemQuantity(payload, state);
+
     default:
       return state;
   }

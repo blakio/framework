@@ -1,7 +1,6 @@
 import React from "react";
 import "./main.css";
 
-import 'react-widgets/dist/css/react-widgets.css';
 import Combobox from 'react-widgets/lib/Combobox'
 
 const getInput = (
