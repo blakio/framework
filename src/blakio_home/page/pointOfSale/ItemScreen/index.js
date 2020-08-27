@@ -144,7 +144,7 @@ const ItemScreen = () => {
     }
 
     const buy = () => {
-        state.deviceType === "iOS" ? openURLiOS : openURLAndroid;
+        state.deviceType === "iOS" ? openURLiOS() : openURLAndroid();
     }
 
     return (<div>
