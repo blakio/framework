@@ -15,12 +15,14 @@ import Combobox from 'react-widgets/lib/Combobox'
 
 import {
     printResponse,
-    openURL
+    openURLAndroid,
+    openURLiOS
 } from "./pos.js";
 
 import Util from "blakio_util";
 
 const ItemScreen = () => {
+    const [state, dispatch] = StateContext();
 
     useEffect(() => {
         if(window.location.href.includes("/purchase")){
@@ -37,8 +39,6 @@ const ItemScreen = () => {
         "Quantity",
         "Total"
     ]);
-
-    const [state, dispatch] = StateContext();
 
     const {
         cart,
@@ -102,11 +102,7 @@ const ItemScreen = () => {
             const itemData = JSON.parse(item);
             return <input type="number" onChange={e => onQuantityChange(e.target.value, itemData)} />;
         } else if (data.includes("_totalCost")) {
-            const [
-                text,
-                id
-            ] = data.split("&");
-            return "total";
+            return "";
         }
         return data
     }
@@ -135,7 +131,9 @@ const ItemScreen = () => {
             tableData.push([`_removeButton&${data._id}`, data.name, `$${data.price.toFixed(2)}`, `_inputField&${JSON.stringify(data)}`, total])
         });
         const grandTotal = getGrandTotal(tableData);
-        tableData.push(["", "", "", "Grand Total", `$${grandTotal.toFixed(2)}`]);
+        if(cart.length){
+            tableData.push(["", "", "", "Grand Total", `$${grandTotal.toFixed(2)}`]);
+        }
         return tableData;
     }
 
@@ -146,7 +144,7 @@ const ItemScreen = () => {
     }
 
     const buy = () => {
-        openURL()
+        state.deviceType === "iOS" ? openURLiOS : openURLAndroid;
     }
 
     return (<div>

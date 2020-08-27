@@ -1,6 +1,7 @@
 const initialState = {
   isLoggedIn: false,
   isLoading: false,
+  deviceType: null,
   sideBarOptions: {
     shortMenu: false,
     sideBarOption: null,

@@ -25,6 +25,8 @@ export default (state, action) => {
       return StateFunctions.setEmployees(payload, state);
     case Types.TOGGLE_DOWNLOAD_SCREEN:
       return StateFunctions.toggleDownloadScreen(payload, state);
+    case Types.SET_DEVICE_TYPE:
+      return StateFunctions.setDeviceType(payload, state);
 
     // timesheet
     case Types.SET_CLOCK_IN_INPUT_VALUE:
