@@ -43,10 +43,10 @@ export const openURLiOS = () => {
         },
 
         // Replace this value with your application's callback URL
-        callback_url: "https://www.example.com",
+        callback_url: callbackUrl,
 
         // Replace this value with your application's ID
-        client_id: "MY_APPLICATION_ID",
+        client_id: applicationId,
 
         version: "1.3",
         notes: "notes for the transaction",
