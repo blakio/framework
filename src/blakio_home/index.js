@@ -81,7 +81,7 @@ const SideBarHead = () => {
       type: Types.SET_DEVICE_TYPE,
       payload: iOS() ? "iOS" : "Android"
     })
-  })
+  }, [])
 
   const margin = isClosed ? "0 auto" : "0 1em";
   const width = isClosed ? 62 : null;
