@@ -12,11 +12,18 @@ export default {
     });
     return state;
   },
+  getProducts: (payload, state) => {
+    Axios.getProducts().then(products => {
+      payload.fn(products.data)
+    });
+    return state;
+  },
 
   shortMenu: (payload, state) => ({ ...state, sideBarOptions: { ...state.sideBarOptions, shortMenu: payload } }),
   setSideBar: (payload, state) => ({ ...state, sideBarOptions: { ...state.sideBarOptions, sideBar: payload } }),
   setSideBarOption:  (payload, state) => ({ ...state, sideBarOptions: { ...state.sideBarOptions, sideBarOption: payload } }),
   setEmployees: (payload, state) =>  ({ ...state, employeeDirectory: { ...state.employeeDirectory, employees: payload } }),
+  setProduct: (payload, state) =>  ({ ...state, products: { ...state.products, list: payload } }),
   toggleDownloadScreen: (payload, state) => {
     const currentState = Util.breakRefAndCopy(state);
     currentState.isDownloadScreen = payload;
@@ -38,6 +45,7 @@ export default {
   // employee directory
   toggleEmployeeEditingStatus: (payload, state) =>  ({ ...state, employeeDirectory: { ...state.employeeDirectory, isEditing: !state.employeeDirectory.isEditing } }),
   updateEmployee: (payload, state) =>  ({ ...state, employeeDirectory: { ...state.employeeDirectory, updateId: payload } }),
+  updateProduct: (payload, state) =>  ({ ...state, products: { ...state.products, updateId: payload } }),
 
   // point of sale
   addToCart: (payload, state) => {

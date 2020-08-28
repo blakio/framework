@@ -50,6 +50,20 @@ export default {
     })
   },
 
+  getProducts: dispatch => {
+    dispatch({
+      type: Types.GET_PRODUCTS,
+      payload: {
+        fn: (product) => {
+          dispatch({
+            type: Types.SET_PRODUCTS,
+            payload: product
+          })
+        }
+      }
+    })
+  },
+
   load: (dispatch, isLoading) => {
     dispatch({
       type: Types.IS_LOADING,

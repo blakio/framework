@@ -13,6 +13,19 @@ const Table = props => {
         individualIds
     } = props;
 
+    const getClassName = (index, i) => {
+        let className = "";
+        if(isSelected){
+            if(isSelected(
+                props.ids && props.ids[index]
+                || individualIds && individualIds[index] && individualIds[index][i]
+            )){
+                className = "selected";
+            }
+        }
+        return className;
+    }
+
     return (<div>
         <table>
             <thead>
@@ -28,7 +41,13 @@ const Table = props => {
                             if(individualIds && individualIds[index] && individualIds[index][i]) return individualIds[index][i];
                             return null
                         }
-                        return (<td key={i} onClick={() => onClick(getParam())} style={props.additionalStyles && props.additionalStyles[index][i] || {}} className={`${isSelected && isSelected(props.ids[index] || individualIds[index][i]) && "selected"}`}>{props.getData(d, individualIds && individualIds[index][i])}</td>)
+                        return (<td
+                            key={i}
+                            onClick={() => onClick(getParam())}
+                            style={props.additionalStyles && props.additionalStyles[index] && props.additionalStyles[index][i] || {}}
+                            className={getClassName(index, i)}>
+                                {props.getData(d, individualIds && individualIds[index] && individualIds[index][i])}
+                        </td>)
                     })}
                 </tr>))}
             </tbody>

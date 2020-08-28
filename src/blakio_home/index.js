@@ -26,6 +26,9 @@ import Notes from "./page/timesheet/Notes/index.js";
 import EmployeeTable from "./page/employeeDirectory/EmployeeTable";
 import EmployeeForm from "./page/employeeDirectory/EmployeeForm";
 
+import ProductTable from "./page/products/ProductTable";
+import ProductForm from "./page/products/ProductForm";
+
 import ItemScreen from "./page/pointOfSale/ItemScreen";
 
 import LoginScreen from "./page/loginScreen";
@@ -142,6 +145,18 @@ const EmployeeDirectory = props => {
   </div>)
 }
 
+const Product = props => {
+  if(!props.show) return <div></div>;
+  return (<div>
+    <Grid grid="1" additionalStyles={{
+      overflowX: "scroll"
+    }}>
+      <ProductTable />
+      <ProductForm />
+    </Grid>
+  </div>)
+}
+
 const PointOfSale = props => {
   if(!props.show) return <div></div>;
   return (<div>
@@ -170,6 +185,7 @@ const DashboardBody = () => {
       <TimeSheet show={state.sideBarOptions.sideBarOption === "Timesheet"} />
       <EmployeeDirectory show={state.sideBarOptions.sideBarOption === "Employee Directory"}/>
       <PointOfSale show={state.sideBarOptions.sideBarOption === "Point Of Sale"}/>
+      <Product show={state.sideBarOptions.sideBarOption === "Product"}/>
     </div>
     <Footer />
   </div>)

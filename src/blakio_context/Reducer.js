@@ -14,6 +14,8 @@ export default (state, action) => {
       
     case Types.GET_EMPLOYEES:
       return StateFunctions.getEmployees(payload, state);
+    case Types.GET_PRODUCTS:
+      return StateFunctions.getProducts(payload, state);
 
     case Types.SHORT_MENU:
       return StateFunctions.shortMenu(payload, state);
@@ -23,6 +25,8 @@ export default (state, action) => {
       return StateFunctions.setSideBarOption(payload, state);
     case Types.SET_EMPLOYEES:
       return StateFunctions.setEmployees(payload, state);
+    case Types.SET_PRODUCTS:
+      return StateFunctions.setProduct(payload, state);
     case Types.TOGGLE_DOWNLOAD_SCREEN:
       return StateFunctions.toggleDownloadScreen(payload, state);
     case Types.SET_DEVICE_TYPE:
@@ -45,6 +49,8 @@ export default (state, action) => {
       return StateFunctions.toggleEmployeeEditingStatus(payload, state);
     case Types.UPDATE_EMPLOYEE:
       return StateFunctions.updateEmployee(payload, state);
+    case Types.UPDATE_PRODUCT:
+      return StateFunctions.updateProduct(payload, state);
 
     // point of sale
     case Types.ADD_TO_CART:

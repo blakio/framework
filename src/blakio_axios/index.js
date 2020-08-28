@@ -12,10 +12,16 @@ let axiosInstance = axios.create({
 });
 
 window.blakio_setSideBarOptions = () => {
+  /**
+   * 1. log in to the account to add the sidebar option
+   * 2. comment in the side bar options to add
+   * 3. run blakio_setSideBarOptions
+   */
   const sideBarOptions = [
     { title: "Timesheet", closedIcon: "fas fa-clock" },
     { title: "Employee Directory", closedIcon: "fas fa-user-tie" },
-    { title: "Point Of Sale", closedIcon: "fas fa-credit-card" }
+    { title: "Point Of Sale", closedIcon: "fas fa-credit-card" },
+    { title: "Product", closedIcon: "fas fa-boxes" },
   ];
 
   const insertOption = async (data) => {
@@ -38,6 +44,10 @@ export default {
 
   getEmployees: async () => {
     return await axiosInstance.get("/table/Employee");
+  },
+
+  getProducts: async () => {
+    return await axiosInstance.get("/table/Product");
   },
 
   // SIDE BAR
@@ -88,6 +98,10 @@ export default {
     return await axiosInstance.post('/table/Employee', employee);
   },
 
+  addProduct: async (product) => {
+    return await axiosInstance.post('/table/Product', product);
+  },
+
   updateEmployee: async (updatedEmployee, _id) => {
     return await axiosInstance.post("/table/Employee", {
       setFields: updatedEmployee,
@@ -97,8 +111,21 @@ export default {
     });
   },
 
+  updateProduct: async (updatedProduct, _id) => {
+    return await axiosInstance.post("/table/Product", {
+      setFields: updatedProduct,
+      query: {
+        _id
+      }
+    });
+  },
+
   deleteEmployee: async (employeeId) => {
     return await axiosInstance.delete(`/table/Employee/${employeeId}`);
+  },
+
+  deleteProduct: async (productId) => {
+    return await axiosInstance.delete(`/table/Product/${productId}`);
   },
 
   findTimeBoundaries: async (employeeId, timestamp) => {

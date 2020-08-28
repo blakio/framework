@@ -24,6 +24,10 @@ const initialState = {
   pointOfSale: {
     cart: [],
     items: []
+  },
+  products: {
+    list: [],
+    updateId: null
   }
 };
 

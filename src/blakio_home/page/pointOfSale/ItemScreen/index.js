@@ -45,17 +45,12 @@ const ItemScreen = () => {
         items
     } = state.pointOfSale;
 
+    const {
+        list
+    } = state.products;
+
     const getProductData = () => {
-        const products = [
-            { _id: "1", name: "apple", price: 1.10 },
-            { _id: "2", name: "orange", price: 0.89 },
-            { _id: "3", name: "banana", price: 0.2 },
-            { _id: "4", name: "peach", price: 0.5 }
-        ];
-        dispatch({
-            type: Types.SET_CART_ITEMS,
-            payload: products
-        })
+        Util.getProducts(dispatch);
     }
 
     useEffect(() => {
@@ -64,7 +59,7 @@ const ItemScreen = () => {
 
     const getHeadData = data => data;
 
-    const getIds = () => items.map(data => data.id);
+    const getIds = () => list.map(data => data._id);
 
     const removeItem = id => {
         dispatch({
@@ -124,11 +119,11 @@ const ItemScreen = () => {
         cart.forEach(data => {
             let total;
             if(data.quantity && data.quantity.length){
-                total = `$${(data.price * parseFloat(data.quantity)).toFixed(2)}`;
+                total = `$${(data.cost * parseFloat(data.quantity)).toFixed(2)}`;
             } else {
                 total = `_totalCost&${data._id}`;
             }
-            tableData.push([`_removeButton&${data._id}`, data.name, `$${data.price.toFixed(2)}`, `_inputField&${JSON.stringify(data)}`, total])
+            tableData.push([`_removeButton&${data._id}`, data.name, `$${data.cost.toFixed(2)}`, `_inputField&${JSON.stringify(data)}`, total])
         });
         const grandTotal = getGrandTotal(tableData);
         if(cart.length){
@@ -161,7 +156,7 @@ const ItemScreen = () => {
                 onClick={() => {}}
             />
             <Combobox
-                data={items}
+                data={list}
                 onChange={data => {
                     if (typeof data === "object") {
                         dispatch({
