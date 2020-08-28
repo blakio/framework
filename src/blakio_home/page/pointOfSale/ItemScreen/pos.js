@@ -4,15 +4,12 @@ var callbackUrl = "https://blakiodashboard.herokuapp.com/purchased";
 // Your application ID
 var applicationId = "sq0idp-4CVw5fpKwLHOxXyqa1LoZQ";
 
-// The total and currency code should come from your transaction flow.
-// For now, we are hardcoding them.
-var transactionTotal = "100";
 var currencyCode = "USD";
 
 // The version of the Point of Sale SDK that you are using.
 var sdkVersion = "v2.0";
 
-export const openURLAndroid = () => {
+export const openURLAndroid = (notes, total) => {
     // Configure the allowable tender types
     var tenderTypes =
         `com.squareup.pos.TENDER_CARD, \
@@ -27,18 +24,19 @@ export const openURLAndroid = () => {
         "S.com.squareup.pos.WEB_CALLBACK_URI=" + callbackUrl + ";" +
         "S.com.squareup.pos.CLIENT_ID=" + applicationId + ";" +
         "S.com.squareup.pos.API_VERSION=" + sdkVersion + ";" +
-        "i.com.squareup.pos.TOTAL_AMOUNT=" + transactionTotal + ";" +
+        "i.com.squareup.pos.TOTAL_AMOUNT=" + total + ";" +
         "S.com.squareup.pos.CURRENCY_CODE=" + currencyCode + ";" +
         "S.com.squareup.pos.TENDER_TYPES=" + tenderTypes + ";" +
+        "S.com.squareup.pos.NOTE=" + notes + ";" +
         "end";
 
     window.open(posUrl);
 }
 
-export const openURLiOS = () => {
+export const openURLiOS = (notes, total) => {
     var dataParameter = {
         amount_money: {
-            amount: "100",
+            amount: total,
             currency_code: "USD"
         },
 
@@ -49,7 +47,7 @@ export const openURLiOS = () => {
         client_id: applicationId,
 
         version: "1.3",
-        notes: "notes for the transaction",
+        notes: notes,
         options: {
             supported_tender_types: ["CREDIT_CARD", "CASH", "OTHER", "SQUARE_GIFT_CARD", "CARD_ON_FILE"]
         }

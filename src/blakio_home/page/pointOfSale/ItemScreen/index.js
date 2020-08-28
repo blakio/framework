@@ -41,8 +41,7 @@ const ItemScreen = () => {
     ]);
 
     const {
-        cart,
-        items
+        cart
     } = state.pointOfSale;
 
     const {
@@ -138,8 +137,28 @@ const ItemScreen = () => {
         })
     }
 
+    const getCharge = () => {
+        let notes = "Cost | Item\n-------------";
+        let total = 0;
+        cart.forEach(data => {
+            if(data.quantity && data.quantity.length){
+                const subTotal = (parseFloat(data.quantity) * data.cost).toFixed(2)
+                total += parseFloat(subTotal);
+                notes +=`\n$${(parseFloat(data.quantity) * data.cost).toFixed(2)} | ${data.name}`;
+            }
+        });
+        return {
+            notes,
+            total: total * 100
+        };
+    }
+
     const buy = () => {
-        state.deviceType === "iOS" ? openURLiOS() : openURLAndroid();
+        const {
+            notes,
+            total
+        } = getCharge();
+        state.deviceType === "iOS" ? openURLiOS(notes, total) : openURLAndroid(notes, total);
     }
 
     return (<div>
