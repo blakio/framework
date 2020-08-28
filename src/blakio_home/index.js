@@ -51,20 +51,19 @@ const load = (dispatch, bool) => {
 
 const SideBarHead = () => {
   const [state, dispatch] = StateContext();
-  const [isClosed, setIsClosed] = useState(false);
+  const {
+    shortMenu
+  } = state.sideBarOptions;
 
   const onClick = () => {
-    setIsClosed(!isClosed);
     dispatch({
       type: Types.SHORT_MENU,
-      payload: !isClosed
+      payload: !shortMenu
     })
   }
 
   useEffect(() => {
-    if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
-      onClick();
-    }
+    Util.openPhoneMode(dispatch, shortMenu);
   }, []);
 
   useEffect(() => {
@@ -86,11 +85,11 @@ const SideBarHead = () => {
     })
   }, [])
 
-  const margin = isClosed ? "0 auto" : "0 1em";
-  const width = isClosed ? 62 : null;
+  const margin = shortMenu ? "0 auto" : "0 1em";
+  const width = shortMenu ? 62 : null;
 
-  return (<div id="SideBarHead" className={`flex ${state.sideBarOptions.shortMenu && "shortMenu"}`}>
-    {!isClosed && <img src={logo} alt="logo" />}
+  return (<div id="SideBarHead" className={`flex ${shortMenu && "shortMenu"}`}>
+    {!shortMenu && <img src={logo} alt="logo" />}
     <div
       style={{
         margin

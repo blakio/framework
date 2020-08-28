@@ -307,6 +307,15 @@ export default {
         }
       }
     })
+  },
+
+  openPhoneMode: (dispatch, shortMenu) => {
+    if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
+      dispatch({
+        type: Types.SHORT_MENU,
+        payload: !shortMenu
+      })
+    }
   }
 
 }
