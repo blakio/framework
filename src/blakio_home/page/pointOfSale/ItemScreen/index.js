@@ -138,13 +138,13 @@ const ItemScreen = () => {
     }
 
     const getCharge = () => {
-        let notes = "Cost | Item\n-------------";
+        let notes = "Transaction Summary:";
         let total = 0;
         cart.forEach(data => {
             if(data.quantity && data.quantity.length){
                 const subTotal = (parseFloat(data.quantity) * data.cost).toFixed(2)
                 total += parseFloat(subTotal);
-                notes +=`\n$${(parseFloat(data.quantity) * data.cost).toFixed(2)} | ${data.name}`;
+                notes += ` | ${data.name} => ${parseFloat(data.quantity)} x $${data.cost.toFixed(2)} = $${(parseFloat(data.quantity) * data.cost).toFixed(2)}`;
             }
         });
         return {
