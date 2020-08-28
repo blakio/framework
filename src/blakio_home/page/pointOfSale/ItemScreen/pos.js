@@ -1,5 +1,5 @@
 // The URL where the Point of Sale app will send the transaction results.
-var callbackUrl = "https://blakiodashboard.herokuapp.com/purchased";
+var callbackUrl = "https://blakiodashboardserver.herokuapp.com/api/confirmation";
 
 // Your application ID
 var applicationId = "sq0idp-4CVw5fpKwLHOxXyqa1LoZQ";
