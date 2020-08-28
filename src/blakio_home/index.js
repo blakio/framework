@@ -33,6 +33,8 @@ import ItemScreen from "./page/pointOfSale/ItemScreen";
 
 import LoginScreen from "./page/loginScreen";
 
+import {CircleBtns} from "blakio_home/page/components";
+
 import 'react-widgets/dist/css/react-widgets.css';
 
 const {
@@ -187,6 +189,16 @@ const DashboardBody = () => {
       <Product show={state.sideBarOptions.sideBarOption === "Product"}/>
     </div>
     <Footer />
+    <CircleBtns
+      buttons={[
+        {
+          text: "refresh",
+          icon: "fas fa-sync-alt",
+          color: "blue",
+          onClick: () => window.location.reload(false)
+        }
+      ]}
+    />
   </div>)
 }
 

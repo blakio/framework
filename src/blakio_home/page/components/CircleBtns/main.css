@@ -1,0 +1,36 @@
+.circleBtn {
+    position: absolute;
+    bottom: 1em;
+    right: 1em;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.circleBtn p {
+    margin: 0;
+    font-size: 0.8em;
+    font-weight: 400;
+    text-transform: uppercase;
+}
+
+.circleBtnIconContainer {
+    height: 4em;
+    width: 4em;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.circleBtnIconContainer:active {
+    box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+    background-color: #2d598b;
+}
+
+.circleBtnIconContainer i {
+    font-size: 1.6em;
+    color: #fff;
+    opacity: 0.4;
+}

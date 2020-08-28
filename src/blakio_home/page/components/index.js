@@ -9,6 +9,7 @@ import Table from "./Table";
 import Button from "./Button";
 import Form from "./Form";
 import Autocomplete from "./Autocomplete";
+import CircleBtns from "./CircleBtns";
 
 export {
     Paper,
@@ -21,5 +22,6 @@ export {
     Table,
     Button,
     Form,
-    Autocomplete
+    Autocomplete,
+    CircleBtns
 }
