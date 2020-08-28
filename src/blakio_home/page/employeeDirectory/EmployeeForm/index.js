@@ -163,9 +163,9 @@ const EmployeeForm = () => {
         >
             <div className="employeeFormContainer">
                 <p>First Name</p>
-                <input className="employeeInput" onClick={Util.openPhoneMode(dispatch, shortMenu)} placeholder="Enter text" type="firstName" onChange={handleChange} value={getValue("firstName")}/>
+                <input className="employeeInput" onClick={() => Util.openPhoneMode(dispatch, shortMenu)} placeholder="Enter text" type="firstName" onChange={handleChange} value={getValue("firstName")}/>
                 <p>Last Name	</p>
-                <input className="employeeInput" onClick={Util.openPhoneMode(dispatch, shortMenu)} placeholder="Enter text" type="lastName" onChange={handleChange} value={getValue("lastName")}/>
+                <input className="employeeInput" onClick={() => Util.openPhoneMode(dispatch, shortMenu)} placeholder="Enter text" type="lastName" onChange={handleChange} value={getValue("lastName")}/>
                 <p>DOB</p>
                 <DatePicker
                     selected={getValue("dob")}
@@ -177,15 +177,15 @@ const EmployeeForm = () => {
                     // showDisabledMonthNavigation
                 />
                 <p>Phone</p>
-                <input className="employeeInput" onClick={Util.openPhoneMode(dispatch, shortMenu)} placeholder="Enter text" type="phone" onChange={handleChange} value={getValue("phone")}/>
+                <input className="employeeInput" onClick={() => Util.openPhoneMode(dispatch, shortMenu)} placeholder="Enter text" type="phone" onChange={handleChange} value={getValue("phone")}/>
                 <p>Email</p>
-                <input className="employeeInput" onClick={Util.openPhoneMode(dispatch, shortMenu)} placeholder="Enter text" type="employeeEmail" onChange={handleChange} value={getValue("email")}/>
+                <input className="employeeInput" onClick={() => Util.openPhoneMode(dispatch, shortMenu)} placeholder="Enter text" type="employeeEmail" onChange={handleChange} value={getValue("email")}/>
                 <p>Emergency Contact</p>
-                <input className="employeeInput" onClick={Util.openPhoneMode(dispatch, shortMenu)} placeholder="Enter text" type="emergencyContact" onChange={handleChange} value={getValue("emergencyContact")}/>
+                <input className="employeeInput" onClick={() => Util.openPhoneMode(dispatch, shortMenu)} placeholder="Enter text" type="emergencyContact" onChange={handleChange} value={getValue("emergencyContact")}/>
                 <p>Title</p>
-                <input className="employeeInput" onClick={Util.openPhoneMode(dispatch, shortMenu)} placeholder="Enter text" type="title" onChange={handleChange} value={getValue("title")}/>
+                <input className="employeeInput" onClick={() => Util.openPhoneMode(dispatch, shortMenu)} placeholder="Enter text" type="title" onChange={handleChange} value={getValue("title")}/>
                 <p>Department</p>
-                <input className="employeeInput" onClick={Util.openPhoneMode(dispatch, shortMenu)} placeholder="Enter text" type="department" onChange={handleChange} value={getValue("department")}/>
+                <input className="employeeInput" onClick={() => Util.openPhoneMode(dispatch, shortMenu)} placeholder="Enter text" type="department" onChange={handleChange} value={getValue("department")}/>
                 <button className="submitBtn" onClick={onSubmit}>{updateId ? "Update" : "Add"}</button>
                 <button className="submitBtn" onClick={onCancel}>Cancel</button>
                 {updateId && <button className="submitBtn red" onClick={onDelete}>Delete</button>}
