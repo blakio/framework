@@ -26,9 +26,7 @@ const ProductForm = () => {
         list
     } = state.products;
 
-    const {
-        shortMenu
-    } = state.sideBarOptions;
+    const shortMenu = true;
 
     const defaultInputValue = {
         name: "",

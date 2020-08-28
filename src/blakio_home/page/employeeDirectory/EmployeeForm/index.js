@@ -31,9 +31,7 @@ const EmployeeForm = () => {
         employees
     } = state.employeeDirectory;
 
-    const {
-        shortMenu
-    } = state.sideBarOptions;
+    const shortMenu = true;
 
     const defaultInputValue = {
         dob: moment()._d,
