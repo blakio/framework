@@ -63,7 +63,7 @@ const SideBarHead = () => {
   }
 
   useEffect(() => {
-    Util.openPhoneMode(dispatch, shortMenu);
+    Util.openPhoneMode(dispatch, true);
   }, []);
 
   useEffect(() => {
