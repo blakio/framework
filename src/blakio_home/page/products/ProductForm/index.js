@@ -70,6 +70,9 @@ const ProductForm = () => {
         const method = updateId ? "updateProduct" : "addProduct";
         const title = updateId ? "Update Product" : "Add Product";
         const message = updateId ? "Successfully updated product" : "Successfully added product";
+        if(!formValues.name.length || !formValues.cost.length){
+            return Util.showError("", "Must fill in both Name and Cost")
+        }
         Axios[method]({
             ...formValues
         }, updateId).then(data => {
