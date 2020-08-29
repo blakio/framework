@@ -137,7 +137,7 @@ const ProductForm = () => {
                 <p>Name</p>
                 <input className="employeeInput" onClick={() => Util.openPhoneMode(dispatch, shortMenu)} placeholder="Enter product name" type="name" onChange={handleChange} value={getValue("name")}/>
                 <p>Cost</p>
-                <input className="employeeInput" onClick={() => Util.openPhoneMode(dispatch, shortMenu)} placeholder="Enter product cost" type="cost" onChange={handleChange} value={getValue("cost")}/>
+                <input pattern="[0-9]*" className="employeeInput" onClick={() => Util.openPhoneMode(dispatch, shortMenu)} placeholder="Enter product cost" type="cost" onChange={handleChange} value={getValue("cost")}/>
                 <button className="submitBtn" onClick={onSubmit}>{updateId ? "Update" : "Add"}</button>
                 <button className="submitBtn" onClick={onCancel}>Cancel</button>
                 {updateId && <button className="submitBtn red" onClick={onDelete}>Delete</button>}

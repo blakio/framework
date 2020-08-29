@@ -170,7 +170,7 @@ const EmployeeForm = () => {
                     onChange={handleDateChange}
                 /> */}
                 <p>Phone</p>
-                <input className="employeeInput" onClick={() => Util.openPhoneMode(dispatch, shortMenu)} placeholder="Enter text" type="phone" onChange={handleChange} value={getValue("phone")}/>
+                <input pattern="[0-9]*" className="employeeInput" onClick={() => Util.openPhoneMode(dispatch, shortMenu)} placeholder="Enter text" type="phone" onChange={handleChange} value={getValue("phone")}/>
                 <p>Email</p>
                 <input className="employeeInput" onClick={() => Util.openPhoneMode(dispatch, shortMenu)} placeholder="Enter text" type="employeeEmail" onChange={handleChange} value={getValue("email")}/>
                 {/* <p>Emergency Contact</p>
