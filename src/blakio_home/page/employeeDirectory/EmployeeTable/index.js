@@ -19,12 +19,12 @@ const EmployeeTable = () => {
     const getTh = () => ([
         "First Name",
         "Last Name",
-        "DOB",
+        // "DOB",
         "Phone",
         "Email",
-        "Emergency Contact",
+        // "Emergency Contact",
         "Title",
-        "Department",
+        // "Department",
     ]);
 
     const ids = state.employeeDirectory.employees.map(data => data._id);
@@ -34,12 +34,12 @@ const EmployeeTable = () => {
         state.employeeDirectory.employees.forEach(data => td.push([
             data.firstName,
             data.lastName,
-            Util.formatDate(data.dob),
+            // Util.formatDate(data.dob),
             Util.formatPhoneNumber(`${data.phone}`),
             data.email,
-            Util.formatPhoneNumber(data.emergencyContact),
+            // Util.formatPhoneNumber(data.emergencyContact),
             data.title,
-            data.department
+            // data.department
         ]));
         return td;
     }
@@ -47,12 +47,12 @@ const EmployeeTable = () => {
     const fields = [
         "firstName",
         "lastName",
-        "dob",
+        // "dob",
         "phone",
         "email",
-        "emergencyContact",
+        // "emergencyContact",
         "title",
-        "department",
+        // "department",
     ];
 
     const getHeadData = value => value;
