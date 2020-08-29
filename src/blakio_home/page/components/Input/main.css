@@ -4,15 +4,6 @@
     align-items: flex-end;
 }
 
-.bigTextInput {
-    margin: 0;
-    font-size: 3em;
-    font-weight: 700;
-    width: 90%;
-    text-align: end;
-    border: 1px solid #b2b1b1;
-}
-
 .bigTextInput::placeholder {
     color: var(--lineLightGrey);
 }

@@ -189,11 +189,6 @@ body {
   font-weight: 400;
 }
 
-.AddInput input {
-  font-size: 1.2em;
-  height: 1.4em;
-}
-
 .AddInput i {
   color: var(--darkGreen);
   margin-left: 0.2em;

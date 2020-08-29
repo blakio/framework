@@ -6,24 +6,6 @@
     color: var(--darkerGrey);
 }
 
-.employeeInput {
-    display: block;
-    width: 96%;
-    padding: 6px 12px;
-    font-size: 1em !important;
-    line-height: 1.42857143;
-    color: #555;
-    background-color: #fff;
-    background-image: none;
-    border: 1px solid rgba(0, 0, 0, 0.1) !important;
-    border-radius: 3px;
-    -webkit-box-shadow: none !important;
-    box-shadow: none !important;
-    -webkit-transition: none !important;
-    -o-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s !important;
-    transition: none !important;
-}
-
 .react-datepicker__input-container input {
     border: 1px solid rgba(0, 0, 0, 0.1) !important;
     border-radius: 3px;

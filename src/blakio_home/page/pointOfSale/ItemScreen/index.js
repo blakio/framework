@@ -94,7 +94,7 @@ const ItemScreen = () => {
                 item
             ] = data.split("&");
             const itemData = JSON.parse(item);
-            return <input type="number" onChange={e => onQuantityChange(e.target.value, itemData)} />;
+            return <input className="posNumberField" type="number" onChange={e => onQuantityChange(e.target.value, itemData)} />;
         } else if (data.includes("_totalCost")) {
             return "";
         }

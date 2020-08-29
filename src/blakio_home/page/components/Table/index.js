@@ -46,7 +46,7 @@ const Table = props => {
                             onClick={() => onClick(getParam())}
                             style={props.additionalStyles && props.additionalStyles[index] && props.additionalStyles[index][i] || {}}
                             className={getClassName(index, i)}>
-                                {props.getData(d, individualIds && individualIds[index] && individualIds[index][i])}
+                                <p>{props.getData(d, individualIds && individualIds[index] && individualIds[index][i])}</p>
                         </td>)
                     })}
                 </tr>))}
