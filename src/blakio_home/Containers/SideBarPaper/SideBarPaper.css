@@ -4,7 +4,7 @@
 
 .SideBarPaper {
   border-radius: 0.2em;
-  margin: 0.6em;
+  margin: 0.6em auto;
   width: 90%;
   overflow: hidden;
   margin-top: 0;

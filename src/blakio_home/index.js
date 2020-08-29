@@ -87,13 +87,17 @@ const SideBarHead = () => {
     })
   }, [])
 
-  const margin = shortMenu ? "0 auto" : "0 1em";
-  const width = shortMenu ? 38 : null;
+  const margin = shortMenu ? "0 auto" : "0 0.58em";
+  const width = shortMenu ? "80%" : null;
 
   return (<div id="SideBarHead" className={`flex ${shortMenu && "shortMenu"}`}>
     {!shortMenu && <img src={logo} alt="logo" />}
     <div
       style={{
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        width: shortMenu ? "100%" : "auto",
         margin
       }}
     >
@@ -119,12 +123,10 @@ const TimeSheet = props => {
 
   if(!props.show) return <div></div>;
   return (<div>
-    <Grid grid="2">
+    <Grid grid="3">
       <ClockIn />
-      <Grid grid="1_2">
-        {state.timeSheet.clockIn.selectedEmployee ? <WorkedHours /> : <div></div>}
-        {state.timeSheet.clockIn.selectedEmployee ? <Notes /> : <div></div>}
-      </Grid>
+      {state.timeSheet.clockIn.selectedEmployee ? <WorkedHours /> : <div></div>}
+      {state.timeSheet.clockIn.selectedEmployee ? <Notes /> : <div></div>}
     </Grid>
     {state.timeSheet.clockIn.selectedEmployee && <Grid grid="1">
       <TimeSummary />
@@ -136,8 +138,12 @@ const EmployeeDirectory = props => {
   if(!props.show) return <div></div>;
   return (<div>
     <Grid grid="2">
-      <EmployeeTable />
-      <EmployeeForm />
+      <Grid grid="1">
+        <EmployeeTable />
+      </Grid>
+      <Grid grid="1">
+        <EmployeeForm />
+      </Grid>
     </Grid>
   </div>)
 }
@@ -145,7 +151,7 @@ const EmployeeDirectory = props => {
 const Product = props => {
   if(!props.show) return <div></div>;
   return (<div>
-    <Grid grid="2">
+    <Grid grid="3">
       <ProductTable />
       <ProductForm />
     </Grid>

@@ -19,7 +19,7 @@ const HamburgerMenu = (props) => {
     }}>
       <i className="fas fa-expand-alt" style={{
         fontSize: size * 0.4,
-        transform: "rotateY(180deg)"
+        transform: "rotateY(180deg) rotateZ(45deg)"
     }}></i>
   </div>)
 }

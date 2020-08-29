@@ -14,11 +14,12 @@
 
 #ContentArea {
   height: 100vh;
-  min-width: calc(100% - var(--SideBarWidth));
+  /* min-width: calc(100% - var(--SideBarWidth)); */
   right: 0;
   top: 0;
   position: fixed;
-  max-width: calc(100% - var(--SideBarWidth));
+  /* max-width: calc(100% - var(--SideBarWidth)); */
+  width: calc(100% - var(--SideBarWidth));
   transition: max-width 0.4s;
   overflow: scroll;
 }
