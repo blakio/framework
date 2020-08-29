@@ -4,6 +4,10 @@
   justify-content: flex-start;
   background: fixed;
   background-image: url(imgs/bg.png);
+
+  overflow: scroll !important;
+  -webkit-overflow-scrolling: touch !important;
+  height: 100% !important;
 }
 
 .flex {
