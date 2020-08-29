@@ -51,7 +51,7 @@ body {
   min-height: 100vh;
   flex-direction: column;
   justify-content: flex-start;
-  overflow-y: scroll;
+  /* overflow-y: scroll; */
   transition: width 0.4s;
 }
 
@@ -107,7 +107,7 @@ body {
   min-height: calc(100% - var(--navBarHeight));
   background-color: #F5F5F5;
   flex-wrap: wrap;
-  overflow: scroll;
+  /* overflow: scroll; */
 }
 
 #Dashboard.shortMenu {
@@ -133,7 +133,7 @@ body {
 
 #dashboardBodyContainer {
   height: calc((100vh - var(--navBarHeight) - var(--navBarHeight)) * 0.95);
-  /* overflow: scroll; */
+  overflow: scroll;
 }
 
 #dashboardBodyContainer.shortMenu {
