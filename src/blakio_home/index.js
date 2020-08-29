@@ -155,7 +155,7 @@ const Product = props => {
 const PointOfSale = props => {
   if(!props.show) return <div></div>;
   return (<div>
-    <Grid grid="1">
+    <Grid grid="2">
       <div style={{
         height: "90vh",
         overflowY: "scroll"
