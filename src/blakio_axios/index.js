@@ -19,7 +19,7 @@ window.blakio_setSideBarOptions = () => {
    */
   const sideBarOptions = [
     { title: "Timesheet", closedIcon: "fas fa-clock" },
-    { title: "Employee Directory", closedIcon: "fas fa-user-tie" },
+    { title: "Empl Directory", closedIcon: "fas fa-user-tie" },
     { title: "Point Of Sale", closedIcon: "fas fa-credit-card" },
     { title: "Product", closedIcon: "fas fa-boxes" },
   ];
