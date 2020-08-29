@@ -107,7 +107,7 @@ body {
   min-height: calc(100% - var(--navBarHeight));
   background-color: #F5F5F5;
   flex-wrap: wrap;
-  overflow: hidden;
+  overflow: scroll;
 }
 
 #Dashboard.shortMenu {
@@ -133,7 +133,7 @@ body {
 
 #dashboardBodyContainer {
   height: calc((100vh - var(--navBarHeight) - var(--navBarHeight)) * 0.95);
-  overflow: scroll;
+  /* overflow: scroll; */
 }
 
 #dashboardBodyContainer.shortMenu {
