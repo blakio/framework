@@ -5,30 +5,30 @@ import { store } from 'react-notifications-component';
 import moment from "moment";
 import mtz from "moment-timezone";
 
-const total = (a, b) => {
-  return parseInt(a) + parseInt(b);
-}
+const Util = {
 
-const columnToClassMapper = {
-  "3_3_3_3": "4",
-  "12": "1",
-  "4_4_4": "3",
-  "6_3_3": "2_1_1",
-  "6_6": "2",
-  "3_3_6": "1_1_2",
-  "4_8": "1_2",
-  "8_4": "2_1",
-  "2.4_2.4_2.4_2.4_2.4_2.4": "5",
-  "2_2_2_2_2_2": "6",
-  "1.7_1.7_1.7_1.7_1.7_1.7_1.7": "7",
-  "1.5_1.5_1.5_1.5_1.5_1.5_1.5_1.5": "8",
-  "1.3_1.3_1.3_1.3_1.3_1.3_1.3_1.3_1.3": "9",
-  "1.2_1.2_1.2_1.2_1.2_1.2_1.2_1.2_1.2_1.2": "10",
-  "1.09_1.09_1.09_1.09_1.09_1.09_1.09_1.09_1.09_1.09_1.09": "11",
-  "1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1": "12"
-}
+  total: (a, b) => {
+    return parseInt(a) + parseInt(b);
+  },
 
-export default {
+  columnToClassMapper: {
+    "3_3_3_3": "4",
+    "12": "1",
+    "4_4_4": "3",
+    "6_3_3": "2_1_1",
+    "6_6": "2",
+    "3_3_6": "1_1_2",
+    "4_8": "1_2",
+    "8_4": "2_1",
+    "2.4_2.4_2.4_2.4_2.4_2.4": "5",
+    "2_2_2_2_2_2": "6",
+    "1.7_1.7_1.7_1.7_1.7_1.7_1.7": "7",
+    "1.5_1.5_1.5_1.5_1.5_1.5_1.5_1.5": "8",
+    "1.3_1.3_1.3_1.3_1.3_1.3_1.3_1.3_1.3": "9",
+    "1.2_1.2_1.2_1.2_1.2_1.2_1.2_1.2_1.2_1.2": "10",
+    "1.09_1.09_1.09_1.09_1.09_1.09_1.09_1.09_1.09_1.09_1.09": "11",
+    "1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1": "12"
+  },
 
   breakRefAndCopy: obj => (JSON.parse(JSON.stringify(obj))),
 
@@ -121,15 +121,17 @@ export default {
     return null
   },
 
+  dateFormat1: "MMM Do, ddd",
+
   getCurrentWeek: (offset) => {
     var currentDate = moment();
     var weekStart = currentDate.startOf('week');
     var days = [];
     for (var i = 0; i <= 6; i++) {
       if(offset){
-        days.push(moment(weekStart).add(i, 'days').add(offset * 7, 'days').format("MMMM Do, ddd"));
+        days.push(moment(weekStart).add(i, 'days').add(offset * 7, 'days').format(self.dateFormat1));
       } else {
-        days.push(moment(weekStart).add(i, 'days').format("MMMM Do, ddd"));
+        days.push(moment(weekStart).add(i, 'days').format(self.dateFormat1));
       }
     }
     return days;
@@ -234,7 +236,7 @@ export default {
       gridArray.forEach((d, i) => {
         if(!d.isFull){
           insertIndex = i;
-          const count = total(columns, d.count);
+          const count = self.total(columns, d.count);
           if(count <= 12){
             insertData = [...d.components, data];
             newCount = parseInt(count);
@@ -289,7 +291,7 @@ export default {
       componentColumns.push(colString);
     });
     grid.forEach((data, i) => {
-      const className = columnToClassMapper[componentColumns[i]]
+      const className = self.columnToClassMapper[componentColumns[i]]
       data.class = className;
       let componentLength = 1;
       const stringLength = componentColumns[i].length;
@@ -328,3 +330,7 @@ export const strings = {
     }
   }
 }
+
+const self = Util;
+
+export default Util;

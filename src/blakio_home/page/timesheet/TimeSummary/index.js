@@ -88,7 +88,7 @@ const TimeSummary = () => {
                 currentWeek.forEach(day => (weekHours[day] = []));
                 dates.data.forEach(date => {
                     const formattedTime = getLocalTime(date);
-                    const formattedDate = moment(date.time.formatted).format("MMMM Do, ddd");
+                    const formattedDate = moment(date.time.formatted).format(Util.dateFormat1);
                     if(weekHours[formattedDate]){
                         weekHours[formattedDate].push({
                             time: formattedTime,
