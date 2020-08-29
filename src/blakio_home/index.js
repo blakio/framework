@@ -127,7 +127,7 @@ const TimeSheet = props => {
       </Grid>
     </Grid>
     {state.timeSheet.clockIn.selectedEmployee && <Grid grid="1" additionalStyles={{
-      overflowX: "scroll"
+      overflow: "scroll"
     }}>
       <TimeSummary />
     </Grid>}
@@ -138,7 +138,7 @@ const EmployeeDirectory = props => {
   if(!props.show) return <div></div>;
   return (<div>
     <Grid grid="1" additionalStyles={{
-      overflowX: "scroll"
+      overflow: "scroll"
     }}>
       <EmployeeTable />
       <EmployeeForm />
@@ -150,7 +150,7 @@ const Product = props => {
   if(!props.show) return <div></div>;
   return (<div>
     <Grid grid="1" additionalStyles={{
-      overflowX: "scroll"
+      overflow: "scroll"
     }}>
       <ProductTable />
       <ProductForm />
