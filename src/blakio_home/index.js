@@ -137,6 +137,8 @@ const EmployeeDirectory = props => {
   return (<div>
     <Grid grid="1">
       <EmployeeTable />
+    </Grid>
+    <Grid grid="2">
       <EmployeeForm />
     </Grid>
   </div>)
