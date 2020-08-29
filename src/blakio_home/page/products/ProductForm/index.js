@@ -137,7 +137,10 @@ const ProductForm = () => {
                 <p>Name</p>
                 <input className="employeeInput" onClick={() => Util.openPhoneMode(dispatch, shortMenu)} placeholder="Enter product name" type="name" onChange={handleChange} value={getValue("name")}/>
                 <p>Cost</p>
-                <input pattern="[0-9]*" className="employeeInput" onClick={() => Util.openPhoneMode(dispatch, shortMenu)} placeholder="Enter product cost" type="cost" onChange={handleChange} value={getValue("cost")}/>
+                <div className="beforeInputContent">
+                    <span>$</span>
+                    <input pattern="[0-9]*" min="0.01" step="0.01" className="employeeInput" onClick={() => Util.openPhoneMode(dispatch, shortMenu)} placeholder="1.25" type="cost" onChange={handleChange} value={getValue("cost")}/>
+                </div>
                 <button className="submitBtn" onClick={onSubmit}>{updateId ? "Update" : "Add"}</button>
                 <button className="submitBtn" onClick={onCancel}>Cancel</button>
                 {updateId && <button className="submitBtn red" onClick={onDelete}>Delete</button>}
