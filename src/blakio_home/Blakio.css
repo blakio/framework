@@ -132,8 +132,8 @@ body {
 }
 
 #dashboardBodyContainer {
-  height: calc((100vh - var(--navBarHeight) - var(--navBarHeight)) * 0.95);
-  overflow: scroll;
+  /* height: calc((100vh - var(--navBarHeight) - var(--navBarHeight)) * 0.95); */
+  /* overflow: scroll; */
 }
 
 #dashboardBodyContainer.shortMenu {
@@ -141,8 +141,8 @@ body {
 }
 
 #DashboardBody {
-  width: 95%;
-  margin: 2.5% auto;
+  /* width: 95%; */
+  /* margin: 2.5% auto; */
   max-width: 80em;
 }
 

@@ -20,6 +20,7 @@
   position: fixed;
   max-width: calc(100% - var(--SideBarWidth));
   transition: max-width 0.4s;
+  overflow: scroll;
 }
 
 #ContentArea.shortMenu {
