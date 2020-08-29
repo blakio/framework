@@ -32,7 +32,7 @@ const ContentArea = () => {
   const [state, dispatch] = StateContext();
 
   return (<div id="ContentArea" className={`${state.sideBarOptions.shortMenu && "shortMenu"}`}>
-    <TopBar />
+    {/* <TopBar /> */}
     <Dashboard />
 </div>)
 }

@@ -108,6 +108,8 @@ body {
   background-color: #F5F5F5;
   flex-wrap: wrap;
   width: fit-content;
+  min-height: 100%;
+  display: inline-block;
 }
 
 #Dashboard.shortMenu {
@@ -144,6 +146,7 @@ body {
   /* width: 95%; */
   /* margin: 2.5% auto; */
   max-width: 80em;
+  margin: 0 auto;
 }
 
 #dateTimeWeather {
