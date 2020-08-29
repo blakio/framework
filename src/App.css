@@ -99,7 +99,3 @@
 .orangeText {
   color: var(--orange);
 }
-
-input {
-  -webkit-overflow-scrolling: touch;
-}
