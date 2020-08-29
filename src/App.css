@@ -122,4 +122,9 @@ input {
   border: 1px solid #ccc;
   border-radius: 4px;
   resize: none;
+
+  /* removes top shadown on iOS */
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
 }
