@@ -186,7 +186,7 @@ const DashboardBody = () => {
     <CircleBtns
       buttons={[
         {
-          text: "refresh",
+          // text: "refresh",
           icon: "fas fa-sync-alt",
           color: "blue",
           onClick: () => window.location.reload(false)

@@ -1,5 +1,5 @@
 .circleBtn {
-    position: absolute;
+    position: fixed;
     bottom: 1em;
     right: 1em;
     display: flex;
@@ -17,8 +17,8 @@
 }
 
 .circleBtnIconContainer {
-    height: 4em;
-    width: 4em;
+    height: 2em;
+    width: 2em;
     border-radius: 50%;
     display: flex;
     justify-content: center;
@@ -32,7 +32,7 @@
 }
 
 .circleBtnIconContainer i {
-    font-size: 1.6em;
+    font-size: 1.4em;
     color: #fff;
     opacity: 0.4;
 }
