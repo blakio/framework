@@ -174,25 +174,27 @@ const ItemScreen = () => {
                 ids={getIds()}
                 onClick={() => {}}
             />
-            <Combobox
-                data={list}
-                onChange={data => {
-                    if (typeof data === "object") {
-                        dispatch({
-                            type: Types.ADD_TO_CART,
-                            payload: data
-                        });
-                        setSearchValue("")
-                    } else {
-                        setSearchValue(data)
-                    }
-                }}
-                filter='contains'
-                textField='name'
-                value={searchValue}
-                dropUp
-                placeholder="Select items here"
-            />
+            <div className="posInput">
+                <Combobox
+                    data={list}
+                    onChange={data => {
+                        if (typeof data === "object") {
+                            dispatch({
+                                type: Types.ADD_TO_CART,
+                                payload: data
+                            });
+                            setSearchValue("")
+                        } else {
+                            setSearchValue(data)
+                        }
+                    }}
+                    filter='contains'
+                    textField='name'
+                    value={searchValue}
+                    dropUp
+                    placeholder="Select items here"
+                />
+            </div>
             <div>
                 {cart.length ? <button className="submitBtn" onClick={clearCart}>Clear Cart</button> : <div></div>}
                 {cart.length ? <button className="submitBtn" onClick={buy}>Buy</button> : <div></div>}

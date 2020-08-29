@@ -193,7 +193,7 @@ const DashboardBody = () => {
       buttons={[
         {
           // text: "refresh",
-          icon: "fas fa-sync-alt",
+          icon: "fas fa-spinner",
           color: "blue",
           onClick: () => window.location.reload(false)
         }
