@@ -88,7 +88,7 @@ const SideBarHead = () => {
   }, [])
 
   const margin = shortMenu ? "0 auto" : "0 1em";
-  const width = shortMenu ? 62 : null;
+  const width = shortMenu ? 38 : null;
 
   return (<div id="SideBarHead" className={`flex ${shortMenu && "shortMenu"}`}>
     {!shortMenu && <img src={logo} alt="logo" />}
