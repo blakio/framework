@@ -29,8 +29,9 @@
 }
 
 #ContentArea.shortMenu {
-  min-width: calc(100% - var(--SideBarWidthClosed));
-  max-width: calc(100% - var(--SideBarWidthClosed))
+  /* min-width: calc(100% - var(--SideBarWidthClosed));
+  max-width: calc(100% - var(--SideBarWidthClosed)) */
+  width: calc(100% - var(--SideBarWidthClosed))
 }
 
 /* #ContentArea .paper {
