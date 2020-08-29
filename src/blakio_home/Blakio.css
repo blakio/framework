@@ -52,6 +52,7 @@ body {
   flex-direction: column;
   justify-content: flex-start;
   /* overflow-y: scroll; */
+  overflow: hidden;
   transition: width 0.4s;
 }
 
