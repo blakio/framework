@@ -8,3 +8,7 @@ input::-webkit-inner-spin-button {
 .posNumberField {
   width: 6em;
 }
+
+.posInput {
+  display: flex;
+}

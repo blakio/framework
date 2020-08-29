@@ -30,7 +30,9 @@ const ItemScreen = () => {
         }
     }, [])
 
-    const [searchValue, setSearchValue] = useState("")
+    const [searchValue, setSearchValue] = useState("");
+
+    const [open, setOpen] = useState(false);
 
     const [tableHead, setTableHead] = useState([
         "Remove",
@@ -161,6 +163,8 @@ const ItemScreen = () => {
         state.deviceType === "iOS" ? openURLiOS(notes, total) : openURLAndroid(notes, total);
     }
 
+    const toggle = () => setOpen(!open);
+
     return (<div>
         <Paper
             title="Cart"
@@ -184,8 +188,10 @@ const ItemScreen = () => {
                                 payload: data
                             });
                             setSearchValue("")
+                            setOpen(false);
                         } else {
                             setSearchValue(data)
+                            setOpen(true);
                         }
                     }}
                     filter='contains'
@@ -193,7 +199,11 @@ const ItemScreen = () => {
                     value={searchValue}
                     dropUp
                     placeholder="Select items here"
+                    open={open}
                 />
+                <button onClick={toggle} tabindex="-1" title="open combobox" type="button" aria-disabled="false" aria-label="open combobox" className="rw-btn rw-btn-select comboboxInput">
+                    <span aria-hidden="true" class="rw-i rw-i-caret-down"></span>
+                </button>
             </div>
             <div>
                 {cart.length ? <button className="submitBtn" onClick={clearCart}>Clear Cart</button> : <div></div>}

@@ -158,7 +158,7 @@ const ClockIn = () => {
                 />
                 <Input
                     bigText="Enter Name"
-                    smallText={getSmallText()}
+                    // smallText={getSmallText()}
                     employees={employeeDirectory.employees}
                     onChange={setClockInEmployee}
                 />

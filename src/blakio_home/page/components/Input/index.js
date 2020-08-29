@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import "./main.css";
 
 import Combobox from 'react-widgets/lib/Combobox'
@@ -6,7 +6,8 @@ import Combobox from 'react-widgets/lib/Combobox'
 const getInput = (
     bigText,
     employees,
-    onChange
+    onChange,
+    open
 ) => {
 
     let data = []
@@ -19,11 +20,14 @@ const getInput = (
             onChange={onChange}
             filter='contains'
             dropUp
+            open={open}
         />
     </div>)
 }
 
 const Input = props => {
+
+    const [open, setOpen] = useState(false);
 
     const {
         bigText,
@@ -32,14 +36,31 @@ const Input = props => {
         onChange
     } = props;
 
+    const onChangeFn = e => {
+        let close = false;
+        employees.forEach(data => {
+            if(`${data.firstName} ${data.lastName}`.toLowerCase() === e.toLowerCase()){
+                close = true;
+            }
+        })
+        onChange(e);
+        setOpen(!close);
+    }
+
     const input = getInput(
         bigText,
         employees,
-        onChange
+        onChangeFn,
+        open
     )
-    
-    return (<div>
+
+    const toggle = () => setOpen(!open);
+
+    return (<div className="inputHolder">
         {input}
+        <button onClick={toggle} tabindex="-1" title="open combobox" type="button" aria-disabled="false" aria-label="open combobox" className="rw-btn rw-btn-select comboboxInput">
+            <span aria-hidden="true" class="rw-i rw-i-caret-down"></span>
+        </button>
         <p className="smallText">{smallText}</p>
     </div>);
 }
