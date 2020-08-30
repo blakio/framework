@@ -128,3 +128,10 @@ input {
   -moz-appearance: none;
   appearance: none;
 }
+
+textarea {
+  /* removes top shadown on iOS */
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
