@@ -151,7 +151,7 @@ const EmployeeDirectory = props => {
 const Product = props => {
   if(!props.show) return <div></div>;
   return (<div>
-    <Grid grid="3">
+    <Grid grid="2">
       <ProductTable />
       <ProductForm />
     </Grid>
@@ -161,7 +161,7 @@ const Product = props => {
 const PointOfSale = props => {
   if(!props.show) return <div></div>;
   return (<div>
-    <Grid grid="2">
+    <Grid grid="1">
       <div style={{
         height: "90vh",
         overflowY: "scroll"

@@ -1,3 +1,9 @@
+#pointOfSale td p {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  max-width: 22em;
+}
+
 /* Chrome, Safari, Edge, Opera */
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {

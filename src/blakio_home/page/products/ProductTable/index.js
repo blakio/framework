@@ -52,7 +52,7 @@ const ProductTable = () => {
         return id === state.products.updateId;
     }
 
-    return (<div className="timeSummary">
+    return (<div id="productsTable" className="timeSummary">
         <Paper
             title="Product Directory"
             color="blue"

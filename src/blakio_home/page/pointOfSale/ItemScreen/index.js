@@ -165,11 +165,18 @@ const ItemScreen = () => {
 
     const toggle = () => setOpen(!open);
 
-    return (<div>
+    return (<div id="pointOfSale">
         <Paper
             title="Cart"
             color="green"
         >
+            <p>Directions for payment</p>
+            <ol>
+                <li>Select an item with the input below</li>
+                <li>Fill in the quantity</li>
+                <li>Press the buy button when finished</li>
+                <li>You will be redirected to the Square POS app for payment</li>
+            </ol>
             <Table
                 getHeadData={getHeadData}
                 getData={getData}

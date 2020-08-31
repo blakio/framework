@@ -139,7 +139,7 @@ const ProductForm = () => {
                 <p>Cost</p>
                 <div className="beforeInputContent">
                     <span>$</span>
-                    <input pattern="[0-9]*" min="0.01" step="0.01" className="employeeInput" onClick={() => Util.openPhoneMode(dispatch, shortMenu)} placeholder="1.25" type="cost" onChange={handleChange} value={getValue("cost")}/>
+                    <input pattern="[0-9]*" min="0.01" step="0.01" className="employeeInput" onClick={() => Util.openPhoneMode(dispatch, shortMenu)} placeholder="0.00" type="cost" onChange={handleChange} value={getValue("cost")}/>
                 </div>
                 <button className="submitBtn" onClick={onSubmit}>{updateId ? "Update" : "Add"}</button>
                 <button className="submitBtn" onClick={onCancel}>Cancel</button>
