@@ -4,6 +4,22 @@
   max-width: 22em;
 }
 
+#pointOfSale .title {
+  line-height: 20px;
+  font-size: 13px;
+  padding: 0.4em 1em;
+  text-align: left;
+  color: var(--darkerGrey);
+}
+
+#pointOfSale li {
+  line-height: 20px;
+  font-size: 13px;
+  padding: 0.4em 1em;
+  text-align: left;
+  color: var(--darkerGrey);
+}
+
 /* Chrome, Safari, Edge, Opera */
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {

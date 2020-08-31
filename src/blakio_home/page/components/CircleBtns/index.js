@@ -7,7 +7,7 @@ const CircleBtns = props => {
         buttons
     } = props;
 
-    return (<div>
+    return (<div className="circleBtnParent">
         {buttons.map(data => {
             const {
                 text,

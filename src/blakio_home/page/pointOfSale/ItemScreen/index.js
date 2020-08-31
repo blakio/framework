@@ -170,7 +170,7 @@ const ItemScreen = () => {
             title="Cart"
             color="green"
         >
-            <p>Directions for payment</p>
+            <p className="title">Directions for payment</p>
             <ol>
                 <li>Select an item with the input below</li>
                 <li>Fill in the quantity</li>
