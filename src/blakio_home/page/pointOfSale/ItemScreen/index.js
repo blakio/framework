@@ -209,7 +209,7 @@ const ItemScreen = () => {
                     open={open}
                 />
                 <button onClick={toggle} tabindex="-1" title="open combobox" type="button" aria-disabled="false" aria-label="open combobox" className="rw-btn rw-btn-select comboboxInput">
-                    <span aria-hidden="true" class="rw-i rw-i-caret-down"></span>
+                    <span aria-hidden="true" className="rw-i rw-i-caret-down"></span>
                 </button>
             </div>
             <div>

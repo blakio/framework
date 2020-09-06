@@ -73,33 +73,33 @@ const Util = {
 
   showError: (title, message) => {
     store.addNotification({
-        title,
-        message,
-        type: "danger",
-        insert: "top",
-        container: "top-right",
-        animationIn: ["animated", "fadeIn"],
-        animationOut: ["animated", "fadeOut"],
-        dismiss: {
-          duration: 5000,
-          onScreen: true
-        }
+      title,
+      message,
+      type: "danger",
+      insert: "top",
+      container: "top-right",
+      animationIn: ["animated", "fadeIn"],
+      animationOut: ["animated", "fadeOut"],
+      dismiss: {
+        duration: 5000,
+        onScreen: true
+      }
     });
   },
-  
+
   showSuccess: (title, message) => {
     store.addNotification({
-        title,
-        message,
-        type: "success",
-        insert: "top",
-        container: "top-right",
-        animationIn: ["animated", "fadeIn"],
-        animationOut: ["animated", "fadeOut"],
-        dismiss: {
-          duration: 5000,
-          onScreen: true
-        }
+      title,
+      message,
+      type: "success",
+      insert: "top",
+      container: "top-right",
+      animationIn: ["animated", "fadeIn"],
+      animationOut: ["animated", "fadeOut"],
+      dismiss: {
+        duration: 5000,
+        onScreen: true
+      }
     });
   },
 
@@ -110,14 +110,14 @@ const Util = {
   formatPhoneNumber: (str) => {
     //Filter only numbers from the input
     let cleaned = ('' + str).replace(/\D/g, '');
-    
+
     //Check if the input is of correct length
     let match = cleaned.match(/^(\d{3})(\d{3})(\d{4})$/);
-  
+
     if (match) {
       return '(' + match[1] + ') ' + match[2] + '-' + match[3]
     };
-  
+
     return null
   },
 
@@ -128,7 +128,7 @@ const Util = {
     var weekStart = currentDate.startOf('week');
     var days = [];
     for (var i = 0; i <= 6; i++) {
-      if(offset){
+      if (offset) {
         days.push(moment(weekStart).add(i, 'days').add(offset * 7, 'days').format(self.dateFormat1));
       } else {
         days.push(moment(weekStart).add(i, 'days').format(self.dateFormat1));
@@ -142,7 +142,7 @@ const Util = {
     var weekStart = currentDate.startOf('week');
     var days = [];
     for (var i = 0; i <= 6; i++) {
-      if(offset){
+      if (offset) {
         days.push(moment(weekStart).add(i, 'days').add(offset * 7, 'days').format("MM/DD/YY"));
       } else {
         days.push(moment(weekStart).add(i, 'days').format("MM/DD/YY"));
@@ -156,7 +156,7 @@ const Util = {
     var weekStart = currentDate.startOf('week');
     var epoch = [];
     for (var i = 0; i <= 7; i++) {
-      if(offset){
+      if (offset) {
         epoch.push(moment(weekStart).add(i, 'days').add(offset * 7, 'days'))
       } else {
         epoch.push(moment(weekStart).add(i, 'days'))
@@ -200,13 +200,13 @@ const Util = {
       data.isOpen = isSelected;
       // sets the click event of the parent dropdown
       data.onClick = () => {
-        if(!isSelected){
+        if (!isSelected) {
           dispatch({
             type: Types.SET_SIDE_BAR_OPTION,
             payload: isSelected ? null : data.title
           })
           // if there is a custom function option, fire it after the dispatch to open the option
-          if(data.fn) customFn[data.fn](data)
+          if (data.fn) customFn[data.fn](data)
         }
       }
       // sets the open icon if the option is open, otherwise set the closed icon
@@ -228,16 +228,16 @@ const Util = {
   setGrid: (gridArray, data) => {
     const { columns } = data;
     const count = parseInt(columns);
-    if(gridArray.length){
+    if (gridArray.length) {
       let insertData;
       let insertIndex;
       let newCount;
       let newInsertion = false;
       gridArray.forEach((d, i) => {
-        if(!d.isFull){
+        if (!d.isFull) {
           insertIndex = i;
           const count = self.total(columns, d.count);
-          if(count <= 12){
+          if (count <= 12) {
             insertData = [...d.components, data];
             newCount = parseInt(count);
           } else {
@@ -248,7 +248,7 @@ const Util = {
         }
       });
 
-      if(newInsertion){
+      if (newInsertion) {
         gridArray[insertIndex].isFull = true;
         gridArray.push({
           count: parseInt(newCount),
@@ -260,9 +260,9 @@ const Util = {
           components: insertData
         }
       }
-      
+
     } else {
-      if(count === 12){
+      if (count === 12) {
         gridArray.push({
           count: parseInt(count),
           components: [data],
@@ -281,7 +281,7 @@ const Util = {
     grid.forEach(data => {
       const remainingColums = 12 - data.count;
       let cols = []
-      if(remainingColums){
+      if (remainingColums) {
         cols.push(remainingColums)
       }
       data.components.forEach(componentData => {
@@ -295,16 +295,16 @@ const Util = {
       data.class = className;
       let componentLength = 1;
       const stringLength = componentColumns[i].length;
-      for(let j = 0; j < stringLength; j++){
-        if(componentColumns[i][j] === "_"){
+      for (let j = 0; j < stringLength; j++) {
+        if (componentColumns[i][j] === "_") {
           componentLength++;
         }
       }
       data.components.length = componentLength;
     });
     grid.forEach(data => {
-      for(let i = 0; i < data.components.length; i++){
-        if(!data.components[i]){
+      for (let i = 0; i < data.components.length; i++) {
+        if (!data.components[i]) {
           data.components[i] = {}
         }
       }
@@ -312,12 +312,22 @@ const Util = {
   },
 
   openPhoneMode: (dispatch, shortMenu) => {
-    if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
+    if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
       dispatch({
         type: Types.SHORT_MENU,
         payload: shortMenu
       })
     }
+  },
+
+  getMonthDateRange: ({year, month}) => {
+    // month in moment is 0 based. array = ['year', 'month', 'day', etc]
+    var startDate = moment([year, month - 1]);
+    var endDate = moment(startDate).endOf('month');
+    return {
+      startDate: startDate.toDate(),
+      endDate: endDate.toDate()
+    };
   }
 
 }
