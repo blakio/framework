@@ -10,14 +10,22 @@ const Table = props => {
     const {
         onClick,
         isSelected,
-        individualIds
+        individualIds,
+        ids,
+        additionalStyles,
+        getHeadData,
+        getData
     } = props;
+
+    const usedHead = props.th || [];
+    const usedData = props.td || [[]];
+    const usedOnClick = onClick || (() => {});
 
     const getClassName = (index, i) => {
         let className = "";
         if(isSelected){
             if(isSelected(
-                props.ids && props.ids[index]
+                ids && ids[index]
                 || individualIds && individualIds[index] && individualIds[index][i]
             )){
                 className = "selected";
@@ -30,23 +38,23 @@ const Table = props => {
         <table>
             <thead>
                 <tr>
-                    {props.th.map((data, index) => <th key={index}>{props.getHeadData(data)}</th>)}
+                    {usedHead.map((data, index) => <th key={index}>{getHeadData(data)}</th>)}
                 </tr>
             </thead>
             <tbody>
-                {props.td.map((data, index) => (<tr key={index}>
+                {usedData.map((data, index) => (<tr key={index}>
                     {data.map((d, i) => {
                         const getParam = () => {
-                            if(props && props.ids && props.ids[index]) return props.ids[index]
+                            if(props && ids && ids[index]) return ids[index]
                             if(individualIds && individualIds[index] && individualIds[index][i]) return individualIds[index][i];
                             return null
                         }
                         return (<td
                             key={i}
-                            onClick={() => onClick(getParam())}
-                            style={props.additionalStyles && props.additionalStyles[index] && props.additionalStyles[index][i] || {}}
+                            onClick={() => usedOnClick(getParam())}
+                            style={additionalStyles && additionalStyles[index] && additionalStyles[index][i] || {}}
                             className={getClassName(index, i)}>
-                                <p>{props.getData(d, individualIds && individualIds[index] && individualIds[index][i])}</p>
+                                <p>{getData(d, individualIds && individualIds[index] && individualIds[index][i])}</p>
                         </td>)
                     })}
                 </tr>))}

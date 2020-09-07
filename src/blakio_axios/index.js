@@ -22,6 +22,7 @@ window.blakio_setSideBarOptions = () => {
     { title: "Empl Directory", closedIcon: "fas fa-user-tie" },
     { title: "Point Of Sale", closedIcon: "fas fa-credit-card" },
     { title: "Product", closedIcon: "fas fa-boxes" },
+    { title: "Transaction", closedIcon: "fas fa-cash-register" }
   ];
 
   const insertOption = async (data) => {
@@ -29,6 +30,10 @@ window.blakio_setSideBarOptions = () => {
   }
 
   sideBarOptions.forEach(data => insertOption(data))
+}
+
+window.blakio_getAcessToken = () => {
+  axiosInstance.get("/sandbox_request_token");
 }
 
 export default {
@@ -71,11 +76,11 @@ export default {
   },
 
   addToTimeLog: async (employeeId, data, field, isClockedIn) => {
-    return await axiosInstance.post("/table/Time", {query: {employeeId}, data, field, setFields: {isClockedIn}});
+    return await axiosInstance.post("/table/Time", { query: { employeeId }, data, field, setFields: { isClockedIn } });
   },
 
   getTimeOverRange: async (employeeId, query) => {
-    return await axiosInstance.post(`/table/aggregate/Time/${employeeId}`, {query});
+    return await axiosInstance.post(`/table/aggregate/Time/${employeeId}`, { query });
   },
 
   getDayTotalHours: async (id, day) => {
@@ -143,6 +148,35 @@ export default {
 
   updateClockinTime: async (query) => {
     return await axiosInstance.post(`/updateTime`, query);
+  },
+
+  recordPurchase: async (items) => {
+    return await axiosInstance.post("/table/Transaction", {items});
+  },
+  listPayments: async () => {
+    // id,
+    // total_money,
+    // status,
+    // source_type,
+    // card_details,
+    // order_id,
+
+  },
+  refundPayment: async () => {
+    // curl https://connect.squareup.com/v2/refunds \
+    // -X POST \
+    // -H 'Square-Version: 2020-08-26' \
+    // -H 'Authorization: Bearer EAAAEPeikCjIrtALzKTDFlC9MbIhN-wzofhsIaYRQIwufIQPluC6rGGMplojgl4V' \
+    // -H 'Content-Type: application/json' \
+    // -d '{
+    //   "amount_money": {
+    //     "amount": 100,
+    //     "currency": "USD"
+    //   },
+    //   "idempotency_key": "e6b17d68-3d29-4b01-a87b-2951f2752023", // uuid
+    //   "payment_id": "bvJM2ZMLMEPsHKtA474196dhuaB",
+    //   "reason": "testing"
+    // }'
   }
 
 };

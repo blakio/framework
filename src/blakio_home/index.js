@@ -30,10 +30,10 @@ import ProductTable from "./page/products/ProductTable";
 import ProductForm from "./page/products/ProductForm";
 
 import ItemScreen from "./page/pointOfSale/ItemScreen";
-
+import TransactionTable from "./page/transaction/TransactionTable";
 import LoginScreen from "./page/loginScreen";
 
-import {CircleBtns} from "blakio_home/page/components";
+import { CircleBtns } from "blakio_home/page/components";
 
 import 'react-widgets/dist/css/react-widgets.css';
 
@@ -78,8 +78,8 @@ const SideBarHead = () => {
         'iPhone',
         'iPod'
       ].includes(navigator.platform)
-      // iPad on iOS 13 detection
-      || (navigator.userAgent.includes("Mac") && "ontouchend" in document)
+        // iPad on iOS 13 detection
+        || (navigator.userAgent.includes("Mac") && "ontouchend" in document)
     }
     dispatch({
       type: Types.SET_DEVICE_TYPE,
@@ -101,7 +101,7 @@ const SideBarHead = () => {
         margin
       }}
     >
-      <HamburgerMenu size={30} width={width} onClick={onClick}/>
+      <HamburgerMenu size={30} width={width} onClick={onClick} />
     </div>
   </div>)
 }
@@ -121,7 +121,7 @@ const DashboardHead = () => {
 const TimeSheet = props => {
   const [state, dispatch] = StateContext();
 
-  if(!props.show) return <div></div>;
+  if (!props.show) return <div></div>;
   return (<div>
     <Grid grid="3">
       <ClockIn />
@@ -135,7 +135,7 @@ const TimeSheet = props => {
 }
 
 const EmployeeDirectory = props => {
-  if(!props.show) return <div></div>;
+  if (!props.show) return <div></div>;
   return (<div>
     <Grid grid="2">
       <Grid grid="1">
@@ -149,7 +149,7 @@ const EmployeeDirectory = props => {
 }
 
 const Product = props => {
-  if(!props.show) return <div></div>;
+  if (!props.show) return <div></div>;
   return (<div>
     <Grid grid="2">
       <ProductTable />
@@ -159,15 +159,19 @@ const Product = props => {
 }
 
 const PointOfSale = props => {
-  if(!props.show) return <div></div>;
+  if (!props.show) return <div></div>;
   return (<div>
     <Grid grid="1">
-      <div style={{
-        height: "90vh",
-        overflowY: "scroll"
-      }}>
-        <ItemScreen />
-      </div>
+      <ItemScreen />
+    </Grid>
+  </div>)
+}
+
+const Transaction = props => {
+  if (!props.show) return <div></div>;
+  return (<div>
+    <Grid grid="2">
+      <TransactionTable />
     </Grid>
   </div>)
 }
@@ -184,9 +188,10 @@ const DashboardBody = () => {
   return (<div id="dashboardBodyContainer" className={state.sideBarOptions.shortMenu && "shortMenu"}>
     <div id="DashboardBody">
       <TimeSheet show={state.sideBarOptions.sideBarOption === "Timesheet"} />
-      <EmployeeDirectory show={state.sideBarOptions.sideBarOption === "Empl Directory"}/>
-      <PointOfSale show={state.sideBarOptions.sideBarOption === "Point Of Sale"}/>
-      <Product show={state.sideBarOptions.sideBarOption === "Product"}/>
+      <EmployeeDirectory show={state.sideBarOptions.sideBarOption === "Empl Directory"} />
+      <PointOfSale show={state.sideBarOptions.sideBarOption === "Point Of Sale"} />
+      <Product show={state.sideBarOptions.sideBarOption === "Product"} />
+      <Transaction show={state.sideBarOptions.sideBarOption === "Transactions"} />
     </div>
     <Footer />
     <CircleBtns
@@ -216,7 +221,7 @@ const DateTimeWeather = () => {
   const getWeather = () => {
     axios.get(`${baseURL}?id=${cityId}&APPID=${apiKey}`).then(data => {
       const K = data.data.list[0].main.temp;
-      const F = (K - 273.15) * (9/5) + 32;
+      const F = (K - 273.15) * (9 / 5) + 32;
       setTemp(`${F.toFixed(2)} F`);
       setIcon(data.data.list[0].weather[0].icon)
     });
@@ -238,7 +243,7 @@ const DateTimeWeather = () => {
       <i className="fas fa-temperature-low"></i>
       {temp}
       <span>
-        <img src={`https://openweathermap.org/img/wn/${icon}@2x.png`} alt="weather icon"/>
+        <img src={`https://openweathermap.org/img/wn/${icon}@2x.png`} alt="weather icon" />
       </span>
     </p>
   </div>);
@@ -260,7 +265,7 @@ const SideBar = () => {
   }, []);
 
   useEffect(() => {
-    if(state.sideBarOptions.sideBar.length && !state.sideBarOptions.sideBarOption){
+    if (state.sideBarOptions.sideBar.length && !state.sideBarOptions.sideBarOption) {
       dispatch({
         type: Types.SET_SIDE_BAR_OPTION,
         payload: state.sideBarOptions.sideBar[0].title
@@ -302,7 +307,7 @@ const Dashboard = () => {
   const [state, dispatch] = StateContext();
 
   return (<div id="Dashboard" className={`container ${state.sideBarOptions.shortMenu && "shortMenu"}`}>
-    {!state.sideBarOptions.shortMenu && <TopLeftFold height={25} width={25} backgroundColor="#FFFFFF"/>}
+    {!state.sideBarOptions.shortMenu && <TopLeftFold height={25} width={25} backgroundColor="#FFFFFF" />}
     {!state.sideBarOptions.shortMenu && <DashboardHead />}
     <DashboardBody />
   </div>)

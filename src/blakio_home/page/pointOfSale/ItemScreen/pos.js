@@ -10,6 +10,7 @@ var currencyCode = "USD";
 var sdkVersion = "v2.0";
 
 export const openURLAndroid = (notes, total) => {
+    const client = localStorage.getItem("blakio_store");
     // Configure the allowable tender types
     var tenderTypes =
         `com.squareup.pos.TENDER_CARD, \
@@ -28,13 +29,15 @@ export const openURLAndroid = (notes, total) => {
         "S.com.squareup.pos.CURRENCY_CODE=" + currencyCode + ";" +
         "S.com.squareup.pos.TENDER_TYPES=" + tenderTypes + ";" +
         "S.com.squareup.pos.NOTE=" + notes + ";" +
-        "S.com.squareup.pos.REQUEST_METADATA" + "theClient" + ";" +
+        "S.com.squareup.pos.REQUEST_METADATA" + client + ";" +
         "end";
 
     window.open(posUrl);
 }
 
 export const openURLiOS = (notes, total) => {
+    const client = localStorage.getItem("blakio_store");
+
     var dataParameter = {
         amount_money: {
             amount: total,
@@ -52,7 +55,7 @@ export const openURLiOS = (notes, total) => {
         options: {
             supported_tender_types: ["CREDIT_CARD", "CASH", "OTHER", "SQUARE_GIFT_CARD", "CARD_ON_FILE"]
         },
-        state: "theClient"
+        state: client
     };
 
     window.location = `square-commerce-v1://payment/create?data=${encodeURIComponent(JSON.stringify(dataParameter))}`;

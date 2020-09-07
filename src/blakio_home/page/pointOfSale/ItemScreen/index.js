@@ -21,11 +21,13 @@ import {
 
 import Util from "blakio_util";
 
+import Axios from "blakio_axios";
+
 const ItemScreen = () => {
     const [state, dispatch] = StateContext();
 
     useEffect(() => {
-        if(window.location.href.includes("/purchase")){
+        if (window.location.href.includes("/purchase")) {
             printResponse(Util.showSuccess, Util.showError);
         }
     }, [])
@@ -108,7 +110,7 @@ const ItemScreen = () => {
         const totalIndex = 4;
         tableData.map(data => {
             const num = parseFloat(data[totalIndex].replace("$", ""))
-            if(!isNaN(num)){
+            if (!isNaN(num)) {
                 total += num;
             }
         });
@@ -119,7 +121,7 @@ const ItemScreen = () => {
         const tableData = [];
         cart.forEach(data => {
             let total;
-            if(data.quantity && data.quantity.length){
+            if (data.quantity && data.quantity.length) {
                 total = `$${(data.cost * parseFloat(data.quantity)).toFixed(2)}`;
             } else {
                 total = `_totalCost&${data._id}`;
@@ -127,7 +129,7 @@ const ItemScreen = () => {
             tableData.push([`_removeButton&${data._id}`, data.name, `$${data.cost.toFixed(2)}`, `_inputField&${JSON.stringify(data)}`, total])
         });
         const grandTotal = getGrandTotal(tableData);
-        if(cart.length){
+        if (cart.length) {
             tableData.push(["", "", "", "Grand Total", `$${grandTotal.toFixed(2)}`]);
         }
         return tableData;
@@ -142,13 +144,24 @@ const ItemScreen = () => {
     const getCharge = () => {
         let notes = "Transaction Summary:";
         let total = 0;
+        const notesArray = [];
         cart.forEach(data => {
-            if(data.quantity && data.quantity.length){
+            if (data.quantity && data.quantity.length) {
                 const subTotal = (parseFloat(data.quantity) * data.cost).toFixed(2)
                 total += parseFloat(subTotal);
                 notes += ` | ${data.name} => ${parseFloat(data.quantity)} x $${data.cost.toFixed(2)} = $${(parseFloat(data.quantity) * data.cost).toFixed(2)}`;
+
+                for(let i = 0; i < data.quantity; i++){
+                    notesArray.push({
+                        name: data.name,
+                        cost: data.cost
+                    });
+                }
             }
         });
+        Axios.recordPurchase(notesArray)
+            .then(data => console.log(data))
+            .catch(err => console.log(err))
         return {
             notes,
             total: total * 100
@@ -183,7 +196,7 @@ const ItemScreen = () => {
                 th={tableHead}
                 td={getTableData()}
                 ids={getIds()}
-                onClick={() => {}}
+                onClick={() => { }}
             />
             <div className="posInput">
                 <Combobox
