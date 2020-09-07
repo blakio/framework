@@ -1,8 +1,7 @@
 import axios from "axios";
 
-// const dev = false;
-// const baseURL = dev ? "http://localhost:5000/api" : "https://blakiodashboardserver.herokuapp.com/api"
-const baseURL = "https://blakiodashboardserver.herokuapp.com/api"
+const dev = false;
+const baseURL = dev ? "http://localhost:5000/api" : "https://blakiodashboardserver.herokuapp.com/api"
 
 let axiosInstance = axios.create({
   baseURL,
@@ -34,6 +33,20 @@ window.blakio_setSideBarOptions = () => {
 
 window.blakio_getAcessToken = () => {
   axiosInstance.get("/sandbox_request_token");
+}
+
+window.blakio_saveTokens = ({
+  applicationId,
+  accessTokenSecret,
+  accessTokenOath,
+  refreshToken
+}) => {
+  axiosInstance.post("/table/Token", {
+    applicationId,
+    accessTokenSecret,
+    accessTokenOath,
+    refreshToken
+  });
 }
 
 export default {
