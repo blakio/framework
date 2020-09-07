@@ -28,6 +28,7 @@ export const openURLAndroid = (notes, total) => {
         "S.com.squareup.pos.CURRENCY_CODE=" + currencyCode + ";" +
         "S.com.squareup.pos.TENDER_TYPES=" + tenderTypes + ";" +
         "S.com.squareup.pos.NOTE=" + notes + ";" +
+        "S.com.squareup.pos.REQUEST_METADATA" + "theClient" + ";" +
         "end";
 
     window.open(posUrl);
@@ -50,7 +51,8 @@ export const openURLiOS = (notes, total) => {
         notes: notes,
         options: {
             supported_tender_types: ["CREDIT_CARD", "CASH", "OTHER", "SQUARE_GIFT_CARD", "CARD_ON_FILE"]
-        }
+        },
+        state: "theClient"
     };
 
     window.location = `square-commerce-v1://payment/create?data=${encodeURIComponent(JSON.stringify(dataParameter))}`;
