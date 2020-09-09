@@ -154,7 +154,8 @@ const ItemScreen = () => {
                 for(let i = 0; i < data.quantity; i++){
                     notesArray.push({
                         name: data.name,
-                        cost: data.cost
+                        cost: data.cost,
+                        hasRefunded: Boolean(data.refunded_money),
                     });
                 }
             }

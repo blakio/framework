@@ -64,6 +64,12 @@ export default (state, action) => {
     case Types.ADJUST_ITEM_QUANTITY:
       return StateFunctions.adjustItemQuantity(payload, state);
 
+      // transactions
+    case Types.SET_PAYMENT_LIST:
+      return StateFunctions.setPaymentList(payload, state);
+    case Types.SET_ITEMS_PURCHASED:
+      return StateFunctions.setItemsPurchased(payload, state);
+
     default:
       return state;
   }

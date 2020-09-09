@@ -18,7 +18,7 @@ window.blakio_setSideBarOptions = () => {
    */
   const sideBarOptions = [
     { title: "Timesheet", closedIcon: "fas fa-clock" },
-    { title: "Empl Directory", closedIcon: "fas fa-user-tie" },
+    { title: "Directory", closedIcon: "fas fa-user-tie" },
     { title: "Point Of Sale", closedIcon: "fas fa-credit-card" },
     { title: "Product", closedIcon: "fas fa-boxes" },
     { title: "Transaction", closedIcon: "fas fa-cash-register" }
@@ -166,14 +166,17 @@ export default {
   recordPurchase: async (items) => {
     return await axiosInstance.post("/table/Transaction", {items});
   },
-  listPayments: async () => {
-    // id,
-    // total_money,
-    // status,
-    // source_type,
-    // card_details,
-    // order_id,
-
+  listPayments: async (query) => {
+    if(query){
+      const {last_4, total} = query;
+      return await axiosInstance.get(`/listPayments/${last_4.replace("/", "")}Z${total}`);
+    }
+    return await axiosInstance.get(`/listPayments/false`);
+  },
+  getItemsPurchased: async (order_id) => {
+    return axiosInstance.post("/table/search/Transaction", {
+      query: {orderId: order_id}
+    })
   },
   refundPayment: async () => {
     // curl https://connect.squareup.com/v2/refunds \

@@ -1,5 +1,6 @@
 import Util from "blakio_util";
 import Axios from "blakio_axios";
+import initialState from "./InitialState";
 
 export default {
   isLoggedIn: (payload, state) => ({ ...state, isLoggedIn: payload }),
@@ -21,7 +22,7 @@ export default {
 
   shortMenu: (payload, state) => ({ ...state, sideBarOptions: { ...state.sideBarOptions, shortMenu: payload } }),
   setSideBar: (payload, state) => ({ ...state, sideBarOptions: { ...state.sideBarOptions, sideBar: payload } }),
-  setSideBarOption:  (payload, state) => ({ ...state, sideBarOptions: { ...state.sideBarOptions, sideBarOption: payload } }),
+  setSideBarOption:  (payload, state) => ({ ...initialState, isLoggedIn: state.isLoggedIn, sideBarOptions: { ...state.sideBarOptions, sideBarOption: payload } }),
   setEmployees: (payload, state) =>  ({ ...state, employeeDirectory: { ...state.employeeDirectory, employees: payload } }),
   setProduct: (payload, state) =>  ({ ...state, products: { ...state.products, list: payload } }),
   toggleDownloadScreen: (payload, state) => {
@@ -77,5 +78,9 @@ export default {
     currentCart[index].quantity = quantity;
     return ({ ...state, pointOfSale: { ...state.pointOfSale, cart: currentCart } })
   },
+
+  // employee directory
+  setPaymentList: (payload, state) =>  ({ ...state, payments: { ...state.payments, list: payload } }),
+  setItemsPurchased: (payload, state) =>  ({ ...state, payments: { ...state.payments, itemsPurchased: payload } }),
 
 }

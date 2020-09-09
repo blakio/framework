@@ -1,4 +1,6 @@
-import React from "react";
+import React, {
+    useEffect
+} from "react";
 import "./main.css";
 
 import {
@@ -15,6 +17,7 @@ import Util from "blakio_util";
 
 const EmployeeTable = () => {
     const [state, dispatch] = StateContext();
+    useEffect(() => { Util.getEmployees(dispatch) }, []);
 
     const getTh = () => ([
         "First Name",

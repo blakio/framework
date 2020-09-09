@@ -31,6 +31,7 @@ import ProductForm from "./page/products/ProductForm";
 
 import ItemScreen from "./page/pointOfSale/ItemScreen";
 import TransactionTable from "./page/transaction/TransactionTable";
+import ItemsPurchasedTable from "./page/transaction/ItemsPurchasedTable";
 import LoginScreen from "./page/loginScreen";
 
 import { CircleBtns } from "blakio_home/page/components";
@@ -172,6 +173,7 @@ const Transaction = props => {
   return (<div>
     <Grid grid="2">
       <TransactionTable />
+      <ItemsPurchasedTable />
     </Grid>
   </div>)
 }
@@ -188,7 +190,7 @@ const DashboardBody = () => {
   return (<div id="dashboardBodyContainer" className={state.sideBarOptions.shortMenu && "shortMenu"}>
     <div id="DashboardBody">
       <TimeSheet show={state.sideBarOptions.sideBarOption === "Timesheet"} />
-      <EmployeeDirectory show={state.sideBarOptions.sideBarOption === "Empl Directory"} />
+      <EmployeeDirectory show={state.sideBarOptions.sideBarOption === "Directory"} />
       <PointOfSale show={state.sideBarOptions.sideBarOption === "Point Of Sale"} />
       <Product show={state.sideBarOptions.sideBarOption === "Product"} />
       <Transaction show={state.sideBarOptions.sideBarOption === "Transactions"} />

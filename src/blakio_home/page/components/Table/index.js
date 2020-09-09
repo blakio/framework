@@ -14,7 +14,9 @@ const Table = props => {
         ids,
         additionalStyles,
         getHeadData,
-        getData
+        getData,
+        getStyle,
+        getHeadStyle
     } = props;
 
     const usedHead = props.th || [];
@@ -38,7 +40,10 @@ const Table = props => {
         <table>
             <thead>
                 <tr>
-                    {usedHead.map((data, index) => <th key={index}>{getHeadData(data)}</th>)}
+                    {usedHead.map((data, index) => <th
+                        key={index}
+                        style={getHeadStyle && getHeadStyle(index) || {}}
+                    >{getHeadData(data)}</th>)}
                 </tr>
             </thead>
             <tbody>
@@ -52,7 +57,7 @@ const Table = props => {
                         return (<td
                             key={i}
                             onClick={() => usedOnClick(getParam())}
-                            style={additionalStyles && additionalStyles[index] && additionalStyles[index][i] || {}}
+                            style={(getStyle && getStyle(i)) || (additionalStyles && additionalStyles[index] && additionalStyles[index][i] || {})}
                             className={getClassName(index, i)}>
                                 <p>{getData(d, individualIds && individualIds[index] && individualIds[index][i])}</p>
                         </td>)

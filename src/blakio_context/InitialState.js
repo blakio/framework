@@ -28,6 +28,10 @@ const initialState = {
   products: {
     list: [],
     updateId: null
+  },
+  payments: {
+    list: [],
+    itemsPurchased: []
   }
 };
 
