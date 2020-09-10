@@ -36,7 +36,7 @@ export const openURLAndroid = (notes, total) => {
 }
 
 export const openURLiOS = (notes, total) => {
-    const client = localStorage.getItem("blakio_store");
+    // const client = localStorage.getItem("blakio_store");
 
     var dataParameter = {
         amount_money: {
@@ -55,7 +55,7 @@ export const openURLiOS = (notes, total) => {
         options: {
             supported_tender_types: ["CREDIT_CARD", "CASH", "OTHER", "SQUARE_GIFT_CARD", "CARD_ON_FILE"]
         },
-        state: client
+        // state: client
     };
 
     window.location = `square-commerce-v1://payment/create?data=${encodeURIComponent(JSON.stringify(dataParameter))}`;
