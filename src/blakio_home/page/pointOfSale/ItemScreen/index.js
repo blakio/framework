@@ -170,10 +170,10 @@ const ItemScreen = () => {
     }
 
     const buy = () => {
-        const {
-            notes,
-            total
-        } = getCharge();
+        // const {
+        //     notes,
+        //     total
+        // } = getCharge();
         state.deviceType === "iOS" ? openURLiOS(notes, total) : openURLAndroid(notes, total);
     }
 
