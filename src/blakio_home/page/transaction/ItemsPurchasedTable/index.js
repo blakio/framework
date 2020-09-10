@@ -44,6 +44,15 @@ const ItemsPurchasedTable = () => {
         return id === selected;
     }
 
+    const onRefund = () => {
+        console.log(selected)
+    }
+
+    const isRefundable = () => {
+        const selectedItem = state.payments.itemsPurchased.filter(data => data[0] === selected);
+        return selectedItem[0][3] === false;
+    }
+
     return (<div>
         <Paper
             title="Items Purchased"
@@ -65,6 +74,7 @@ const ItemsPurchasedTable = () => {
                 ids={ids}
                 isSelected={isSelected}
             />
+            {selected && isRefundable(selected) && <button className="submitBtn red" onClick={onRefund}>Refund</button>}
         </Paper>
     </div>)
 }
