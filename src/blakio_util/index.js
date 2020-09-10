@@ -45,6 +45,10 @@ const Util = {
             type: Types.SET_EMPLOYEES,
             payload: employees
           })
+          dispatch({
+            type: Types.IS_LOADING,
+            payload: false
+        });
         }
       }
     })
@@ -59,6 +63,10 @@ const Util = {
             type: Types.SET_PRODUCTS,
             payload: product
           })
+          dispatch({
+            type: Types.IS_LOADING,
+            payload: false
+          });
         }
       }
     })

@@ -16,7 +16,13 @@ import Util from "blakio_util";
 const ProductTable = () => {
     const [state, dispatch] = StateContext();
 
-    useEffect(() => { Util.getProducts(dispatch) }, []);
+    useEffect(() => {
+        dispatch({
+            type: Types.IS_LOADING,
+            payload: true
+        });
+        Util.getProducts(dispatch)
+    }, []);
 
     const getTh = () => ([
         "Name",

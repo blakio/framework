@@ -10,12 +10,23 @@ import Axios from "blakio_axios";
 
 const TransactionTable = () => {
     const [state, dispatch] = StateContext();
+    const [selected, setSelected] = useState();
 
     const th = ["Order ID", "Total", "Refund", "Status", "Cardholder", "Last 4"];
     const [ids, setIds] = useState([]);
 
     useEffect(() => {
+        dispatch({
+            type: Types.IS_LOADING,
+            payload: true
+        });
+
         Axios.listPayments().then(payment => {
+            dispatch({
+                type: Types.IS_LOADING,
+                payload: false
+            });
+
             const tData = [];
             const idArray = [];
             payment.data.forEach((data, i) => {
@@ -34,7 +45,15 @@ const TransactionTable = () => {
                 payload: tData
             })
             setIds(idArray);
-        }).catch(err => console.log(err));
+        }).catch(err => {
+
+            dispatch({
+                type: Types.IS_LOADING,
+                payload: false
+            });
+
+            console.log(err)
+        });
     }, []);
 
     const getHeadData = data => data;
@@ -60,6 +79,10 @@ const TransactionTable = () => {
         }
     }
 
+    const isSelected = id => {
+        return id === selected;
+    }
+
     return (<div>
         <Paper
             title="Payments"
@@ -73,11 +96,32 @@ const TransactionTable = () => {
                 getData={getData}
                 getStyle={getStyle}
                 onClick={orderId => {
+                    if(selected === orderId) {
+                        dispatch({
+                            type: Types.SET_ITEMS_PURCHASED,
+                            payload: []
+                        })
+                        return setSelected(null)
+                    };
+                    setSelected(orderId)
+
                     const item = state.payments.list.filter(data => data.includes(orderId));
                     const [
                         order_id
                     ] = item[0];
+
+                    dispatch({
+                        type: Types.IS_LOADING,
+                        payload: true
+                    });
+
                     Axios.getItemsPurchased(order_id).then(payment => {
+
+                        dispatch({
+                            type: Types.IS_LOADING,
+                            payload: false
+                        });
+
                         const {
                             data
                         } = payment;
@@ -99,9 +143,18 @@ const TransactionTable = () => {
                                 payload: payments
                             })
                         }
-                    }).catch(err => console.log(err));
+                    }).catch(err => {
+
+                        dispatch({
+                            type: Types.IS_LOADING,
+                            payload: false
+                        });
+
+                        console.log(err)
+                    });
                 }}
                 ids={ids}
+                isSelected={isSelected}
             />
         </Paper>
     </div>)

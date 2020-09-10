@@ -17,7 +17,13 @@ import Util from "blakio_util";
 
 const EmployeeTable = () => {
     const [state, dispatch] = StateContext();
-    useEffect(() => { Util.getEmployees(dispatch) }, []);
+    useEffect(() => {
+        dispatch({
+            type: Types.IS_LOADING,
+            payload: true
+        });
+        Util.getEmployees(dispatch)
+    }, []);
 
     const getTh = () => ([
         "First Name",

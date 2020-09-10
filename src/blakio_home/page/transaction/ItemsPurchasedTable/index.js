@@ -10,6 +10,7 @@ import Axios from "blakio_axios";
 
 const ItemsPurchasedTable = () => {
     const [state, dispatch] = StateContext();
+    const [selected, setSelected] = useState();
 
     const th = ["ID", "Item", "Total", "Refunded"];
     const ids = state.payments.itemsPurchased.map(data => data[0]);
@@ -39,6 +40,10 @@ const ItemsPurchasedTable = () => {
         }
     }
 
+    const isSelected = id => {
+        return id === selected;
+    }
+
     return (<div>
         <Paper
             title="Items Purchased"
@@ -52,9 +57,13 @@ const ItemsPurchasedTable = () => {
                 getHeadData={getHeadData}
                 getData={getData}
                 onClick={itemId => {
+                    if(selected === itemId) return setSelected(null);
+                    setSelected(itemId);
+                    
                     console.log("show refund", itemId)
                 }}
                 ids={ids}
+                isSelected={isSelected}
             />
         </Paper>
     </div>)
