@@ -160,9 +160,9 @@ const ItemScreen = () => {
                 }
             }
         });
-        Axios.recordPurchase(notesArray)
-            .then(data => console.log(data))
-            .catch(err => console.log(err))
+        // Axios.recordPurchase(notesArray)
+        //     .then(data => console.log(data))
+        //     .catch(err => console.log(err))
         return {
             notes,
             total: total * 100
@@ -170,10 +170,10 @@ const ItemScreen = () => {
     }
 
     const buy = () => {
-        // const {
-        //     notes,
-        //     total
-        // } = getCharge();
+        const {
+            notes,
+            total
+        } = getCharge();
         state.deviceType === "iOS" ? openURLiOS(notes, total) : openURLAndroid(notes, total);
     }
 
