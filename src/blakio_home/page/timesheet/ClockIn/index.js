@@ -150,7 +150,6 @@ const ClockIn = () => {
             title={getPaperText()}
             color={getPaperText() !== "Clock Out" ? "green" : "red"}
         >
-            {state.deviceType === "iOS" ? "ios": "android"}
             <div className="paperContainer">
                 <Button
                     icon="far fa-clock"

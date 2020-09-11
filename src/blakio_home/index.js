@@ -1,15 +1,5 @@
 import React, { useState, useEffect } from 'react';
 
-import {
-  isIOS,
-  isIOS13,
-  isIPhone13,
-  isIPad13,
-  isIPod13
-} from "react-device-detect";
-
-import {isIOSDevice} from 'ios-detector';
-
 import moment from "moment";
 import axios from "axios";
 
@@ -80,22 +70,23 @@ const SideBarHead = () => {
   }, []);
 
   useEffect(() => {
-    function iOS() {
-      return [
-        'iPad Simulator',
-        'iPhone Simulator',
-        'iPod Simulator',
-        'iPad',
-        'iPhone',
-        'iPod'
-      ].includes(navigator.platform)
-        // iPad on iOS 13 detection
-        || (navigator.userAgent.includes("Mac") && "ontouchend" in document)
-    }
-    const iosType = isIOSDevice(); //isIOS || isIOS13 || isIPhone13 || isIPad13 || isIPod13;
+    // function iOS() {
+    //   return [
+    //     'iPad Simulator',
+    //     'iPhone Simulator',
+    //     'iPod Simulator',
+    //     'iPad',
+    //     'iPhone',
+    //     'iPod'
+    //   ].includes(navigator.platform)
+    //     // iPad on iOS 13 detection
+    //     || (navigator.userAgent.includes("Mac") && "ontouchend" in document)
+    // }
+    // const iosType = isIOSDevice(); //isIOS || isIOS13 || isIPhone13 || isIPad13 || isIPod13;
     dispatch({
       type: Types.SET_DEVICE_TYPE,
-      payload: iosType ? "iOS" : "Android"
+      // payload: iosType ? "iOS" : "Android"
+      payload: "iOS"
     })
   }, [])
 
