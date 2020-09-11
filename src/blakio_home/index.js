@@ -1,7 +1,11 @@
 import React, { useState, useEffect } from 'react';
 
 import {
-  isIOS
+  isIOS,
+  isIOS13,
+  isIPhone13,
+  isIPad13,
+  isIPod13
 } from "react-device-detect";
 
 import moment from "moment";
@@ -86,9 +90,10 @@ const SideBarHead = () => {
         // iPad on iOS 13 detection
         || (navigator.userAgent.includes("Mac") && "ontouchend" in document)
     }
+    const iosType = isIOS || isIOS13 || isIPhone13 || isIPad13 || isIPod13;
     dispatch({
       type: Types.SET_DEVICE_TYPE,
-      payload: isIOS ? "iOS" : "Android"
+      payload: iosType ? "iOS" : "Android"
     })
   }, [])
 
