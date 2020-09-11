@@ -54,7 +54,7 @@ export const openURLiOS = (notes, total) => {
         notes: notes,
         options: {
             supported_tender_types: ["CREDIT_CARD", "CASH", "OTHER", "SQUARE_GIFT_CARD", "CARD_ON_FILE"]
-        }
+        },
         state: client
     };
 
