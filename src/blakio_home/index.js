@@ -69,27 +69,6 @@ const SideBarHead = () => {
     Util.openPhoneMode(dispatch, true);
   }, []);
 
-  useEffect(() => {
-    // function iOS() {
-    //   return [
-    //     'iPad Simulator',
-    //     'iPhone Simulator',
-    //     'iPod Simulator',
-    //     'iPad',
-    //     'iPhone',
-    //     'iPod'
-    //   ].includes(navigator.platform)
-    //     // iPad on iOS 13 detection
-    //     || (navigator.userAgent.includes("Mac") && "ontouchend" in document)
-    // }
-    // const iosType = isIOSDevice(); //isIOS || isIOS13 || isIPhone13 || isIPad13 || isIPod13;
-    dispatch({
-      type: Types.SET_DEVICE_TYPE,
-      // payload: iosType ? "iOS" : "Android"
-      payload: "iOS"
-    })
-  }, [])
-
   const margin = shortMenu ? "0 auto" : "0 0.58em";
   const width = shortMenu ? "80%" : null;
 

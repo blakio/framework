@@ -34,7 +34,6 @@ export default {
     }
   },
   clockInEmployee: (payload, state) =>  ({ ...state, clockInEmployee: payload }),
-  setDeviceType: (payload, state) =>  ({ ...state, deviceType: payload }),
 
   // timesheet
   setClockInInputValue: (payload, state) =>  ({ ...state, timeSheet: { ...state.timeSheet, clockIn: { ...state.timeSheet.clockIn, inputValue: payload }} }),

@@ -174,7 +174,7 @@ const ItemScreen = () => {
             notes,
             total
         } = getCharge();
-        state.deviceType === "iOS" ? openURLiOS(notes, total) : openURLAndroid(notes, total);
+        Util.getDeviceType() === "iOS" ? openURLiOS(notes, total) : openURLAndroid(notes, total);
     }
 
     const toggle = () => setOpen(!open);
