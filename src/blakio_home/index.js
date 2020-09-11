@@ -1,5 +1,9 @@
 import React, { useState, useEffect } from 'react';
 
+import {
+  isIOS
+} from "react-device-detect";
+
 import moment from "moment";
 import axios from "axios";
 
@@ -84,7 +88,7 @@ const SideBarHead = () => {
     }
     dispatch({
       type: Types.SET_DEVICE_TYPE,
-      payload: iOS() ? "iOS" : "Android"
+      payload: isIOS ? "iOS" : "Android"
     })
   }, [])
 
