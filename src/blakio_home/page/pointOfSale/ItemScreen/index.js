@@ -160,9 +160,9 @@ const ItemScreen = () => {
                 }
             }
         });
-        // Axios.recordPurchase(notesArray)
-        //     .then(data => console.log(data))
-        //     .catch(err => console.log(err))
+        Axios.recordPurchase(notesArray)
+            .then(data => console.log(data))
+            .catch(err => console.log(err))
         return {
             notes,
             total: total * 100
