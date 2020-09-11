@@ -5,6 +5,8 @@ import { store } from 'react-notifications-component';
 import moment from "moment";
 import mtz from "moment-timezone";
 
+import {isIOSDevice} from 'ios-detector';
+
 const Util = {
 
   total: (a, b) => {
@@ -339,19 +341,7 @@ const Util = {
   },
 
   getDeviceType: () => {
-    function iOS() {
-        return [
-          'iPad Simulator',
-          'iPhone Simulator',
-          'iPod Simulator',
-          'iPad',
-          'iPhone',
-          'iPod'
-        ].includes(navigator.platform)
-          // iPad on iOS 13 detection
-          || (navigator.userAgent.includes("Mac") && "ontouchend" in document)
-      }
-      return iOS() ? "iOS" : "Android"
+      return isIOSDevice() ? "iOS" : "Android"
   }
 
 }
