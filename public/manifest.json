@@ -1,6 +1,7 @@
 {
   "short_name": "Dashboard",
   "name": "Blakio Dashboard",
+  "scope": "/",
   "icons": [
     {
       "src": "/images/icons-512.png",
