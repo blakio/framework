@@ -1,6 +1,6 @@
 {
-  "short_name": "Dashboard",
-  "name": "Blakio Dashboard",
+  "short_name": "blakio",
+  "name": "blakio",
   "icons": [
     {
       "src": "/images/icons-512.png",
