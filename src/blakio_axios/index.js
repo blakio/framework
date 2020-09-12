@@ -1,7 +1,16 @@
 import axios from "axios";
 
+import io from "socket.io-client";
+
 const dev = false;
-const baseURL = dev ? "http://localhost:5000/api" : "https://blakiodashboardserver.herokuapp.com/api"
+const url = dev ? "http://localhost:5000" : "https://blakiodashboardserver.herokuapp.com";
+const baseURL = dev ? "http://localhost:5000/api" : "https://blakiodashboardserver.herokuapp.com/api";
+
+const socket = io.connect(url);
+socket.on("payment", payment => {
+  debugger
+  console.log(payment)
+})
 
 let axiosInstance = axios.create({
   baseURL,
@@ -178,21 +187,8 @@ export default {
       query: {orderId: order_id}
     })
   },
-  refundPayment: async () => {
-    // curl https://connect.squareup.com/v2/refunds \
-    // -X POST \
-    // -H 'Square-Version: 2020-08-26' \
-    // -H 'Authorization: Bearer EAAAEPeikCjIrtALzKTDFlC9MbIhN-wzofhsIaYRQIwufIQPluC6rGGMplojgl4V' \
-    // -H 'Content-Type: application/json' \
-    // -d '{
-    //   "amount_money": {
-    //     "amount": 100,
-    //     "currency": "USD"
-    //   },
-    //   "idempotency_key": "e6b17d68-3d29-4b01-a87b-2951f2752023", // uuid
-    //   "payment_id": "bvJM2ZMLMEPsHKtA474196dhuaB",
-    //   "reason": "testing"
-    // }'
+  refundPayment: async (body) => {
+    return axiosInstance.post("/refundPayment", body);
   }
 
 };

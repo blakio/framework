@@ -20,7 +20,7 @@ const ItemsPurchasedTable = () => {
         if(data === true) return "Yes";
         if(data === false) return "No";
         const isNum = /^[0-9]+$/.test(data);
-        if(isNum) return `$${data/100}`;
+        if(isNum) return `$${data}`;
         return data;
     };
 
@@ -45,7 +45,11 @@ const ItemsPurchasedTable = () => {
     }
 
     const onRefund = () => {
-        console.log(selected)
+        Axios.refundPayment({
+            payment_id: state.payments.paymentId
+        }).then(data => {
+            setSelected(null);
+        }).catch(err => console.log(err))
     }
 
     const isRefundable = () => {

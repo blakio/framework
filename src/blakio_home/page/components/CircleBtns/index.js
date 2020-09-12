@@ -8,19 +8,19 @@ const CircleBtns = props => {
     } = props;
 
     return (<div className="circleBtnParent">
-        {buttons.map(data => {
+        {buttons.map((data, i) => {
             const {
                 text,
                 icon,
                 color,
                 onClick
             } = data;
-            return (<diiv className="circleBtn">
+            return (<div className="circleBtn" key={i}>
                 <div className={`circleBtnIconContainer ${color}`} onClick={onClick}>
                     <i className={icon} />
                 </div>
                 <p>{text}</p>
-            </diiv>)
+            </div>)
         })}
     </div>)
 }

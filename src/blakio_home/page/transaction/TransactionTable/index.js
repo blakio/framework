@@ -12,7 +12,7 @@ const TransactionTable = () => {
     const [state, dispatch] = StateContext();
     const [selected, setSelected] = useState();
 
-    const th = ["Order ID", "Total", "Refund", "Status", "Cardholder", "Last 4"];
+    const th = ["Order ID", "Total", "Refund", "Status", "Card Holder", "Last 4"];
     const [ids, setIds] = useState([]);
 
     useEffect(() => {
@@ -33,8 +33,8 @@ const TransactionTable = () => {
                 idArray.push(data.order_id);
                 tData.push([
                     data.order_id,
-                    data.refund,
                     data.total,
+                    data.refund,
                     data.status,
                     data.cardHolder,
                     data.last_4
@@ -141,6 +141,10 @@ const TransactionTable = () => {
                             dispatch({
                                 type: Types.SET_ITEMS_PURCHASED,
                                 payload: payments
+                            })
+                            dispatch({
+                                type: Types.SET_PAYMENT_ID,
+                                payload: data[0].paymentId
                             })
                         }
                     }).catch(err => {

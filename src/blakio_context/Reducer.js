@@ -67,6 +67,8 @@ export default (state, action) => {
       return StateFunctions.setPaymentList(payload, state);
     case Types.SET_ITEMS_PURCHASED:
       return StateFunctions.setItemsPurchased(payload, state);
+    case Types.SET_PAYMENT_ID:
+      return StateFunctions.setPaymentId(payload, state);
 
     default:
       return state;

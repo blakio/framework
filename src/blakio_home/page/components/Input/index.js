@@ -58,7 +58,7 @@ const Input = props => {
 
     return (<div className="inputHolder">
         {input}
-        <button onClick={toggle} tabindex="-1" title="open combobox" type="button" aria-disabled="false" aria-label="open combobox" className="rw-btn rw-btn-select comboboxInput">
+        <button onClick={toggle} tabIndex="-1" title="open combobox" type="button" aria-disabled="false" aria-label="open combobox" className="rw-btn rw-btn-select comboboxInput">
             <span aria-hidden="true" className="rw-i rw-i-caret-down"></span>
         </button>
         <p className="smallText">{smallText}</p>

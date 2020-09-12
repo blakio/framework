@@ -81,5 +81,6 @@ export default {
   // employee directory
   setPaymentList: (payload, state) =>  ({ ...state, payments: { ...state.payments, list: payload } }),
   setItemsPurchased: (payload, state) =>  ({ ...state, payments: { ...state.payments, itemsPurchased: payload } }),
+  setPaymentId: (payload, state) =>  ({ ...state, payments: { ...state.payments, paymentId: payload } }),
 
 }
