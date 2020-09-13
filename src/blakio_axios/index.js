@@ -11,28 +11,28 @@ const merchantIdToDatabase = {
   MLFCVCSGSVM2K: "dashboard"
 };
 
-// const socket = io.connect(url);
-// socket.on("payment", payment => {
-//   const {
-//     data,
-//     merchant_id,
-//     type
-//   } = payment;
-//   const store = localStorage.getItem("blakio_store");
-//   const isTheMerchantTransaction = merchantIdToDatabase[merchant_id] === store;
-//   if(type === "payment.created" && isTheMerchantTransaction){
-//     const {
-//       payment
-//     } = data.object;
-//     const {
-//       id
-//     } = payment;
-//     axiosInstance.post("/square/setPaymentIdWithLastTransaction", {
-//       database: store,
-//       paymentId: id
-//     })
-//   }
-// })
+const socket = io.connect(url);
+socket.on("payment", payment => {
+  const {
+    data,
+    merchant_id,
+    type
+  } = payment;
+  const store = localStorage.getItem("blakio_store");
+  const isTheMerchantTransaction = merchantIdToDatabase[merchant_id] === store;
+  if(type === "payment.created" && isTheMerchantTransaction){
+    const {
+      payment
+    } = data.object;
+    const {
+      id
+    } = payment;
+    axiosInstance.post("/square/setPaymentIdWithLastTransaction", {
+      database: store,
+      paymentId: id
+    })
+  }
+})
 
 let axiosInstance = axios.create({
   baseURL,
