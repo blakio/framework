@@ -1,26 +1,32 @@
 import axios from "axios";
 
 import io from "socket.io-client";
+import Util from "blakio_util";
 
 const dev = window.location.href.includes("http://localhost:3000/");
 const url = dev ? "http://localhost:5000" : "https://blakiodashboardserver.herokuapp.com";
 const baseURL = dev ? "http://localhost:5000/api" : "https://blakiodashboardserver.herokuapp.com/api";
+const {
+  showError,
+  showSuccess
+} = Util;
 
 // TODO: MAKES AN API CALL
 const merchantIdToDatabase = {
-  MLFCVCSGSVM2K: "dashboard"
+  MLFCVCSGSVM2K: "blakio"
 };
 
 const socket = io.connect(url);
-socket.on("payment", payment => {
+socket.on("payment", hook => {
   const {
     data,
     merchant_id,
     type
-  } = payment;
+  } = hook.data;
   const store = localStorage.getItem("blakio_store");
   const isTheMerchantTransaction = merchantIdToDatabase[merchant_id] === store;
   if(type === "payment.created" && isTheMerchantTransaction){
+    showSuccess("", "Sucessfully charged");
     const {
       payment
     } = data.object;
@@ -30,6 +36,10 @@ socket.on("payment", payment => {
     axiosInstance.post("/square/setPaymentIdWithLastTransaction", {
       database: store,
       paymentId: id
+    }).then(data => {
+      console.log(data)
+    }).catch(err => {
+      console.log(err)
     })
   }
 })
