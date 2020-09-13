@@ -2,7 +2,7 @@ import axios from "axios";
 
 import io from "socket.io-client";
 
-const dev = false;
+const dev = window.location.href.includes("http://localhost:3000/");
 const url = dev ? "http://localhost:5000" : "https://blakiodashboardserver.herokuapp.com";
 const baseURL = dev ? "http://localhost:5000/api" : "https://blakiodashboardserver.herokuapp.com/api";
 
@@ -11,28 +11,28 @@ const merchantIdToDatabase = {
   MLFCVCSGSVM2K: "dashboard"
 };
 
-const socket = io.connect(url);
-socket.on("payment", payment => {
-  const {
-    data,
-    merchant_id,
-    type
-  } = payment;
-  const store = localStorage.getItem("blakio_store");
-  const isTheMerchantTransaction = merchantIdToDatabase[merchant_id] === store;
-  if(type === "payment.created" && isTheMerchantTransaction){
-    const {
-      payment
-    } = data.object;
-    const {
-      id
-    } = payment;
-    axiosInstance.post("/square/setPaymentIdWithLastTransaction", {
-      database: store,
-      paymentId: id
-    })
-  }
-})
+// const socket = io.connect(url);
+// socket.on("payment", payment => {
+//   const {
+//     data,
+//     merchant_id,
+//     type
+//   } = payment;
+//   const store = localStorage.getItem("blakio_store");
+//   const isTheMerchantTransaction = merchantIdToDatabase[merchant_id] === store;
+//   if(type === "payment.created" && isTheMerchantTransaction){
+//     const {
+//       payment
+//     } = data.object;
+//     const {
+//       id
+//     } = payment;
+//     axiosInstance.post("/square/setPaymentIdWithLastTransaction", {
+//       database: store,
+//       paymentId: id
+//     })
+//   }
+// })
 
 let axiosInstance = axios.create({
   baseURL,
@@ -197,6 +197,9 @@ export default {
   },
   refundPayment: async (body) => {
     return axiosInstance.post("/refundPayment", body);
+  },
+  updateRefundStatus: async (selectedId, paymentId) => {
+    return axiosInstance.post("updateRefundStatus", {selectedId, paymentId})
   }
 
 };

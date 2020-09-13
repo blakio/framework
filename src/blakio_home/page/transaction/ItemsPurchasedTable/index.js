@@ -7,10 +7,15 @@ import { StateContext } from "blakio_context/State";
 import Types from "blakio_context/Types"
 
 import Axios from "blakio_axios";
+import Util from "blakio_util";
 
 const ItemsPurchasedTable = () => {
     const [state, dispatch] = StateContext();
     const [selected, setSelected] = useState();
+    const {
+        showError,
+        showSuccess
+    } = Util;
 
     const th = ["ID", "Item", "Total", "Refunded"];
     const ids = state.payments.itemsPurchased.map(data => data[0]);
@@ -48,7 +53,16 @@ const ItemsPurchasedTable = () => {
         Axios.refundPayment({
             payment_id: state.payments.paymentId
         }).then(data => {
+            Axios.updateRefundStatus(selected, state.payments.paymentId).then(data => {
+                showSuccess("", "Successfully Refunded");
+            }).catch(err => {
+                showError("", "Error Saving");
+            });
             setSelected(null);
+            dispatch({
+                type: Types.SET_ITEMS_PURCHASED,
+                payload: []
+            })
         }).catch(err => console.log(err))
     }
 
