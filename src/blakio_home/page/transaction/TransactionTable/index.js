@@ -12,7 +12,7 @@ const TransactionTable = () => {
     const [state, dispatch] = StateContext();
     const [selected, setSelected] = useState();
 
-    const th = ["Order ID", "Total", "Refund", "Status", "Card Holder", "Last 4"];
+    const th = ["Payment ID", "Total", "Refund", "Status", "Card Holder", "Last 4"];
     const [ids, setIds] = useState([]);
 
     useEffect(() => {
@@ -30,9 +30,9 @@ const TransactionTable = () => {
             const tData = [];
             const idArray = [];
             payment.data.forEach((data, i) => {
-                idArray.push(data.order_id);
+                idArray.push(data.payment_id);
                 tData.push([
-                    data.order_id,
+                    data.payment_id,
                     data.total,
                     data.refund,
                     data.status,
@@ -95,19 +95,24 @@ const TransactionTable = () => {
                 getHeadStyle={getHeadStyle}
                 getData={getData}
                 getStyle={getStyle}
-                onClick={orderId => {
-                    if(selected === orderId) {
+                onClick={clickedId => {
+                    if(selected === clickedId) {
                         dispatch({
                             type: Types.SET_ITEMS_PURCHASED,
                             payload: []
                         })
                         return setSelected(null)
                     };
-                    setSelected(orderId)
+                    setSelected(clickedId);
 
-                    const item = state.payments.list.filter(data => data.includes(orderId));
+                    const {
+                        paymentId
+                    } = state.payments;
+                    console.log(paymentId)
+
+                    const item = state.payments.list.filter(data => data.includes(clickedId));
                     const [
-                        order_id
+                        payment_id
                     ] = item[0];
 
                     dispatch({
@@ -115,7 +120,7 @@ const TransactionTable = () => {
                         payload: true
                     });
 
-                    Axios.getItemsPurchased(order_id).then(payment => {
+                    Axios.getItemsPurchased(payment_id).then(payment => {
 
                         dispatch({
                             type: Types.IS_LOADING,

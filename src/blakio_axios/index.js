@@ -6,10 +6,32 @@ const dev = false;
 const url = dev ? "http://localhost:5000" : "https://blakiodashboardserver.herokuapp.com";
 const baseURL = dev ? "http://localhost:5000/api" : "https://blakiodashboardserver.herokuapp.com/api";
 
+// TODO: MAKES AN API CALL
+const merchantIdToDatabase = {
+  MLFCVCSGSVM2K: "dashboard"
+};
+
 const socket = io.connect(url);
 socket.on("payment", payment => {
-  debugger
-  console.log(payment)
+  const {
+    data,
+    merchant_id,
+    type
+  } = payment;
+  const store = localStorage.getItem("blakio_store");
+  const isTheMerchantTransaction = merchantIdToDatabase[merchant_id] === store;
+  if(type === "payment.created" && isTheMerchantTransaction){
+    const {
+      payment
+    } = data.object;
+    const {
+      id
+    } = payment;
+    axiosInstance.post("/square/setPaymentIdWithLastTransaction", {
+      database: store,
+      paymentId: id
+    })
+  }
 })
 
 let axiosInstance = axios.create({
@@ -42,20 +64,6 @@ window.blakio_setSideBarOptions = () => {
 
 window.blakio_getAcessToken = () => {
   axiosInstance.get("/sandbox_request_token");
-}
-
-window.blakio_saveTokens = ({
-  applicationId,
-  accessTokenSecret,
-  accessTokenOath,
-  refreshToken
-}) => {
-  axiosInstance.post("/table/Token", {
-    applicationId,
-    accessTokenSecret,
-    accessTokenOath,
-    refreshToken
-  });
 }
 
 export default {
@@ -182,9 +190,9 @@ export default {
     }
     return await axiosInstance.get(`/listPayments/false`);
   },
-  getItemsPurchased: async (order_id) => {
+  getItemsPurchased: async (paymentId) => {
     return axiosInstance.post("/table/search/Transaction", {
-      query: {orderId: order_id}
+      query: {paymentId}
     })
   },
   refundPayment: async (body) => {

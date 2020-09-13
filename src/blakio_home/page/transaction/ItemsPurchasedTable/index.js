@@ -54,7 +54,7 @@ const ItemsPurchasedTable = () => {
 
     const isRefundable = () => {
         const selectedItem = state.payments.itemsPurchased.filter(data => data[0] === selected);
-        return selectedItem[0][3] === false;
+        return selectedItem[0] && selectedItem[0][3] === false;
     }
 
     return (<div>
