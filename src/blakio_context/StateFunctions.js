@@ -6,6 +6,8 @@ export default {
   isLoggedIn: (payload, state) => ({ ...state, isLoggedIn: payload }),
   
   isLoading: (payload, state) => ({ ...state, isLoading: payload }),
+
+  toggleMobileMenu: (payload, state) => ({ ...state, mobileMenuOpen: !state.mobileMenuOpen }),
   
   getEmployees: (payload, state) => {
     Axios.getEmployees().then(employees => {
@@ -22,7 +24,7 @@ export default {
 
   shortMenu: (payload, state) => ({ ...state, sideBarOptions: { ...state.sideBarOptions, shortMenu: payload } }),
   setSideBar: (payload, state) => ({ ...state, sideBarOptions: { ...state.sideBarOptions, sideBar: payload } }),
-  setSideBarOption:  (payload, state) => ({ ...initialState, isLoggedIn: state.isLoggedIn, sideBarOptions: { ...state.sideBarOptions, sideBarOption: payload } }),
+  setSideBarOption:  (payload, state) => ({ ...initialState, mobileMenuOpen: state.mobileMenuOpen, isLoggedIn: state.isLoggedIn, sideBarOptions: { ...state.sideBarOptions, sideBarOption: payload } }),
   setEmployees: (payload, state) =>  ({ ...state, employeeDirectory: { ...state.employeeDirectory, employees: payload } }),
   setProduct: (payload, state) =>  ({ ...state, products: { ...state.products, list: payload } }),
   toggleDownloadScreen: (payload, state) => {

@@ -4,7 +4,8 @@
   --selectHoverColor: #0e325a;
   --darkBlue: #00254e;
   --SideBarWidth: 12em;
-  --SideBarWidthClosed: 4em;
+  /* --SideBarWidthClosed: 4em; */
+  --SideBarWidthClosed: 0em;
   --navBarHeight: 4.7em;
   --paperPadding: 0.6em;
   --darkGreen: #1a89ac;
@@ -57,7 +58,17 @@ body {
 }
 
 #SideBar.shortMenu {
-  width: var(--SideBarWidthClosed);
+  /* width: var(--SideBarWidthClosed); */
+
+  width: 4em;
+  position: absolute;
+  left: -4em;
+  z-index: 100;
+  background-color: #1B416D;
+}
+
+#SideBar.shortMenu.open {
+  left: 0em;
 }
 
 #SideBarHead {
@@ -68,7 +79,8 @@ body {
 }
 
 #SideBarHead.shortMenu {
-  width: var(--SideBarWidthClosed);
+  /* width: var(--SideBarWidthClosed); */
+  width: 4em;
 }
 
 #SideBarHead img {

@@ -1,6 +1,7 @@
 export default {
   IS_LOGGED_IN: "IS_LOGGED_IN",
   IS_LOADING: "IS_LOADING",
+  TOGGLE_MOBILE_MENU: "TOGGLE_MOBILE_MENU",
   
   // initial data load
   GET_EMPLOYEES: "GET_EMPLOYEES",

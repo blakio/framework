@@ -184,6 +184,16 @@ const DashboardBody = () => {
           icon: "fas fa-cloud-download-alt",
           color: "blue",
           onClick: () => window.location.reload(false)
+        },
+        {
+          // text: "refresh",
+          icon: "fas fa-bars",
+          color: "blue",
+          onClick: () => {
+            dispatch({
+              type: Types.TOGGLE_MOBILE_MENU
+            })
+          }
         }
       ]}
     />
@@ -270,7 +280,7 @@ const SideBar = () => {
 
   Util.adjustSideBarData(state, dispatch, Types, customFn);
 
-  return (<div id="SideBar" className={`container flex ${state.sideBarOptions.shortMenu && "shortMenu"}`}>
+  return (<div id="SideBar" className={`container flex ${state.sideBarOptions.shortMenu && "shortMenu"} ${state.mobileMenuOpen && "open"}`}>
     <SideBarHead />
     {state.sideBarOptions.sideBar.map((data, index) =>
       <SideBarPaper key={index} {...data} shortMenu={state.sideBarOptions.shortMenu} />
