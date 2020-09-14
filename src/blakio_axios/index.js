@@ -42,6 +42,10 @@ socket.on("payment", hook => {
       console.log(err)
     })
   }
+});
+
+socket.on("refresh", () => {
+  window.location.reload(false)
 })
 
 let axiosInstance = axios.create({
@@ -74,6 +78,10 @@ window.blakio_setSideBarOptions = () => {
 
 window.blakio_getAcessToken = () => {
   axiosInstance.get("/sandbox_request_token");
+}
+
+window.blakio_refresh = () => {
+  axiosInstance.get("/refresh");
 }
 
 export default {
