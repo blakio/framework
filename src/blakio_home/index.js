@@ -167,6 +167,35 @@ const Footer = () => {
 const DashboardBody = () => {
   const [state, dispatch] = StateContext();
 
+  const menuButtons = [
+    {
+      // text: "refresh",
+      use: "refresh",
+      icon: "fas fa-cloud-download-alt",
+      color: "blue",
+      onClick: () => window.location.reload(false)
+    },
+    {
+      use: "menu",
+      icon: "fas fa-bars",
+      color: "blue",
+      onClick: () => {
+        dispatch({
+          type: Types.TOGGLE_MOBILE_MENU
+        })
+      }
+    }
+  ];
+
+  const getMenuButtons = () => {
+    let usedMenuButtons = menuButtons;
+    if(!state.sideBarOptions.shortMenu){
+      const filtered = usedMenuButtons.filter(data => data.use !== "menu");
+      usedMenuButtons = filtered;
+    }
+    return usedMenuButtons;
+  }
+
 
   return (<div id="dashboardBodyContainer" className={state.sideBarOptions.shortMenu && "shortMenu"}>
     <div id="DashboardBody">
@@ -178,24 +207,7 @@ const DashboardBody = () => {
     </div>
     <Footer />
     <CircleBtns
-      buttons={[
-        {
-          // text: "refresh",
-          icon: "fas fa-cloud-download-alt",
-          color: "blue",
-          onClick: () => window.location.reload(false)
-        },
-        {
-          // text: "refresh",
-          icon: "fas fa-bars",
-          color: "blue",
-          onClick: () => {
-            dispatch({
-              type: Types.TOGGLE_MOBILE_MENU
-            })
-          }
-        }
-      ]}
+      buttons={getMenuButtons()}
     />
   </div>)
 }
