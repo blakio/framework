@@ -143,7 +143,8 @@ const Product = props => {
 const PointOfSale = props => {
   if (!props.show) return <div></div>;
   return (<div>
-    <Grid grid="1">
+    <Grid grid="2">
+      <ProductTable page={"pos"} />
       <ItemScreen />
     </Grid>
   </div>)

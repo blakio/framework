@@ -13,7 +13,7 @@ import {
 import Types from "blakio_context/Types";
 import Util from "blakio_util";
 
-const ProductTable = () => {
+const ProductTable = props => {
     const [state, dispatch] = StateContext();
 
     useEffect(() => {
@@ -48,7 +48,7 @@ const ProductTable = () => {
     const getHeadData = value => value;
 
     const getData = data => {
-        if(isNaN(data)){
+        if (isNaN(data)) {
             return data
         }
         return `$${data.toFixed(2)}`
@@ -71,10 +71,29 @@ const ProductTable = () => {
                 isSelected={isSelected}
                 fields={fields}
                 ids={ids}
-                onClick={id => dispatch({
-                    type: Types.UPDATE_PRODUCT,
-                    payload: id !== state.products.updateId ? id : null
-                })}
+                onClick={id => {
+                    if(props.page === "pos"){
+                        const index = ids.indexOf(id);
+                        const data = getTd();
+                        const [
+                            name,
+                            cost
+                        ] = data[index];
+                        return dispatch({
+                            type: Types.ADD_TO_CART,
+                            payload: {
+                                cost,
+                                name,
+                                _id: id
+                            }
+                        })
+                    } else {
+                        return dispatch({
+                            type: Types.UPDATE_PRODUCT,
+                            payload: id !== state.products.updateId ? id : null
+                        })
+                    }
+                }}
             />
         </Paper>
     </div>);

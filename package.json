@@ -12,6 +12,7 @@
     "moment-timezone": "^0.5.31",
     "rc-time-picker": "^3.7.3",
     "react": "^16.12.0",
+    "react-collapsible": "^2.8.0",
     "react-csv": "^1.1.2",
     "react-datepicker": "^2.10.0",
     "react-dom": "^16.12.0",

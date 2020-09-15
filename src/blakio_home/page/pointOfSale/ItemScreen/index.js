@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import "./main.css";
 
+import Collapsible from 'react-collapsible';
+
 import {
     Paper,
     Table
@@ -10,8 +12,6 @@ import {
     StateContext
 } from "blakio_context/State";
 import Types from 'blakio_context/Types';
-
-import Combobox from 'react-widgets/lib/Combobox'
 
 import {
     printResponse,
@@ -23,6 +23,15 @@ import Util from "blakio_util";
 
 import Axios from "blakio_axios";
 
+const getAccordian = (data, removeItem, id, onQuantityChange, quantity) => {
+    return (<Collapsible trigger={data}>
+        <div className="collapsibleChoices">
+            <button className="submitBtn red" onClick={() => removeItem(id)}>Remove</button>
+            <input value={quantity} pattern="[0-9]*" className="posNumberField" type="number" onChange={e => onQuantityChange(e.target.value, id)} />
+        </div>
+    </Collapsible>)
+}
+
 const ItemScreen = () => {
     const [state, dispatch] = StateContext();
 
@@ -32,17 +41,7 @@ const ItemScreen = () => {
         }
     }, [])
 
-    const [searchValue, setSearchValue] = useState("");
-
-    const [open, setOpen] = useState(false);
-
-    const [tableHead, setTableHead] = useState([
-        "Remove",
-        "Product",
-        "Cost",
-        "Quantity",
-        "Total"
-    ]);
+    const tableHead = ["Summary"];
 
     const {
         cart
@@ -71,14 +70,14 @@ const ItemScreen = () => {
         })
     }
 
-    const onQuantityChange = (value, item) => {
+    const onQuantityChange = (value, id) => {
         if (value === "0") {
-            return removeItem(item._id)
+            return removeItem(id)
         } else {
             dispatch({
                 type: Types.ADJUST_ITEM_QUANTITY,
                 payload: {
-                    id: item._id,
+                    id,
                     quantity: value
                 }
             })
@@ -86,51 +85,31 @@ const ItemScreen = () => {
     }
 
     const getData = (data) => {
-        if (data.includes("_removeButton")) {
-            const [
-                text,
-                id
-            ] = data.split("&");
-            return <button className="submitBtn red" onClick={() => removeItem(id)}>Remove</button>
-        } else if (data.includes("_inputField")) {
-            const [
-                text,
-                item
-            ] = data.split("&");
-            const itemData = JSON.parse(item);
-            return <input pattern="[0-9]*" className="posNumberField" type="number" onChange={e => onQuantityChange(e.target.value, itemData)} />;
-        } else if (data.includes("_totalCost")) {
-            return "";
+        if(data.includes("Grand Total")){
+            return data;
         }
-        return data
-    }
-
-    const getGrandTotal = tableData => {
-        let total = 0;
-        const totalIndex = 4;
-        tableData.map(data => {
-            const num = parseFloat(data[totalIndex].replace("$", ""))
-            if (!isNaN(num)) {
-                total += num;
-            }
-        });
-        return total;
+        const [
+            text,
+            id,
+            quantity
+        ] = data.split(" && ");
+        return getAccordian(text, removeItem, id, onQuantityChange, quantity);
     }
 
     const getTableData = () => {
         const tableData = [];
         cart.forEach(data => {
             let total;
-            if (data.quantity && data.quantity.length) {
-                total = `$${(data.cost * parseFloat(data.quantity)).toFixed(2)}`;
-            } else {
-                total = `_totalCost&${data._id}`;
-            }
-            tableData.push([`_removeButton&${data._id}`, data.name, `$${data.cost.toFixed(2)}`, `_inputField&${JSON.stringify(data)}`, total])
+            const name = data.name.length > 20 ? data.name.substring(0, 20) + "..." : data.name;
+            total = `$${(data.cost * parseFloat(data.quantity || 1)).toFixed(2)}`;
+            tableData.push([`( ${name} ) x ( ${data.quantity || 1} ) x ( $${data.cost.toFixed(2)} ) = ${total} && ${data._id} && ${data.quantity}`])
         });
-        const grandTotal = getGrandTotal(tableData);
         if (cart.length) {
-            tableData.push(["", "", "", "Grand Total", `$${grandTotal.toFixed(2)}`]);
+            const grandTotal = cart.reduce((accumulator, currentValue) => {
+                const cost = parseFloat(currentValue.cost.toFixed(2) * (currentValue.quantity || 1));
+                return accumulator + cost;
+            }, 0);
+            tableData.push([`Grand Total: $${grandTotal.toFixed(2)}`]);
         }
         return tableData;
     }
@@ -177,20 +156,11 @@ const ItemScreen = () => {
         Util.getDeviceType() === "iOS" ? openURLiOS(notes, total) : openURLAndroid(notes, total);
     }
 
-    const toggle = () => setOpen(!open);
-
     return (<div id="pointOfSale">
         <Paper
             title="Cart"
             color="green"
         >
-            <p className="title">Directions for payment</p>
-            <ol>
-                <li>Select an item with the input below</li>
-                <li>Fill in the quantity</li>
-                <li>Press the buy button when finished</li>
-                <li>You will be redirected to the Square POS app for payment</li>
-            </ol>
             <Table
                 getHeadData={getHeadData}
                 getData={getData}
@@ -199,33 +169,6 @@ const ItemScreen = () => {
                 ids={getIds()}
                 onClick={() => { }}
             />
-            <div className="posInput">
-                <Combobox
-                    data={list}
-                    onChange={data => {
-                        if (typeof data === "object") {
-                            dispatch({
-                                type: Types.ADD_TO_CART,
-                                payload: data
-                            });
-                            setSearchValue("")
-                            setOpen(false);
-                        } else {
-                            setSearchValue(data)
-                            setOpen(true);
-                        }
-                    }}
-                    filter='contains'
-                    textField='name'
-                    value={searchValue}
-                    dropUp
-                    placeholder="Select items here"
-                    open={open}
-                />
-                <button onClick={toggle} tabIndex="-1" title="open combobox" type="button" aria-disabled="false" aria-label="open combobox" className="rw-btn rw-btn-select comboboxInput">
-                    <span aria-hidden="true" className="rw-i rw-i-caret-down"></span>
-                </button>
-            </div>
             <div>
                 {cart.length ? <button className="submitBtn" onClick={clearCart}>Clear Cart</button> : <div></div>}
                 {cart.length ? <button className="submitBtn" onClick={buy}>Buy</button> : <div></div>}

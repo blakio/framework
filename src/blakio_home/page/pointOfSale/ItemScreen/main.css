@@ -1,9 +1,3 @@
-#pointOfSale td p {
-  text-overflow: ellipsis;
-  overflow: hidden;
-  max-width: 22em;
-}
-
 #pointOfSale .title {
   line-height: 20px;
   font-size: 13px;
@@ -33,4 +27,9 @@ input::-webkit-inner-spin-button {
 
 .posInput {
   display: flex;
+}
+
+.collapsibleChoices {
+  display: flex;
+  align-items: center;
 }
