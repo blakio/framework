@@ -56,6 +56,7 @@ export default {
     } = state.pointOfSale;
     const isSelected = cart.some(data => data._id === payload._id)
     if(isSelected) return state;
+    Util.showSuccess("", "Cart updated", 1000)
     return ({ ...state, pointOfSale: { ...state.pointOfSale, cart: [ ...cart, payload ] } });
   },
   removeFromCart: (payload, state) => {

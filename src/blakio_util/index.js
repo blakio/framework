@@ -97,7 +97,7 @@ const Util = {
     });
   },
 
-  showSuccess: (title, message) => {
+  showSuccess: (title, message, time) => {
     store.addNotification({
       title,
       message,
@@ -107,7 +107,7 @@ const Util = {
       animationIn: ["animated", "fadeIn"],
       animationOut: ["animated", "fadeOut"],
       dismiss: {
-        duration: 5000,
+        duration: time || 5000,
         onScreen: true
       }
     });
