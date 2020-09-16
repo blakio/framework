@@ -78,7 +78,8 @@ const Content = () => {
 function App() {
   return (<StateProvider>
     <ReactNotification />
-    <Content />
+    {/* <Content /> */}
+    hey ljkdnskjcn ckjdnskc kjncds
   </StateProvider>);
 }
 
