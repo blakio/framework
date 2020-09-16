@@ -67,7 +67,7 @@ const Content = () => {
     {!state.isLoggedIn ? 
      <LogIn /> : (
       <div id="App">
-        <SideBar />
+        {/* <SideBar /> */}
         <ContentArea />
         <Loading />
       </div>
@@ -78,8 +78,7 @@ const Content = () => {
 function App() {
   return (<StateProvider>
     <ReactNotification />
-    {/* <Content /> */}
-    hey ljkdnskjcn ckjdnskc kjncds
+    <Content />
   </StateProvider>);
 }
 
