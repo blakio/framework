@@ -76,15 +76,6 @@ const ClockIn = () => {
         }
     }
 
-    const icon = (<div className="clockInBox">
-        <Icon
-            isBtn
-            helpText="submit"
-            onClick={() => clockTime()}
-            icon="far fa-clock"
-        />
-    </div>);
-
     const setInputValue = value => {
         dispatch({
             type: Types.SET_CLOCK_IN_INPUT_VALUE,
@@ -133,10 +124,6 @@ const ClockIn = () => {
         setInputValue(employee);
     }
 
-    const getSmallText = () => {
-        return state.timeSheet.clockIn.selectedEmployee ? state.timeSheet.clockIn.selectedEmployee.title : ""
-    }
-
     const getPaperText = () => {
         let text = "Enter Name To Clock In";
         if(state.timeSheet.clockIn.selectedEmployeeIsClockedIn !== null){
@@ -158,7 +145,6 @@ const ClockIn = () => {
                 />
                 <Input
                     bigText="Enter Name"
-                    // smallText={getSmallText()}
                     employees={employeeDirectory.employees}
                     onChange={setClockInEmployee}
                 />

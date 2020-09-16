@@ -10,7 +10,6 @@ var currencyCode = "USD";
 var sdkVersion = "v2.0";
 
 export const openURLAndroid = (notes, total) => {
-    const client = localStorage.getItem("blakio_store");
     // Configure the allowable tender types
     var tenderTypes =
         `com.squareup.pos.TENDER_CARD, \
@@ -35,8 +34,6 @@ export const openURLAndroid = (notes, total) => {
 }
 
 export const openURLiOS = (notes, total) => {
-    const client = localStorage.getItem("blakio_store");
-
     var dataParameter = {
         amount_money: {
             amount: total,
@@ -75,17 +72,6 @@ const transactionId = "com.squareup.pos.SERVER_TRANSACTION_ID";
 
 //If there's an error, Square Point of Sale returns the following parameters.
 const errorField = "com.squareup.pos.ERROR_CODE";
-
-//Get the URL parameters and puts them in an array
-function getUrlParams(URL) {
-    var vars = {};
-    var parts = URL.replace(/[?&]+([^=&]+)=([^&]*)/gi,
-        function (m, key, value) {
-            vars[key] = value;
-
-        });
-    return vars;
-}
 
 // Makes a result string for success situation
 function handleSuccess(transactionInfo) {

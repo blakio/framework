@@ -12,7 +12,7 @@ import {
 import { StateContext } from "blakio_context/State";
 
 const Notes = () => {
-    const [state, dispatch] = StateContext();
+    const [state] = StateContext();
 
     const [newNote, setNewNotes] = useState("");
     const [notes, setNotes] = useState([]);

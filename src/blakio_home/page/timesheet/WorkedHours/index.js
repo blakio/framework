@@ -9,7 +9,7 @@ import "./main.css";
 import { StateContext } from "blakio_context/State";
 
 const WorkedHours = () => {
-    const [state, dispatch] = StateContext();
+    const [state] = StateContext();
 
     return (<div>
         <Paper

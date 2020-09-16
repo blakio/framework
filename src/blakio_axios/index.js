@@ -7,7 +7,6 @@ const dev = window.location.href.includes("http://localhost:3000/");
 const url = dev ? "http://localhost:5000" : "https://blakiodashboardserver.herokuapp.com";
 const baseURL = dev ? "http://localhost:5000/api" : "https://blakiodashboardserver.herokuapp.com/api";
 const {
-  showError,
   showSuccess
 } = Util;
 
