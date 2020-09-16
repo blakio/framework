@@ -64,11 +64,15 @@ const Content = () => {
   }, []);
 
   return (<div>
+    {!state.isLoggedIn ? 
+     <LogIn /> : (
       <div id="App">
-        <SideBar />
-        <ContentArea />
-        <Loading />
+        test
+        {/* <SideBar /> */}
+        {/* <ContentArea /> */}
+        {/* <Loading /> */}
       </div>
+     )}
   </div>)
 }
 
