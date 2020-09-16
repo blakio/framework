@@ -313,9 +313,10 @@ const Dashboard = () => {
   const [state, dispatch] = StateContext();
 
   return (<div id="Dashboard" className={`container ${state.sideBarOptions.shortMenu && "shortMenu"}`}>
-    {!state.sideBarOptions.shortMenu && <TopLeftFold height={25} width={25} backgroundColor="#FFFFFF" />}
+    {/* {!state.sideBarOptions.shortMenu && <TopLeftFold height={25} width={25} backgroundColor="#FFFFFF" />}
     {!state.sideBarOptions.shortMenu && <DashboardHead />}
-    <DashboardBody />
+    <DashboardBody /> */}
+    hey
   </div>)
 }
 
