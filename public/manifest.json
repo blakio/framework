@@ -1,7 +1,6 @@
 {
   "short_name": "blakio",
   "name": "blakio",
-  "scope": "/",
   "icons": [
     {
       "src": "/images/icons-512.png",
