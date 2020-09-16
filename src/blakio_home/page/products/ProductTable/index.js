@@ -84,7 +84,8 @@ const ProductTable = props => {
                             payload: {
                                 cost,
                                 name,
-                                _id: id
+                                _id: id,
+                                quantity: "1"
                             }
                         })
                     } else {
