@@ -103,7 +103,7 @@ const ItemScreen = () => {
             let total;
             const name = data.name.length > 20 ? data.name.substring(0, 20) + "..." : data.name;
             total = `$${(data.cost * parseFloat(data.quantity || 1)).toFixed(2)}`;
-            tableData.push([`( ${name} ) x ( ${data.quantity || 1} ) x ( $${data.cost.toFixed(2)} ) = ${total} && ${data._id} && ${data.quantity}`])
+            tableData.push([`${name} x [ ${data.quantity || 1} ] x [ $${data.cost.toFixed(2)} ] = ${total} && ${data._id} && ${data.quantity}`])
         });
         if (cart.length) {
             const grandTotal = cart.reduce((accumulator, currentValue) => {
@@ -160,7 +160,7 @@ const ItemScreen = () => {
     return (<div id="pointOfSale">
         <Paper
             title="Cart"
-            color="green"
+            color="orange"
         >
             <Table
                 getHeadData={getHeadData}
