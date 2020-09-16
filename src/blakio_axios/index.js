@@ -3,7 +3,7 @@ import axios from "axios";
 import io from "socket.io-client";
 import Util from "blakio_util";
 
-const dev = window.location.href.includes("http://localhost:3000/");
+const dev = false;
 const url = dev ? "http://localhost:5000" : "https://blakiodashboardserver.herokuapp.com";
 const baseURL = dev ? "http://localhost:5000/api" : "https://blakiodashboardserver.herokuapp.com/api";
 const {
