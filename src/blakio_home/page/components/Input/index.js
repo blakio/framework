@@ -18,6 +18,7 @@ const getInput = (
             data={data}
             placeholder={bigText}
             onChange={onChange}
+            onToggle={() => {}}
             filter='contains'
             dropUp
             open={open}

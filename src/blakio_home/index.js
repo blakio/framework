@@ -198,7 +198,7 @@ const DashboardBody = () => {
   }
 
 
-  return (<div id="dashboardBodyContainer" className={state.sideBarOptions.shortMenu && "shortMenu"}>
+  return (<div id="dashboardBodyContainer" className={state.sideBarOptions.shortMenu ? "shortMenu" : ""}>
     <div id="DashboardBody">
       <TimeSheet show={state.sideBarOptions.sideBarOption === "Timesheet"} />
       <EmployeeDirectory show={state.sideBarOptions.sideBarOption === "Directory"} />
