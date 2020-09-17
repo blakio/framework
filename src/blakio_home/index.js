@@ -190,16 +190,15 @@ const DashboardBody = () => {
 
   const getMenuButtons = () => {
     let usedMenuButtons = menuButtons;
-    // done
-    // if(!state.sideBarOptions.shortMenu){
-    //   const filtered = usedMenuButtons.filter(data => data.use !== "menu");
-    //   usedMenuButtons = filtered;
-    // }
+    if(!state.sideBarOptions.shortMenu){
+      const filtered = usedMenuButtons.filter(data => data.use !== "menu");
+      usedMenuButtons = filtered;
+    }
     return usedMenuButtons;
   }
 
 
-  return (<div id="dashboardBodyContainer">
+  return (<div id="dashboardBodyContainer" className={state.sideBarOptions.shortMenu ? "shortMenu" : ""}>
     <div id="DashboardBody">
       <TimeSheet show={state.sideBarOptions.sideBarOption === "Timesheet"} />
       <EmployeeDirectory show={state.sideBarOptions.sideBarOption === "Directory"} />
@@ -294,10 +293,10 @@ const SideBar = () => {
 
   Util.adjustSideBarData(state, dispatch, Types, customFn);
 
-  return (<div id="SideBar" className={`container flex ${state.sideBarOptions.shortMenu && "shortMenu"} ${state.mobileMenuOpen && "open"}`}>
+  return (<div id="SideBar" className={`container flex `}>
     <SideBarHead />
     {state.sideBarOptions.sideBar.map((data, index) =>
-      <SideBarPaper key={index} {...data} shortMenu={state.sideBarOptions.shortMenu} />
+      <SideBarPaper key={index} {...data}  />
     )}
   </div>)
 }
