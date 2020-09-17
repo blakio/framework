@@ -14,7 +14,7 @@ const PaperHead = (props) => {
 
   const [state] = StateContext();
 
-  return (<div className={`PaperHead flex`} onClick={onClick}>
+  return (<div className={`PaperHead flex ${state.sideBarOptions.shortMenu && "shortMenu"}`} onClick={onClick}>
     {text && <div>
       <p>{text[0]}</p>
     </div>}
