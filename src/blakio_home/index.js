@@ -69,8 +69,8 @@ const SideBarHead = () => {
     Util.openPhoneMode(dispatch, true);
   }, []);
 
-  const margin = shortMenu ? "0 auto" : "0 0.58em";
-  const width = shortMenu ? "80%" : null;
+  // const margin = shortMenu ? "0 auto" : "0 0.58em";
+  // const width = shortMenu ? "80%" : null;
 
   return (<div id="SideBarHead" className={`flex ${shortMenu ? "shortMenu" : ""}`}>
     {!shortMenu && <img src={logo} alt="logo" />}
@@ -80,7 +80,7 @@ const SideBarHead = () => {
         justifyContent: "center",
         alignItems: "center",
         width: shortMenu ? "100%" : "auto",
-        margin
+        margin: "0 auto"
       }}
     >
       {/* <HamburgerMenu size={30} width={width} onClick={onClick} /> */}
