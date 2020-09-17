@@ -68,8 +68,8 @@ const Content = () => {
      <LogIn /> : (
       <div id="App">
         <SideBar />
-        {/* <ContentArea /> */}
-        {/* <Loading /> */}
+        <ContentArea />
+        <Loading />
       </div>
      )}
   </div>)
