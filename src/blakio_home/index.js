@@ -293,7 +293,15 @@ const SideBar = () => {
 
   Util.adjustSideBarData(state, dispatch, Types, customFn);
 
-  return (<div id="SideBar" className={`container flex ${state.sideBarOptions.shortMenu ? "shortMenu" : ""} ${state.mobileMenuOpen ? "open" : ""}`}>
+  let classes = "container flex";
+  if(state.sideBarOptions.shortMenu){
+    classes += " shortMenu"
+  }
+  if(state.mobileMenuOpen){
+    classes += " open"
+  }
+
+  return (<div id="SideBar" className={classes}>
     <SideBarHead />
     {state.sideBarOptions.sideBar.map((data, index) =>
       <SideBarPaper key={index} {...data} shortMenu={state.sideBarOptions.shortMenu} />
