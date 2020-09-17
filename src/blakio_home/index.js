@@ -83,7 +83,7 @@ const SideBarHead = () => {
         margin
       }}
     >
-      <HamburgerMenu size={30} width={width} onClick={onClick} />
+      {/* <HamburgerMenu size={30} width={width} onClick={onClick} /> */}
     </div>
   </div>)
 }
@@ -294,7 +294,7 @@ const SideBar = () => {
   Util.adjustSideBarData(state, dispatch, Types, customFn);
 
   return (<div id="SideBar" className={`container flex ${state.sideBarOptions.shortMenu && "shortMenu"} ${state.mobileMenuOpen && "open"}`}>
-    {/* <SideBarHead /> */}
+    <SideBarHead />
     {state.sideBarOptions.sideBar.map((data, index) =>
       <SideBarPaper key={index} {...data} shortMenu={state.sideBarOptions.shortMenu} />
     )}
