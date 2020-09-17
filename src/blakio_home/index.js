@@ -53,26 +53,27 @@ const load = (dispatch, bool) => {
 }
 
 const SideBarHead = () => {
-  const [state, dispatch] = StateContext();
-  const {
-    shortMenu
-  } = state.sideBarOptions;
+  // const [state, dispatch] = StateContext();
+  // const {
+  //   shortMenu
+  // } = state.sideBarOptions;
 
-  const onClick = () => {
-    dispatch({
-      type: Types.SHORT_MENU,
-      payload: !shortMenu
-    })
-  }
+  // const onClick = () => {
+  //   dispatch({
+  //     type: Types.SHORT_MENU,
+  //     payload: !shortMenu
+  //   })
+  // }
 
-  useEffect(() => {
-    Util.openPhoneMode(dispatch, true);
-  }, []);
+  // useEffect(() => {
+  //   Util.openPhoneMode(dispatch, true);
+  // }, []);
 
-  const margin = shortMenu ? "0 auto" : "0 0.58em";
-  const width = shortMenu ? "80%" : null;
+  // const margin = shortMenu ? "0 auto" : "0 0.58em";
+  // const width = shortMenu ? "80%" : null;
 
-  return (<div id="SideBarHead" className={`flex ${shortMenu && "shortMenu"}`}>
+  // return (<div id="SideBarHead" className={`flex ${shortMenu && "shortMenu"}`}>
+  return (<div id="SideBarHead">
     test
     {/* {!shortMenu && <img src={logo} alt="logo" />} */}
     {/* <div
