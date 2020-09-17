@@ -58,12 +58,12 @@ const SideBarHead = () => {
     shortMenu
   } = state.sideBarOptions;
 
-  const onClick = () => {
-    dispatch({
-      type: Types.SHORT_MENU,
-      payload: !shortMenu
-    })
-  }
+  // const onClick = () => {
+  //   dispatch({
+  //     type: Types.SHORT_MENU,
+  //     payload: !shortMenu
+  //   })
+  // }
 
   useEffect(() => {
     Util.openPhoneMode(dispatch, true);
@@ -72,7 +72,7 @@ const SideBarHead = () => {
   // const margin = shortMenu ? "0 auto" : "0 0.58em";
   // const width = shortMenu ? "80%" : null;
 
-  return (<div id="SideBarHead" className={`flex ${shortMenu ? "shortMenu" : ""}`}>
+  return (<div id="SideBarHead">
     {!shortMenu && <img src={logo} alt="logo" />}
     <div
       style={{
