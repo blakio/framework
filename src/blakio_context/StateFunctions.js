@@ -25,7 +25,7 @@ export default {
   shortMenu: (payload, state) => {
     // debugger
     // , shortMenu: payload
-    return ({ ...state, sideBarOptions: { ...state.sideBarOptions } })
+    return ({ ...state, sideBarOptions: { ...state.sideBarOptions, shortMenu: true } })
   },
   setSideBar: (payload, state) => ({ ...state, sideBarOptions: { ...state.sideBarOptions, sideBar: payload } }),
   setSideBarOption:  (payload, state) => ({ ...initialState, mobileMenuOpen: state.mobileMenuOpen, isLoggedIn: state.isLoggedIn, sideBarOptions: { ...state.sideBarOptions, sideBarOption: payload } }),
