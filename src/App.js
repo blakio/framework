@@ -31,7 +31,7 @@ const Loading = () => {
 const ContentArea = () => {
   const [state, dispatch] = StateContext();
 
-  return (<div id="ContentArea" className={`${state.sideBarOptions.shortMenu && "shortMenu"}`}>
+  return (<div id="ContentArea">
     {/* <TopBar /> */}
     <Dashboard />
 </div>)
