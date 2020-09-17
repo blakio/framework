@@ -57,13 +57,13 @@ body {
   transition: width 0.4s;
 }
 
-/* #SideBar.shortMenu {
+#SideBar.shortMenu {
   width: 4em;
   position: absolute;
   left: -4em;
-  z-index: 100;
+  /* z-index: 100; */
   background-color: #1B416D;
-} */
+}
 
 #SideBar.shortMenu.open {
   left: 0em;
