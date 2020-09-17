@@ -65,9 +65,9 @@ const SideBarHead = () => {
     })
   }
 
-  useEffect(() => {
-    Util.openPhoneMode(dispatch, true);
-  }, []);
+  // useEffect(() => {
+  //   Util.openPhoneMode(dispatch, true);
+  // }, []);
 
   const margin = shortMenu ? "0 auto" : "0 0.58em";
   const width = shortMenu ? "80%" : null;
@@ -207,9 +207,9 @@ const DashboardBody = () => {
       <Transaction show={state.sideBarOptions.sideBarOption === "Transactions"} />
     </div>
     <Footer />
-    {/* <CircleBtns
+    <CircleBtns
       buttons={getMenuButtons()}
-    /> */}
+    />
   </div>)
 }
 
