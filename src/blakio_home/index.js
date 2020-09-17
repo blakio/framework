@@ -296,7 +296,7 @@ const SideBar = () => {
   return (<div id="SideBar" className={`container flex `}>
     <SideBarHead />
     {state.sideBarOptions.sideBar.map((data, index) =>
-      <SideBarPaper key={index} {...data}  />
+      <SideBarPaper key={index} {...data} shortMenu={state.sideBarOptions.shortMenu} />
     )}
   </div>)
 }
