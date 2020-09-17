@@ -69,24 +69,21 @@ const SideBarHead = () => {
     Util.openPhoneMode(dispatch, true);
   }, []);
 
-  // done
+  const margin = shortMenu ? "0 auto" : "0 0.58em";
+  const width = shortMenu ? "80%" : null;
 
-  // const margin = shortMenu ? "0 auto" : "0 0.58em";
-  // const width = shortMenu ? "80%" : null;
-
-  // return (<div id="SideBarHead" className={`flex ${shortMenu && "shortMenu"}`}>
-  return (<div id="SideBarHead" className={`flex`}>
-    {/* {!shortMenu && <img src={logo} alt="logo" />} */}
+  return (<div id="SideBarHead" className={`flex ${shortMenu ? "shortMenu" : ""}`}>
+    {!shortMenu && <img src={logo} alt="logo" />}
     <div
       style={{
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
-        // width: shortMenu ? "100%" : "auto",
-        // margin
+        width: shortMenu ? "100%" : "auto",
+        margin
       }}
     >
-      <HamburgerMenu size={30} onClick={onClick} />
+      <HamburgerMenu size={30} width={width} onClick={onClick} />
     </div>
   </div>)
 }
@@ -193,15 +190,15 @@ const DashboardBody = () => {
 
   const getMenuButtons = () => {
     let usedMenuButtons = menuButtons;
-    // if(!state.sideBarOptions.shortMenu){
-    //   const filtered = usedMenuButtons.filter(data => data.use !== "menu");
-    //   usedMenuButtons = filtered;
-    // }
+    if(!state.sideBarOptions.shortMenu){
+      const filtered = usedMenuButtons.filter(data => data.use !== "menu");
+      usedMenuButtons = filtered;
+    }
     return usedMenuButtons;
   }
 
 
-  return (<div id="dashboardBodyContainer" >
+  return (<div id="dashboardBodyContainer" className={state.sideBarOptions.shortMenu ? "shortMenu" : ""}>
     <div id="DashboardBody">
       <TimeSheet show={state.sideBarOptions.sideBarOption === "Timesheet"} />
       <EmployeeDirectory show={state.sideBarOptions.sideBarOption === "Directory"} />
@@ -296,18 +293,18 @@ const SideBar = () => {
 
   Util.adjustSideBarData(state, dispatch, Types, customFn);
 
-  return (<div id="SideBar" className={`container flex ${state.mobileMenuOpen && "open"}`}>
-    <SideBarHead />
-    {/* {state.sideBarOptions.sideBar.map((data, index) =>
+  return (<div id="SideBar" className={`container flex ${state.sideBarOptions.shortMenu && "shortMenu"} ${state.mobileMenuOpen && "open"}`}>
+    {/* <SideBarHead /> */}
+    {state.sideBarOptions.sideBar.map((data, index) =>
       <SideBarPaper key={index} {...data} shortMenu={state.sideBarOptions.shortMenu} />
-    )} */}
+    )}
   </div>)
 }
 
 const TopBar = () => {
   const [state, dispatch] = StateContext();
 
-  return (<div id="TopBar" className={`container flex`}>
+  return (<div id="TopBar" className={`container flex ${state.sideBarOptions.shortMenu && "shortMenu"}`}>
     <DateTimeWeather />
   </div>)
 }
@@ -315,9 +312,9 @@ const TopBar = () => {
 const Dashboard = () => {
   const [state, dispatch] = StateContext();
 
-  return (<div id="Dashboard" className={`container `}>
-    {/* {!state.sideBarOptions.shortMenu && <TopLeftFold height={25} width={25} backgroundColor="#FFFFFF" />}
-    {!state.sideBarOptions.shortMenu && <DashboardHead />} */}
+  return (<div id="Dashboard" className={`container ${state.sideBarOptions.shortMenu && "shortMenu"}`}>
+    {!state.sideBarOptions.shortMenu && <TopLeftFold height={25} width={25} backgroundColor="#FFFFFF" />}
+    {!state.sideBarOptions.shortMenu && <DashboardHead />}
     <DashboardBody />
   </div>)
 }
