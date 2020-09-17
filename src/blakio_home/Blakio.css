@@ -59,9 +59,9 @@ body {
 
 #SideBar.shortMenu {
   width: 4em;
-  position: absolute;
+  /* position: absolute; */
   /* left: -4em; */
-  /* z-index: 100; */
+  z-index: 100;
   background-color: #1B416D;
 }
 
