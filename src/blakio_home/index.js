@@ -295,8 +295,8 @@ const SideBar = () => {
 
   return (<div id="SideBar" className={`container flex ${state.sideBarOptions.shortMenu && "shortMenu"} ${state.mobileMenuOpen && "open"}`}>
     test
-    {/* <SideBarHead />
-    {state.sideBarOptions.sideBar.map((data, index) =>
+    <SideBarHead />
+    {/* {state.sideBarOptions.sideBar.map((data, index) =>
       <SideBarPaper key={index} {...data} shortMenu={state.sideBarOptions.shortMenu} />
     )} */}
   </div>)
