@@ -90,9 +90,9 @@ const load = (dispatch, bool) => {
 
 const SideBarHead = () => {
   const [state, dispatch] = StateContext();
-  const {
-    shortMenu
-  } = state.sideBarOptions;
+  // const {
+  //   shortMenu
+  // } = state.sideBarOptions;
 
   // const onClick = () => {
   //   dispatch({
