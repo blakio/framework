@@ -67,9 +67,9 @@ body {
   background-color: #1B416D;
 }
 
-#SideBar.shortMenu.open {
+/* #SideBar.shortMenu.open {
   left: 0em;
-}
+} */
 
 #SideBarHead {
   height: var(--navBarHeight);
