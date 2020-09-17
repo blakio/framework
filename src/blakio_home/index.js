@@ -73,8 +73,9 @@ const SideBarHead = () => {
   const width = shortMenu ? "80%" : null;
 
   return (<div id="SideBarHead" className={`flex ${shortMenu && "shortMenu"}`}>
-    {!shortMenu && <img src={logo} alt="logo" />}
-    <div
+    test
+    {/* {!shortMenu && <img src={logo} alt="logo" />} */}
+    {/* <div
       style={{
         display: "flex",
         justifyContent: "center",
@@ -84,7 +85,7 @@ const SideBarHead = () => {
       }}
     >
       <HamburgerMenu size={30} width={width} onClick={onClick} />
-    </div>
+    </div> */}
   </div>)
 }
 
@@ -294,7 +295,6 @@ const SideBar = () => {
   Util.adjustSideBarData(state, dispatch, Types, customFn);
 
   return (<div id="SideBar" className={`container flex ${state.sideBarOptions.shortMenu && "shortMenu"} ${state.mobileMenuOpen && "open"}`}>
-    test
     <SideBarHead />
     {/* {state.sideBarOptions.sideBar.map((data, index) =>
       <SideBarPaper key={index} {...data} shortMenu={state.sideBarOptions.shortMenu} />
