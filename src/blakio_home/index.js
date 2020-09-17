@@ -52,6 +52,42 @@ const load = (dispatch, bool) => {
   });
 }
 
+// const SideBarHead = () => {
+//   const [state, dispatch] = StateContext();
+//   const {
+//     shortMenu
+//   } = state.sideBarOptions;
+
+//   const onClick = () => {
+//     dispatch({
+//       type: Types.SHORT_MENU,
+//       payload: !shortMenu
+//     })
+//   }
+
+//   useEffect(() => {
+//     Util.openPhoneMode(dispatch, true);
+//   }, []);
+
+//   const margin = shortMenu ? "0 auto" : "0 0.58em";
+//   const width = shortMenu ? "80%" : null;
+
+//   return (<div id="SideBarHead" className={`flex ${shortMenu ? "shortMenu" : ""}`}>
+//     {!shortMenu && <img src={logo} alt="logo" />}
+//     <div
+//       style={{
+//         display: "flex",
+//         justifyContent: "center",
+//         alignItems: "center",
+//         width: shortMenu ? "100%" : "auto",
+//         margin
+//       }}
+//     >
+//       <HamburgerMenu size={30} width={width} onClick={onClick} />
+//     </div>
+//   </div>)
+// }
+
 const SideBarHead = () => {
   const [state, dispatch] = StateContext();
   const {
@@ -73,13 +109,13 @@ const SideBarHead = () => {
   // const width = shortMenu ? "80%" : null;
 
   return (<div id="SideBarHead">
-    {!shortMenu && <img src={logo} alt="logo" />}
+    {/* {!shortMenu && <img src={logo} alt="logo" />} */}
     <div
       style={{
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
-        width: shortMenu ? "100%" : "auto",
+        width: "auto",
         margin: "0 auto"
       }}
     >
