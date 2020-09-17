@@ -207,9 +207,9 @@ const DashboardBody = () => {
       <Transaction show={state.sideBarOptions.sideBarOption === "Transactions"} />
     </div>
     <Footer />
-    <CircleBtns
+    {/* <CircleBtns
       buttons={getMenuButtons()}
-    />
+    /> */}
   </div>)
 }
 
