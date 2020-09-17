@@ -75,7 +75,7 @@ const SideBarHead = () => {
   // return (<div id="SideBarHead" className={`flex ${shortMenu && "shortMenu"}`}>
   return (<div id="SideBarHead">
     test
-    {/* {!shortMenu && <img src={logo} alt="logo" />} */}
+    {!shortMenu && <img src={logo} alt="logo" />}
     {/* <div
       style={{
         display: "flex",
