@@ -305,7 +305,7 @@ const SideBar = () => {
 const TopBar = () => {
   const [state, dispatch] = StateContext();
 
-  return (<div id="TopBar" className={`container flex `}>
+  return (<div id="TopBar" className={`container flex ${state.sideBarOptions.shortMenu && "shortMenu"}`}>
     <DateTimeWeather />
   </div>)
 }
@@ -313,7 +313,7 @@ const TopBar = () => {
 const Dashboard = () => {
   const [state, dispatch] = StateContext();
 
-  return (<div id="Dashboard" className={`container `}>
+  return (<div id="Dashboard" className={`container ${state.sideBarOptions.shortMenu && "shortMenu"}`}>
     {!state.sideBarOptions.shortMenu && <TopLeftFold height={25} width={25} backgroundColor="#FFFFFF" />}
     {!state.sideBarOptions.shortMenu && <DashboardHead />}
     <DashboardBody />
