@@ -67,8 +67,7 @@ const Content = () => {
     {!state.isLoggedIn ? 
      <LogIn /> : (
       <div id="App">
-        test
-        {/* <SideBar /> */}
+        <SideBar />
         {/* <ContentArea /> */}
         {/* <Loading /> */}
       </div>

@@ -256,49 +256,51 @@ const DateTimeWeather = () => {
 }
 
 const SideBar = () => {
-  const [state, dispatch] = StateContext();
+  // const [state, dispatch] = StateContext();
 
 
-  const setSideBarState = (data) => {
-    dispatch({
-      type: Types.SET_SIDE_BAR,
-      payload: data.data
-    })
-  }
+  // const setSideBarState = (data) => {
+  //   dispatch({
+  //     type: Types.SET_SIDE_BAR,
+  //     payload: data.data
+  //   })
+  // }
 
-  useEffect(() => {
-    Axios.getSideBar(setSideBarState)
-  }, []);
+  // useEffect(() => {
+  //   Axios.getSideBar(setSideBarState)
+  // }, []);
 
-  useEffect(() => {
-    if (state.sideBarOptions.sideBar.length && !state.sideBarOptions.sideBarOption) {
-      dispatch({
-        type: Types.SET_SIDE_BAR_OPTION,
-        payload: state.sideBarOptions.sideBar[0].title
-      })
-    }
-  }, [state.sideBarOptions.sideBar])
+  // useEffect(() => {
+  //   if (state.sideBarOptions.sideBar.length && !state.sideBarOptions.sideBarOption) {
+  //     dispatch({
+  //       type: Types.SET_SIDE_BAR_OPTION,
+  //       payload: state.sideBarOptions.sideBar[0].title
+  //     })
+  //   }
+  // }, [state.sideBarOptions.sideBar])
 
-  const customFn = {
-    selectTimesheet: (data) => {
-      console.log(data)
-    },
-    selectEmployeeDropwdown: (data) => {
-      console.log(data)
-    },
-    selectEmployee: (data) => {
-      console.log(data)
-    }
-  }
+  // const customFn = {
+  //   selectTimesheet: (data) => {
+  //     console.log(data)
+  //   },
+  //   selectEmployeeDropwdown: (data) => {
+  //     console.log(data)
+  //   },
+  //   selectEmployee: (data) => {
+  //     console.log(data)
+  //   }
+  // }
 
-  Util.adjustSideBarData(state, dispatch, Types, customFn);
+  // Util.adjustSideBarData(state, dispatch, Types, customFn);
 
-  return (<div id="SideBar" className={`container flex ${state.sideBarOptions.shortMenu && "shortMenu"} ${state.mobileMenuOpen && "open"}`}>
-    <SideBarHead />
-    {state.sideBarOptions.sideBar.map((data, index) =>
-      <SideBarPaper key={index} {...data} shortMenu={state.sideBarOptions.shortMenu} />
-    )}
-  </div>)
+  // return (<div id="SideBar" className={`container flex ${state.sideBarOptions.shortMenu && "shortMenu"} ${state.mobileMenuOpen && "open"}`}>
+  //   <SideBarHead />
+  //   {state.sideBarOptions.sideBar.map((data, index) =>
+  //     <SideBarPaper key={index} {...data} shortMenu={state.sideBarOptions.shortMenu} />
+  //   )}
+  // </div>)
+
+  return (<div>test</div>)
 }
 
 const TopBar = () => {
