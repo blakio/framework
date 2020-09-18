@@ -128,12 +128,23 @@ body {
 }
 
 #DashboardHead {
-  border-bottom: 1px solid #ddd;
+  /* border-bottom: 1px solid #ddd; */
   height: 3rem;
   color: #0d325a;
   justify-content: space-between;
   padding-left: 4rem;
   padding-right: 2rem;
+}
+
+#DashboardHead.shortMenu {
+  justify-content: center;
+  padding-left: 0;
+  padding-right: 0;
+  height: 1.6rem;
+}
+
+#DashboardHead.shortMenu p {
+  font-size: 0.86em;
 }
 
 #DashboardTitleText {

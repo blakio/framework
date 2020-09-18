@@ -95,7 +95,7 @@ const DashboardHead = () => {
 
   const selected = state.sideBarOptions.sideBar.filter(data => data.title === state.sideBarOptions.sideBarOption);
   const label = state.sideBarOptions.sideBar.length && selected[0] && selected[0].title.toUpperCase();
-  return (<div id="DashboardHead" className="flex">
+  return (<div id="DashboardHead" className={`flex ${state.sideBarOptions.shortMenu && "shortMenu"}`}>
     <div className="flex">
       <p id="DashboardTitleText">{label ? label : ""}</p>
     </div>
@@ -360,9 +360,11 @@ const Dashboard = () => {
     setYInitial(false);
   }
 
+  const foldSize = state.sideBarOptions.shortMenu ? 20 : 25;
+
   return (<div id="Dashboard" className={`container ${state.sideBarOptions.shortMenu && "shortMenu"}`}>
-    {!state.sideBarOptions.shortMenu && <TopLeftFold height={25} width={25} backgroundColor="#FFFFFF" />}
-    {!state.sideBarOptions.shortMenu && <DashboardHead />}
+    <TopLeftFold height={foldSize} width={foldSize} backgroundColor="#FFFFFF" />
+    <DashboardHead />
     <Swipe
       onSwipeStart={onSwipeStart}
       onSwipeMove={onSwipeMove}

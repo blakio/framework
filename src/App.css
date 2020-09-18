@@ -25,7 +25,8 @@
   /* max-width: calc(100% - var(--SideBarWidth)); */
   width: calc(100% - var(--SideBarWidth));
   transition: max-width 0.4s;
-  overflow: scroll;
+  overflow-x: hidden;
+  overflow-y: scroll;
 }
 
 #ContentArea.shortMenu {
