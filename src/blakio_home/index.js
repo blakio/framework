@@ -38,6 +38,8 @@ import { CircleBtns } from "blakio_home/page/components";
 
 import 'react-widgets/dist/css/react-widgets.css';
 
+import Swipe from 'react-easy-swipe';
+
 const {
   SideBarPaper,
   TopLeftFold,
@@ -319,11 +321,53 @@ const TopBar = () => {
 
 const Dashboard = () => {
   const [state, dispatch] = StateContext();
+  const [xInitial, setXInitial] = useState(false)
+  const [yInitial, setYInitial] = useState(false)
+
+  const onSwipeStart = e => {
+    console.log(e)
+  }
+
+  let x, y;
+
+  const onSwipeMove = (position, event) => {
+    if(!xInitial){
+      setXInitial(position.x)
+      setYInitial(position.y)
+    }
+    x = position.x;
+    y = position.y;
+  }
+
+  const onSwipeEnd = e => {
+    const yInRange = (y - yInitial) < 100;
+    if(x > xInitial && yInRange){
+      if(!state.mobileMenuOpen && state.sideBarOptions.shortMenu){
+        dispatch({
+          type: Types.TOGGLE_MOBILE_MENU
+        })
+      }
+    } else if(x < xInitial && yInRange){
+      if(state.mobileMenuOpen && state.sideBarOptions.shortMenu){
+        dispatch({
+          type: Types.TOGGLE_MOBILE_MENU
+        })
+      }
+    }
+    setXInitial(false);
+    setYInitial(false);
+  }
 
   return (<div id="Dashboard" className={`container ${state.sideBarOptions.shortMenu && "shortMenu"}`}>
     {!state.sideBarOptions.shortMenu && <TopLeftFold height={25} width={25} backgroundColor="#FFFFFF" />}
     {!state.sideBarOptions.shortMenu && <DashboardHead />}
-    <DashboardBody />
+    <Swipe
+      onSwipeStart={onSwipeStart}
+      onSwipeMove={onSwipeMove}
+      onSwipeEnd={onSwipeEnd}
+    >
+      <DashboardBody />
+    </Swipe>
   </div>)
 }
 
