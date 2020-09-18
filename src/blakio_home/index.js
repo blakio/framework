@@ -343,13 +343,13 @@ const Dashboard = () => {
     const yInRange = Math.abs((y - yInitial) < 1600);
     const absX = Math.abs(x);
     const absXInitial = Math.abs(xInitial);
-    if(x > xInitial && (absX - absXInitial > 100) && yInRange){
+    if((x + xInitial > 0) && (absX - absXInitial > 100)){
       if(!state.mobileMenuOpen && state.sideBarOptions.shortMenu){
         dispatch({
           type: Types.TOGGLE_MOBILE_MENU
         })
       }
-    } else if(x < xInitial && (absXInitial - absX > 100) && yInRange){
+    } else if((x + xInitial < 0) && (absXInitial - absX < 100)){
       if(state.mobileMenuOpen && state.sideBarOptions.shortMenu){
         dispatch({
           type: Types.TOGGLE_MOBILE_MENU
