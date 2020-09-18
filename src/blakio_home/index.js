@@ -341,13 +341,15 @@ const Dashboard = () => {
 
   const onSwipeEnd = e => {
     const yInRange = Math.abs((y - yInitial) < 1600);
-    if(x > xInitial && yInRange){
+    const absX = Math.abs(x);
+    const absXInitial = Math.abs(xInitial);
+    if(x > xInitial && (absX - absXInitial > 100) && yInRange){
       if(!state.mobileMenuOpen && state.sideBarOptions.shortMenu){
         dispatch({
           type: Types.TOGGLE_MOBILE_MENU
         })
       }
-    } else if(x < xInitial && yInRange){
+    } else if(x < xInitial && (absXInitial - absX > 100) && yInRange){
       if(state.mobileMenuOpen && state.sideBarOptions.shortMenu){
         dispatch({
           type: Types.TOGGLE_MOBILE_MENU

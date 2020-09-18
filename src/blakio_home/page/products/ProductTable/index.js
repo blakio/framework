@@ -63,39 +63,41 @@ const ProductTable = props => {
             title={props.page === "pos" ? "Select Products Here" : "Product Directory"}
             color="blue"
         >
-            <Table
-                th={getTh()}
-                td={getTd()}
-                getHeadData={getHeadData}
-                getData={getData}
-                isSelected={isSelected}
-                fields={fields}
-                ids={ids}
-                onClick={id => {
-                    if(props.page === "pos"){
-                        const index = ids.indexOf(id);
-                        const data = getTd();
-                        const [
-                            name,
-                            cost
-                        ] = data[index];
-                        return dispatch({
-                            type: Types.ADD_TO_CART,
-                            payload: {
-                                cost,
+            <div className="halfViewPortHeight">
+                <Table
+                    th={getTh()}
+                    td={getTd()}
+                    getHeadData={getHeadData}
+                    getData={getData}
+                    isSelected={isSelected}
+                    fields={fields}
+                    ids={ids}
+                    onClick={id => {
+                        if(props.page === "pos"){
+                            const index = ids.indexOf(id);
+                            const data = getTd();
+                            const [
                                 name,
-                                _id: id,
-                                quantity: "1"
-                            }
-                        })
-                    } else {
-                        return dispatch({
-                            type: Types.UPDATE_PRODUCT,
-                            payload: id !== state.products.updateId ? id : null
-                        })
-                    }
-                }}
-            />
+                                cost
+                            ] = data[index];
+                            return dispatch({
+                                type: Types.ADD_TO_CART,
+                                payload: {
+                                    cost,
+                                    name,
+                                    _id: id,
+                                    quantity: "1"
+                                }
+                            })
+                        } else {
+                            return dispatch({
+                                type: Types.UPDATE_PRODUCT,
+                                payload: id !== state.products.updateId ? id : null
+                            })
+                        }
+                    }}
+                />
+            </div>
         </Paper>
     </div>);
 }

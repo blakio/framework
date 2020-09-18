@@ -275,3 +275,8 @@ body {
   height: 10em;
   width: 100%;
 }
+
+.halfViewPortHeight {
+  max-height: 50vh;
+  overflow-y: scroll;
+}
