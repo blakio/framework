@@ -21,7 +21,7 @@
 .SideBarPaper.active {
   box-shadow: 0 1px 0 rgba(255, 255, 255, 0.1);
   background-color: var(--darkFoldBlue);
-  border: 1px solid #001f40;
+  /* border: 1px solid #001f40; */
 }
 
 .SideBarListContainer {
