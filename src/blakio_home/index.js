@@ -340,7 +340,7 @@ const Dashboard = () => {
   }
 
   const onSwipeEnd = e => {
-    const yInRange = (y - yInitial) < 100;
+    const yInRange = Math.abs((y - yInitial) < 1600);
     if(x > xInitial && yInRange){
       if(!state.mobileMenuOpen && state.sideBarOptions.shortMenu){
         dispatch({
