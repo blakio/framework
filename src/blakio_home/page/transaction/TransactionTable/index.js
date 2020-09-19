@@ -7,6 +7,7 @@ import { StateContext } from "blakio_context/State";
 import Types from "blakio_context/Types"
 
 import Axios from "blakio_axios";
+import Util from "blakio_util";
 
 const TransactionTable = () => {
     const [state, dispatch] = StateContext();
@@ -16,17 +17,22 @@ const TransactionTable = () => {
     const th = ["Payment ID", "Total", "Refund", "Status", "Card Holder", "Last 4"];
     const [ids, setIds] = useState([]);
 
-    useEffect(() => {
+    const getTransactions = (last_4) => {
         dispatch({
             type: Types.IS_LOADING,
             payload: true
         });
 
-        Axios.listPayments().then(payment => {
+        Axios.listPayments({
+            last_4
+        }).then(payment => {
+
             dispatch({
                 type: Types.IS_LOADING,
                 payload: false
             });
+
+            if(payment.data.error) return Util.showError("Not found", "No card found under that number");
 
             const tData = [];
             const idArray = [];
@@ -55,7 +61,7 @@ const TransactionTable = () => {
 
             console.log(err)
         });
-    }, []);
+    }
 
     const getHeadData = data => data;
     const getData = data => {
@@ -100,7 +106,7 @@ const TransactionTable = () => {
                 }
             },
             onSubmit: () => {
-                console.log(filter)
+                if(filter.length === 4) getTransactions(filter);
             }
         }
     ];

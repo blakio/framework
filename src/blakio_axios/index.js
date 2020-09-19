@@ -202,8 +202,8 @@ export default {
   },
   listPayments: async (query) => {
     if(query){
-      const {last_4, total} = query;
-      return await axiosInstance.get(`/listPayments/${last_4.replace("/", "")}Z${total}`);
+      const {last_4} = query;
+      return await axiosInstance.get(`/listPayments/${last_4}`);
     }
     return await axiosInstance.get(`/listPayments/false`);
   },
