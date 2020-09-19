@@ -14,7 +14,7 @@ const TransactionTable = () => {
     const [selected, setSelected] = useState();
     const [filter, setFilter] = useState();
 
-    const th = ["Payment ID", "Total", "Refund", "Status", "Card Holder", "Last 4"];
+    const th = ["Payment ID", "Total", "Refund", "Status", "Card Holder"];
     const [ids, setIds] = useState([]);
 
     const getTransactions = (last_4) => {
@@ -32,7 +32,13 @@ const TransactionTable = () => {
                 payload: false
             });
 
-            if(payment.data.error) return Util.showError("Not found", "No card found under that number");
+            if(payment.data.error) {
+                dispatch({
+                    type: Types.SET_PAYMENT_LIST,
+                    payload: []
+                })
+                return Util.showError("Not found", "No card found under that number")
+            }
 
             const tData = [];
             const idArray = [];
@@ -43,8 +49,7 @@ const TransactionTable = () => {
                     data.total,
                     data.refund,
                     data.status,
-                    data.cardHolder,
-                    data.last_4
+                    data.cardHolder
                 ])
             });
             dispatch({
