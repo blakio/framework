@@ -32,7 +32,7 @@
     position: relative;
     padding: 0;
     border-radius: 50%;
-    border: 1px solid #b7c1d3;
+    /* border: 1px solid #b7c1d3; */
 }
 
 .circleBtnIconContainer:active {
@@ -41,4 +41,6 @@
 
 .circleBtnIconContainer i {
     color: #B7C1D3;
+    color: #0d325a;
+    opacity: 0.45;
 }
