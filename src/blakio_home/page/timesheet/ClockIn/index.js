@@ -48,7 +48,7 @@ const ClockIn = () => {
     const clockTime = async () => {
 
         const employee = state.timeSheet.clockIn.selectedEmployee;
-        if(!employee) return;
+        if(!employee) return Util.showError("", "Must add employee in Directory first");
 
         Util.load(dispatch, true);
 

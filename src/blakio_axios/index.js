@@ -61,11 +61,11 @@ window.blakio_setSideBarOptions = () => {
    * 3. run blakio_setSideBarOptions
    */
   const sideBarOptions = [
-    { title: "Timesheet", closedIcon: "fas fa-clock" },
-    { title: "Directory", closedIcon: "fas fa-user-tie" },
-    { title: "Point Of Sale", closedIcon: "fas fa-credit-card" },
-    { title: "Product", closedIcon: "fas fa-boxes" },
-    { title: "Transaction", closedIcon: "fas fa-cash-register" }
+    { title: "Timesheet", closedIcon: "fas fa-clock", isActive: false },
+    { title: "Directory", closedIcon: "fas fa-user-tie", isActive: false },
+    { title: "Point Of Sale", closedIcon: "fas fa-credit-card", isActive: false },
+    { title: "Product", closedIcon: "fas fa-boxes", isActive: false },
+    { title: "Transaction", closedIcon: "fas fa-cash-register", isActive: false }
   ];
 
   const insertOption = async (data) => {

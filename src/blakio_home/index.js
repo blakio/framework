@@ -136,8 +136,12 @@ const Product = props => {
   if (!props.show) return <div></div>;
   return (<div>
     <Grid grid="2">
-      <ProductTable />
-      <ProductForm />
+      <Grid grid="1">
+        <ProductTable />
+      </Grid>
+      <Grid grid="1">
+        <ProductForm />
+      </Grid>
     </Grid>
   </div>)
 }
@@ -146,8 +150,12 @@ const PointOfSale = props => {
   if (!props.show) return <div></div>;
   return (<div>
     <Grid grid="2">
-      <ProductTable page={"pos"} />
-      <ItemScreen />
+      <Grid grid="1">
+        <ProductTable page={"pos"} />
+      </Grid>
+      <Grid grid="1">
+        <ItemScreen />
+      </Grid>
     </Grid>
   </div>)
 }
@@ -156,8 +164,12 @@ const Transaction = props => {
   if (!props.show) return <div></div>;
   return (<div>
     <Grid grid="2">
-      <TransactionTable />
-      <ItemsPurchasedTable />
+      <Grid grid="1">
+        <TransactionTable />
+      </Grid>
+      <Grid grid="1">
+        <ItemsPurchasedTable />
+      </Grid>
     </Grid>
   </div>)
 }
@@ -306,7 +318,7 @@ const SideBar = () => {
   return (<div id="SideBar" className={classes}>
     <SideBarHead />
     {state.sideBarOptions.sideBar.map((data, index) =>
-      <SideBarPaper key={index} {...data} shortMenu={state.sideBarOptions.shortMenu} />
+      (data.isActive ? <SideBarPaper key={index} {...data} shortMenu={state.sideBarOptions.shortMenu} /> : <></>)
     )}
   </div>)
 }
