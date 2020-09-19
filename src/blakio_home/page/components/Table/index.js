@@ -16,7 +16,8 @@ const Table = props => {
         getHeadData,
         getData,
         getStyle,
-        getHeadStyle
+        getHeadStyle,
+        inputfilters
     } = props;
 
     const usedHead = props.th || [];
@@ -37,6 +38,11 @@ const Table = props => {
     }
 
     return (<div>
+        {inputfilters ? inputfilters.map((filter, index) => (<div key={index} className="employeeFormContainer">
+            <p>{filter.headerText}</p>
+            <input className="employeeInput" placeholder={filter.placeholder} type={filter.type} onChange={filter.onChange} value={filter.value} maxlength={filter.maxlength}/>
+            <button className="submitBtn" onClick={filter.onSubmit}>Submit</button>
+        </div>)) : <></>}
         <table>
             <thead>
                 <tr>

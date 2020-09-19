@@ -11,6 +11,7 @@ import Axios from "blakio_axios";
 const TransactionTable = () => {
     const [state, dispatch] = StateContext();
     const [selected, setSelected] = useState();
+    const [filter, setFilter] = useState();
 
     const th = ["Payment ID", "Total", "Refund", "Status", "Card Holder", "Last 4"];
     const [ids, setIds] = useState([]);
@@ -83,6 +84,27 @@ const TransactionTable = () => {
         return id === selected;
     }
 
+    const inputfilters = [
+        {
+            placeholder: "Enter last 4 digits on card",
+            type: "number",
+            maxlength: null,
+            headerText: "Last 4",
+            value: filter,
+            onChange: e => {
+                const {
+                    value
+                } = e.target;
+                if(value.length <= 4){
+                    setFilter(e.target.value)
+                }
+            },
+            onSubmit: () => {
+                console.log(filter)
+            }
+        }
+    ];
+
     return (<div>
         <Paper
             title="Payments"
@@ -95,6 +117,7 @@ const TransactionTable = () => {
                 getHeadStyle={getHeadStyle}
                 getData={getData}
                 getStyle={getStyle}
+                inputfilters={inputfilters}
                 onClick={clickedId => {
                     if(selected === clickedId) {
                         dispatch({
