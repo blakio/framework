@@ -1,15 +1,21 @@
-import axios from "axios";
-
 import io from "socket.io-client";
 import Util from "blakio_util";
 
+import axios from "axios";
+
 const dev = false;
 const url = dev ? "http://localhost:5000" : "https://blakiodashboardserver.herokuapp.com";
-const baseURL = dev ? "http://localhost:5000/api" : "https://blakiodashboardserver.herokuapp.com/api";
 const {
   showSuccess
 } = Util;
 
+const baseURL = dev ? "http://localhost:5000/api" : "https://blakiodashboardserver.herokuapp.com/api";
+let axiosInstance = axios.create({
+  baseURL,
+  headers: {
+    blakio_store: localStorage.getItem("blakio_store")
+  }
+});
 // TODO: MAKES AN API CALL
 const merchantIdToDatabase = {
   MLFCVCSGSVM2K: "blakio"
@@ -47,13 +53,6 @@ socket.on("refresh", () => {
   window.location.reload(false)
 })
 
-let axiosInstance = axios.create({
-  baseURL,
-  headers: {
-    blakio_store: localStorage.getItem("blakio_store")
-  }
-});
-
 window.blakio_setSideBarOptions = () => {
   /**
    * 1. log in to the account to add the sidebar option
@@ -81,6 +80,12 @@ window.blakio_getAcessToken = () => {
 
 window.blakio_refresh = () => {
   axiosInstance.get("/refresh");
+}
+
+window.blakio_refreshToken = () => {
+  axiosInstance.get("/refreshToken").then(data => {
+    console.log(data)
+  }).catch(err => console.log(err))
 }
 
 export default {
