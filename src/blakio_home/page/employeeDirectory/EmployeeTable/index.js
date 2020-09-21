@@ -17,12 +17,24 @@ import Util from "blakio_util";
 
 const EmployeeTable = () => {
     const [state, dispatch] = StateContext();
+
+    const {
+        offset,
+        limit
+    } = state.employeeDirectory;
+
     useEffect(() => {
         dispatch({
             type: Types.IS_LOADING,
             payload: true
         });
-        Util.getEmployees(dispatch)
+        Util.getEmployees({
+            dispatch,
+            page: {
+                offset,
+                limit
+            }
+        })
     }, []);
 
     const getTh = () => ([

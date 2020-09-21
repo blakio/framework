@@ -28,7 +28,9 @@ const EmployeeForm = () => {
     const [state, dispatch] = StateContext();
     const {
         updateId,
-        employees
+        employees,
+        offset,
+        limit
     } = state.employeeDirectory;
 
     const shortMenu = true;
@@ -104,6 +106,10 @@ const EmployeeForm = () => {
         }, updateId).then(data => {
             dispatch({
                 type: Types.GET_EMPLOYEES,
+                page: {
+                    offset,
+                    limit
+                },
                 payload: {
                   fn: (empl) => {
                     dispatch({
@@ -133,6 +139,10 @@ const EmployeeForm = () => {
         Axios.deleteEmployee(updateId).then(data => {
             dispatch({
                 type: Types.GET_EMPLOYEES,
+                page: {
+                    offset,
+                    limit
+                },
                 payload: {
                   fn: (empl) => {
                     dispatch({

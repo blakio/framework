@@ -20,7 +20,20 @@ const ClockIn = () => {
 
     const [state, dispatch] = StateContext();
 
-    useEffect(() => { Util.getEmployees(dispatch) }, []);
+    const {
+        offset,
+        limit
+    } = state.employeeDirectory;
+
+    useEffect(() => {
+        Util.getEmployees({
+            dispatch,
+            page: {
+                offset: false,
+                limit: false
+            }
+        })
+    }, []);
 
     const { employeeDirectory } = state;
 

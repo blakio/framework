@@ -5,7 +5,7 @@ import { store } from 'react-notifications-component';
 import moment from "moment";
 import mtz from "moment-timezone";
 
-import {isIOSDevice} from 'ios-detector';
+import { isIOSDevice } from 'ios-detector';
 
 const Util = {
 
@@ -38,10 +38,11 @@ const Util = {
     return str1.toLowerCase() === str2.toLowerCase();
   },
 
-  getEmployees: dispatch => {
+  getEmployees: ({ dispatch, page }) => {
     dispatch({
       type: Types.GET_EMPLOYEES,
       payload: {
+        page,
         fn: (employees) => {
           dispatch({
             type: Types.SET_EMPLOYEES,
@@ -50,7 +51,7 @@ const Util = {
           dispatch({
             type: Types.IS_LOADING,
             payload: false
-        });
+          });
         }
       }
     })
@@ -330,7 +331,7 @@ const Util = {
     }
   },
 
-  getMonthDateRange: ({year, month}) => {
+  getMonthDateRange: ({ year, month }) => {
     // month in moment is 0 based. array = ['year', 'month', 'day', etc]
     var startDate = moment([year, month - 1]);
     var endDate = moment(startDate).endOf('month');
@@ -341,7 +342,7 @@ const Util = {
   },
 
   getDeviceType: () => {
-      return isIOSDevice() ? "iOS" : "Android"
+    return isIOSDevice() ? "iOS" : "Android"
   }
 
 }

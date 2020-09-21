@@ -99,8 +99,12 @@ export default {
     });
   },
 
-  getEmployees: async () => {
-    return await axiosInstance.get("/table/Employee");
+  getEmployees: async page => {
+    const {
+      offset,
+      limit
+    } = page;
+    return await axiosInstance.post(`/table/pagination/Employee/${offset}/${limit}`, {});
   },
 
   getProducts: async () => {

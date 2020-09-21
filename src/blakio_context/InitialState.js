@@ -19,7 +19,9 @@ const initialState = {
   employeeDirectory: {
     employees: [],
     isEditing: false,
-    updateId: null
+    updateId: null,
+    offset: 0,
+    limit: 25
   },
   pointOfSale: {
     cart: [],

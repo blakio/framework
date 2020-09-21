@@ -10,7 +10,7 @@ export default {
   toggleMobileMenu: (payload, state) => ({ ...state, mobileMenuOpen: !state.mobileMenuOpen }),
   
   getEmployees: (payload, state) => {
-    Axios.getEmployees().then(employees => {
+    Axios.getEmployees(payload.page).then(employees => {
       payload.fn(employees.data)
     });
     return state;
