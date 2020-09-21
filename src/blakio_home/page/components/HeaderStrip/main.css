@@ -33,6 +33,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    min-width: fit-content;
 }
 
 .headerBtn.blue {
@@ -54,4 +55,10 @@
 .csvLink {
     text-decoration: none;
     color: inherit;
+}
+
+p.headerText {
+    color: #666666;
+    letter-spacing: 1px;
+    padding: 0;
 }

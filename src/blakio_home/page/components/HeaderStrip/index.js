@@ -5,6 +5,12 @@ import { CSVLink } from "react-csv";
 
 const HeaderStrip = props => {
 
+    const {
+        buttons,
+        color,
+        title
+    } = props;
+
     const iconMapper = {
         edit: "fas fa-pencil-alt",
         cancel: "fas fa-times",
@@ -13,14 +19,16 @@ const HeaderStrip = props => {
 
     const getButtons = () => {
         return (<div className="headerButtons">
-            {props.buttons.map((data, index) => {
+            {buttons.map((data, index) => {
                 return (<div key={index} onClick={data.onClick} className={`headerBtn ${data.color}`}>
                     {
                         data.csvData ?
-                        <CSVLink className="csvLink" data={data.csvData} filename={data.csvFileName}>
-                            <i className={data.customIcon || iconMapper[data.type]}></i>
-                        </CSVLink> :
-                        <i className={data.customIcon || iconMapper[data.type]}></i>
+                            <CSVLink className="csvLink" data={data.csvData} filename={data.csvFileName}>
+                                <i className={data.customIcon || iconMapper[data.type]}></i>
+                            </CSVLink> :
+                            data.text ?
+                                <p className="headerText">{data.text}</p> :
+                                <i className={data.customIcon || iconMapper[data.type]}></i>
                     }
                 </div>)
             })}
@@ -28,8 +36,8 @@ const HeaderStrip = props => {
     }
 
     return (<div className="headerStrip">
-        <p className={props.color}>{props.title}</p>
-        {props.buttons && getButtons()}
+        <p className={color}>{title}</p>
+        {buttons && getButtons()}
     </div>);
 }
 

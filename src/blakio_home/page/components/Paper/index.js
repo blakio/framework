@@ -7,17 +7,25 @@ import {
 import PaperFold from "../PaperFold";
 
 const Paper = props => {
+    const {
+        children,
+        title,
+        color,
+        buttons,
+        customFoldColor,
+        loading
+    } = props;
     return (<div className="paper">
-        {props.title && <HeaderStrip
-            title={props.title}
-            color={props.color}
-            buttons={props.buttons}
+        {title && <HeaderStrip
+            title={title}
+            color={color}
+            buttons={buttons}
         />}
-        {props.children}
+        {children}
         <PaperFold
-            customFoldColor={props.customFoldColor}
+            customFoldColor={customFoldColor}
         />
-        {props.loading && <div>
+        {loading && <div>
             <div className="loading"></div>
             <div className="loading"></div>
             <div className="loading"></div>

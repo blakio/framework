@@ -1,5 +1,5 @@
 import React, {
-    useEffect
+    useEffect, useState
 } from "react";
 import "./main.css";
 
@@ -18,6 +18,8 @@ import Util from "blakio_util";
 const EmployeeTable = () => {
     const [state, dispatch] = StateContext();
 
+    const [page, setPage] = useState(0);
+
     const {
         offset,
         limit
@@ -35,7 +37,7 @@ const EmployeeTable = () => {
                 limit
             }
         })
-    }, []);
+    }, [offset, limit]);
 
     const getTh = () => ([
         "First Name",
@@ -88,6 +90,39 @@ const EmployeeTable = () => {
         <Paper
             title="Employee Directory"
             color="blue"
+            buttons={[
+                {
+                    onClick: () => {
+                        if (page > 0) {
+                            const newPage = page - 1;
+                            const newOffset = newPage * limit
+                            setPage(newPage);
+                            dispatch({
+                                type: Types.UPDATE_EMPLOYEE_TABLE_OFFSET,
+                                payload: newOffset
+                            })
+                        }
+                    },
+                    color: "blue",
+                    customIcon: "fas fa-angle-left"
+                },
+                {
+                    text: "1 of 1"
+                },
+                {
+                    onClick: () => {
+                        const newPage = page + 1;
+                        const newOffset = newPage * limit
+                        setPage(newPage);
+                        dispatch({
+                            type: Types.UPDATE_EMPLOYEE_TABLE_OFFSET,
+                            payload: newOffset
+                        })
+                    },
+                    color: "blue",
+                    customIcon: "fas fa-angle-right"
+                }
+            ]}
         >
             <Table
                 th={getTh()}
