@@ -21,6 +21,8 @@ export default (state, action) => {
       return StateFunctions.updateEmployeeTableOffset(payload, state);
     case Types.UPDATE_EMPLOYEE_TABLE_LIMIT:
       return StateFunctions.updateEmployeeTableLimit(payload, state);
+    case Types.SET_EMPLOYEES_COUNT:
+      return StateFunctions.updateEmployeeCount(payload, state);
 
 
     case Types.SHORT_MENU:

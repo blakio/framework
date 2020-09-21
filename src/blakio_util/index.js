@@ -46,7 +46,11 @@ const Util = {
         fn: (employees) => {
           dispatch({
             type: Types.SET_EMPLOYEES,
-            payload: employees
+            payload: employees.table
+          })
+          dispatch({
+            type: Types.SET_EMPLOYEES_COUNT,
+            payload: employees.count
           })
           dispatch({
             type: Types.IS_LOADING,

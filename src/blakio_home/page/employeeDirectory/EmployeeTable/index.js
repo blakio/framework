@@ -19,10 +19,12 @@ const EmployeeTable = () => {
     const [state, dispatch] = StateContext();
 
     const [page, setPage] = useState(0);
+    const [pageText, setPageText] = useState("");
 
     const {
         offset,
-        limit
+        limit,
+        count
     } = state.employeeDirectory;
 
     useEffect(() => {
@@ -37,7 +39,8 @@ const EmployeeTable = () => {
                 limit
             }
         })
-    }, [offset, limit]);
+        setPageText(`${page + 1} of ${Math.ceil(count/limit)}`)
+    }, [offset, limit, count]);
 
     const getTh = () => ([
         "First Name",
@@ -107,17 +110,30 @@ const EmployeeTable = () => {
                     customIcon: "fas fa-angle-left"
                 },
                 {
-                    text: "1 of 1"
+                    text: pageText
                 },
                 {
                     onClick: () => {
                         const newPage = page + 1;
                         const newOffset = newPage * limit
-                        setPage(newPage);
-                        dispatch({
-                            type: Types.UPDATE_EMPLOYEE_TABLE_OFFSET,
-                            payload: newOffset
-                        })
+                        if(limit >= count) return;
+                        if(limit === 1){
+                            if(offset * limit < count - 1){
+                                setPage(newPage);
+                                dispatch({
+                                    type: Types.UPDATE_EMPLOYEE_TABLE_OFFSET,
+                                    payload: newOffset
+                                })
+                            }
+                        } else {
+                            if(offset * limit < count){
+                                setPage(newPage);
+                                dispatch({
+                                    type: Types.UPDATE_EMPLOYEE_TABLE_OFFSET,
+                                    payload: newOffset
+                                })
+                            }
+                        }
                     },
                     color: "blue",
                     customIcon: "fas fa-angle-right"

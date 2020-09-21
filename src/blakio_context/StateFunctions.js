@@ -49,6 +49,7 @@ export default {
   updateEmployee: (payload, state) =>  ({ ...state, employeeDirectory: { ...state.employeeDirectory, updateId: payload } }),
   updateEmployeeTableOffset: (payload, state) =>  ({ ...state, employeeDirectory: { ...state.employeeDirectory, offset: payload } }),
   updateEmployeeTableLimit: (payload, state) =>  ({ ...state, employeeDirectory: { ...state.employeeDirectory, limit: payload } }),
+  updateEmployeeCount: (payload, state) =>  ({ ...state, employeeDirectory: { ...state.employeeDirectory, count: payload } }),
 
   // point of sale
   addToCart: (payload, state) => {

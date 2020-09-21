@@ -21,7 +21,8 @@ const initialState = {
     isEditing: false,
     updateId: null,
     offset: 0,
-    limit: 25
+    limit: 25,
+    count: 0
   },
   pointOfSale: {
     cart: [],
