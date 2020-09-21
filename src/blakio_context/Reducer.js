@@ -17,8 +17,11 @@ export default (state, action) => {
       
     case Types.GET_EMPLOYEES:
       return StateFunctions.getEmployees(payload, state);
-    case Types.GET_PRODUCTS:
-      return StateFunctions.getProducts(payload, state);
+    case Types.UPDATE_EMPLOYEE_TABLE_OFFSET:
+      return StateFunctions.updateEmployeeTableOffset(payload, state);
+    case Types.UPDATE_EMPLOYEE_TABLE_LIMIT:
+      return StateFunctions.updateEmployeeTableLimit(payload, state);
+
 
     case Types.SHORT_MENU:
       return StateFunctions.shortMenu(payload, state);
@@ -52,6 +55,10 @@ export default (state, action) => {
       return StateFunctions.updateEmployee(payload, state);
     case Types.UPDATE_PRODUCT:
       return StateFunctions.updateProduct(payload, state);
+
+    // products
+    case Types.GET_PRODUCTS:
+      return StateFunctions.getProducts(payload, state);
 
     // point of sale
     case Types.ADD_TO_CART:

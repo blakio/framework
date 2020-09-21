@@ -47,7 +47,8 @@ export default {
   // employee directory
   toggleEmployeeEditingStatus: (payload, state) =>  ({ ...state, employeeDirectory: { ...state.employeeDirectory, isEditing: !state.employeeDirectory.isEditing } }),
   updateEmployee: (payload, state) =>  ({ ...state, employeeDirectory: { ...state.employeeDirectory, updateId: payload } }),
-  updateProduct: (payload, state) =>  ({ ...state, products: { ...state.products, updateId: payload } }),
+  updateEmployeeTableOffset: (payload, state) =>  ({ ...state, employeeDirectory: { ...state.employeeDirectory, offset: payload } }),
+  updateEmployeeTableLimit: (payload, state) =>  ({ ...state, employeeDirectory: { ...state.employeeDirectory, limit: payload } }),
 
   // point of sale
   addToCart: (payload, state) => {
@@ -81,7 +82,10 @@ export default {
     return ({ ...state, pointOfSale: { ...state.pointOfSale, cart: currentCart } })
   },
 
-  // employee directory
+  // products
+  updateProduct: (payload, state) =>  ({ ...state, products: { ...state.products, updateId: payload } }),
+
+  // transactions
   setPaymentList: (payload, state) =>  ({ ...state, payments: { ...state.payments, list: payload } }),
   setItemsPurchased: (payload, state) =>  ({ ...state, payments: { ...state.payments, itemsPurchased: payload } }),
   setPaymentId: (payload, state) =>  ({ ...state, payments: { ...state.payments, paymentId: payload } }),
