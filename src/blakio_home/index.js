@@ -398,13 +398,13 @@ const Dashboard = () => {
   const foldSize = state.sideBarOptions.shortMenu ? 20 : 25;
 
   return (<div id="Dashboard" className={`container ${state.sideBarOptions.shortMenu && "shortMenu"}`}>
-    <TopLeftFold height={foldSize} width={foldSize} backgroundColor="#FFFFFF" />
-    <DashboardHead />
     <Swipe
       onSwipeStart={onSwipeStart}
       onSwipeMove={onSwipeMove}
       onSwipeEnd={onSwipeEnd}
     >
+      <TopLeftFold height={foldSize} width={foldSize} backgroundColor="#FFFFFF" />
+      <DashboardHead />
       <DashboardBody />
     </Swipe>
   </div>)
