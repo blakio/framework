@@ -93,11 +93,34 @@ const SideBarHead = () => {
 const DashboardHead = () => {
   const [state, dispatch] = StateContext();
 
+  const menuButtons = [
+    {
+      text: "Update",
+      icon: "fas fa-spinner",
+      onClick: () => window.location.reload(false)
+    },
+    {
+      text: "Menu",
+      icon: "fas fa-ellipsis-h",
+      onClick: () => {
+        dispatch({
+          type: Types.TOGGLE_MOBILE_MENU
+        })
+      }
+    }
+  ]
+
   const selected = state.sideBarOptions.sideBar.filter(data => data.title === state.sideBarOptions.sideBarOption);
   const label = state.sideBarOptions.sideBar.length && selected[0] && selected[0].title.toUpperCase();
-  return (<div id="DashboardHead" className={`flex ${state.sideBarOptions.shortMenu && "shortMenu"}`}>
+  return (<div id="DashboardHead" className={`${state.sideBarOptions.shortMenu && "shortMenu"}`}>
     <div className="flex">
       <p id="DashboardTitleText">{label ? label : ""}</p>
+    </div>
+    <div id="dashboardHeadMenu" className="flex">
+      {menuButtons.map((data, index) => (<a key={index} className="flex" onClick={data.onClick}>
+          <i className={data.icon}></i>
+          <p>{data.text}</p>
+      </a>))}
     </div>
   </div>)
 }
@@ -221,9 +244,9 @@ const DashboardBody = () => {
       <Transaction show={state.sideBarOptions.sideBarOption === "Transactions"} />
     </div>
     <Footer />
-    <CircleBtns
+    {/* <CircleBtns
       buttons={getMenuButtons()}
-    />
+    /> */}
   </div>)
 }
 

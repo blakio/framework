@@ -129,7 +129,8 @@ body {
 
 #DashboardHead {
   /* border-bottom: 1px solid #ddd; */
-  height: 3rem;
+  /* height: 3rem; */
+  /* height: 4rem; */
   color: #0d325a;
   justify-content: space-between;
   padding-left: 4rem;
@@ -140,7 +141,8 @@ body {
   justify-content: center;
   padding-left: 0;
   padding-right: 0;
-  height: 1.6rem;
+  /* height: 1.6rem; */
+  /* height: 3.4rem; */
 }
 
 #DashboardHead.shortMenu p {
@@ -290,4 +292,29 @@ body {
 .halfViewPortHeight {
   max-height: 50vh;
   overflow-y: scroll;
+}
+
+#dashboardHeadMenu {
+  justify-content: flex-end;
+  padding: 0 1em;
+  /* background-color: var(--grey); */
+  margin: 0;
+  margin-top: 0.5em;
+  border-top: 1px solid #ddd;
+  border-bottom: 1px solid #ddd;
+  padding: 0.4em 0;
+}
+
+#dashboardHeadMenu a {
+  color: #0d325a;
+  padding: 0 0.5em;
+  opacity: 0.6;
+  padding: 0 0.5em;
+  font-weight: 800;
+}
+
+#DashboardHead #dashboardHeadMenu p {
+  padding: 0 0.5em;
+  margin: 0;
+  font-size: 0.6em;
 }
