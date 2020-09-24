@@ -93,6 +93,16 @@ const SideBarHead = () => {
 const DashboardHead = () => {
   const [state, dispatch] = StateContext();
 
+  const {
+    sideBarOptions
+  } = state;
+
+  const {
+    shortMenu,
+    sideBar,
+    sideBarOption
+  } = sideBarOptions;
+
   const menuButtons = [
     {
       text: "Update",
@@ -103,16 +113,23 @@ const DashboardHead = () => {
       text: "Menu",
       icon: "fas fa-ellipsis-h",
       onClick: () => {
-        dispatch({
-          type: Types.TOGGLE_MOBILE_MENU
-        })
+        if(shortMenu){
+          dispatch({
+            type: Types.TOGGLE_MOBILE_MENU
+          })
+        } else {
+          dispatch({
+            type: Types.SHORT_MENU,
+            payload: true
+          })
+        }
       }
     }
   ]
 
-  const selected = state.sideBarOptions.sideBar.filter(data => data.title === state.sideBarOptions.sideBarOption);
-  const label = state.sideBarOptions.sideBar.length && selected[0] && selected[0].title.toUpperCase();
-  return (<div id="DashboardHead" className={`${state.sideBarOptions.shortMenu && "shortMenu"}`}>
+  const selected = sideBar.filter(data => data.title === sideBarOption);
+  const label = sideBar.length && selected[0] && selected[0].title.toUpperCase();
+  return (<div id="DashboardHead" className={`${shortMenu && "shortMenu"}`}>
     <div className="flex">
       <p id="DashboardTitleText">{label ? label : ""}</p>
     </div>

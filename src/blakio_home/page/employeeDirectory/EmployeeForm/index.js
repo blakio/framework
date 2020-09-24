@@ -50,7 +50,7 @@ const EmployeeForm = () => {
 
     useEffect(() => {
         const employee = employees.filter(data => data._id === updateId)[0];
-        if(employee){
+        if (employee) {
             setFormValues({
                 dob: moment(employee.dob)._d,
                 firstName: employee.firstName,
@@ -80,8 +80,8 @@ const EmployeeForm = () => {
 
         const type = e.target.getAttribute("type");
 
-        if((type === "phone" || type === "emergencyContact")){
-            if(isNaN(value) || value.length > 10) {
+        if ((type === "phone" || type === "emergencyContact")) {
+            if (isNaN(value) || value.length > 10) {
                 return;
             }
         }
@@ -106,17 +106,21 @@ const EmployeeForm = () => {
         }, updateId).then(data => {
             dispatch({
                 type: Types.GET_EMPLOYEES,
-                page: {
-                    offset,
-                    limit
-                },
                 payload: {
-                  fn: (empl) => {
-                    dispatch({
-                      type: Types.SET_EMPLOYEES,
-                      payload: empl
-                    })
-                  }
+                    fn: (employees) => {
+                        dispatch({
+                            type: Types.SET_EMPLOYEES,
+                            payload: employees.table
+                        })
+                        dispatch({
+                            type: Types.SET_EMPLOYEES_COUNT,
+                            payload: employees.count
+                        })
+                    },
+                    page: {
+                        offset,
+                        limit
+                    },
                 }
             });
             onCancel();
@@ -139,17 +143,21 @@ const EmployeeForm = () => {
         Axios.deleteEmployee(updateId).then(data => {
             dispatch({
                 type: Types.GET_EMPLOYEES,
-                page: {
-                    offset,
-                    limit
-                },
                 payload: {
-                  fn: (empl) => {
-                    dispatch({
-                      type: Types.SET_EMPLOYEES,
-                      payload: empl
-                    })
-                  }
+                    fn: (employees) => {
+                        dispatch({
+                            type: Types.SET_EMPLOYEES,
+                            payload: employees.table
+                        })
+                        dispatch({
+                            type: Types.SET_EMPLOYEES_COUNT,
+                            payload: employees.count
+                        })
+                    },
+                    page: {
+                        offset,
+                        limit
+                    },
                 }
             });
             onCancel();
@@ -171,22 +179,22 @@ const EmployeeForm = () => {
         >
             <div className="employeeFormContainer">
                 <p>First Name</p>
-                <input className="employeeInput" onClick={() => Util.openPhoneMode(dispatch, shortMenu)} placeholder="Enter text" type="firstName" onChange={handleChange} value={getValue("firstName")}/>
+                <input className="employeeInput" onClick={() => Util.openPhoneMode(dispatch, shortMenu)} placeholder="Enter text" type="firstName" onChange={handleChange} value={getValue("firstName")} />
                 <p>Last Name	</p>
-                <input className="employeeInput" onClick={() => Util.openPhoneMode(dispatch, shortMenu)} placeholder="Enter text" type="lastName" onChange={handleChange} value={getValue("lastName")}/>
+                <input className="employeeInput" onClick={() => Util.openPhoneMode(dispatch, shortMenu)} placeholder="Enter text" type="lastName" onChange={handleChange} value={getValue("lastName")} />
                 {/* <p>DOB</p>
                 <DatePicker
                     selected={getValue("dob")}
                     onChange={handleDateChange}
                 /> */}
                 <p>Phone</p>
-                <input pattern="[0-9]*" className="employeeInput" onClick={() => Util.openPhoneMode(dispatch, shortMenu)} placeholder="Enter text" type="phone" onChange={handleChange} value={getValue("phone")}/>
+                <input pattern="[0-9]*" className="employeeInput" onClick={() => Util.openPhoneMode(dispatch, shortMenu)} placeholder="Enter text" type="phone" onChange={handleChange} value={getValue("phone")} />
                 <p>Email</p>
-                <input className="employeeInput" onClick={() => Util.openPhoneMode(dispatch, shortMenu)} placeholder="Enter text" type="employeeEmail" onChange={handleChange} value={getValue("email")}/>
+                <input className="employeeInput" onClick={() => Util.openPhoneMode(dispatch, shortMenu)} placeholder="Enter text" type="employeeEmail" onChange={handleChange} value={getValue("email")} />
                 {/* <p>Emergency Contact</p>
                 <input className="employeeInput" onClick={() => Util.openPhoneMode(dispatch, shortMenu)} placeholder="Enter text" type="emergencyContact" onChange={handleChange} value={getValue("emergencyContact")}/> */}
                 <p>Title</p>
-                <input className="employeeInput" onClick={() => Util.openPhoneMode(dispatch, shortMenu)} placeholder="Enter text" type="title" onChange={handleChange} value={getValue("title")}/>
+                <input className="employeeInput" onClick={() => Util.openPhoneMode(dispatch, shortMenu)} placeholder="Enter text" type="title" onChange={handleChange} value={getValue("title")} />
                 {/* <p>Department</p>
                 <input className="employeeInput" onClick={() => Util.openPhoneMode(dispatch, shortMenu)} placeholder="Enter text" type="department" onChange={handleChange} value={getValue("department")}/> */}
                 <button className="submitBtn" onClick={onSubmit}>{updateId ? "Update" : "Add"}</button>
