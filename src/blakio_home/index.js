@@ -169,6 +169,14 @@ const EmployeeDirectory = props => {
         <EmployeeForm />
       </Grid>
     </Grid>
+    <Grid grid="2">
+      <Grid grid="1">
+        <ProductTable />
+      </Grid>
+      <Grid grid="1">
+        <ProductForm />
+      </Grid>
+    </Grid>
   </div>)
 }
 
@@ -195,6 +203,22 @@ const PointOfSale = props => {
       </Grid>
       <Grid grid="1">
         <ItemScreen />
+      </Grid>
+    </Grid>
+    <Grid grid="2">
+      <Grid grid="1">
+        <TransactionTable />
+      </Grid>
+      <Grid grid="1">
+        <ItemsPurchasedTable />
+      </Grid>
+    </Grid>
+    <Grid grid="2">
+      <Grid grid="1">
+        <ProductTable />
+      </Grid>
+      <Grid grid="1">
+        <ProductForm />
       </Grid>
     </Grid>
   </div>)
@@ -257,8 +281,8 @@ const DashboardBody = () => {
       <TimeSheet show={state.sideBarOptions.sideBarOption === "Timesheet"} />
       <EmployeeDirectory show={state.sideBarOptions.sideBarOption === "Directory"} />
       <PointOfSale show={state.sideBarOptions.sideBarOption === "Point Of Sale"} />
-      <Product show={state.sideBarOptions.sideBarOption === "Product"} />
-      <Transaction show={state.sideBarOptions.sideBarOption === "Transactions"} />
+      {/* <Product show={state.sideBarOptions.sideBarOption === "Product"} /> */}
+      {/* <Transaction show={state.sideBarOptions.sideBarOption === "Transactions"} /> */}
     </div>
     <Footer />
     {/* <CircleBtns

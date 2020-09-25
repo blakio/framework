@@ -160,7 +160,7 @@ const ItemScreen = () => {
     return (<div id="pointOfSale">
         <Paper
             title="Cart"
-            color="orange"
+            color="green"
         >
             <Table
                 getHeadData={getHeadData}

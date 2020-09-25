@@ -61,7 +61,7 @@ const ProductTable = props => {
     return (<div id="productsTable" className="timeSummary">
         <Paper
             title={props.page === "pos" ? "Select Products Here" : "Product Directory"}
-            color="blue"
+            color="green"
         >
             <div className="halfViewPortHeight">
                 <Table

@@ -131,7 +131,7 @@ const ProductForm = () => {
     return (<div className="employeeForm">
         <Paper
             title={updateId ? "Edit Product" : "Add Product"}
-            color={updateId ? "orange" : "blue"}
+            color={updateId ? "orange" : "green"}
         >
             <div className="employeeFormContainer">
                 <p>Name</p>
