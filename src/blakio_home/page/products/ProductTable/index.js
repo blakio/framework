@@ -60,7 +60,7 @@ const ProductTable = props => {
 
     return (<div id="productsTable" className="timeSummary">
         <Paper
-            title={props.page === "pos" ? "Select Products Here" : "Product Directory"}
+            title={props.page === "pos" ? "Click To Add To Cart" : "Product Directory"}
             color="green"
         >
             <div className="halfViewPortHeight">

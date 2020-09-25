@@ -100,7 +100,7 @@ const TransactionTable = () => {
             placeholder: "Enter last 4 digits on card",
             type: "number",
             maxlength: null,
-            headerText: "Last 4",
+            headerText: "Card Information",
             value: filter,
             onChange: e => {
                 const {
@@ -118,7 +118,7 @@ const TransactionTable = () => {
 
     return (<div>
         <Paper
-            title="Payments"
+            title="Previous Payments"
             color="blue"
         >
             <Table

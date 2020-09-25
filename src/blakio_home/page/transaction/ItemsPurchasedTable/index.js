@@ -73,7 +73,7 @@ const ItemsPurchasedTable = () => {
 
     return (<div>
         <Paper
-            title="Items Purchased"
+            title="Previous Payment Status"
             color="blue"
         >
             <Table
