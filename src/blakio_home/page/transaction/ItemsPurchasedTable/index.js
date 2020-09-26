@@ -8,6 +8,9 @@ import Types from "blakio_context/Types"
 
 import Axios from "blakio_axios";
 import Util from "blakio_util";
+import {
+    SnackBar
+} from "blakio_home/page/components";
 
 const ItemsPurchasedTable = () => {
     const [state, dispatch] = StateContext();
@@ -22,15 +25,15 @@ const ItemsPurchasedTable = () => {
 
     const getHeadData = data => data;
     const getData = data => {
-        if(data === true) return "Yes";
-        if(data === false) return "No";
+        if (data === true) return "Yes";
+        if (data === false) return "No";
         const isNum = /^[0-9]+$/.test(data);
-        if(isNum) return `$${data}`;
+        if (isNum) return `$${data}`;
         return data;
     };
 
     const getHeadStyle = index => {
-        if(index === 0){
+        if (index === 0) {
             return {
                 display: "none"
             }
@@ -38,7 +41,7 @@ const ItemsPurchasedTable = () => {
     }
 
     const getStyle = index => {
-        if(index === 0){
+        if (index === 0) {
             return {
                 display: "none"
             }
@@ -71,11 +74,27 @@ const ItemsPurchasedTable = () => {
         return selectedItem[0] && selectedItem[0][3] === false;
     }
 
+    const onCancel = () => {
+        dispatch({
+            type: Types.SET_PAYMENT_ID,
+            payload: null
+        })
+        dispatch({
+            type: Types.SET_ITEMS_PURCHASED,
+            payload: []
+        })
+    }
+
     return (<div>
         <Paper
             title="Previous Payment Status"
             color="blue"
         >
+            <SnackBar
+                text="Select a purchase from the table to issue refund."
+                type="warning"
+                isTip
+            />
             <Table
                 getHeadStyle={getHeadStyle}
                 getStyle={getStyle}
@@ -84,15 +103,16 @@ const ItemsPurchasedTable = () => {
                 getHeadData={getHeadData}
                 getData={getData}
                 onClick={itemId => {
-                    if(selected === itemId) return setSelected(null);
+                    if (selected === itemId) return setSelected(null);
                     setSelected(itemId);
-                    
+
                     console.log("show refund", itemId)
                 }}
                 ids={ids}
                 isSelected={isSelected}
             />
             {selected && isRefundable(selected) && <button className="submitBtn red" onClick={onRefund}>Refund</button>}
+            <button className="submitBtn" onClick={onCancel}>Cancel</button>
         </Paper>
     </div>)
 }

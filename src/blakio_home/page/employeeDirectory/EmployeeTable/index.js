@@ -145,9 +145,9 @@ const EmployeeTable = () => {
             ]}
         >
             <SnackBar
-                text="Select employee from table to edit"
+                text="Select an employee from the table to edit in the form."
                 type="warning"
-                isNote
+                isTip
             />
             <Table
                 th={getTh()}

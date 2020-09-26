@@ -8,6 +8,9 @@ import Types from "blakio_context/Types"
 
 import Axios from "blakio_axios";
 import Util from "blakio_util";
+import {
+    SnackBar
+} from "blakio_home/page/components";
 
 const TransactionTable = () => {
     const [state, dispatch] = StateContext();
@@ -37,6 +40,10 @@ const TransactionTable = () => {
                     type: Types.SET_PAYMENT_LIST,
                     payload: []
                 })
+                dispatch({
+                    type: Types.SET_TRANSACTION_IDS,
+                    payload: []
+                })
                 return Util.showError("Not found", "No card found under that number")
             }
 
@@ -56,7 +63,10 @@ const TransactionTable = () => {
                 type: Types.SET_PAYMENT_LIST,
                 payload: tData
             })
-            setIds(idArray);
+            dispatch({
+                type: Types.SET_TRANSACTION_IDS,
+                payload: idArray
+            })
         }).catch(err => {
 
             dispatch({
@@ -121,6 +131,11 @@ const TransactionTable = () => {
             title="Previous Payments"
             color="blue"
         >
+            <SnackBar
+                text="Select a purchase from the table to see details."
+                type="warning"
+                isTip
+            />
             <Table
                 th={th}
                 td={state.payments.list}
@@ -134,6 +149,10 @@ const TransactionTable = () => {
                         dispatch({
                             type: Types.SET_ITEMS_PURCHASED,
                             payload: []
+                        })
+                        dispatch({
+                            type: Types.SET_PAYMENT_ID,
+                            payload: null
                         })
                         return setSelected(null)
                     };
@@ -196,7 +215,7 @@ const TransactionTable = () => {
                         console.log(err)
                     });
                 }}
-                ids={ids}
+                ids={state.payments.transactionIds}
                 isSelected={isSelected}
             />
         </Paper>

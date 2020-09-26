@@ -90,5 +90,6 @@ export default {
   setPaymentList: (payload, state) =>  ({ ...state, payments: { ...state.payments, list: payload } }),
   setItemsPurchased: (payload, state) =>  ({ ...state, payments: { ...state.payments, itemsPurchased: payload } }),
   setPaymentId: (payload, state) =>  ({ ...state, payments: { ...state.payments, paymentId: payload } }),
+  setTransactionIds: (payload, state) =>  ({ ...state, payments: { ...state.payments, transactionIds: payload } }),
 
 }

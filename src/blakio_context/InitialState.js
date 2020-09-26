@@ -35,7 +35,8 @@ const initialState = {
   payments: {
     list: [],
     itemsPurchased: [],
-    paymentId: null
+    paymentId: null,
+    transactionIds: []
   }
 };
 

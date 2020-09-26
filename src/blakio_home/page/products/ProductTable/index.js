@@ -67,11 +67,11 @@ const ProductTable = props => {
             title={props.page === "pos" ? "Click To Add To Cart" : "Product Directory"}
             color="green"
         >
-            <div className="halfViewPortHeight">
+            <div className="">
                 <SnackBar
-                    text={props.page !== "pos" ? "Select product from table to edit" : "Select product from table to add to cart"}
+                    text={props.page !== "pos" ? "Select a product from the table to edit in the form." : "Select a product from table to add to the cart."}
                     type="warning"
-                    isNote
+                    isTip
                 />
                 <Table
                     th={getTh()}

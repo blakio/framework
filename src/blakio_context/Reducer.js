@@ -81,6 +81,8 @@ export default (state, action) => {
       return StateFunctions.setItemsPurchased(payload, state);
     case Types.SET_PAYMENT_ID:
       return StateFunctions.setPaymentId(payload, state);
+    case Types.SET_TRANSACTION_IDS:
+      return StateFunctions.setTransactionIds(payload, state);
 
     default:
       return state;

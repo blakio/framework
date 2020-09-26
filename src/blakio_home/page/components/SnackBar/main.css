@@ -9,11 +9,13 @@
 }
 
 .snackBar.dancer {
-    background-color: #FFFAE2;
+    background-color: #ffe2e2;
+    border-left: 0.4em solid #ff6464;
 }
 
 .snackBar.success {
-    background-color: #FFFAE2;
+    background-color: #cfffd7;
+    border-left: 0.4em solid #50d467;
 }
 
 .snackBar p {

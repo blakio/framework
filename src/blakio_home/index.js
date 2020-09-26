@@ -113,7 +113,7 @@ const DashboardHead = () => {
       text: "Menu",
       icon: "fas fa-ellipsis-h",
       onClick: () => {
-        if(shortMenu){
+        if (shortMenu) {
           dispatch({
             type: Types.TOGGLE_MOBILE_MENU
           })
@@ -135,8 +135,8 @@ const DashboardHead = () => {
     </div>
     <div id="dashboardHeadMenu" className="flex">
       {menuButtons.map((data, index) => (<a key={index} className="flex" onClick={data.onClick}>
-          <i className={data.icon}></i>
-          <p>{data.text}</p>
+        <i className={data.icon}></i>
+        <p>{data.text}</p>
       </a>))}
     </div>
   </div>)
@@ -195,6 +195,8 @@ const Product = props => {
 }
 
 const PointOfSale = props => {
+  const [state, dispatch] = StateContext();
+
   if (!props.show) return <div></div>;
   return (<div>
     <Grid grid="2">
@@ -205,13 +207,15 @@ const PointOfSale = props => {
         <ItemScreen />
       </Grid>
     </Grid>
-    <Grid grid="2">
-      <Grid grid="1">
-        <TransactionTable />
-      </Grid>
-      <Grid grid="1">
-        <ItemsPurchasedTable />
-      </Grid>
+    <Grid grid="1">
+      {
+        !state.payments.paymentId ?
+          <Grid grid="1">
+            <TransactionTable />
+          </Grid> : <Grid grid="1">
+            <ItemsPurchasedTable />
+          </Grid>
+      }
     </Grid>
     <Grid grid="2">
       <Grid grid="1">
@@ -268,7 +272,7 @@ const DashboardBody = () => {
 
   const getMenuButtons = () => {
     let usedMenuButtons = menuButtons;
-    if(!state.sideBarOptions.shortMenu){
+    if (!state.sideBarOptions.shortMenu) {
       const filtered = usedMenuButtons.filter(data => data.use !== "menu");
       usedMenuButtons = filtered;
     }
@@ -372,10 +376,10 @@ const SideBar = () => {
   Util.adjustSideBarData(state, dispatch, Types, customFn);
 
   let classes = "container flex";
-  if(state.sideBarOptions.shortMenu){
+  if (state.sideBarOptions.shortMenu) {
     classes += " shortMenu"
   }
-  if(state.mobileMenuOpen){
+  if (state.mobileMenuOpen) {
     classes += " open"
   }
 
@@ -407,7 +411,7 @@ const Dashboard = () => {
   let x, y;
 
   const onSwipeMove = (position, event) => {
-    if(!xInitial){
+    if (!xInitial) {
       setXInitial(position.x)
       setYInitial(position.y)
     }
@@ -419,14 +423,14 @@ const Dashboard = () => {
     const yInRange = Math.abs((y - yInitial) < 1600);
     const absX = Math.abs(x);
     const absXInitial = Math.abs(xInitial);
-    if((x + xInitial > 0) && (absX - absXInitial > 100)){
-      if(!state.mobileMenuOpen && state.sideBarOptions.shortMenu){
+    if ((x + xInitial > 0) && (absX - absXInitial > 100)) {
+      if (!state.mobileMenuOpen && state.sideBarOptions.shortMenu) {
         dispatch({
           type: Types.TOGGLE_MOBILE_MENU
         })
       }
-    } else if((x + xInitial < 0) && (absXInitial - absX < 100)){
-      if(state.mobileMenuOpen && state.sideBarOptions.shortMenu){
+    } else if ((x + xInitial < 0) && (absXInitial - absX < 100)) {
+      if (state.mobileMenuOpen && state.sideBarOptions.shortMenu) {
         dispatch({
           type: Types.TOGGLE_MOBILE_MENU
         })

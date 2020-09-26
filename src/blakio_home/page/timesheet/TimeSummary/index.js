@@ -214,9 +214,9 @@ const TimeSummary = () => {
             ]}
         >
             <SnackBar
-                text="Selected time from table to edit"
+                text="Selected a time from the table to edit in the form."
                 type="warning"
-                isNote
+                isTip
             />
             <Table
                 th={tableData.th}
