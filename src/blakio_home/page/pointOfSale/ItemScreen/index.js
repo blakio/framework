@@ -27,7 +27,7 @@ const getAccordian = (data, removeItem, id, onQuantityChange, quantity) => {
     return (<Collapsible trigger={data}>
         <div className="collapsibleChoices">
             <button className="submitBtn red" onClick={() => removeItem(id)}>Remove</button>
-            <p>Unit quantity</p>
+            <p>Unit quantity (ex: total items or lbs)</p>
             <input value={quantity} pattern="[0-9]*" className="posNumberField" type="number" onChange={e => onQuantityChange(e.target.value, id)} />
         </div>
     </Collapsible>)
