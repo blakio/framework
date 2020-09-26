@@ -136,7 +136,7 @@ const ProductForm = () => {
             <div className="employeeFormContainer">
                 <p>Name</p>
                 <input className="employeeInput" onClick={() => Util.openPhoneMode(dispatch, shortMenu)} placeholder="Enter product name" type="name" onChange={handleChange} value={getValue("name")}/>
-                <p>Cost</p>
+                <p>Cost per unit</p>
                 <div className="beforeInputContent">
                     <span>$</span>
                     <input pattern="[0-9]*" min="0.01" step="0.01" className="employeeInput" onClick={() => Util.openPhoneMode(dispatch, shortMenu)} placeholder="0.00" type="cost" onChange={handleChange} value={getValue("cost")}/>

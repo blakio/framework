@@ -27,7 +27,7 @@ const getAccordian = (data, removeItem, id, onQuantityChange, quantity) => {
     return (<Collapsible trigger={data}>
         <div className="collapsibleChoices">
             <button className="submitBtn red" onClick={() => removeItem(id)}>Remove</button>
-            <p>Quantity</p>
+            <p>Unit quantity</p>
             <input value={quantity} pattern="[0-9]*" className="posNumberField" type="number" onChange={e => onQuantityChange(e.target.value, id)} />
         </div>
     </Collapsible>)
@@ -72,17 +72,13 @@ const ItemScreen = () => {
     }
 
     const onQuantityChange = (value, id) => {
-        if (value === "0") {
-            return removeItem(id)
-        } else {
-            dispatch({
-                type: Types.ADJUST_ITEM_QUANTITY,
-                payload: {
-                    id,
-                    quantity: value
-                }
-            })
-        }
+        dispatch({
+            type: Types.ADJUST_ITEM_QUANTITY,
+            payload: {
+                id,
+                quantity: value
+            }
+        })
     }
 
     const getData = (data) => {
@@ -125,7 +121,8 @@ const ItemScreen = () => {
         let notes = "Transaction Summary:";
         let total = 0;
         const notesArray = [];
-        cart.forEach(data => {
+        const itemsToBuy = cart.filter(data => data.quantity !== "0");
+        itemsToBuy.forEach(data => {
             if (data.quantity && data.quantity.length) {
                 const subTotal = (parseFloat(data.quantity) * data.cost).toFixed(2)
                 total += parseFloat(subTotal);
