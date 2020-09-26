@@ -13,6 +13,10 @@ import {
 import Types from "blakio_context/Types";
 import Util from "blakio_util";
 
+import {
+    SnackBar
+} from "blakio_home/page/components";
+
 const ProductTable = props => {
     const [state, dispatch] = StateContext();
 
@@ -64,6 +68,11 @@ const ProductTable = props => {
             color="green"
         >
             <div className="halfViewPortHeight">
+                <SnackBar
+                    text={props.page !== "pos" ? "Select product from table to edit" : "Select product from table to add to cart"}
+                    type="warning"
+                    isNote
+                />
                 <Table
                     th={getTh()}
                     td={getTd()}

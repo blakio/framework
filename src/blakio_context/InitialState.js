@@ -21,7 +21,7 @@ const initialState = {
     isEditing: false,
     updateId: null,
     offset: 0,
-    limit: 25,
+    limit: 10,
     count: 0
   },
   pointOfSale: {

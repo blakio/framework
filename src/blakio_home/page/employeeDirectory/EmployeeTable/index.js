@@ -15,6 +15,10 @@ import {
 import Types from "blakio_context/Types";
 import Util from "blakio_util";
 
+import {
+    SnackBar
+} from "blakio_home/page/components";
+
 const EmployeeTable = () => {
     const [state, dispatch] = StateContext();
 
@@ -140,6 +144,11 @@ const EmployeeTable = () => {
                 }
             ]}
         >
+            <SnackBar
+                text="Select employee from table to edit"
+                type="warning"
+                isNote
+            />
             <Table
                 th={getTh()}
                 td={getTd()}

@@ -16,6 +16,10 @@ import Axios from "blakio_axios";
 import { StateContext } from "blakio_context/State";
 import Types from "blakio_context/Types";
 
+import {
+    SnackBar
+} from "blakio_home/page/components";
+
 const TimeSummary = () => {
     const [state, dispatch] = StateContext();
     const [offset, setOffset] = useState(null);
@@ -209,6 +213,11 @@ const TimeSummary = () => {
                 }
             ]}
         >
+            <SnackBar
+                text="Selected time from table to edit"
+                type="warning"
+                isNote
+            />
             <Table
                 th={tableData.th}
                 td={tableData.td}

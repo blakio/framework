@@ -1,0 +1,21 @@
+.snackBar {
+    padding: 1em;
+    font-size: 0.8em;
+}
+
+.snackBar.warning {
+    background-color: #FFFAE2;
+    border-left: 0.4em solid #FFE664;
+}
+
+.snackBar.dancer {
+    background-color: #FFFAE2;
+}
+
+.snackBar.success {
+    background-color: #FFFAE2;
+}
+
+.snackBar p {
+    margin: 0;
+}
