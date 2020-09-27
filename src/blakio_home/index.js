@@ -25,6 +25,7 @@ import Notes from "./page/timesheet/Notes/index.js";
 
 import EmployeeTable from "./page/employeeDirectory/EmployeeTable";
 import EmployeeForm from "./page/employeeDirectory/EmployeeForm";
+import EmployeeEditForm from "./page/employeeDirectory/EmployeeEditForm";
 
 import ProductTable from "./page/products/ProductTable";
 import ProductForm from "./page/products/ProductForm";
@@ -159,12 +160,16 @@ const TimeSheet = props => {
 }
 
 const EmployeeDirectory = props => {
+  const [state, dispatch] = StateContext();
+
   if (!props.show) return <div></div>;
   return (<div>
     <Grid grid="2">
-      <Grid grid="1">
+      {!state.employeeDirectory.updateId ? <Grid grid="1">
         <EmployeeTable />
-      </Grid>
+      </Grid> : <Grid grid="1">
+          <EmployeeEditForm />
+        </Grid>}
       <Grid grid="1">
         <EmployeeForm />
       </Grid>
