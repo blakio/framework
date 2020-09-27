@@ -1,0 +1,18 @@
+.employeeFormContainer p {
+    margin-bottom: 0;
+    line-height: 20px;
+    font-size: 13px;
+    padding: 0.4em 1em;
+    color: var(--darkerGrey);
+}
+
+.beforeInputContent {
+    position: relative;
+}
+
+.beforeInputContent span {
+    position: absolute;
+    top: 11px;
+    left: 11px;
+    font-size: 14px;
+}

@@ -29,6 +29,7 @@ import EmployeeEditForm from "./page/employeeDirectory/EmployeeEditForm";
 
 import ProductTable from "./page/products/ProductTable";
 import ProductForm from "./page/products/ProductForm";
+import ProductEditForm from "./page/products/ProductEditForm";
 
 import ItemScreen from "./page/pointOfSale/ItemScreen";
 import TransactionTable from "./page/transaction/TransactionTable";
@@ -175,9 +176,11 @@ const EmployeeDirectory = props => {
       </Grid>
     </Grid>
     <Grid grid="2">
-      <Grid grid="1">
+      {!state.products.updateId ? <Grid grid="1">
         <ProductTable />
-      </Grid>
+      </Grid> : <Grid grid="1">
+          <ProductEditForm />
+        </Grid>}
       <Grid grid="1">
         <ProductForm />
       </Grid>

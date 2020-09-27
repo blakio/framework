@@ -18,9 +18,13 @@ const {
     showSuccess
 } = Util;
 
-const ProductForm = () => {
+const ProductEditForm = () => {
 
     const [state, dispatch] = StateContext();
+    const {
+        updateId,
+        list
+    } = state.products;
 
     const shortMenu = true;
 
@@ -32,7 +36,13 @@ const ProductForm = () => {
     const [formValues, setFormValues] = useState(defaultInputValue);
 
     useEffect(() => {
-        setFormValues(defaultInputValue)
+        const products = list.filter(data => data._id === updateId)[0];
+        if(products){
+            setFormValues({
+                name: products.name,
+                cost: products.cost,
+            })
+        }
     }, [])
 
     const handleChange = e => {
@@ -55,15 +65,17 @@ const ProductForm = () => {
     }
 
     const onSubmit = () => {
-        const method = "addProduct";
-        const title = "Add Product";
-        const message = "Successfully added product";
-        if(!formValues.name.length || !formValues.cost.length){
+        const method = "updateProduct";
+        const title = "Update Product";
+        const message = "Successfully updated product";
+        const cost = `${formValues.cost}`;
+        if(!formValues.name.length || !cost.length){
             return Util.showError("", "Must fill in both Name and Cost")
         }
         Axios[method]({
-            ...formValues
-        }).then(data => {
+            ...formValues,
+            cost
+        }, updateId).then(data => {
             dispatch({
                 type: Types.GET_PRODUCTS,
                 payload: {
@@ -92,7 +104,7 @@ const ProductForm = () => {
     }
 
     const onDelete = () => {
-        Axios.deleteProduct().then(data => {
+        Axios.deleteProduct(updateId).then(data => {
             dispatch({
                 type: Types.GET_PRODUCTS,
                 payload: {
@@ -118,8 +130,8 @@ const ProductForm = () => {
 
     return (<div className="employeeForm">
         <Paper
-            title="Add Product"
-            color="green"
+            title="Edit Product"
+            color="orange"
         >
             <div className="employeeFormContainer">
                 <p>Name</p>
@@ -129,11 +141,12 @@ const ProductForm = () => {
                     <span>$</span>
                     <input pattern="[0-9]*" min="0.01" step="0.01" className="employeeInput" onClick={() => Util.openPhoneMode(dispatch, shortMenu)} placeholder="0.00" type="cost" onChange={handleChange} value={getValue("cost")}/>
                 </div>
-                <button className="submitBtn" onClick={onSubmit}>Add</button>
+                <button className="submitBtn" onClick={onSubmit}>Update</button>
                 <button className="submitBtn" onClick={onCancel}>Cancel</button>
+                <button className="submitBtn red" onClick={onDelete}>Delete</button>
             </div>
         </Paper>
     </div>)
 }
 
-export default ProductForm;
+export default ProductEditForm;
