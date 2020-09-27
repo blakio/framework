@@ -226,9 +226,11 @@ const PointOfSale = props => {
       }
     </Grid>
     <Grid grid="2">
-      <Grid grid="1">
+      {!state.products.updateId ? <Grid grid="1">
         <ProductTable />
-      </Grid>
+      </Grid> : <Grid grid="1">
+          <ProductEditForm />
+        </Grid>}
       <Grid grid="1">
         <ProductForm />
       </Grid>
