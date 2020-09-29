@@ -6,15 +6,14 @@ import "./main.css";
 import {
     Paper,
     Icon,
-    Input
-} from "blakio_home/page/components";
+    Input,
+    Button
+} from "blakio_home/components";
 
 import { StateContext } from "blakio_context/State";
 import Types from "blakio_context/Types"
 import Axios from "blakio_axios";
 import Util, { strings } from "blakio_util";
-
-import Button from "blakio_home/page/components/Button";
 
 const ClockIn = () => {
 

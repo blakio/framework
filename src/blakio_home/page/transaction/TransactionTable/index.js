@@ -1,16 +1,14 @@
 import React, { useState, useEffect } from "react";
 import {
     Paper,
-    Table
-} from "blakio_home/page/components";
+    Table,
+    SnackBar
+} from "blakio_home/components";
 import { StateContext } from "blakio_context/State";
 import Types from "blakio_context/Types"
 
 import Axios from "blakio_axios";
 import Util from "blakio_util";
-import {
-    SnackBar
-} from "blakio_home/page/components";
 
 const TransactionTable = () => {
     const [state, dispatch] = StateContext();

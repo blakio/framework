@@ -6,7 +6,7 @@ import Collapsible from 'react-collapsible';
 import {
     Paper,
     Table
-} from "../../components";
+} from "blakio_home/components";
 
 import {
     StateContext

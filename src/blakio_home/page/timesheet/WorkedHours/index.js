@@ -2,7 +2,7 @@ import React from "react";
 
 import {
     Paper
-} from "../../components";
+} from "blakio_home/components";
 
 import "./main.css";
 

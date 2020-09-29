@@ -4,7 +4,7 @@ import "./SideBarPaper.css";
 import {
   SideBarOption,
   PaperHead
-} from "blakio_home/page/components";
+} from "blakio_home/components";
 import {
   StateContext
 } from "blakio_context/State";

@@ -39,7 +39,7 @@ import {
   Grid,
   SideBarPaper,
   TopLeftFold
-} from "blakio_home/page/components";
+} from "blakio_home/components";
 
 import 'react-widgets/dist/css/react-widgets.css';
 

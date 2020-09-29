@@ -1,6 +1,6 @@
 import React from "react";
 import "./SideBarOption.css";
-import SideBarList from "blakio_home/page/components/SideBarList";
+import SideBarList from "blakio_home/components/SideBarList";
 
 const SideBarOption = (props) => {
   const {

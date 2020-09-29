@@ -9,15 +9,12 @@ import {
 
 import {
     Paper,
-    Table
-} from "../../components";
+    Table,
+    SnackBar
+} from "blakio_home/components";
 
 import Types from "blakio_context/Types";
 import Util from "blakio_util";
-
-import {
-    SnackBar
-} from "blakio_home/page/components";
 
 const EmployeeTable = () => {
     const [state, dispatch] = StateContext();

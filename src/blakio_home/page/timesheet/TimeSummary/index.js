@@ -9,16 +9,13 @@ import 'rc-time-picker/assets/index.css';
 import "./main.css";
 import {
     Paper,
-    Table
-} from "../../components";
+    Table,
+    SnackBar
+} from "blakio_home/components";
 import Util from "blakio_util";
 import Axios from "blakio_axios";
 import { StateContext } from "blakio_context/State";
 import Types from "blakio_context/Types";
-
-import {
-    SnackBar
-} from "blakio_home/page/components";
 
 const TimeSummary = () => {
     const [state, dispatch] = StateContext();

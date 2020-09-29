@@ -3,7 +3,7 @@ import "./main.css"
 
 import {
     Paper
-} from "../../components";
+} from "blakio_home/components";
 
 import Axios from "blakio_axios";
 

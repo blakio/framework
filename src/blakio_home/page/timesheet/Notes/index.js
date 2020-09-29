@@ -7,7 +7,7 @@ import Axios from "blakio_axios";
 
 import {
     Paper
-} from "../../components";
+} from "blakio_home/components";
 
 import { StateContext } from "blakio_context/State";
 
