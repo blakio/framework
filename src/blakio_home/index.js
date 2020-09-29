@@ -15,23 +15,22 @@ import {
   StateContext
 } from "blakio_context/State";
 
-import ClockIn from "./page/timesheet/ClockIn/index.js";
-import WorkedHours from "./page/timesheet/WorkedHours/index.js";
-import TimeSummary from "./page/timesheet/TimeSummary/index.js";
-import Notes from "./page/timesheet/Notes/index.js";
-
-import EmployeeTable from "./page/employeeDirectory/EmployeeTable";
-import EmployeeForm from "./page/employeeDirectory/EmployeeForm";
-import EmployeeEditForm from "./page/employeeDirectory/EmployeeEditForm";
-
-import ProductTable from "./page/products/ProductTable";
-import ProductForm from "./page/products/ProductForm";
-import ProductEditForm from "./page/products/ProductEditForm";
-
-import ItemScreen from "./page/pointOfSale/ItemScreen";
-import TransactionTable from "./page/transaction/TransactionTable";
-import ItemsPurchasedTable from "./page/transaction/ItemsPurchasedTable";
-import LoginScreen from "./page/loginScreen";
+import {
+  ClockIn,
+  WorkedHours,
+  TimeSummary,
+  Notes,
+  EmployeeTable,
+  EmployeeForm,
+  EmployeeEditForm,
+  ProductTable,
+  ProductForm,
+  ProductEditForm,
+  ItemScreen,
+  TransactionTable,
+  ItemsPurchasedTable,
+  LoginScreen,
+} from "blakio_home/modules";
 
 import {
   CircleBtns,
