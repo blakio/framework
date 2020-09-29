@@ -1,8 +1,10 @@
 import React from "react";
 
 import "./SideBarPaper.css";
-import SideBarOption from "../../Components/SideBarOption";
-import PaperHead from "../../Components/PaperHead";
+import {
+  SideBarOption,
+  PaperHead
+} from "blakio_home/page/components";
 import {
   StateContext
 } from "blakio_context/State";

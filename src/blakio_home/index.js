@@ -15,9 +15,6 @@ import {
   StateContext
 } from "blakio_context/State";
 
-
-import BlakioUI from "blakio_home/Framework";
-
 import ClockIn from "./page/timesheet/ClockIn/index.js";
 import WorkedHours from "./page/timesheet/WorkedHours/index.js";
 import TimeSummary from "./page/timesheet/TimeSummary/index.js";
@@ -36,18 +33,17 @@ import TransactionTable from "./page/transaction/TransactionTable";
 import ItemsPurchasedTable from "./page/transaction/ItemsPurchasedTable";
 import LoginScreen from "./page/loginScreen";
 
-import { CircleBtns } from "blakio_home/page/components";
+import {
+  CircleBtns,
+  HamburgerMenu,
+  Grid,
+  SideBarPaper,
+  TopLeftFold
+} from "blakio_home/page/components";
 
 import 'react-widgets/dist/css/react-widgets.css';
 
 import Swipe from 'react-easy-swipe';
-
-const {
-  SideBarPaper,
-  TopLeftFold,
-  HamburgerMenu,
-  Grid
-} = BlakioUI;
 
 const load = (dispatch, bool) => {
   dispatch({
