@@ -128,32 +128,26 @@ body {
 }
 
 #DashboardHead {
-  /* border-bottom: 1px solid #ddd; */
-  /* height: 3rem; */
-  /* height: 4rem; */
   color: #0d325a;
   justify-content: space-between;
-  padding-left: 4rem;
-  padding-right: 2rem;
+  width: 100%;
 }
 
 #DashboardHead.shortMenu {
-  justify-content: center;
+  /* justify-content: center;
   padding-left: 0;
-  padding-right: 0;
-  /* height: 1.6rem; */
-  /* height: 3.4rem; */
+  padding-right: 0; */
 }
 
 #DashboardHead.shortMenu p {
-  font-size: 0.86em;
+  /* font-size: 0.86em; */
 }
 
 #DashboardTitleText {
-  margin: 8px 0px 0px 10px;
-  font-size: 1rem;
-  font-weight: 800;
-  opacity: 0.45;
+  margin: 10px 0px;
+  font-size: 1.2rem;
+  font-weight: 600;
+  opacity: 0.3;
   letter-spacing: 3px;
 }
 
@@ -298,25 +292,32 @@ body {
 #dashboardHeadMenu {
   justify-content: flex-end;
   padding: 0 1em;
-  /* background-color: var(--grey); */
   margin: 0;
-  margin-top: 0.5em;
-  border-top: 1px solid #ddd;
-  border-bottom: 1px solid #ddd;
-  padding: 0.4em 0;
+  border-top: 1px solid #DDDDDD;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.04);
+  padding: 0.6em 0;
+  background: none repeat scroll 0 0 rgba(0, 0, 0, 0.02);
 }
 
 #dashboardHeadMenu a {
   color: #0d325a;
-  padding: 0 0.5em;
   opacity: 0.6;
-  padding: 0 0.5em;
   font-weight: 800;
+
+  font-size: 0.8rem;
+  /* color: #fff; */
+  padding: 0.3em 1em;
+  /* background-color: rgba(14, 50, 90, 1); */
+  border-radius: 2em;
+  text-transform: uppercase;
+  margin: 0 0.4em;
+
+  border: 1px solid rgba(14, 50, 90, 0.4);
 }
 
 #DashboardHead #dashboardHeadMenu p {
   padding: 0 0.5em;
   margin: 0;
-  font-size: 0.6em;
+  font-weight: 400;
   user-select: none;
 }

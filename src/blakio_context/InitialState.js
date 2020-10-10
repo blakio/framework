@@ -4,7 +4,7 @@ const initialState = {
   mobileMenuOpen: false,
   sideBarOptions: {
     shortMenu: false,
-    sideBarOption: null,
+    sideBarOption: "Directory",
     sideBar: [],
   },
   isDownloadScreen: false,
