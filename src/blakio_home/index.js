@@ -5,6 +5,8 @@ import axios from "axios";
 
 import Loader from 'react-loader-spinner'
 
+import ReactTooltip from 'react-tooltip';
+
 import './Blakio.css';
 
 import Util from "blakio_util";
@@ -404,26 +406,30 @@ const TopBar = () => {
   } = state.sideBarOptions;
 
   return (<div id="TopBar" className={`container flex ${state.sideBarOptions.shortMenu && "shortMenu"}`}>
+    <ReactTooltip
+      place="bottom"
+      effect="solid"
+    />
     <div id="topBarLeft" className="flex">
-      {/* download new data */}
       <IconWithNotification
         icon="fal fa-cloud-download-alt"
         onClick={() => window.location.reload(false)}
+        toolTip="Update"
       />
-      {/* notification messages */}
       <IconWithNotification
         icon="fal fa-exclamation-triangle"
         onClick={() => { }}
+        toolTip="Notifications"
       />
-      {/* messages widget */}
       <IconWithNotification
         icon="fal fa-comment-alt-lines"
         onClick={() => { }}
+        toolTip="Messages"
       />
-      {/* sticky note widget */}
       <IconWithNotification
         icon="fal fa-sticky-note"
         onClick={() => { }}
+        toolTip="Sticky Notes"
       />
       <DateTimeWeather />
     </div>
@@ -440,7 +446,9 @@ const TopBar = () => {
           payload: !state.sideBarOptions.shortMenu
         })
       }
-    }}>
+    }}
+      data-tip={"Menu"}
+    >
       <i className="fal fa-bars topBarMenuIcon"></i>
     </div>
   </div>)

@@ -4,9 +4,13 @@ import "./main.css";
 const IconWithNotification = (props) => {
     const {
         icon,
-        onClick
+        onClick,
+        toolTip
     } = props;
-    return (<div onClick={onClick}>
+    return (<div
+        onClick={onClick}
+        data-tip={toolTip}
+    >
         <i className={`${icon} topBarMenuIcon`}></i>
         <div className="notification"></div>
     </div>)

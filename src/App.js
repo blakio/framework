@@ -34,7 +34,7 @@ const ContentArea = () => {
   return (<div id="ContentArea" className={`${state.sideBarOptions.shortMenu && "shortMenu"}`}>
     <TopBar />
     <Dashboard />
-</div>)
+  </div>)
 }
 
 const Content = () => {
@@ -43,12 +43,12 @@ const Content = () => {
 
   useEffect(() => {
     const store = localStorage.getItem("blakio_store");
-    if(store){
+    if (store) {
       Util.load(dispatch, true);
       const checkLocalStorage = true;
       Axios.logIn(store, checkLocalStorage).then(data => {
         Util.load(dispatch, false);
-        if(data.data.logIn){
+        if (data.data.logIn) {
           dispatch({
             type: Types.IS_LOGGED_IN,
             payload: true
@@ -64,14 +64,14 @@ const Content = () => {
   }, []);
 
   return (<div>
-    {!state.isLoggedIn ? 
-     <LogIn /> : (
-      <div id="App">
-        <SideBar />
-        <ContentArea />
-        <Loading />
-      </div>
-     )}
+    {!state.isLoggedIn ?
+      <LogIn /> : (
+        <div id="App">
+          <SideBar />
+          <ContentArea />
+          <Loading />
+        </div>
+      )}
   </div>)
 }
 
