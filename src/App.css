@@ -4,6 +4,7 @@
   justify-content: flex-start;
   background: fixed;
   background-image: url(imgs/bg.png);
+  background-image: url(imgs/bg22.jpg);
 
   overflow: scroll !important;
   -webkit-overflow-scrolling: touch !important;

@@ -132,7 +132,7 @@ const DashboardHead = () => {
     </div>
     <div id="dashboardHeadMenu" className="flex">
       {menuButtons.map((data, index) => (<a key={index} className="flex" onClick={data.onClick}>
-        <i className={data.icon}></i>
+        {/* <i className={data.icon}></i> */}
         <p>{data.text}</p>
       </a>))}
     </div>
@@ -445,7 +445,7 @@ const Dashboard = () => {
     setYInitial(false);
   }
 
-  const foldSize = state.sideBarOptions.shortMenu ? 20 : 25;
+  const foldSize = state.sideBarOptions.shortMenu ? 20 : 34;
 
   return (<div id="Dashboard" className={`container ${state.sideBarOptions.shortMenu && "shortMenu"}`}>
     <Swipe

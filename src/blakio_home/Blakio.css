@@ -300,19 +300,18 @@ body {
 }
 
 #dashboardHeadMenu a {
-  color: #0d325a;
-  opacity: 0.6;
-  font-weight: 800;
-
-  font-size: 0.8rem;
-  /* color: #fff; */
-  padding: 0.3em 1em;
-  /* background-color: rgba(14, 50, 90, 1); */
-  border-radius: 2em;
-  text-transform: uppercase;
+  display: inline;
+  padding: 0.6em 0.6em;
+  line-height: 1;
+  color: #fff;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: baseline;
+  border-radius: .25em;
+  background-color: #66819f;
+  text-transform: capitalize;
   margin: 0 0.4em;
-
-  border: 1px solid rgba(14, 50, 90, 0.4);
+  font-size: 84%;
 }
 
 #DashboardHead #dashboardHeadMenu p {
