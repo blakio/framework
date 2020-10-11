@@ -21,12 +21,15 @@ const SideBarPaper = (props) => {
 
   const [state, dispatch] = StateContext();
 
+  // return (<div className={`SideBarPaper ${selected && "active"} ${state.sideBarOptions.shortMenu && "shortMenu"}`}>
+  //   {
+  //     shortMenu ?
+  //       <PaperHead icon={closedIcon} onClick={onClick}/> :
+  //       <PaperHead text={[title]} icon={icon} onClick={onClick}/>
+  //   }
+  // </div>)
   return (<div className={`SideBarPaper ${selected && "active"} ${state.sideBarOptions.shortMenu && "shortMenu"}`}>
-    {
-      shortMenu ?
-        <PaperHead icon={closedIcon} onClick={onClick}/> :
-        <PaperHead text={[title]} icon={icon} onClick={onClick}/>
-    }
+    <PaperHead text={[title]} icon={icon} onClick={onClick}/>
   </div>)
 }
 

@@ -37,7 +37,8 @@ import {
   HamburgerMenu,
   Grid,
   SideBarPaper,
-  TopLeftFold
+  TopLeftFold,
+  IconWithNotification
 } from "blakio_home/components";
 
 import 'react-widgets/dist/css/react-widgets.css';
@@ -69,10 +70,10 @@ const SideBarHead = () => {
   }, []);
 
   const margin = shortMenu ? "0 auto" : "0 0.58em";
-  const width = shortMenu ? "80%" : null;
+  const width = shortMenu ? "46%" : null;
 
   return (<div id="SideBarHead" className={`flex ${shortMenu ? "shortMenu" : ""}`}>
-    {!shortMenu && <img src={logo} alt="logo" />}
+    <img src={logo} alt="logo" />
     <div
       style={{
         display: "flex",
@@ -82,7 +83,10 @@ const SideBarHead = () => {
         margin
       }}
     >
-      <HamburgerMenu size={30} width={width} onClick={onClick} />
+      {/* {
+        !(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) &&
+        <HamburgerMenu size={30} width={width} onClick={onClick} />
+      } */}
     </div>
   </div>)
 }
@@ -131,10 +135,7 @@ const DashboardHead = () => {
       <p id="DashboardTitleText">{label ? label : ""}</p>
     </div>
     <div id="dashboardHeadMenu" className="flex">
-      {menuButtons.map((data, index) => (<a key={index} className="flex" onClick={data.onClick}>
-        {/* <i className={data.icon}></i> */}
-        <p>{data.text}</p>
-      </a>))}
+      .
     </div>
   </div>)
 }
@@ -398,9 +399,50 @@ const SideBar = () => {
 
 const TopBar = () => {
   const [state, dispatch] = StateContext();
+  const {
+    shortMenu
+  } = state.sideBarOptions;
 
   return (<div id="TopBar" className={`container flex ${state.sideBarOptions.shortMenu && "shortMenu"}`}>
-    <DateTimeWeather />
+    <div id="topBarLeft" className="flex">
+      {/* download new data */}
+      <IconWithNotification
+        icon="fal fa-cloud-download-alt"
+        onClick={() => window.location.reload(false)}
+      />
+      {/* notification messages */}
+      <IconWithNotification
+        icon="fal fa-exclamation-triangle"
+        onClick={() => { }}
+      />
+      {/* messages widget */}
+      <IconWithNotification
+        icon="fal fa-comment-alt-lines"
+        onClick={() => { }}
+      />
+      {/* sticky note widget */}
+      <IconWithNotification
+        icon="fal fa-sticky-note"
+        onClick={() => { }}
+      />
+      <DateTimeWeather />
+    </div>
+    <div className="topBarMenuButton" onClick={() => {
+      if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+        if (shortMenu) {
+          dispatch({
+            type: Types.TOGGLE_MOBILE_MENU
+          })
+        }
+      } else {
+        dispatch({
+          type: Types.SHORT_MENU,
+          payload: !state.sideBarOptions.shortMenu
+        })
+      }
+    }}>
+      <i className="fal fa-bars topBarMenuIcon"></i>
+    </div>
   </div>)
 }
 

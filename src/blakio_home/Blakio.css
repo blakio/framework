@@ -58,11 +58,12 @@ body {
 }
 
 #SideBar.shortMenu {
-  width: 4em;
+  width: 14em;
   position: relative;
-  left: -4em;
+  left: -14em;
   z-index: 100;
   background-color: #1B416D;
+  background-image: url(../imgs/bg22.jpg);
 }
 
 #SideBar.shortMenu.open {
@@ -78,7 +79,7 @@ body {
 
 #SideBarHead.shortMenu {
   /* width: var(--SideBarWidthClosed); */
-  width: 4em;
+  /* width: 4em; */
 }
 
 #SideBarHead img {
@@ -89,14 +90,19 @@ body {
 /* TopBar */
 #TopBar {
   height: var(--navBarHeight);
+  justify-content: space-between;
 }
 
-#TopBar.shortMenu {
+#TopBar.shortMenu > #topBarLeft > #dateTimeWeather {
   display: none;
 }
 
+#TopBar.shortMenu > #topBarLeft > div:first-child {
+  margin-left: 1em;
+}
+
 #TopBar > * {
-  margin: 1em;
+  color: #fff;
 }
 
 #TopBar > .topBarOptions {
@@ -106,10 +112,18 @@ body {
   margin-top: 1.4em;
 }
 
-#TopBar > .topBarOptions > i {
+#topBarLeft > * {
+  margin-right: 1.6em;
+}
+
+.topBarMenuIcon {
   color: #fff;
-  font-size: 1.4em;
-  opacity: 0.8;
+  font-size: 1.3rem;
+  cursor: pointer;
+}
+
+.topBarMenuButton {
+  margin-right: 1em;
 }
 
 /* Dashboard */
@@ -172,11 +186,11 @@ body {
   box-shadow: 0 1px 0 rgba(255, 255, 255, 0.1);
   border-radius: 2em;
   height: 2.4em;
-  width: 26em;
+  width: 28em;
   background-color: var(--darkFoldBlue);
   color: #fff;
   border: 1px solid #001f40;
-  margin: 0 auto;
+  /* margin: 0 auto; */
 }
 
 #dateTimeWeather p {

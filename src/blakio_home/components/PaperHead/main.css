@@ -4,10 +4,10 @@
   padding: 0.4em 0.8em;
 }
 
-.PaperHead.shortMenu {
+/* .PaperHead.shortMenu {
   justify-content: center;
   height: 36.44px;
-}
+} */
   
 .PaperHead div {
   font-size: 0.8rem;

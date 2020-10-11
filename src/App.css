@@ -9,6 +9,7 @@
   overflow: scroll !important;
   -webkit-overflow-scrolling: touch !important;
   height: 100% !important;
+  background-size: 100% 100%;
 }
 
 .flex {

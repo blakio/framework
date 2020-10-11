@@ -3,6 +3,7 @@ import PaperFold from "./PaperFold";
 import HeaderStrip from "./HeaderStrip";
 import Icon from "./Icon";
 import Input from "./Input";
+import IconWithNotification from "./IconWithNotification";
 import TextWithSubText from "./TextWithSubText";
 import OnOff from "./OnOff";
 import Table from "./Table";
@@ -25,6 +26,7 @@ export {
     PaperFold,
     HeaderStrip,
     Icon,
+    IconWithNotification,
     Input,
     TextWithSubText,
     OnOff,
