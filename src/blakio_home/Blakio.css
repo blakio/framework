@@ -204,7 +204,8 @@ body {
 }
 
 #dateTimeWeather i {
-  margin-right: 1em;
+  margin-right: 0.4em;
+  font-size: 1.3rem;
 }
 
 .AddBar {

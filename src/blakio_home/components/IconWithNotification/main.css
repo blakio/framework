@@ -1,0 +1,26 @@
+.notificationBox {
+    position: relative;
+}
+
+.notification {
+    position: absolute;
+    top: -0.94em;
+    right: -0.7em;
+    height: 1.4em;
+    border-radius: 50%;
+    width: 1.4em;
+}
+
+.notification.green {
+    background: #368e8a;
+}
+
+.notification.red {
+    background: #EA3F3F;
+}
+
+.notification p {
+    color: #fff;
+    margin: 0;
+    font-size: 0.7em;
+}

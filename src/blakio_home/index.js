@@ -335,8 +335,8 @@ const DateTimeWeather = () => {
 
   return (<div id="dateTimeWeather" className="flex">
     <p>
-      <i className="far fa-calendar-alt"></i> {`${time} | `}
-      <i className="fas fa-temperature-low"></i>
+      <i className="fal fa-calendar-alt"></i> {`${time} | `}
+      <i className="fal fa-temperature-low"></i>
       {temp}
       <span>
         <img src={`https://openweathermap.org/img/wn/${icon}@2x.png`} alt="weather icon" />
@@ -420,11 +420,15 @@ const TopBar = () => {
         icon="fal fa-exclamation-triangle"
         onClick={() => { }}
         toolTip="Notifications"
+        color="red"
+        text="1"
       />
       <IconWithNotification
         icon="fal fa-comment-alt-lines"
         onClick={() => { }}
         toolTip="Messages"
+        color="green"
+        text="9+"
       />
       <IconWithNotification
         icon="fal fa-sticky-note"
