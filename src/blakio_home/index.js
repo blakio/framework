@@ -137,7 +137,7 @@ const DashboardHead = () => {
       <p id="DashboardTitleText">{label ? label : ""}</p>
     </div>
     <div id="dashboardHeadMenu" className="flex">
-      .
+      <p>Welcome Back</p>
     </div>
   </div>)
 }
@@ -499,7 +499,8 @@ const Dashboard = () => {
     setYInitial(false);
   }
 
-  const foldSize = state.sideBarOptions.shortMenu ? 20 : 34;
+  // const foldSize = state.sideBarOptions.shortMenu ? 30 : 34;
+  const foldSize = 34;
 
   return (<div id="Dashboard" className={`container ${state.sideBarOptions.shortMenu && "shortMenu"}`}>
     <Swipe

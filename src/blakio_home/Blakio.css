@@ -160,8 +160,8 @@ body {
 #DashboardTitleText {
   margin: 10px 0px;
   font-size: 1.2rem;
-  font-weight: 600;
-  opacity: 0.3;
+  font-weight: 900;
+  opacity: 0.2;
   letter-spacing: 3px;
 }
 
@@ -305,13 +305,18 @@ body {
 }
 
 #dashboardHeadMenu {
-  justify-content: flex-end;
+  justify-content: flex-start;
   padding: 0 1em;
   margin: 0;
   border-top: 1px solid #DDDDDD;
   border-bottom: 1px solid rgba(0, 0, 0, 0.04);
   padding: 0.6em 0;
   background: none repeat scroll 0 0 rgba(0, 0, 0, 0.02);
+}
+
+#dashboardHeadMenu p {
+  color: var(--darkerGrey);
+  opacity: 0;
 }
 
 #dashboardHeadMenu a {
