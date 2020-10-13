@@ -8,6 +8,16 @@ export default {
   isLoading: (payload, state) => ({ ...state, isLoading: payload }),
 
   toggleMobileMenu: (payload, state) => ({ ...state, mobileMenuOpen: !state.mobileMenuOpen }),
+
+  setTopBarOption: (payload, state) => {
+    return {
+      ...state,
+      topBar: {
+        ...state.topBar,
+        openOption: (state.topBar.openOption === payload) ? false : payload
+      }
+    }
+  },
   
   getEmployees: (payload, state) => {
     Axios.getEmployees(payload.page).then(employees => {

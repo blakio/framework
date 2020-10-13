@@ -97,7 +97,8 @@ const DashboardHead = () => {
   const [state, dispatch] = StateContext();
 
   const {
-    sideBarOptions
+    sideBarOptions,
+    topBar
   } = state;
 
   const {
@@ -106,32 +107,12 @@ const DashboardHead = () => {
     sideBarOption
   } = sideBarOptions;
 
-  const menuButtons = [
-    {
-      text: "Update",
-      icon: "fas fa-spinner",
-      onClick: () => window.location.reload(false)
-    },
-    {
-      text: "Menu",
-      icon: "fas fa-ellipsis-h",
-      onClick: () => {
-        if (shortMenu) {
-          dispatch({
-            type: Types.TOGGLE_MOBILE_MENU
-          })
-        } else {
-          dispatch({
-            type: Types.SHORT_MENU,
-            payload: true
-          })
-        }
-      }
-    }
-  ]
-
   const selected = sideBar.filter(data => data.title === sideBarOption);
   const label = sideBar.length && selected[0] && selected[0].title.toUpperCase();
+
+  const position = topBar.openOption; //"position0";
+  const collapsed = false;
+
   return (<div id="DashboardHead" className={`${shortMenu && "shortMenu"}`}>
     <div className="flex">
       <p id="DashboardTitleText">{label ? label : ""}</p>
@@ -139,6 +120,9 @@ const DashboardHead = () => {
     <div id="dashboardHeadMenu" className="flex">
       <p>Welcome Back</p>
     </div>
+    {position ? <div className={`widgetContainer position${position} ${collapsed && "collapsed"}`}>
+      {`widget ${position}`}
+    </div> : <></>}
   </div>)
 }
 
@@ -405,36 +389,59 @@ const TopBar = () => {
     shortMenu
   } = state.sideBarOptions;
 
+  const options = [
+    {
+      icon: "fal fa-cloud-download-alt",
+      onClick: () => window.location.reload(false),
+      toolTip: "Update",
+      color: "",
+      text: ""
+    },
+    {
+      icon: "fal fa-exclamation-triangle",
+      onClick: () => dispatch({
+        type: Types.SET_TOP_BAR_OPTION,
+        payload: "1"
+      }),
+      toolTip: "Notifications",
+      color: "red",
+      text: "1"
+    },
+    {
+      icon: "fal fa-comment-alt-lines",
+      onClick: () => dispatch({
+        type: Types.SET_TOP_BAR_OPTION,
+        payload: "2"
+      }),
+      toolTip: "Messages",
+      color: "green",
+      text: "9+"
+    },
+    {
+      icon: "fal fa-sticky-note",
+      onClick: () => dispatch({
+        type: Types.SET_TOP_BAR_OPTION,
+        payload: "3"
+      }),
+      toolTip: "Sticky Notes",
+      color: "",
+      text: ""
+    },
+  ]
+
   return (<div id="TopBar" className={`container flex ${state.sideBarOptions.shortMenu && "shortMenu"}`}>
     <ReactTooltip
       place="bottom"
       effect="solid"
     />
     <div id="topBarLeft" className="flex">
-      <IconWithNotification
-        icon="fal fa-cloud-download-alt"
-        onClick={() => window.location.reload(false)}
-        toolTip="Update"
-      />
-      <IconWithNotification
-        icon="fal fa-exclamation-triangle"
-        onClick={() => { }}
-        toolTip="Notifications"
-        color="red"
-        text="1"
-      />
-      <IconWithNotification
-        icon="fal fa-comment-alt-lines"
-        onClick={() => { }}
-        toolTip="Messages"
-        color="green"
-        text="9+"
-      />
-      <IconWithNotification
-        icon="fal fa-sticky-note"
-        onClick={() => { }}
-        toolTip="Sticky Notes"
-      />
+      {options.map(data => (<IconWithNotification
+        icon={data.icon}
+        onClick={data.onClick}
+        toolTip={data.toolTip}
+        color={data.color}
+        text={data.text}
+      />))}
       <DateTimeWeather />
     </div>
     <div className="topBarMenuButton" onClick={() => {

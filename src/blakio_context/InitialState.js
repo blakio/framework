@@ -2,6 +2,9 @@ const initialState = {
   isLoggedIn: false,
   isLoading: false,
   mobileMenuOpen: false,
+  topBar: {
+    openOption: false
+  },
   sideBarOptions: {
     shortMenu: false,
     sideBarOption: "Directory",

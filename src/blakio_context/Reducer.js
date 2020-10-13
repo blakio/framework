@@ -14,6 +14,9 @@ export default (state, action) => {
 
     case Types.TOGGLE_MOBILE_MENU:
       return StateFunctions.toggleMobileMenu(payload, state);
+    
+    case Types.SET_TOP_BAR_OPTION:
+      return StateFunctions.setTopBarOption(payload, state);
       
     case Types.GET_EMPLOYEES:
       return StateFunctions.getEmployees(payload, state);
